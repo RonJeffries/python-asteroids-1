@@ -1,6 +1,8 @@
 # Example file showing a circle moving on screen
 import pygame
 
+from ship import Ship
+
 # pygame setup
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
@@ -9,6 +11,7 @@ running = True
 dt = 0
 
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+ship = Ship(player_pos)
 
 while running:
     # poll for events
@@ -21,6 +24,7 @@ while running:
     screen.fill("purple")
 
     pygame.draw.circle(screen, "red", player_pos, 40)
+    ship.draw(screen)
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_w]:
