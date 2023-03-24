@@ -3,7 +3,7 @@ import pygame
 vector2 = pygame.Vector2
 
 
-class Ship():
+class Ship:
     def __init__(self, position):
         self.position = position
         self.raw_points = [vector2(-3.0, -2.0), vector2(-3.0, 2.0), vector2(-5.0, 4.0),
