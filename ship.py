@@ -16,7 +16,7 @@ class Ship():
         return point*4 + vector2(28, 16)
 
     def draw(self, screen):
-        screen.blit(self.surface, self.position)
+        screen.blit(self.surface, self.position, None, pygame.BLEND_ADD)
 
     def paint(self, surface):
         ship_points = list(map(self.adjust, self.raw_points))
