@@ -5,7 +5,7 @@ from ship import Ship
 
 # pygame setup
 pygame.init()
-screen = pygame.display.set_mode((1280, 720))
+screen = pygame.display.set_mode((512, 512))
 clock = pygame.time.Clock()
 running = True
 dt = 0
@@ -24,6 +24,7 @@ while running:
     screen.fill("purple")
 
     pygame.draw.circle(screen, "red", player_pos, 40)
+    ship.angle += 1
     ship.draw(screen)
 
     keys = pygame.key.get_pressed()
