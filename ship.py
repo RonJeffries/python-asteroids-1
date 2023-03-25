@@ -8,7 +8,7 @@ class Ship:
     def __init__(self, position):
         self.position = position
         self.angle = 0
-        self.accelerating = True
+        self.accelerating = False
         self.raw_points = [vector2(-3.0, -2.0), vector2(-3.0, 2.0), vector2(-5.0, 4.0),
                            vector2(7.0, 0.0), vector2(-5.0, -4.0), vector2(-3.0, -2.0)]
         self.raw_flare = [vector2(-3.0, -2.0), vector2(-7.0, 0.0), vector2(-3.0, 2.0)]
