@@ -10,8 +10,7 @@ clock = pygame.time.Clock()
 running = True
 dt = 0
 
-player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
-ship = Ship(player_pos)
+ship = Ship(pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2))
 
 while running:
     # poll for events
@@ -20,22 +19,20 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    # fill the screen with a color to wipe away anything from last frame
-    screen.fill("purple")
+    screen.fill("midnightblue")
 
-    pygame.draw.circle(screen, "red", player_pos, 40)
-    ship.angle += 1
     ship.draw(screen)
 
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_w]:
-        player_pos.y -= 300 * dt
-    if keys[pygame.K_s]:
-        player_pos.y += 300 * dt
-    if keys[pygame.K_a]:
-        player_pos.x -= 300 * dt
+    if keys[pygame.K_f]:
+        ship.turn_left(dt)
     if keys[pygame.K_d]:
-        player_pos.x += 300 * dt
+        ship.turn_right(dt)
+    if keys[pygame.K_j]:
+        ship.power_on(dt)
+    else:
+        ship.power_off(dt)
+    ship.move(dt)
 
     # flip() the display to put your work on screen
     pygame.display.flip()

@@ -7,7 +7,9 @@ vector2 = pygame.Vector2
 class Ship:
     def __init__(self, position):
         self.position = position
+        self.velocity = vector2(0, 0)
         self.angle = 0
+        self.acceleration = 120
         self.accelerating = False
         self.raw_ship = [vector2(-3.0, -2.0), vector2(-3.0, 2.0), vector2(-5.0, 4.0),
                          vector2(7.0, 0.0), vector2(-5.0, -4.0), vector2(-3.0, -2.0)]
@@ -27,11 +29,28 @@ class Ship:
         half = pygame.Vector2(copy.get_size())/2
         screen.blit(copy, self.position - half)
 
+    def move(self, dt):
+        self.position += self.velocity*dt
+
     def select_ship_source(self):
         if self.accelerating and random.random() >= 0.66:
             return self.ship_accelerating_surface
         else:
             return self.ship_surface
+
+    def turn_left(self, dt):
+        self.angle -= 90*dt
+
+    def turn_right(self, dt):
+        self.angle += 90*dt
+
+    def power_on(self, dt):
+        self.accelerating = True
+        accel = vector2(dt*self.acceleration,0).rotate(-self.angle)
+        self.velocity += accel
+
+    def power_off(self, dt):
+        self.accelerating = False
 
     def paint(self):
         ship_points = list(map(self.adjust, self.raw_ship))
