@@ -14,21 +14,34 @@ class Ship:
         self.ship_surface, self.ship_accelerating_surface = self.prepare_surfaces()
 
     def prepare_surfaces(self):
-        ship_surface = pygame.Surface((60, 36))
-        ship_surface.set_colorkey((0, 0, 0))
-        raw_ship = [vector2(-3.0, -2.0), vector2(-3.0, 2.0), vector2(-5.0, 4.0),
-                    vector2(7.0, 0.0), vector2(-5.0, -4.0), vector2(-3.0, -2.0)]
-        ship_points = list(map(self.adjust, raw_ship))
-        pygame.draw.lines(ship_surface, "white", False, ship_points, 3)
+        ship_points = self.get_ship_points()
+        flare_points = self.get_flare_points()
 
-        ship_accelerating_surface = pygame.Surface((60, 36))
-        ship_accelerating_surface.set_colorkey((0, 0, 0))
-        raw_flare = [vector2(-3.0, -2.0), vector2(-7.0, 0.0), vector2(-3.0, 2.0)]
-        flare_points = list(map(self.adjust, raw_flare))
-        pygame.draw.lines(ship_accelerating_surface, "white", False, ship_points, 3)
-        pygame.draw.lines(ship_accelerating_surface, "white", False, flare_points, 3)
+        ship_surface = self.make_ship_surface(ship_points)
+
+        ship_accelerating_surface = self.make_accelerating_surface(flare_points, ship_points)
 
         return ship_surface, ship_accelerating_surface
+
+    def make_accelerating_surface(self, flare_points, ship_points):
+        ship_accelerating_surface = self.make_ship_surface(ship_points)
+        pygame.draw.lines(ship_accelerating_surface, "white", False, flare_points, 3)
+        return ship_accelerating_surface
+
+    def make_ship_surface(self, ship_points):
+        ship_surface = pygame.Surface((60, 36))
+        ship_surface.set_colorkey((0, 0, 0))
+        pygame.draw.lines(ship_surface, "white", False, ship_points, 3)
+        return ship_surface
+
+    def get_flare_points(self):
+        raw_flare = [vector2(-3.0, -2.0), vector2(-7.0, 0.0), vector2(-3.0, 2.0)]
+        return list(map(self.adjust, raw_flare))
+
+    def get_ship_points(self):
+        raw_ship = [vector2(-3.0, -2.0), vector2(-3.0, 2.0), vector2(-5.0, 4.0),
+                    vector2(7.0, 0.0), vector2(-5.0, -4.0), vector2(-3.0, -2.0)]
+        return list(map(self.adjust, raw_ship))
 
     def adjust(self, point):
         return point*4 + vector2(28, 16)
