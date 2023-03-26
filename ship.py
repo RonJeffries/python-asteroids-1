@@ -16,12 +16,7 @@ class Ship:
     def prepare_surfaces(self):
         ship_points = self.get_ship_points()
         flare_points = self.get_flare_points()
-
-        ship_surface = self.make_ship_surface(ship_points)
-
-        ship_accelerating_surface = self.make_accelerating_surface(flare_points, ship_points)
-
-        return ship_surface, ship_accelerating_surface
+        return (self.make_ship_surface(ship_points)), (self.make_accelerating_surface(flare_points, ship_points))
 
     def make_accelerating_surface(self, flare_points, ship_points):
         ship_accelerating_surface = self.make_ship_surface(ship_points)
