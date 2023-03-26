@@ -11,14 +11,24 @@ class Ship:
         self.angle = 0
         self.acceleration = 120
         self.accelerating = False
-        self.raw_ship = [vector2(-3.0, -2.0), vector2(-3.0, 2.0), vector2(-5.0, 4.0),
-                         vector2(7.0, 0.0), vector2(-5.0, -4.0), vector2(-3.0, -2.0)]
-        self.raw_flare = [vector2(-3.0, -2.0), vector2(-7.0, 0.0), vector2(-3.0, 2.0)]
-        self.ship_surface = pygame.Surface((60, 36))
-        self.ship_surface.set_colorkey((0, 0, 0))
-        self.ship_accelerating_surface = pygame.Surface((60, 36))
-        self.ship_accelerating_surface.set_colorkey((0, 0, 0))
-        self.paint()
+        self.ship_surface, self.ship_accelerating_surface = self.prepare_surfaces()
+
+    def prepare_surfaces(self):
+        ship_surface = pygame.Surface((60, 36))
+        ship_surface.set_colorkey((0, 0, 0))
+        raw_ship = [vector2(-3.0, -2.0), vector2(-3.0, 2.0), vector2(-5.0, 4.0),
+                    vector2(7.0, 0.0), vector2(-5.0, -4.0), vector2(-3.0, -2.0)]
+        ship_points = list(map(self.adjust, raw_ship))
+        pygame.draw.lines(ship_surface, "white", False, ship_points, 3)
+
+        ship_accelerating_surface = pygame.Surface((60, 36))
+        ship_accelerating_surface.set_colorkey((0, 0, 0))
+        raw_flare = [vector2(-3.0, -2.0), vector2(-7.0, 0.0), vector2(-3.0, 2.0)]
+        flare_points = list(map(self.adjust, raw_flare))
+        pygame.draw.lines(ship_accelerating_surface, "white", False, ship_points, 3)
+        pygame.draw.lines(ship_accelerating_surface, "white", False, flare_points, 3)
+
+        return ship_surface, ship_accelerating_surface
 
     def adjust(self, point):
         return point*4 + vector2(28, 16)
@@ -32,6 +42,14 @@ class Ship:
     def move(self, dt):
         self.position += self.velocity*dt
 
+    def power_on(self, dt):
+        self.accelerating = True
+        accel = vector2(dt*self.acceleration,0).rotate(-self.angle)
+        self.velocity += accel
+
+    def power_off(self, dt):
+        self.accelerating = False
+
     def select_ship_source(self):
         if self.accelerating and random.random() >= 0.66:
             return self.ship_accelerating_surface
@@ -43,18 +61,3 @@ class Ship:
 
     def turn_right(self, dt):
         self.angle += 90*dt
-
-    def power_on(self, dt):
-        self.accelerating = True
-        accel = vector2(dt*self.acceleration,0).rotate(-self.angle)
-        self.velocity += accel
-
-    def power_off(self, dt):
-        self.accelerating = False
-
-    def paint(self):
-        ship_points = list(map(self.adjust, self.raw_ship))
-        flare_points = list(map(self.adjust, self.raw_flare))
-        pygame.draw.lines(self.ship_surface, "white", False, ship_points, 3)
-        pygame.draw.lines(self.ship_accelerating_surface, "white", False, ship_points, 3)
-        pygame.draw.lines(self.ship_accelerating_surface, "white", False, flare_points, 3)

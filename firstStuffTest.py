@@ -14,7 +14,7 @@ class MyTestCase(unittest.TestCase):
     def test_map_lambda(self):
         points = [vector2(-3.0, -2.0), vector2(-3.0, 2.0), vector2(-5.0, 4.0),
                   vector2(7.0, 0.0), vector2(-5.0, -4.0), vector2(-3.0, -2.0)]
-        new_points = map(lambda point: point + vector2(7,4), points)
+        new_points = map(lambda point: point + vector2(7, 4), points)
         for point in new_points:
             self.assertGreaterEqual(point.x, 0)
             self.assertLessEqual(point.x, 14)
@@ -34,7 +34,6 @@ class MyTestCase(unittest.TestCase):
         ship.power_on(1.0)
         self.assertAlmostEqual(ship.velocity.x, 70.7106, 2, "x value")
         self.assertAlmostEqual(ship.velocity.y, -70.7106, 2, "y value")
-
 
 
 if __name__ == '__main__':
