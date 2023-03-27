@@ -35,6 +35,10 @@ class MyTestCase(unittest.TestCase):
         self.assertAlmostEqual(ship.velocity.x, 70.7106, 2, "x value")
         self.assertAlmostEqual(ship.velocity.y, -70.7106, 2, "y value")
 
+    def test_mod(self):
+        self.assertEqual(1005 % 1000, 5)
+        self.assertEqual(-5 % 1000, 995)
+
 
 if __name__ == '__main__':
     unittest.main()

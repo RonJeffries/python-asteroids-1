@@ -6,6 +6,7 @@ from ship import Ship
 # pygame setup
 pygame.init()
 screen = pygame.display.set_mode((512, 512))
+pygame.display.set_caption("Asteroids")
 clock = pygame.time.Clock()
 running = True
 dt = 0

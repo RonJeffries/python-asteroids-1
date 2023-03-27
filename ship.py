@@ -49,6 +49,9 @@ class Ship:
 
     def move(self, dt):
         self.position += self.velocity*dt
+        self.position.x = self.position.x % 512
+        self.position.y = self.position.y % 512
+
 
     def power_on(self, dt):
         self.accelerating = True
