@@ -69,7 +69,7 @@ class Ship:
             return self.ship_surface
 
     def turn_left(self, dt):
-        self.angle -= 90*dt
+        self.angle -= u.SHIP_ROTATION_STEP*dt
 
     def turn_right(self, dt):
-        self.angle += 90*dt
+        self.angle += u.SHIP_ROTATION_STEP*dt
