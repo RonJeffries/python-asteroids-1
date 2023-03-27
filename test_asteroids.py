@@ -1,4 +1,3 @@
-import unittest
 
 import pygame
 import pytest
@@ -8,7 +7,7 @@ from ship import Ship
 vector2 = pygame.Vector2
 
 
-class AsteroidsTestCase(unittest.TestCase):
+class TestAsteroids():
     def test_something(self):
         assert True == True
 
@@ -41,5 +40,3 @@ class AsteroidsTestCase(unittest.TestCase):
         assert -5 % 1000 == 995
 
 
-if __name__ == '__main__':
-    unittest.main()
