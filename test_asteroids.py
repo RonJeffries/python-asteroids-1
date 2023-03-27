@@ -7,7 +7,7 @@ from ship import Ship
 vector2 = pygame.Vector2
 
 
-class MyTestCase(unittest.TestCase):
+class AsteroidsTestCase(unittest.TestCase):
     def test_something(self):
         self.assertEqual(True, True)  # add assertion here
 
@@ -30,10 +30,10 @@ class MyTestCase(unittest.TestCase):
     def test_ship_acceleration(self):
         ship = Ship(vector2(0, 0))
         ship.angle = 45
-        ship.acceleration = 100
-        ship.power_on(1.0)
-        self.assertAlmostEqual(ship.velocity.x, 70.7106, 2, "x value")
-        self.assertAlmostEqual(ship.velocity.y, -70.7106, 2, "y value")
+        ship.acceleration = pygame.Vector2(100, 0)
+        ship.power_on(0.5)
+        self.assertAlmostEqual(ship.velocity.x, 35.3553, 2, "x value")
+        self.assertAlmostEqual(ship.velocity.y, -35.3553, 2, "y value")
 
     def test_mod(self):
         self.assertEqual(1005 % 1000, 5)

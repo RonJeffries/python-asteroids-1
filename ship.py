@@ -1,5 +1,6 @@
 import pygame
 import random
+import u
 
 vector2 = pygame.Vector2
 
@@ -9,7 +10,7 @@ class Ship:
         self.position = position
         self.velocity = vector2(0, 0)
         self.angle = 0
-        self.acceleration = 120
+        self.acceleration = u.SHIP_ACCELERATION
         self.accelerating = False
         self.ship_surface, self.ship_accelerating_surface = self.prepare_surfaces()
 
@@ -39,23 +40,23 @@ class Ship:
         return list(map(self.adjust, raw_ship))
 
     def adjust(self, point):
-        return point*4 + vector2(28, 16)
+        center_adjustment = vector2(28, 16)
+        return point*4 + center_adjustment
 
     def draw(self, screen):
         ship_source = self.select_ship_source()
-        copy = pygame.transform.rotate(ship_source.copy(), self.angle)
-        half = pygame.Vector2(copy.get_size())/2
-        screen.blit(copy, self.position - half)
+        rotated = pygame.transform.rotate(ship_source.copy(), self.angle)
+        half = pygame.Vector2(rotated.get_size())/2
+        screen.blit(rotated, self.position - half)
 
     def move(self, dt):
         self.position += self.velocity*dt
-        self.position.x = self.position.x % 512
-        self.position.y = self.position.y % 512
-
+        self.position.x = self.position.x % u.SCREEN_SIZE
+        self.position.y = self.position.y % u.SCREEN_SIZE
 
     def power_on(self, dt):
         self.accelerating = True
-        accel = vector2(dt*self.acceleration,0).rotate(-self.angle)
+        accel = dt*self.acceleration.rotate(-self.angle)
         self.velocity += accel
 
     def power_off(self, dt):

@@ -1,17 +1,18 @@
 # Example file showing a circle moving on screen
 import pygame
 
+import u
 from ship import Ship
 
 # pygame setup
 pygame.init()
-screen = pygame.display.set_mode((512, 512))
+screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
 pygame.display.set_caption("Asteroids")
 clock = pygame.time.Clock()
 running = True
 dt = 0
 
-ship = Ship(pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2))
+ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
 
 while running:
     # poll for events
