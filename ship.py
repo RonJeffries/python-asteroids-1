@@ -1,9 +1,7 @@
-from itertools import repeat
-
 import pygame
 import random
 import u
-from SurfaceMaker import adjust
+from SurfaceMaker import prepare_surfaces
 
 vector2 = pygame.Vector2
 
@@ -15,32 +13,7 @@ class Ship:
         self.angle = 0
         self.acceleration = u.SHIP_ACCELERATION
         self.accelerating = False
-        self.ship_surface, self.ship_accelerating_surface = self.prepare_surfaces()
-
-    def prepare_surfaces(self):
-        ship_points = self.get_ship_points()
-        flare_points = self.get_flare_points()
-        return (self.make_ship_surface(ship_points)), (self.make_accelerating_surface(flare_points, ship_points))
-
-    def make_accelerating_surface(self, flare_points, ship_points):
-        ship_accelerating_surface = self.make_ship_surface(ship_points)
-        pygame.draw.lines(ship_accelerating_surface, "white", False, flare_points, 3)
-        return ship_accelerating_surface
-
-    def make_ship_surface(self, ship_points):
-        ship_surface = pygame.Surface((60, 36))
-        ship_surface.set_colorkey((0, 0, 0))
-        pygame.draw.lines(ship_surface, "white", False, ship_points, 3)
-        return ship_surface
-
-    def get_flare_points(self):
-        flare_points = [vector2(-3.0, -2.0), vector2(-7.0, 0.0), vector2(-3.0, 2.0)]
-        return list(map(adjust, flare_points, repeat(vector2(7, 4)), repeat(4)))
-
-    def get_ship_points(self):
-        ship_points = [vector2(-3.0, -2.0), vector2(-3.0, 2.0), vector2(-5.0, 4.0),
-                       vector2(7.0, 0.0), vector2(-5.0, -4.0), vector2(-3.0, -2.0)]
-        return list(map(adjust, ship_points, repeat(vector2(7, 4)), repeat(4)))
+        self.ship_surface, self.ship_accelerating_surface = prepare_surfaces()
 
     def draw(self, screen):
         ship_source = self.select_ship_source()
