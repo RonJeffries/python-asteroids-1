@@ -2,6 +2,7 @@
 import pygame
 
 import u
+from asteroid import Asteroid
 from ship import Ship
 
 # pygame setup
@@ -13,6 +14,7 @@ running = True
 dt = 0
 
 ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
+asteroid = Asteroid()
 
 while running:
     # poll for events
@@ -23,7 +25,9 @@ while running:
 
     screen.fill("midnightblue")
 
+    # pygame.draw.circle(screen,"red",(u.SCREEN_SIZE/2, u.SCREEN_SIZE/2), 3)
     ship.draw(screen)
+    asteroid.draw(screen)
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_f]:
@@ -35,6 +39,7 @@ while running:
     else:
         ship.power_off(dt)
     ship.move(dt)
+    asteroid.move(dt)
 
     # flip() the display to put your work on screen
     pygame.display.flip()
