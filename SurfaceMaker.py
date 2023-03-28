@@ -39,6 +39,7 @@ class SurfaceMaker:
     def __init__(self):
         pass
 
+    @staticmethod
     def adjust(self, point, center_adjustment, scale_factor):
         return (point + center_adjustment) * scale_factor
 
