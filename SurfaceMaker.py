@@ -66,3 +66,11 @@ def prepare_surfaces():
     ship_points = get_ship_points()
     flare_points = get_flare_points()
     return (make_ship_surface(ship_points)), (make_accelerating_surface(flare_points, ship_points))
+
+
+def prepare_surface():
+    surface = pygame.Surface((128, 128))
+    surface.set_colorkey((0, 0, 0))
+    adjusted = list(map(adjust, raw_rocks[0], repeat(vector2(4,4)), repeat(16)))
+    pygame.draw.lines(surface, "white", False, adjusted, 3)
+    return surface
