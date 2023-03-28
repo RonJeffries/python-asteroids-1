@@ -1,7 +1,9 @@
 import random
+from itertools import repeat
+
 import pygame
 import u
-from SurfaceMaker import raw_rocks
+from SurfaceMaker import raw_rocks, adjust
 
 vector2 = pygame.Vector2
 
@@ -25,7 +27,7 @@ class Asteroid:
     def prepare_surface(self):
         surface = pygame.Surface((128, 128))
         surface.set_colorkey((0, 0, 0))
-        adjusted = list(map(self.adjust, raw_rocks[0]))
+        adjusted = list(map(adjust, raw_rocks[0], repeat(vector2(4,4)), repeat(16)))
         pygame.draw.lines(surface, "white", False, adjusted, 3)
         return surface
 
