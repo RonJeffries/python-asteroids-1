@@ -2,7 +2,7 @@ import random
 
 import pygame
 import u
-from SurfaceMaker import prepare_surface
+from SurfaceMaker import SurfaceMaker
 
 vector2 = pygame.Vector2
 
@@ -10,7 +10,7 @@ vector2 = pygame.Vector2
 class Asteroid:
     def __init__(self):
         self.position = vector2(u.SCREEN_SIZE/2, u.SCREEN_SIZE/2)
-        self.surface = prepare_surface()
+        self.surface = SurfaceMaker().prepare_surface()
         rotation = random.randint(0,360)
         self.velocity = u.ASTEROID_SPEED.rotate(rotation)
 

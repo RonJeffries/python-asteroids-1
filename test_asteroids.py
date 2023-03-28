@@ -14,7 +14,17 @@ class TestAsteroids():
     def test_map_lambda(self):
         points = [vector2(-3.0, -2.0), vector2(-3.0, 2.0), vector2(-5.0, 4.0),
                   vector2(7.0, 0.0), vector2(-5.0, -4.0), vector2(-3.0, -2.0)]
-        new_points = map(lambda point: point + vector2(7, 4), points)
+        new_points = map(lambda pt: pt + vector2(7, 4), points)
+        for point in new_points:
+            assert point.x >= 0
+            assert point.x <= 14
+            assert point.y >= 0
+            assert point.y <= 9
+
+    def test_map_comprehension(self):
+        points = [vector2(-3.0, -2.0), vector2(-3.0, 2.0), vector2(-5.0, 4.0),
+                  vector2(7.0, 0.0), vector2(-5.0, -4.0), vector2(-3.0, -2.0)]
+        new_points = [point + vector2(7, 4) for point in points]
         for point in new_points:
             assert point.x >= 0
             assert point.x <= 14
