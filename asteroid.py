@@ -1,37 +1,10 @@
 import random
 import pygame
 import u
+from SurfaceMaker import raw_rocks
 
 vector2 = pygame.Vector2
 
-raw_rocks = [
-    [
-        vector2(4.0, 2.0), vector2(3.0, 0.0), vector2(4.0, -2.0),
-        vector2(1.0, -4.0), vector2(-2.0, -4.0), vector2(-4.0, -2.0),
-        vector2(-4.0, 2.0), vector2(-2.0, 4.0), vector2(0.0, 2.0),
-        vector2(2.0, 4.0), vector2(4.0, 2.0),
-    ],
-    [
-        vector2(2.0, 1.0), vector2(4.0, 2.0), vector2(2.0, 4.0),
-        vector2(0.0, 3.0), vector2(-2.0, 4.0), vector2(-4.0, 2.0),
-        vector2(-3.0, 0.0), vector2(-4.0, -2.0), vector2(-2.0, -4.0),
-        vector2(-1.0, -3.0), vector2(2.0, -4.0), vector2(4.0, -1.0),
-        vector2(2.0, 1.0)
-    ],
-    [
-        vector2(-2.0, 0.0), vector2(-4.0, -1.0), vector2(-2.0, -4.0),
-        vector2(0.0, -1.0), vector2(0.0, -4.0), vector2(2.0, -4.0),
-        vector2(4.0, -1.0), vector2(4.0, 1.0), vector2(2.0, 4.0),
-        vector2(-1.0, 4.0), vector2(-4.0, 1.0), vector2(-2.0, 0.0)
-    ],
-    [
-        vector2(1.0, 0.0), vector2(4.0, 1.0), vector2(4.0, 2.0),
-        vector2(1.0, 4.0), vector2(-2.0, 4.0), vector2(-1.0, 2.0),
-        vector2(-4.0, 2.0), vector2(-4.0, -1.0), vector2(-2.0, -4.0),
-        vector2(1.0, -3.0), vector2(2.0, -4.0), vector2(4.0, -2.0),
-        vector2(1.0, 0.0)
-    ]
-]
 
 class Asteroid:
     def __init__(self):
