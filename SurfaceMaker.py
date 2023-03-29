@@ -1,5 +1,3 @@
-from itertools import repeat
-
 import pygame
 from pygame import Vector2
 
@@ -66,12 +64,9 @@ class SurfaceMaker:
         flare_points = self.get_flare_points()
         return (self.make_ship_surface(ship_points)), (self.make_accelerating_surface(flare_points, ship_points))
 
-    def prepare_surface(self):
+    def asteroid_surface(self, shape, size):
         surface = pygame.Surface((128, 128))
         surface.set_colorkey((0, 0, 0))
         adjusted = [self.adjust(point, Vector2(4, 4), 16) for point in raw_rocks[1]]
         pygame.draw.lines(surface, "white", False, adjusted, 3)
         return surface
-
-    def asteroid_surface(self, shape, size):
-        return self.prepare_surface()

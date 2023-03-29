@@ -2,26 +2,20 @@ import pytest
 
 
 class TestSurfaceMaker:
-    def test_key(self):
-        maker = CachedMaker()
-        key = maker.key("ship", 5, 7)
-        assert key == "ship-5-7"
-        key = maker.key("asteroid")
-        assert key == "asteroid-0-1"
 
     def test_fetch(self):
         maker = CachedMaker()
         make_count = 0
 
-        def make(kind, shape, size):
+        def make(args):
             nonlocal make_count
             make_count += 1
-            return "made {0}-{1}-{2}".format(kind, shape, size)
+            return "made {0}-{1}-{2}".format(args[0], args[1], args[2])
 
-        made = maker.fetch("ship", 5, 7, make)
+        made = maker.fetch("ship-5-7", make, "ship", 5, 7)
         assert made == "made ship-5-7"
         assert make_count == 1
-        made = maker.fetch("ship", 5, 7, make)
+        made = maker.fetch("ship-5-7", make, "ship", 5, 7)
         assert made == "made ship-5-7"
         assert make_count == 1
 
@@ -30,15 +24,12 @@ class CachedMaker:
     def __init__(self):
         self.cache = dict()
 
-    def key(self, kind, shape=0, size=1):
-        return "{0}-{1}-{2}".format(kind, shape, size)
+    def fetch(self, key, action, *args):
+        try:
+            return self.cache[key]
+        except KeyError:
+            new_one = action(args)
+            self.cache[key] = new_one
+            return new_one
 
-    def fetch(self, kind, shape, size, action):
-        key = self.key(kind, shape, size)
-        cached = self.cache.get(key)
-        if cached:
-            return cached
-        new_one = action(kind, shape, size)
-        self.cache[key] = new_one
-        return new_one
 
