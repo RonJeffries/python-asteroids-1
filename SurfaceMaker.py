@@ -65,8 +65,12 @@ class SurfaceMaker:
         return (self.make_ship_surface(ship_points)), (self.make_accelerating_surface(flare_points, ship_points))
 
     def asteroid_surface(self, shape, size):
-        surface = pygame.Surface((128, 128))
+        return self.create_scaled_surface((128, 128), Vector2(4, 4), 16, raw_rocks[0])
+
+    def create_scaled_surface(self, dimensions, offset, scale, *point_lists):
+        surface = pygame.Surface(dimensions)
         surface.set_colorkey((0, 0, 0))
-        adjusted = [self.adjust(point, Vector2(4, 4), 16) for point in raw_rocks[1]]
-        pygame.draw.lines(surface, "white", False, adjusted, 3)
+        for point_list in point_lists:
+            adjusted = [self.adjust(point, offset, scale) for point in point_list]
+            pygame.draw.lines(surface, "white", False, adjusted, 3)
         return surface
