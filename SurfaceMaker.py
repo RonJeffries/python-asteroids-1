@@ -72,3 +72,6 @@ class SurfaceMaker:
         adjusted = [self.adjust(point, Vector2(4, 4), 16) for point in raw_rocks[1]]
         pygame.draw.lines(surface, "white", False, adjusted, 3)
         return surface
+
+    def asteroid_surface(self, shape, size):
+        return self.prepare_surface()
