@@ -49,4 +49,10 @@ class TestAsteroids():
         assert 1005 % 1000 == 5
         assert -5 % 1000 == 995
 
+    def test_args(self):
+        def local_function(a,b):
+            return 10*a + b
+        result = local_function(b=5, a=6)
+        assert result == 65
+
 
