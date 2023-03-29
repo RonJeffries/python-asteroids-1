@@ -7,7 +7,7 @@ from ship import Ship
 vector2 = pygame.Vector2
 
 
-class TestAsteroids():
+class TestAsteroids:
     def test_something(self):
         assert True == True
 
