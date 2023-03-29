@@ -10,9 +10,9 @@ vector2 = pygame.Vector2
 class Asteroid:
     def __init__(self):
         self.position = vector2(u.SCREEN_SIZE/2, u.SCREEN_SIZE/2)
+        angle_of_travel = random.randint(0, 360)
+        self.velocity = u.ASTEROID_SPEED.rotate(angle_of_travel)
         self.surface = SurfaceMaker().prepare_surface()
-        rotation = random.randint(0,360)
-        self.velocity = u.ASTEROID_SPEED.rotate(rotation)
 
     def move(self, dt):
         self.position += self.velocity*dt
