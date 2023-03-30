@@ -1,5 +1,8 @@
+import random
+
 import pygame
 from pygame import Vector2
+from pygame.math import clamp
 
 raw_ship_points = [Vector2(-3.0, -2.0), Vector2(-3.0, 2.0), Vector2(-5.0, 4.0),
                    Vector2(7.0, 0.0), Vector2(-5.0, -4.0), Vector2(-3.0, -2.0)]
@@ -47,8 +50,10 @@ class SurfaceMaker:
         accelerating_surface = self.create_scaled_surface((60, 36), Vector2(7, 4), 4, raw_ship_points, raw_flare_points)
         return ship_surface, accelerating_surface
 
-    def asteroid_surface(self, shape, size):
-        return self.create_scaled_surface((128, 128), Vector2(4, 4), 16, raw_rocks[0])
+    def asteroid_surface(self, size):
+        shape = random.randint(0,3)
+        scale = [4, 8, 16][clamp(size, 0, 3)]
+        return self.create_scaled_surface((128, 128), Vector2(4, 4), scale, raw_rocks[shape])
 
     def create_scaled_surface(self, dimensions, offset, scale, *point_lists):
         surface = pygame.Surface(dimensions)

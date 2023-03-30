@@ -1,6 +1,7 @@
 
 import pygame
 import pytest
+from pygame.math import clamp
 
 from ship import Ship
 
@@ -54,5 +55,11 @@ class TestAsteroids:
             return 10*a + b
         result = local_function(b=5, a=6)
         assert result == 65
+
+    def test_clamp(self):
+        zero = clamp(-1, 0, 3)
+        assert zero == 0
+        three = clamp(4, 0, 3)
+        assert three == 3
 
 
