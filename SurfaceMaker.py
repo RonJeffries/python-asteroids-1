@@ -53,8 +53,13 @@ class SurfaceMaker:
     @staticmethod
     def asteroid_surface(size):
         shape = random.randint(0, 3)
-        scale = [4, 8, 16][clamp(size, 0, 3)]
-        return SurfaceMaker.create_scaled_surface((128, 128), Vector2(4, 4), scale, raw_rocks[shape])
+        scale = [4, 8, 16][clamp(size, 0, 2)]
+        room_for_fat_line = 1
+        surface_size = [32, 64, 128][clamp(size, 0, 2)] + room_for_fat_line
+        surface = SurfaceMaker.create_scaled_surface((surface_size, surface_size), Vector2(4, 4), scale, raw_rocks[shape])
+        x, y = surface.get_size()
+        # pygame.draw.circle(surface, "red", (x/2, y/2),  3)
+        return surface
 
     @staticmethod
     def create_scaled_surface(dimensions, offset, scale, *point_lists):
