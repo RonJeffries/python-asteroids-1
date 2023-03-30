@@ -13,7 +13,7 @@ class Ship:
         self.angle = 0
         self.acceleration = u.SHIP_ACCELERATION
         self.accelerating = False
-        self.ship_surface, self.ship_accelerating_surface = SurfaceMaker().ship_surfaces()
+        self.ship_surface, self.ship_accelerating_surface = SurfaceMaker.ship_surfaces()
 
     def draw(self, screen):
         ship_source = self.select_ship_source()
