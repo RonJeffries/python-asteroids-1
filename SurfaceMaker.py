@@ -54,14 +54,21 @@ class SurfaceMaker:
 
     @staticmethod
     def asteroid_surface(actual_size):
-        shape = SurfaceMaker.next_shape
-        SurfaceMaker.next_shape = (SurfaceMaker.next_shape + 1) % 4
-        scale = actual_size/8
+        raw_rock_points = SurfaceMaker.get_next_shape()
+        raw_points_span = 8
+        raw_points_offset = Vector2(4, 4)
+        scale = actual_size / raw_points_span
         room_for_fat_line = 2
         surface_size = actual_size + room_for_fat_line
-        offset = Vector2(4, 4)
-        surface = SurfaceMaker.create_scaled_surface((surface_size, surface_size), offset, scale, raw_rocks[shape])
+        surface = SurfaceMaker.create_scaled_surface((surface_size, surface_size),
+                                                     raw_points_offset, scale, raw_rock_points)
         return surface
+
+    @staticmethod
+    def get_next_shape():
+        rock_shape = raw_rocks[SurfaceMaker.next_shape]
+        SurfaceMaker.next_shape = (SurfaceMaker.next_shape + 1) % 4
+        return rock_shape
 
     @staticmethod
     def create_scaled_surface(dimensions, offset, scale_factor, *point_lists):
