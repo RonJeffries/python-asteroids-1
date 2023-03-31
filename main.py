@@ -14,7 +14,7 @@ running = True
 dt = 0
 
 ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
-asteroids = [Asteroid() for i in range(0, 4)]
+asteroids = [Asteroid(2) for i in range(0, 4)]
 
 while running:
     # poll for events
