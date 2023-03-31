@@ -49,7 +49,8 @@ class SurfaceMaker:
     @staticmethod
     def ship_surfaces():
         ship_surface = SurfaceMaker.create_scaled_surface((60, 36), Vector2(7, 4), 4, raw_ship_points)
-        accelerating_surface = SurfaceMaker.create_scaled_surface((60, 36), Vector2(7, 4), 4, raw_ship_points, raw_flare_points)
+        accelerating_surface = SurfaceMaker.create_scaled_surface((60, 36), Vector2(7, 4), 4,
+                                                                  raw_ship_points, raw_flare_points)
         return ship_surface, accelerating_surface
 
     @staticmethod
@@ -75,6 +76,10 @@ class SurfaceMaker:
         surface = pygame.Surface(dimensions)
         surface.set_colorkey((0, 0, 0))
         for point_list in point_lists:
-            adjusted = [SurfaceMaker.adjust(point, offset, scale_factor) for point in point_list]
-            pygame.draw.lines(surface, "white", False, adjusted, 3)
+            SurfaceMaker.draw_adjusted_lines(offset, point_list, scale_factor, surface)
         return surface
+
+    @staticmethod
+    def draw_adjusted_lines(offset, point_list, scale_factor, surface):
+        adjusted = [SurfaceMaker.adjust(point, offset, scale_factor) for point in point_list]
+        pygame.draw.lines(surface, "white", False, adjusted, 3)
