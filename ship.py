@@ -1,10 +1,10 @@
+# Ship
+
 import pygame
-import random
-
 from pygame import Vector2
-
-import u
+import random
 from SurfaceMaker import SurfaceMaker
+import u
 
 
 class Ship:

@@ -1,9 +1,9 @@
 # Example file showing a circle moving on screen
-import pygame
 
-import u
 from asteroid import Asteroid
+import pygame
 from ship import Ship
+import u
 
 # pygame setup
 pygame.init()

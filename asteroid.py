@@ -1,10 +1,10 @@
-import random
+# Asteroid
 
 import pygame
 from pygame.math import Vector2
-
-import u
+import random
 from SurfaceMaker import SurfaceMaker
+import u
 
 
 class Asteroid:
