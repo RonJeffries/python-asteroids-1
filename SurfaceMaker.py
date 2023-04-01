@@ -1,8 +1,7 @@
-import random
+# SurfaceMaker
 
 import pygame
 from pygame import Vector2
-from pygame.math import clamp
 
 raw_ship_points = [Vector2(-3.0, -2.0), Vector2(-3.0, 2.0), Vector2(-5.0, 4.0),
                    Vector2(7.0, 0.0), Vector2(-5.0, -4.0), Vector2(-3.0, -2.0)]

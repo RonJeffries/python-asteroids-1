@@ -38,7 +38,7 @@ while running:
     if keys[pygame.K_j]:
         ship.power_on(dt)
     else:
-        ship.power_off(dt)
+        ship.power_off()
     ship.move(dt)
     for asteroid in asteroids:
         asteroid.move(dt)

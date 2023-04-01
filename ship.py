@@ -6,18 +6,16 @@ from pygame import Vector2
 import u
 from SurfaceMaker import SurfaceMaker
 
-vector2 = pygame.Vector2
-
 
 class Ship:
     def __init__(self, position):
         self.position = position
-        self.velocity = vector2(0, 0)
+        self.velocity = Vector2(0, 0)
         self.angle = 0
         self.acceleration = u.SHIP_ACCELERATION
         self.accelerating = False
         ship_scale = 4
-        ship_size = Vector2(14, 8)*4
+        ship_size = Vector2(14, 8)*ship_scale
         self.ship_surface, self.ship_accelerating_surface = SurfaceMaker.ship_surfaces(ship_size)
 
     def draw(self, screen):
@@ -36,7 +34,7 @@ class Ship:
         accel = dt * self.acceleration.rotate(-self.angle)
         self.velocity += accel
 
-    def power_off(self, dt):
+    def power_off(self):
         self.accelerating = False
 
     def select_ship_source(self):

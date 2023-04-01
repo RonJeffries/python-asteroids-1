@@ -1,7 +1,7 @@
 import random
 
 import pygame
-from pygame.math import clamp, Vector2
+from pygame.math import Vector2
 
 import u
 from SurfaceMaker import SurfaceMaker
