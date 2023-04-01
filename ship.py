@@ -1,5 +1,8 @@
 import pygame
 import random
+
+from pygame import Vector2
+
 import u
 from SurfaceMaker import SurfaceMaker
 
@@ -13,7 +16,9 @@ class Ship:
         self.angle = 0
         self.acceleration = u.SHIP_ACCELERATION
         self.accelerating = False
-        self.ship_surface, self.ship_accelerating_surface = SurfaceMaker.ship_surfaces()
+        ship_scale = 4
+        ship_size = Vector2(14, 8)*4
+        self.ship_surface, self.ship_accelerating_surface = SurfaceMaker.ship_surfaces(ship_size)
 
     def draw(self, screen):
         ship_source = self.select_ship_source()

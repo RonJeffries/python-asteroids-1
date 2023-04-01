@@ -47,10 +47,14 @@ class SurfaceMaker:
         return (point + center_adjustment) * scale_factor
 
     @staticmethod
-    def ship_surfaces():
-        ship_surface = SurfaceMaker.create_scaled_surface((60, 36), Vector2(7, 4), 4, raw_ship_points)
-        accelerating_surface = SurfaceMaker.create_scaled_surface((60, 36), Vector2(7, 4), 4,
-                                                                  raw_ship_points, raw_flare_points)
+    def ship_surfaces(ship_size):
+        raw_points_span = Vector2(14, 8)
+        raw_points_offset = raw_points_span / 2
+        scale_factor = ship_size.x / raw_points_span.x
+        ship_surface = SurfaceMaker.create_scaled_surface(
+            ship_size, raw_points_offset, scale_factor, raw_ship_points)
+        accelerating_surface = SurfaceMaker.create_scaled_surface(
+            ship_size, raw_points_offset, scale_factor, raw_ship_points, raw_flare_points)
         return ship_surface, accelerating_surface
 
     @staticmethod
