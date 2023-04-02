@@ -41,7 +41,7 @@ while running:
         ship.power_off()
     ship.mover.move(dt)
     for asteroid in asteroids:
-        asteroid.move(dt)
+        asteroid.mover.move(dt)
 
     # flip() the display to put your work on screen
     pygame.display.flip()

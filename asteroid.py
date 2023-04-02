@@ -9,6 +9,7 @@ import u
 
 class Asteroid:
     def __init__(self, size=2, position=None):
+        self.mover = self
         asteroid_sizes = [32, 64, 128]
         try:
             asteroid_size = asteroid_sizes[size]
