@@ -1,8 +1,10 @@
 
 import pygame
 import pytest
-from pygame.math import clamp
+from pygame.math import clamp, Vector2
 
+import u
+from mover import Mover
 from ship import Ship
 
 vector2 = pygame.Vector2
@@ -34,17 +36,17 @@ class TestAsteroids:
 
     def test_ship_move(self):
         ship = Ship(vector2(50, 60))
-        ship.velocity = vector2(10, 16)
-        ship.move(0.5)
-        assert ship.position == vector2(55, 68)
+        ship.mover.velocity = vector2(10, 16)
+        ship.mover.move(0.5)
+        assert ship.mover.position == vector2(55, 68)
 
     def test_ship_acceleration(self):
         ship = Ship(vector2(0, 0))
         ship.angle = 45
         ship.acceleration = pygame.Vector2(100, 0)
         ship.power_on(0.5)
-        assert ship.velocity.x == pytest.approx(35.3553, 0.01)
-        assert ship.velocity.y == pytest.approx(-35.3553, 0.01)
+        assert ship.mover.velocity.x == pytest.approx(35.3553, 0.01)
+        assert ship.mover.velocity.y == pytest.approx(-35.3553, 0.01)
 
     def test_mod(self):
         assert 1005 % 1000 == 5
@@ -61,5 +63,15 @@ class TestAsteroids:
         assert zero == 0
         three = clamp(4, 0, 3)
         assert three == 3
+
+    def test_mover(self):
+        pos = Vector2(100, 200)
+        vel = Vector2(10, 20)
+        mover = Mover(pos, vel)
+        mover.move(0.5)
+        assert mover.position == Vector2(105, 210)
+
+
+
 
 
