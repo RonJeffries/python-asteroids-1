@@ -3,11 +3,8 @@ import pygame
 import pytest
 from pygame.math import clamp, Vector2
 
-import u
 from mover import Mover
 from ship import Ship
-
-vector2 = pygame.Vector2
 
 
 class TestAsteroids:
@@ -15,9 +12,9 @@ class TestAsteroids:
         assert True == True
 
     def test_map_lambda(self):
-        points = [vector2(-3.0, -2.0), vector2(-3.0, 2.0), vector2(-5.0, 4.0),
-                  vector2(7.0, 0.0), vector2(-5.0, -4.0), vector2(-3.0, -2.0)]
-        new_points = map(lambda pt: pt + vector2(7, 4), points)
+        points = [Vector2(-3.0, -2.0), Vector2(-3.0, 2.0), Vector2(-5.0, 4.0),
+                  Vector2(7.0, 0.0), Vector2(-5.0, -4.0), Vector2(-3.0, -2.0)]
+        new_points = map(lambda pt: pt + Vector2(7, 4), points)
         for point in new_points:
             assert point.x >= 0
             assert point.x <= 14
@@ -25,9 +22,9 @@ class TestAsteroids:
             assert point.y <= 9
 
     def test_map_comprehension(self):
-        points = [vector2(-3.0, -2.0), vector2(-3.0, 2.0), vector2(-5.0, 4.0),
-                  vector2(7.0, 0.0), vector2(-5.0, -4.0), vector2(-3.0, -2.0)]
-        new_points = [point + vector2(7, 4) for point in points]
+        points = [Vector2(-3.0, -2.0), Vector2(-3.0, 2.0), Vector2(-5.0, 4.0),
+                  Vector2(7.0, 0.0), Vector2(-5.0, -4.0), Vector2(-3.0, -2.0)]
+        new_points = [point + Vector2(7, 4) for point in points]
         for point in new_points:
             assert point.x >= 0
             assert point.x <= 14
@@ -35,13 +32,13 @@ class TestAsteroids:
             assert point.y <= 9
 
     def test_ship_move(self):
-        ship = Ship(vector2(50, 60))
-        ship.mover.velocity = vector2(10, 16)
+        ship = Ship(Vector2(50, 60))
+        ship.mover.velocity = Vector2(10, 16)
         ship.mover.move(0.5)
-        assert ship.mover.position == vector2(55, 68)
+        assert ship.mover.position == Vector2(55, 68)
 
     def test_ship_acceleration(self):
-        ship = Ship(vector2(0, 0))
+        ship = Ship(Vector2(0, 0))
         ship.angle = 45
         ship.acceleration = pygame.Vector2(100, 0)
         ship.power_on(0.5)
