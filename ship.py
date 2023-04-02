@@ -9,6 +9,7 @@ import u
 
 class Ship:
     def __init__(self, position):
+        self.mover = self
         self.position = position
         self.velocity = Vector2(0, 0)
         self.angle = 0

@@ -39,7 +39,7 @@ while running:
         ship.power_on(dt)
     else:
         ship.power_off()
-    ship.move(dt)
+    ship.mover.move(dt)
     for asteroid in asteroids:
         asteroid.move(dt)
 
