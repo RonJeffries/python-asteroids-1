@@ -19,8 +19,18 @@ asteroids = [Asteroid(2) for i in range(0, 4)]
 
 def check_collisions():
     if ship.active:
-        for asteroid in asteroids:
+        for asteroid in asteroids.copy():
             ship.collideWithAsteroid(asteroid)
+            if not ship.active:
+                asteroids.remove(asteroid)
+                radius = asteroid.radius
+                size = [16, 32, 64].index(radius)
+                if size > 0:
+                    a1 = Asteroid(size - 1, asteroid.mover.position)
+                    asteroids.append(a1)
+                    a2 = Asteroid(size - 1, asteroid.mover.position)
+                    asteroids.append(a2)
+                ship.active = True
 
 
 while running:
@@ -46,7 +56,7 @@ while running:
         ship.power_on(dt)
     else:
         ship.power_off()
-    ship.mover.move(dt)
+    if ship.active: ship.mover.move(dt)
     for asteroid in asteroids:
         asteroid.mover.move(dt)
     check_collisions()

@@ -4,7 +4,7 @@ import u
 
 class Mover:
     def __init__(self, position, velocity):
-        self.position = position
+        self.position = position.copy()
         self.velocity = velocity
 
     def move(self, deltaTime):

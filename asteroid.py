@@ -18,7 +18,7 @@ class Asteroid:
         self.offset = Vector2(self.radius, self.radius)
         mover_position = position if position else Vector2(0, random.randrange(0, u.SCREEN_SIZE))
         angle_of_travel = random.randint(0, 360)
-        mover_velocity = velocity = u.ASTEROID_SPEED.rotate(angle_of_travel)
+        mover_velocity = u.ASTEROID_SPEED.rotate(angle_of_travel)
         self.mover = Mover(mover_position, mover_velocity)
         self.surface = SurfaceMaker.asteroid_surface(self.radius * 2)
 
