@@ -5,9 +5,13 @@ import u
 class Mover:
     def __init__(self, position, velocity):
         self.position = position.copy()
-        self.velocity = velocity
+        self.velocity = velocity.copy()
+
+    def accelerate_by(self, accel):
+        self.velocity = self.velocity + accel
 
     def move(self, deltaTime):
-        self.position += self.velocity * deltaTime
-        self.position.x = self.position.x % u.SCREEN_SIZE
-        self.position.y = self.position.y % u.SCREEN_SIZE
+        position = self.position + self.velocity * deltaTime
+        position.x = position.x % u.SCREEN_SIZE
+        position.y = position.y % u.SCREEN_SIZE
+        self.position = position

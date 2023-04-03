@@ -33,7 +33,7 @@ class Ship:
     def power_on(self, dt):
         self.accelerating = True
         accel = dt * self.acceleration.rotate(-self.angle)
-        self.mover.velocity += accel
+        self.mover.accelerate_by(accel)
 
     def power_off(self):
         self.accelerating = False
@@ -45,7 +45,7 @@ class Ship:
             return self.ship_surface
 
     def turn_left(self, dt):
-        self.angle -= u.SHIP_ROTATION_STEP * dt
+        self.angle = self.angle - u.SHIP_ROTATION_STEP * dt
 
     def turn_right(self, dt):
-        self.angle += u.SHIP_ROTATION_STEP * dt
+        self.angle = self.angle + u.SHIP_ROTATION_STEP * dt
