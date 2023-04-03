@@ -2,6 +2,8 @@
 import pygame
 import pytest
 from pygame.math import clamp, Vector2
+
+import u
 from mover import Mover
 from ship import Ship
 
@@ -66,6 +68,34 @@ class TestAsteroids:
         mover = Mover(pos, vel)
         mover.move(0.5)
         assert mover.position == Vector2(105, 210)
+
+    def test_missile_start(self):
+        ship = Ship(Vector2(100, 100))
+        ship.angle = 45
+        pos = ship.missile_start()
+        assert pos.x == pytest.approx(100+25, 0.5)
+        assert pos.y == pytest.approx(100-25, 0.5)
+
+    def test_missile_velocity(self):
+        ship = Ship(Vector2(100, 100))
+        ship.angle = 45
+        ship.mover.velocity = Vector2(500, 500)
+        velocity = ship.missile_velocity()
+        own_velocity = Vector2(u.MISSILE_SPEED, 0).rotate(-45)
+        total_velocity = own_velocity + Vector2(500, 500)
+        assert velocity == total_velocity
+
+    def test_missile_timeout(self):
+        ship = Ship(Vector2(100,100))
+        missiles = []
+        ship.fire_if_possible(missiles)
+        assert len(missiles) == 1
+        missile = missiles[0]
+        missile.update(missiles, 0.5)
+        assert len(missiles) == 1
+        missile.update(missiles, 3.0)
+        assert len(missiles) == 0
+
 
 
 

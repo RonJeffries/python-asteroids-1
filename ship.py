@@ -5,12 +5,14 @@ from pygame import Vector2
 import random
 from SurfaceMaker import SurfaceMaker
 import u
+from missile import Missile
 from mover import Mover
 
 
 class Ship:
     def __init__(self, position):
         self.active = True
+        self.can_fire = True
         self.radius = 25
         self.mover = Mover(position, Vector2(0,0))
         self.angle = 0
@@ -29,6 +31,22 @@ class Ship:
         rotated = pygame.transform.rotate(ship_source.copy(), self.angle)
         half = pygame.Vector2(rotated.get_size()) / 2
         screen.blit(rotated, self.mover.position - half)
+
+    def fire_if_possible(self, missiles):
+        if self.can_fire:
+            missiles.append(Missile(self.missile_start(), self.missile_velocity()))
+            self.can_fire = False
+
+    def not_firing(self):
+        self.can_fire = True
+
+    def missile_start(self):
+        radius = self.radius + 11
+        offset = Vector2(radius, 0).rotate(-self.angle)
+        return self.mover.position + offset
+
+    def missile_velocity(self):
+        return Vector2(u.MISSILE_SPEED,0).rotate(-self.angle) + self.mover.velocity
 
     def power_on(self, dt):
         self.accelerating = True

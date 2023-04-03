@@ -15,6 +15,7 @@ dt = 0
 
 ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
 asteroids = [Asteroid(2) for i in range(0, 4)]
+missiles = []
 
 
 def check_collisions():
@@ -46,6 +47,8 @@ while running:
     if ship.active: ship.draw(screen)
     for asteroid in asteroids:
         asteroid.draw(screen)
+    for missile in missiles:
+        missile.draw(screen)
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_f]:
@@ -56,9 +59,18 @@ while running:
         ship.power_on(dt)
     else:
         ship.power_off()
+    if keys[pygame.K_k]:
+        ship.fire_if_possible(missiles)
+    else:
+        ship.not_firing()
+
     if ship.active: ship.mover.move(dt)
     for asteroid in asteroids:
         asteroid.mover.move(dt)
+    for missile in missiles.copy():
+        missile.update(missiles, dt)
+    for missile in missiles:
+        missile.mover.move(dt)
     check_collisions()
 
     # flip() the display to put your work on screen
