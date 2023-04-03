@@ -16,6 +16,13 @@ dt = 0
 ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
 asteroids = [Asteroid(2) for i in range(0, 4)]
 
+
+def check_collisions():
+    if ship.active:
+        for asteroid in asteroids:
+            ship.collideWithAsteroid(asteroid)
+
+
 while running:
     # poll for events
     # pygame.QUIT event means the user clicked X to close your window
@@ -26,7 +33,7 @@ while running:
     screen.fill("midnightblue")
 
     # pygame.draw.circle(screen,"red",(u.SCREEN_SIZE/2, u.SCREEN_SIZE/2), 3)
-    ship.draw(screen)
+    if ship.active: ship.draw(screen)
     for asteroid in asteroids:
         asteroid.draw(screen)
 
@@ -42,6 +49,7 @@ while running:
     ship.mover.move(dt)
     for asteroid in asteroids:
         asteroid.mover.move(dt)
+    check_collisions()
 
     # flip() the display to put your work on screen
     pygame.display.flip()

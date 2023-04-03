@@ -2,7 +2,6 @@
 import pygame
 import pytest
 from pygame.math import clamp, Vector2
-
 from mover import Mover
 from ship import Ship
 

@@ -10,6 +10,8 @@ from mover import Mover
 
 class Ship:
     def __init__(self, position):
+        self.active = True
+        self.radius = 25
         self.mover = Mover(position, Vector2(0,0))
         self.angle = 0
         self.acceleration = u.SHIP_ACCELERATION
@@ -17,6 +19,10 @@ class Ship:
         ship_scale = 4
         ship_size = Vector2(14, 8)*ship_scale
         self.ship_surface, self.ship_accelerating_surface = SurfaceMaker.ship_surfaces(ship_size)
+
+    def collideWithAsteroid(self, asteroid):
+        if asteroid.withinRange(self.mover.position, self.radius):
+            self.active = False
 
     def draw(self, screen):
         ship_source = self.select_ship_source()
