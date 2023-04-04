@@ -41,9 +41,8 @@ class Asteroid:
 
     def split_or_die(self, asteroids):
         asteroids.remove(self)
-        size = [16, 32, 64].index(self.radius)
-        if size > 0:
-            a1 = Asteroid(size - 1, self.position)
+        if self.size > 0:
+            a1 = Asteroid(self.size - 1, self.position)
             asteroids.append(a1)
-            a2 = Asteroid(size - 1, self.position)
+            a2 = Asteroid(self.size - 1, self.position)
             asteroids.append(a2)
