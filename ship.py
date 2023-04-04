@@ -11,16 +11,21 @@ from mover import Mover
 
 class Ship:
     def __init__(self, position):
+        self.mover = self
+        self.position = position.copy()
+        self.velocity = Vector2(0,0)
         self.active = True
         self.can_fire = True
         self.radius = 25
-        self.mover = Mover(position, Vector2(0,0))
         self.angle = 0
         self.acceleration = u.SHIP_ACCELERATION
         self.accelerating = False
         ship_scale = 4
         ship_size = Vector2(14, 8)*ship_scale
         self.ship_surface, self.ship_accelerating_surface = SurfaceMaker.ship_surfaces(ship_size)
+
+    def accelerate_by(self, accel):
+        self.velocity = self.velocity + accel
 
     def collideWithAsteroid(self, asteroid):
         if asteroid.withinRange(self.mover.position, self.radius):
@@ -47,6 +52,12 @@ class Ship:
 
     def missile_velocity(self):
         return Vector2(u.MISSILE_SPEED,0).rotate(-self.angle) + self.mover.velocity
+
+    def move(self, deltaTime):
+        position = self.position + self.velocity * deltaTime
+        position.x = position.x % u.SCREEN_SIZE
+        position.y = position.y % u.SCREEN_SIZE
+        self.position = position
 
     def power_on(self, dt):
         self.accelerating = True
