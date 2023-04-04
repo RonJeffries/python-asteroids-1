@@ -1,9 +1,7 @@
 # Missile
 
 import pygame
-
 import u
-from mover import Mover
 
 
 class Missile:
