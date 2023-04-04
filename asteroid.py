@@ -9,7 +9,6 @@ import u
 
 class Asteroid:
     def __init__(self, size=2, position=None):
-        self.mover = self
         self.position = position if position else Vector2(0, random.randrange(0, u.SCREEN_SIZE))
         angle_of_travel = random.randint(0, 360)
         self.velocity = u.ASTEROID_SPEED.rotate(angle_of_travel)
@@ -22,8 +21,8 @@ class Asteroid:
         self.surface = SurfaceMaker.asteroid_surface(self.radius * 2)
 
     def draw(self, screen):
-        top_left_corner = self.mover.position - self.offset
-        pygame.draw.circle(screen, "red", self.mover.position, 3)
+        top_left_corner = self.position - self.offset
+        pygame.draw.circle(screen, "red", self.position, 3)
         screen.blit(self.surface, top_left_corner)
 
     def move(self, deltaTime):
@@ -33,5 +32,5 @@ class Asteroid:
         self.position = position
 
     def withinRange(self, point, other_radius):
-        dist = point.distance_to(self.mover.position)
+        dist = point.distance_to(self.position)
         return dist < self.radius + other_radius

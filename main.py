@@ -27,9 +27,9 @@ def check_collisions():
                 radius = asteroid.radius
                 size = [16, 32, 64].index(radius)
                 if size > 0:
-                    a1 = Asteroid(size - 1, asteroid.mover.position)
+                    a1 = Asteroid(size - 1, asteroid.position)
                     asteroids.append(a1)
-                    a2 = Asteroid(size - 1, asteroid.mover.position)
+                    a2 = Asteroid(size - 1, asteroid.position)
                     asteroids.append(a2)
                 ship.active = True
 
@@ -64,13 +64,13 @@ while running:
     else:
         ship.not_firing()
 
-    if ship.active: ship.mover.move(dt)
+    if ship.active: ship.move(dt)
     for asteroid in asteroids:
-        asteroid.mover.move(dt)
+        asteroid.move(dt)
     for missile in missiles.copy():
         missile.update(missiles, dt)
     for missile in missiles:
-        missile.mover.move(dt)
+        missile.move(dt)
     check_collisions()
 
     # flip() the display to put your work on screen

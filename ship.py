@@ -6,12 +6,10 @@ import random
 from SurfaceMaker import SurfaceMaker
 import u
 from missile import Missile
-from mover import Mover
 
 
 class Ship:
     def __init__(self, position):
-        self.mover = self
         self.position = position.copy()
         self.velocity = Vector2(0,0)
         self.active = True
@@ -28,14 +26,14 @@ class Ship:
         self.velocity = self.velocity + accel
 
     def collideWithAsteroid(self, asteroid):
-        if asteroid.withinRange(self.mover.position, self.radius):
+        if asteroid.withinRange(self.position, self.radius):
             self.active = False
 
     def draw(self, screen):
         ship_source = self.select_ship_source()
         rotated = pygame.transform.rotate(ship_source.copy(), self.angle)
         half = pygame.Vector2(rotated.get_size()) / 2
-        screen.blit(rotated, self.mover.position - half)
+        screen.blit(rotated, self.position - half)
 
     def fire_if_possible(self, missiles):
         if self.can_fire:
@@ -48,10 +46,10 @@ class Ship:
     def missile_start(self):
         radius = self.radius + 11
         offset = Vector2(radius, 0).rotate(-self.angle)
-        return self.mover.position + offset
+        return self.position + offset
 
     def missile_velocity(self):
-        return Vector2(u.MISSILE_SPEED,0).rotate(-self.angle) + self.mover.velocity
+        return Vector2(u.MISSILE_SPEED,0).rotate(-self.angle) + self.velocity
 
     def move(self, deltaTime):
         position = self.position + self.velocity * deltaTime
@@ -62,7 +60,7 @@ class Ship:
     def power_on(self, dt):
         self.accelerating = True
         accel = dt * self.acceleration.rotate(-self.angle)
-        self.mover.accelerate_by(accel)
+        self.accelerate_by(accel)
 
     def power_off(self):
         self.accelerating = False
