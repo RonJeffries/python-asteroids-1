@@ -8,11 +8,11 @@ class TestCollisions:
     def test_far_away(self):
         ship = Ship(Vector2(0, 0))
         asteroid = Asteroid(2, Vector2(200,200))
-        ship.collideWithAsteroid(asteroid)
+        ship.collide_with_asteroid(asteroid)
         assert ship.active
 
     def test_close_enough(self):
         ship = Ship(Vector2(0, 0))
         asteroid = Asteroid(2, Vector2(50, 50))
-        ship.collideWithAsteroid(asteroid)
+        ship.collide_with_asteroid(asteroid)
         assert not ship.active

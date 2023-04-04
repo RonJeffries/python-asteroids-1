@@ -18,19 +18,23 @@ asteroids = [Asteroid(2) for i in range(0, 4)]
 missiles = []
 
 
+def check_asteroids_vs_missiles():
+    for asteroid in asteroids.copy():
+        for missile in missiles.copy():
+            asteroid.collide_with_missile(missile, missiles, asteroids)
+
+
 def check_collisions():
+    check_ship_vs_asteroid()
+    check_asteroids_vs_missiles()
+
+
+def check_ship_vs_asteroid():
     if ship.active:
         for asteroid in asteroids.copy():
-            ship.collideWithAsteroid(asteroid)
+            ship.collide_with_asteroid(asteroid)
             if not ship.active:
-                asteroids.remove(asteroid)
-                radius = asteroid.radius
-                size = [16, 32, 64].index(radius)
-                if size > 0:
-                    a1 = Asteroid(size - 1, asteroid.position)
-                    asteroids.append(a1)
-                    a2 = Asteroid(size - 1, asteroid.position)
-                    asteroids.append(a2)
+                asteroid.split_or_die(asteroids)
                 ship.active = True
 
 

@@ -25,7 +25,7 @@ class Ship:
     def accelerate_by(self, accel):
         self.velocity = self.velocity + accel
 
-    def collideWithAsteroid(self, asteroid):
+    def collide_with_asteroid(self, asteroid):
         if asteroid.withinRange(self.position, self.radius):
             self.active = False
 
