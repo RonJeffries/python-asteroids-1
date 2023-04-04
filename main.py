@@ -14,6 +14,7 @@ running = True
 dt = 0
 
 ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
+ships = [ship]
 asteroids = [Asteroid(2) for i in range(0, 4)]
 missiles = []
 
@@ -21,7 +22,7 @@ missiles = []
 def check_asteroids_vs_missiles():
     for asteroid in asteroids.copy():
         for missile in missiles.copy():
-            asteroid.collide_with_missile(missile, missiles, asteroids)
+            asteroid.collide_with_attacker(missile, missiles, asteroids)
 
 
 def check_collisions():
@@ -30,12 +31,12 @@ def check_collisions():
 
 
 def check_ship_vs_asteroid():
-    if ship.active:
+    for ship in ships:
         for asteroid in asteroids.copy():
-            ship.collide_with_asteroid(asteroid)
-            if not ship.active:
-                asteroid.split_or_die(asteroids)
+            asteroid.collide_with_attacker(ship, ships, asteroids)
+            if not ships:
                 ship.active = True
+                ships.append(ship)
 
 
 while running:
@@ -48,7 +49,8 @@ while running:
     screen.fill("midnightblue")
 
     # pygame.draw.circle(screen,"red",(u.SCREEN_SIZE/2, u.SCREEN_SIZE/2), 3)
-    if ship.active: ship.draw(screen)
+    for ship in ships:
+        ship.draw(screen)
     for asteroid in asteroids:
         asteroid.draw(screen)
     for missile in missiles:

@@ -34,9 +34,9 @@ class Asteroid:
         dist = point.distance_to(self.position)
         return dist < self.radius + other_radius
 
-    def collide_with_missile(self, missile, missiles, asteroids):
-        if self.withinRange(missile.position, missile.radius):
-            missiles.remove(missile)
+    def collide_with_attacker(self, attacker, attackers, asteroids):
+        if self.withinRange(attacker.position, attacker.radius):
+            if attacker in attackers: attackers.remove(attacker)
             self.split_or_die(asteroids)
 
     def split_or_die(self, asteroids):
