@@ -31,12 +31,12 @@ def check_collisions():
 
 
 def check_ship_vs_asteroid():
-    for ship in ships:
+    for ship in ships.copy():
         for asteroid in asteroids.copy():
             asteroid.collide_with_attacker(ship, ships, asteroids)
             if not ships:
-                ship.active = True
                 ships.append(ship)
+                ship.active = True
 
 
 while running:
