@@ -65,6 +65,11 @@ class Ship:
     def power_off(self):
         self.accelerating = False
 
+    def reset(self):
+        self.position = u.CENTER
+        self.velocity = Vector2(0, 0)
+        self.angle = 0
+
     def select_ship_source(self):
         if self.accelerating and random.random() >= 0.66:
             return self.ship_accelerating_surface

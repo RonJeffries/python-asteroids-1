@@ -1,22 +1,44 @@
 # Example file showing a circle moving on screen
+from pygame import Vector2
 
 from asteroid import Asteroid
 import pygame
 from ship import Ship
 import u
 
-# pygame setup
-pygame.init()
-screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
-pygame.display.set_caption("Asteroids")
-clock = pygame.time.Clock()
-running = True
-dt = 0
-
 ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
 ships = [ship]
 asteroids = [Asteroid(2) for i in range(0, 4)]
 missiles = []
+ship_timer = 0
+running = False
+dt = 0
+clock = pygame.time.Clock()
+
+
+# pygame setup
+def game_init():
+    global screen, clock, running, dt
+    pygame.init()
+    screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
+    pygame.display.set_caption("Asteroids")
+    clock = pygame.time.Clock()
+    running = True
+    dt = 0
+
+
+def set_ship_timer(seconds):
+    global ship_timer
+    ship_timer = seconds
+
+
+def check_ship_spawn(ship, ships, delta_time):
+    if ships: return
+    global ship_timer
+    ship_timer -= delta_time
+    if ship_timer <= 0:
+        ship.reset()
+        ships.append(ship)
 
 
 def check_asteroids_vs_missiles():
@@ -35,56 +57,65 @@ def check_asteroids_vs_ship():
         for asteroid in asteroids.copy():
             asteroid.collide_with_attacker(ship, ships, asteroids)
             if not ships:
-                ship.active = True
-                ships.append(ship)
+                set_ship_timer(3)
+                return
 
 
-while running:
-    # poll for events
-    # pygame.QUIT event means the user clicked X to close your window
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+def main_loop():
+    global running, ship, clock, dt
+    game_init()
+    while running:
+        # poll for events
+        # pygame.QUIT event means the user clicked X to close your window
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
 
-    screen.fill("midnightblue")
+        screen.fill("midnightblue")
 
-    # pygame.draw.circle(screen,"red",(u.SCREEN_SIZE/2, u.SCREEN_SIZE/2), 3)
-    for ship in ships:
-        ship.draw(screen)
-    for asteroid in asteroids:
-        asteroid.draw(screen)
-    for missile in missiles:
-        missile.draw(screen)
+        check_ship_spawn(ship, ships, dt)
 
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_f]:
-        ship.turn_left(dt)
-    if keys[pygame.K_d]:
-        ship.turn_right(dt)
-    if keys[pygame.K_j]:
-        ship.power_on(dt)
-    else:
-        ship.power_off()
-    if keys[pygame.K_k]:
-        ship.fire_if_possible(missiles)
-    else:
-        ship.not_firing()
+        # pygame.draw.circle(screen,"red",(u.SCREEN_SIZE/2, u.SCREEN_SIZE/2), 3)
+        for ship in ships:
+            ship.draw(screen)
+        for asteroid in asteroids:
+            asteroid.draw(screen)
+        for missile in missiles:
+            missile.draw(screen)
 
-    if ship.active: ship.move(dt)
-    for asteroid in asteroids:
-        asteroid.move(dt)
-    for missile in missiles.copy():
-        missile.update(missiles, dt)
-    for missile in missiles:
-        missile.move(dt)
-    check_collisions()
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_f]:
+            ship.turn_left(dt)
+        if keys[pygame.K_d]:
+            ship.turn_right(dt)
+        if keys[pygame.K_j]:
+            ship.power_on(dt)
+        else:
+            ship.power_off()
+        if keys[pygame.K_k]:
+            ship.fire_if_possible(missiles)
+        else:
+            ship.not_firing()
 
-    # flip() the display to put your work on screen
-    pygame.display.flip()
+        if ship.active: ship.move(dt)
+        for asteroid in asteroids:
+            asteroid.move(dt)
+        for missile in missiles.copy():
+            missile.update(missiles, dt)
+        for missile in missiles:
+            missile.move(dt)
+        check_collisions()
 
-    # limits FPS to 60
-    # dt is delta time in seconds since last frame, used for framerate-
-    # independent physics.
-    dt = clock.tick(60) / 1000
+        # flip() the display to put your work on screen
+        pygame.display.flip()
 
-pygame.quit()
+        # limits FPS to 60
+        # dt is delta time in seconds since last frame, used for framerate-
+        # independent physics.
+        dt = clock.tick(60) / 1000
+
+    pygame.quit()
+
+
+if __name__ == "__main__":
+    main_loop()
