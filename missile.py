@@ -22,6 +22,6 @@ class Missile:
 
     def update(self, missiles, delta_time):
         self.time += delta_time
-        if self.time > 3:
+        if self.time > u.MISSILE_LIFETIME:
             missiles.remove(self)
 

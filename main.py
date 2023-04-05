@@ -36,7 +36,7 @@ def check_ship_spawn(ship, ships, delta_time):
     if ships: return
     global ship_timer
     ship_timer -= delta_time
-    if ship_timer <= 0:
+    if ship_timer <= 0 and safe_to_emerge(missiles, asteroids):
         ship.reset()
         ships.append(ship)
 
@@ -57,8 +57,16 @@ def check_asteroids_vs_ship():
         for asteroid in asteroids.copy():
             asteroid.collide_with_attacker(ship, ships, asteroids)
             if not ships:
-                set_ship_timer(3)
+                set_ship_timer(u.SHIP_EMERGENCE_TIME)
                 return
+
+
+def safe_to_emerge(missiles, asteroids):
+    if missiles: return False
+    for asteroid in asteroids:
+        if asteroid.position.distance_to(u.CENTER) < u.SAFE_EMERGENCE_DISTANCE:
+            return False
+    return True
 
 
 def main_loop():
