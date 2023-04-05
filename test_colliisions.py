@@ -48,4 +48,18 @@ class TestCollisions:
         asteroids.append(Asteroid(2, u.CENTER))
         assert not safe_to_emerge(missiles, asteroids)
 
+    def test_firing_limit(self):
+        ship = Ship(u.CENTER)
+        count = 0
+        missiles = []
+        while len(missiles) < u.MISSILE_LIMIT:
+            ship.can_fire = True
+            ship.fire_if_possible(missiles)
+            count += 1
+            assert len(missiles) == count
+        assert len(missiles) == u.MISSILE_LIMIT
+        ship.can_fire = True
+        ship.fire_if_possible(missiles)
+        assert len(missiles) == u.MISSILE_LIMIT
+
 
