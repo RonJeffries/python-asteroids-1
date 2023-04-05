@@ -26,17 +26,17 @@ def check_asteroids_vs_missiles():
 
 
 def check_collisions():
-    check_ship_vs_asteroid()
+    check_asteroids_vs_ship()
     check_asteroids_vs_missiles()
 
 
-def check_ship_vs_asteroid():
-    for ship in ships.copy():
+def check_asteroids_vs_ship():
+    for ship in ships.copy():  # there's only one, do it first
         for asteroid in asteroids.copy():
             asteroid.collide_with_attacker(ship, ships, asteroids)
             if not ships:
-                ships.append(ship)
                 ship.active = True
+                ships.append(ship)
 
 
 while running:
