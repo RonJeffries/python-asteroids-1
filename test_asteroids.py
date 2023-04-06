@@ -4,6 +4,7 @@ import pytest
 from pygame.math import clamp, Vector2
 
 import u
+from main import game_init, next_wave_size
 from ship import Ship
 
 
@@ -87,6 +88,16 @@ class TestAsteroids:
         assert len(missiles) == 1
         missile.update(missiles, 3.0)
         assert len(missiles) == 0
+
+    def test_wave_sizes(self):
+        # game_init()
+        assert next_wave_size() == 4
+        assert next_wave_size() == 6
+        assert next_wave_size() == 8
+        assert next_wave_size() == 10
+        assert next_wave_size() == 11
+        assert next_wave_size() == 11
+        # game_init()
 
 
 

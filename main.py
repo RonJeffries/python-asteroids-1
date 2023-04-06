@@ -8,21 +8,26 @@ import u
 
 ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
 ships = [ship]
-asteroids = [Asteroid(2) for i in range(0, 4)]
+asteroids = []
 missiles = []
 ship_timer = 0
 running = False
 dt = 0
 clock = pygame.time.Clock()
+asteroids_in_this_wave = 2
+wave_timer = None
 
 
 # pygame setup
 def game_init():
-    global screen, clock, running, dt
+    global screen, clock, running, dt, asteroids_in_this_wave
+    global wave_timer
     pygame.init()
     screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
     pygame.display.set_caption("Asteroids")
     clock = pygame.time.Clock()
+    asteroids_in_this_wave = 2
+    wave_timer = None
     running = True
     dt = 0
 
@@ -61,6 +66,26 @@ def check_asteroids_vs_ship():
                 return
 
 
+def check_next_wave(asteroids, dt):
+    global wave_timer
+    if asteroids: return
+    if wave_timer:
+        wave_timer -= dt
+        if wave_timer <= 0:
+            asteroids.extend([Asteroid() for _ in range(0, next_wave_size())])
+            wave_timer = None
+    else:
+        wave_timer = u.ASTEROID_DELAY
+
+
+def next_wave_size():
+    global asteroids_in_this_wave
+    asteroids_in_this_wave += 2
+    if asteroids_in_this_wave > 10:
+        asteroids_in_this_wave = 11
+    return asteroids_in_this_wave
+
+
 def safe_to_emerge(missiles, asteroids):
     if missiles: return False
     for asteroid in asteroids:
@@ -82,6 +107,7 @@ def main_loop():
         screen.fill("midnightblue")
 
         check_ship_spawn(ship, ships, dt)
+        check_next_wave(asteroids, dt)
 
         # pygame.draw.circle(screen,"red",(u.SCREEN_SIZE/2, u.SCREEN_SIZE/2), 3)
         for ship in ships:

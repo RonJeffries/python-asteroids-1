@@ -1,6 +1,7 @@
 # U - Universal Constants
 import pygame
 
+ASTEROID_DELAY = 4
 ASTEROID_SPEED = pygame.Vector2(100,0)
 SCREEN_SIZE = 768
 CENTER = pygame.Vector2(SCREEN_SIZE/2, SCREEN_SIZE/2)
