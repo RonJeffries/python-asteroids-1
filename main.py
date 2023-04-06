@@ -134,6 +134,7 @@ def move_everything(ship, dt):
     for missile in missiles:
         missile.move(dt)
 
+
 def next_wave_size():
     global asteroids_in_this_wave
     asteroids_in_this_wave += 2
