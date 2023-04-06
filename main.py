@@ -69,13 +69,13 @@ def check_asteroids_vs_ship():
 def check_next_wave(asteroids, dt):
     global wave_timer
     if asteroids: return
-    if wave_timer:
+    if not wave_timer:
+        wave_timer = u.ASTEROID_DELAY
+    else:
         wave_timer -= dt
         if wave_timer <= 0:
             asteroids.extend([Asteroid() for _ in range(0, next_wave_size())])
             wave_timer = None
-    else:
-        wave_timer = u.ASTEROID_DELAY
 
 
 def next_wave_size():
