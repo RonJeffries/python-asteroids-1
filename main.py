@@ -15,7 +15,7 @@ running = False
 delta_time = 0
 clock = pygame.time.Clock()
 asteroids_in_this_wave = 2
-wave_timer = None
+wave_timer = u.ASTEROID_TIMER_STOPPED
 
 
 def game_init():
@@ -31,10 +31,14 @@ def game_init():
     set_ship_timer(u.SHIP_EMERGENCE_TIME)
     running = True
     delta_time = 0
+    some_font = pygame.font.SysFont("arial", 64)
+    global game_over, game_over_pos
+    game_over = some_font.render("GAME OVER", True, "white")
+    game_over_pos = game_over.get_rect(centerx=u.CENTER.x, centery=u.CENTER.y)
 
 
 def main_loop():
-    global running, ship, clock, delta_time
+    global running, ship, clock, delta_time, game_over, game_over_pos
     game_init()
     while running:
         for event in pygame.event.get():
@@ -51,6 +55,7 @@ def main_loop():
         move_everything(ship, delta_time)
         check_collisions()
         draw_everything()
+        screen.blit(game_over, game_over_pos)
         pygame.display.flip()
         delta_time = clock.tick(60) / 1000
     pygame.quit()
