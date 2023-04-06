@@ -7,50 +7,52 @@ from ship import Ship
 import u
 
 ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
-ships = [ship]
+ships = []
 asteroids = []
 missiles = []
 ship_timer = 0
 running = False
-dt = 0
+delta_time = 0
 clock = pygame.time.Clock()
 asteroids_in_this_wave = 2
 wave_timer = None
 
 
 def game_init():
-    global screen, clock, running, dt, asteroids_in_this_wave
-    global wave_timer
+    global screen, clock, running, delta_time, asteroids_in_this_wave
+    global wave_timer, ships
     pygame.init()
     screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
     pygame.display.set_caption("Asteroids")
     clock = pygame.time.Clock()
     asteroids_in_this_wave = 2
     wave_timer = u.ASTEROID_TIMER_STOPPED
+    ships = []
+    set_ship_timer(u.SHIP_EMERGENCE_TIME)
     running = True
-    dt = 0
+    delta_time = 0
 
 
 def main_loop():
-    global running, ship, clock, dt
+    global running, ship, clock, delta_time
     game_init()
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
 
-        check_ship_spawn(ship, ships, dt)
-        check_next_wave(asteroids, dt)
-        control_ship(ship, dt)
+        check_ship_spawn(ship, ships, delta_time)
+        check_next_wave(asteroids, delta_time)
+        control_ship(ship, delta_time)
 
         for missile in missiles.copy():
-            missile.update(missiles, dt)
+            missile.update(missiles, delta_time)
 
-        move_everything(ship, dt)
+        move_everything(ship, delta_time)
         check_collisions()
         draw_everything()
         pygame.display.flip()
-        dt = clock.tick(60) / 1000
+        delta_time = clock.tick(60) / 1000
     pygame.quit()
 
 
