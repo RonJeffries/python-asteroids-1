@@ -6,39 +6,43 @@ import pygame
 from ship import Ship
 import u
 
-ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
-ships = []
 asteroids = []
-missiles = []
-ship_timer = 0
-running = False
-delta_time = 0
-clock = pygame.time.Clock()
 asteroids_in_this_wave = 2
+clock = pygame.time.Clock()
+delta_time = 0
+game_over = False
+missiles = []
+running = False
+ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
+ship_timer = 0
+ships = []
+ships_remaining = u.SHIPS_PER_QUARTER
 wave_timer = u.ASTEROID_TIMER_STOPPED
 
 
 def game_init():
     global screen, clock, running, delta_time, asteroids_in_this_wave
-    global wave_timer, ships
+    global wave_timer, ships, ships_remaining, game_over
     pygame.init()
     screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
     pygame.display.set_caption("Asteroids")
     clock = pygame.time.Clock()
     asteroids_in_this_wave = 2
+    game_over = False
+    ships_remaining = u.SHIPS_PER_QUARTER
     wave_timer = u.ASTEROID_TIMER_STOPPED
     ships = []
     set_ship_timer(u.SHIP_EMERGENCE_TIME)
     running = True
     delta_time = 0
     some_font = pygame.font.SysFont("arial", 64)
-    global game_over, game_over_pos
-    game_over = some_font.render("GAME OVER", True, "white")
-    game_over_pos = game_over.get_rect(centerx=u.CENTER.x, centery=u.CENTER.y)
+    global game_over_surface, game_over_pos
+    game_over_surface = some_font.render("GAME OVER", True, "white")
+    game_over_pos = game_over_surface.get_rect(centerx=u.CENTER.x, centery=u.CENTER.y)
 
 
 def main_loop():
-    global running, ship, clock, delta_time, game_over, game_over_pos
+    global running, ship, clock, delta_time, game_over_surface, game_over_pos
     game_init()
     while running:
         for event in pygame.event.get():
@@ -55,7 +59,7 @@ def main_loop():
         move_everything(ship, delta_time)
         check_collisions()
         draw_everything()
-        screen.blit(game_over, game_over_pos)
+        if game_over: screen.blit(game_over_surface, game_over_pos)
         pygame.display.flip()
         delta_time = clock.tick(60) / 1000
     pygame.quit()
@@ -91,10 +95,14 @@ def check_next_wave(asteroids, dt):
 
 
 def check_ship_spawn(ship, ships, delta_time):
+    global game_over, ship_timer, ships_remaining
     if ships: return
-    global ship_timer
+    if ships_remaining <= 0:
+        game_over = True
+        return
     ship_timer -= delta_time
     if ship_timer <= 0 and safe_to_emerge(missiles, asteroids):
+        ships_remaining -= 1
         ship.reset()
         ships.append(ship)
 

@@ -62,6 +62,10 @@ class TestAsteroids:
         three = clamp(4, 0, 3)
         assert three == 3
 
+    def test_list_pop(self):
+        things = [1,2,3,4]
+        assert things.pop() == 4
+
     def test_missile_start(self):
         ship = Ship(Vector2(100, 100))
         ship.angle = 45
