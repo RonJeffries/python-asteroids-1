@@ -102,9 +102,9 @@ def check_ship_spawn(ship, ships, delta_time):
         return
     ship_timer -= delta_time
     if ship_timer <= 0 and safe_to_emerge(missiles, asteroids):
-        ships_remaining -= 1
         ship.reset()
         ships.append(ship)
+        ships_remaining -= 1
 
 
 def control_ship(ship, dt):
