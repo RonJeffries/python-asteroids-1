@@ -79,4 +79,16 @@ class TestCollisions:
         ship.fire_if_possible(missiles)
         assert len(missiles) == u.MISSILE_LIMIT
 
+    # it's barely possible for two missiles to kill the
+    # same asteroid. This used to cause a crash, trying
+    # to remove the same asteroid twice.
+    def test_dual_kills(self):
+        asteroid = Asteroid(2, Vector2(0, 0))
+        asteroids = [asteroid]
+        asteroid.split_or_die(asteroids)
+        assert asteroid not in asteroids
+        assert len(asteroids) == 2
+        asteroid.split_or_die(asteroids)
+        assert len(asteroids) == 2 # didn't crash, didn't split again
+
 
