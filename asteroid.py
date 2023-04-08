@@ -40,6 +40,7 @@ class Asteroid:
             self.split_or_die(asteroids)
 
     def split_or_die(self, asteroids):
+        if self not in asteroids: return # already dead
         asteroids.remove(self)
         if self.size > 0:
             a1 = Asteroid(self.size - 1, self.position)
