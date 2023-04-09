@@ -27,6 +27,7 @@ def game_init():
     pygame.display.set_caption("Asteroids")
     clock = pygame.time.Clock()
     define_game_over()
+    define_score()
     running = True
     insert_quarter(0)
 
@@ -40,29 +41,12 @@ def insert_quarter(number_of_ships):
     global asteroids_in_this_wave, game_over, ships_remaining
     asteroids_in_this_wave = 2
     game_over = False
+    u.score = 0
     ships_remaining = number_of_ships
     set_ship_timer(u.SHIP_EMERGENCE_TIME)
     global wave_timer, delta_time
     wave_timer = u.ASTEROID_TIMER_STOPPED
     delta_time = 0
-
-
-def define_game_over():
-    global game_over_surface, game_over_pos, help_lines
-    big_font = pygame.font.SysFont("arial", 64)
-    small_font = pygame.font.SysFont("arial", 48)
-    game_over_surface = big_font.render("GAME OVER", True, "white")
-    game_over_pos = game_over_surface.get_rect(centerx=u.CENTER.x, centery=u.CENTER.y/2)
-    pos_left = u.CENTER.x - 150
-    pos_top = game_over_pos.centery
-    help_lines = []
-    messages = ["d - turn left", "f - turn right", "j - accelerate", "k - fire missile", "q - insert quarter", ]
-    for message in messages:
-        pos_top += 60
-        text = small_font.render(message, True, "white")
-        text_rect = text.get_rect(topleft=(pos_left,pos_top))
-        pair = (text, text_rect)
-        help_lines.append(pair)
 
 
 def main_loop():
@@ -87,12 +71,6 @@ def main_loop():
         pygame.display.flip()
         delta_time = clock.tick(60) / 1000
     pygame.quit()
-
-
-def draw_game_over():
-    screen.blit(game_over_surface, game_over_pos)
-    for text, pos in help_lines:
-        screen.blit(text, pos)
 
 
 def check_asteroids_vs_missiles():
@@ -163,6 +141,30 @@ def create_wave_in_due_time(asteroids, dt):
         wave_timer = u.ASTEROID_TIMER_STOPPED
 
 
+def define_game_over():
+    global game_over_surface, game_over_pos, help_lines
+    big_font = pygame.font.SysFont("arial", 64)
+    small_font = pygame.font.SysFont("arial", 48)
+    game_over_surface = big_font.render("GAME OVER", True, "white")
+    game_over_pos = game_over_surface.get_rect(centerx=u.CENTER.x, centery=u.CENTER.y/2)
+    pos_left = u.CENTER.x - 150
+    pos_top = game_over_pos.centery
+    help_lines = []
+    messages = ["d - turn left", "f - turn right", "j - accelerate", "k - fire missile", "q - insert quarter", ]
+    for message in messages:
+        pos_top += 60
+        text = small_font.render(message, True, "white")
+        text_rect = text.get_rect(topleft=(pos_left,pos_top))
+        pair = (text, text_rect)
+        help_lines.append(pair)
+
+
+def define_score():
+    global score_font
+    u.score = 0
+    score_font = pygame.font.SysFont("arial", 48)
+
+
 def draw_everything():
     global ship
     screen.fill("midnightblue")
@@ -172,6 +174,25 @@ def draw_everything():
         asteroid.draw(screen)
     for missile in missiles:
         missile.draw(screen)
+    draw_score()
+
+
+def draw_game_over():
+    screen.blit(game_over_surface, game_over_pos)
+    for text, pos in help_lines:
+        screen.blit(text, pos)
+
+
+def draw_score():
+    score_surface, score_rect = render_score()
+    screen.blit(score_surface, score_rect)
+
+
+def render_score():
+    score_text = f"0000{u.score}"[-5:]
+    score_surface = score_font.render(score_text, True, "green")
+    score_rect = score_surface.get_rect(topleft=(10,10))
+    return score_surface, score_rect
 
 
 def move_everything(ship, dt):

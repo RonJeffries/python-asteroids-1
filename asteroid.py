@@ -3,6 +3,7 @@
 import pygame
 from pygame.math import Vector2
 import random
+
 from SurfaceMaker import SurfaceMaker
 import u
 
@@ -37,6 +38,7 @@ class Asteroid:
     def collide_with_attacker(self, attacker, attackers, asteroids):
         if self.withinRange(attacker.position, attacker.radius):
             if attacker in attackers: attackers.remove(attacker)
+            u.score += attacker.score_list[self.size]
             self.split_or_die(asteroids)
 
     def split_or_die(self, asteroids):

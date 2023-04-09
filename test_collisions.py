@@ -85,10 +85,22 @@ class TestCollisions:
     def test_dual_kills(self):
         asteroid = Asteroid(2, Vector2(0, 0))
         asteroids = [asteroid]
-        asteroid.split_or_die(asteroids)
+        score_list = [100, 50, 20]
+        asteroid.split_or_die(score_list, asteroids)
         assert asteroid not in asteroids
         assert len(asteroids) == 2
-        asteroid.split_or_die(asteroids)
+        asteroid.split_or_die(score_list, asteroids)
         assert len(asteroids) == 2 # didn't crash, didn't split again
 
+    def test_score_list(self):
+        ship = Ship(u.CENTER)
+        assert ship.score_list == [0, 0, 0]
+        missile = Missile(u.CENTER, Vector2(0,0))
+        assert missile.score_list == [100, 50, 20]
+        saucer = Saucer()
+        assert saucer.score_list == [0, 0, 0]
 
+
+class Saucer:
+    def __init__(self):
+        self.score_list = [0, 0, 0]

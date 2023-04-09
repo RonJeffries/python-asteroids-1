@@ -6,6 +6,7 @@ import u
 
 class Missile:
     def __init__(self, position, velocity):
+        self.score_list = [100, 50, 20]
         self.position = position.copy()
         self.velocity = velocity.copy()
         self.radius = 2
