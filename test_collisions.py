@@ -9,18 +9,6 @@ from ship import Ship
 
 
 class TestCollisions:
-    def test_far_away(self):
-        ship = Ship(Vector2(0, 0))
-        asteroid = Asteroid(2, Vector2(200,200))
-        ship.collide_with_asteroid(asteroid)
-        assert ship.active
-
-    def test_close_enough(self):
-        ship = Ship(Vector2(0, 0))
-        asteroid = Asteroid(2, Vector2(50, 50))
-        ship.collide_with_asteroid(asteroid)
-        assert not ship.active
-
     def test_respawn_ship(self):
         ship = Ship(Vector2(0, 0))
         ship.velocity = Vector2(31, 32)
@@ -36,7 +24,7 @@ class TestCollisions:
         assert ship.angle == 0
 
     def test_respawn_count(self):
-        ship = Ship(Vector2(0,0))
+        ship = Ship(Vector2(0, 0))
         ships = []
         main.ships_remaining = 2
         check_ship_spawn(ship, ships, 3.1)
@@ -85,17 +73,16 @@ class TestCollisions:
     def test_dual_kills(self):
         asteroid = Asteroid(2, Vector2(0, 0))
         asteroids = [asteroid]
-        score_list = [100, 50, 20]
-        asteroid.split_or_die(score_list, asteroids)
+        asteroid.split_or_die(asteroids)
         assert asteroid not in asteroids
         assert len(asteroids) == 2
-        asteroid.split_or_die(score_list, asteroids)
-        assert len(asteroids) == 2 # didn't crash, didn't split again
+        asteroid.split_or_die(asteroids)
+        assert len(asteroids) == 2  # didn't crash, didn't split again
 
     def test_score_list(self):
         ship = Ship(u.CENTER)
         assert ship.score_list == [0, 0, 0]
-        missile = Missile(u.CENTER, Vector2(0,0))
+        missile = Missile(u.CENTER, Vector2(0, 0))
         assert missile.score_list == [100, 50, 20]
         saucer = Saucer()
         assert saucer.score_list == [0, 0, 0]

@@ -12,8 +12,7 @@ class Ship:
     def __init__(self, position):
         self.score_list = [0, 0, 0]
         self.position = position.copy()
-        self.velocity = Vector2(0,0)
-        self.active = True
+        self.velocity = Vector2(0, 0)
         self.can_fire = True
         self.radius = 25
         self.angle = 0
@@ -25,10 +24,6 @@ class Ship:
 
     def accelerate_by(self, accel):
         self.velocity = self.velocity + accel
-
-    def collide_with_asteroid(self, asteroid):
-        if asteroid.withinRange(self.position, self.radius):
-            self.active = False
 
     def draw(self, screen):
         ship_source = self.select_ship_source()
@@ -50,10 +45,10 @@ class Ship:
         return self.position + offset
 
     def missile_velocity(self):
-        return Vector2(u.MISSILE_SPEED,0).rotate(-self.angle) + self.velocity
+        return Vector2(u.MISSILE_SPEED, 0).rotate(-self.angle) + self.velocity
 
-    def move(self, deltaTime):
-        position = self.position + self.velocity * deltaTime
+    def move(self, delta_time):
+        position = self.position + self.velocity * delta_time
         position.x = position.x % u.SCREEN_SIZE
         position.y = position.y % u.SCREEN_SIZE
         self.position = position

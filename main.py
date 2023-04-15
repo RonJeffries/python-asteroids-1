@@ -1,5 +1,5 @@
 # Example file showing a circle moving on screen
-from pygame import Vector2
+from pygame import Surface
 
 from asteroid import Asteroid
 import pygame
@@ -11,8 +11,11 @@ asteroids_in_this_wave = 2
 clock = pygame.time.Clock()
 delta_time = 0
 game_over = False
+game_over_surface: Surface
+game_over_pos: pygame.rect
 missiles = []
 running = False
+screen: Surface
 ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
 ship_timer = 0
 ships = []
@@ -58,13 +61,13 @@ def main_loop():
                 running = False
 
         check_ship_spawn(ship, ships, delta_time)
-        check_next_wave(asteroids, delta_time)
+        check_next_wave(delta_time)
         control_ship(ship, delta_time)
 
         for missile in missiles.copy():
             missile.update(missiles, delta_time)
 
-        move_everything(ship, delta_time)
+        move_everything(delta_time)
         check_collisions()
         draw_everything()
         if game_over: draw_game_over()
@@ -80,9 +83,9 @@ def check_asteroids_vs_missiles():
 
 
 def check_asteroids_vs_ship():
-    for ship in ships.copy():  # there's only one, do it first
+    for the_ship in ships.copy():  # there's only one, do it first
         for asteroid in asteroids.copy():
-            asteroid.collide_with_attacker(ship, ships, asteroids)
+            asteroid.collide_with_attacker(the_ship, ships, asteroids)
             if not ships:
                 set_ship_timer(u.SHIP_EMERGENCE_TIME)
                 return
@@ -93,7 +96,7 @@ def check_collisions():
     check_asteroids_vs_missiles()
 
 
-def check_next_wave(asteroids, dt):
+def check_next_wave(dt):
     global wave_timer
     if not asteroids:
         if wave_timer == u.ASTEROID_TIMER_STOPPED:
@@ -195,8 +198,9 @@ def render_score():
     return score_surface, score_rect
 
 
-def move_everything(ship, dt):
-    if ship.active: ship.move(dt)
+def move_everything(dt):
+    for ship in ships:
+        ship.move(dt)
     for asteroid in asteroids:
         asteroid.move(dt)
     for missile in missiles:
