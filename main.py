@@ -1,5 +1,5 @@
 # Example file showing a circle moving on screen
-from pygame import Surface
+from pygame import Surface, Vector2
 
 from asteroid import Asteroid
 import pygame
@@ -169,7 +169,6 @@ def define_score():
 
 
 def draw_everything():
-    global ship
     screen.fill("midnightblue")
     for ship in ships:
         ship.draw(screen)
@@ -178,6 +177,19 @@ def draw_everything():
     for missile in missiles:
         missile.draw(screen)
     draw_score()
+    draw_available_ships()
+
+
+def draw_available_ships():
+    ship = Ship(Vector2(20, 100))
+    ship.angle = 90
+    for i in range(0, ships_remaining):
+        draw_available_ship(i, ship)
+
+
+def draw_available_ship(ship_number, ship):
+    ship.position += Vector2(35, 0)
+    ship.draw(screen)
 
 
 def draw_game_over():
