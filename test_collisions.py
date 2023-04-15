@@ -87,6 +87,22 @@ class TestCollisions:
         saucer = Saucer()
         assert saucer.score_list == [0, 0, 0]
 
+    def test_missile_asteroid_scores(self):
+        u.score = 0
+        pos = Vector2(100, 100)
+        asteroid = Asteroid(2, pos)
+        print("position", asteroid.position)
+        asteroids = [asteroid]
+        missile = Missile(pos, Vector2(0, 0))
+        missiles = [missile]
+        asteroid.collide_with_attacker(missile, missiles, asteroids)
+        assert not missiles
+        assert u.score == 20
+
+    def test_create_asteroid_at_zero(self):
+        asteroid = Asteroid(2, Vector2(0, 0))
+        assert asteroid.position == Vector2(0, 0)
+
 
 class Saucer:
     def __init__(self):

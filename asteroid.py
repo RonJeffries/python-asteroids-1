@@ -14,7 +14,7 @@ class Asteroid:
         if self.size not in [0,1,2]:
             self.size = 2
         self.radius = [16, 32, 64][self.size]
-        self.position = position if position else Vector2(0, random.randrange(0, u.SCREEN_SIZE))
+        self.position = position if position is not None else Vector2(0, random.randrange(0, u.SCREEN_SIZE))
         angle_of_travel = random.randint(0, 360)
         self.velocity = u.ASTEROID_SPEED.rotate(angle_of_travel)
         self.offset = Vector2(self.radius, self.radius)
