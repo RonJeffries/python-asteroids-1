@@ -84,18 +84,18 @@ def check_asteroids_vs_missiles():
                 break
 
 
-def check_ship_vs_asteroids():
-    for the_ship in ships.copy():  # there's only one, do it first
-        for asteroid in asteroids.copy():
-            asteroid.collide_with_attacker(the_ship, ships, asteroids)
+def check_ship_vs_missiles():
+    for the_ship in ships.copy():
+        for missile in missiles.copy():
+            the_ship.collide_with_attacker(missile, missiles, ships)
             if the_ship not in ships:
                 break
 
 
-def check_ship_vs_missiles():
-    for the_ship in ships.copy():
-        for missile in missiles.copy():
-            ship.collide_with_attacker(missile, missiles, ships)
+def check_ship_vs_asteroids():
+    for the_ship in ships.copy():  # there's only one, do it first
+        for asteroid in asteroids.copy():
+            asteroid.collide_with_attacker(the_ship, ships, asteroids)
             if the_ship not in ships:
                 break
 
