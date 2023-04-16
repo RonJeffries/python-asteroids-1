@@ -25,6 +25,15 @@ class Ship:
     def accelerate_by(self, accel):
         self.velocity = self.velocity + accel
 
+    def collide_with_attacker(self, attacker, attackers, ships):
+        if self.within_range(attacker.position, attacker.radius):
+            if attacker in attackers: attackers.remove(attacker)
+            if self in ships: ships.remove(self)
+
+    def within_range(self, point, other_radius):
+        dist = point.distance_to(self.position)
+        return dist < self.radius + other_radius
+
     def draw(self, screen):
         ship_source = self.select_ship_source()
         rotated = pygame.transform.rotate(ship_source.copy(), self.angle)

@@ -80,20 +80,32 @@ def check_asteroids_vs_missiles():
     for asteroid in asteroids.copy():
         for missile in missiles.copy():
             asteroid.collide_with_attacker(missile, missiles, asteroids)
+            if asteroid not in asteroids:
+                break
 
 
-def check_asteroids_vs_ship():
+def check_ship_vs_asteroids():
     for the_ship in ships.copy():  # there's only one, do it first
         for asteroid in asteroids.copy():
             asteroid.collide_with_attacker(the_ship, ships, asteroids)
-            if not ships:
-                set_ship_timer(u.SHIP_EMERGENCE_TIME)
-                return
+            if the_ship not in ships:
+                break
+
+
+def check_ship_vs_missiles():
+    for the_ship in ships.copy():
+        for missile in missiles.copy():
+            ship.collide_with_attacker(missile, missiles, ships)
+            if the_ship not in ships:
+                break
 
 
 def check_collisions():
-    check_asteroids_vs_ship()
+    check_ship_vs_asteroids()
     check_asteroids_vs_missiles()
+    check_ship_vs_missiles()
+    if not ships:
+        set_ship_timer(u.SHIP_EMERGENCE_TIME)
 
 
 def check_next_wave(dt):
@@ -237,7 +249,8 @@ def safe_to_emerge(missiles, asteroids):
 
 def set_ship_timer(seconds):
     global ship_timer
-    ship_timer = seconds
+    if ship_timer <= 0:
+        ship_timer = seconds
 
 
 if __name__ == "__main__":

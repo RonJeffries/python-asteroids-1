@@ -91,13 +91,24 @@ class TestCollisions:
         u.score = 0
         pos = Vector2(100, 100)
         asteroid = Asteroid(2, pos)
-        print("position", asteroid.position)
         asteroids = [asteroid]
         missile = Missile(pos, Vector2(0, 0))
         missiles = [missile]
         asteroid.collide_with_attacker(missile, missiles, asteroids)
         assert not missiles
         assert u.score == 20
+
+    def test_missile_ship_does_not_score(self):
+        u.score = 0
+        pos = Vector2(100, 100)
+        ship = Ship(pos)
+        ships = [ship]
+        missile = Missile(pos, Vector2(0, 0))
+        missiles = [missile]
+        ship.collide_with_attacker(missile, missiles, ships)
+        assert not missiles
+        assert not ships
+        assert u.score == 0
 
     def test_asteroid_ship_does_not_score(self):
         u.score = 0
