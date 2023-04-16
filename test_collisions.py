@@ -111,7 +111,7 @@ class TestCollisions:
         assert not ships
         assert u.score == 0
 
-    def test_missile_saucer_does_not_score(self):
+    def test_asteroid_saucer_does_not_score(self):
         u.score = 0
         pos = Vector2(100, 100)
         asteroid = Asteroid(2, pos)
