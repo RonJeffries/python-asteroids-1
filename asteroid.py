@@ -31,12 +31,12 @@ class Asteroid:
         position.y = position.y % u.SCREEN_SIZE
         self.position = position
 
-    def withinRange(self, point, other_radius):
+    def within_range(self, point, other_radius):
         dist = point.distance_to(self.position)
         return dist < self.radius + other_radius
 
     def collide_with_attacker(self, attacker, attackers, asteroids):
-        if self.withinRange(attacker.position, attacker.radius):
+        if self.within_range(attacker.position, attacker.radius):
             if attacker in attackers: attackers.remove(attacker)
             u.score += attacker.score_list[self.size]
             self.split_or_die(asteroids)
