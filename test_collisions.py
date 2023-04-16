@@ -99,7 +99,7 @@ class TestCollisions:
         assert not missiles
         assert u.score == 20
 
-    def test_missile_ship_does_not_score(self):
+    def test_asteroid_ship_does_not_score(self):
         u.score = 0
         pos = Vector2(100, 100)
         asteroid = Asteroid(2, pos)
