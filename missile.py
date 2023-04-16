@@ -12,6 +12,9 @@ class Missile:
         self.radius = 2
         self.time = 0
 
+    def destroyed_by(self, attacker, missiles):
+        if self in missiles: missiles.remove(self)
+
     def draw(self, screen):
         pygame.draw.circle(screen, "white", self.position, 4)
 

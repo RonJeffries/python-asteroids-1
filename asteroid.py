@@ -35,11 +35,14 @@ class Asteroid:
         dist = point.distance_to(self.position)
         return dist < self.radius + other_radius
 
-    def collide_with_attacker(self, attacker, attackers, asteroids):
+    def collide_with_attacker(self, attacker, attackers, ships):
         if self.within_range(attacker.position, attacker.radius):
-            if attacker in attackers: attackers.remove(attacker)
-            u.score += attacker.score_list[self.size]
-            self.split_or_die(asteroids)
+            attacker.destroyed_by(self, attackers)
+            self.destroyed_by(attacker, ships)
+
+    def destroyed_by(self, attacker, ships):
+        u.score += attacker.score_list[self.size]
+        if self in ships: ships.remove(self)
 
     def split_or_die(self, asteroids):
         if self not in asteroids: return # already dead
