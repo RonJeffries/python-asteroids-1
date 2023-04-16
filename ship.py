@@ -25,11 +25,6 @@ class Ship:
     def accelerate_by(self, accel):
         self.velocity = self.velocity + accel
 
-    def collide_with_attacker(self, attacker, attackers, ships):
-        if self.within_range(attacker.position, attacker.radius):
-            attacker.destroyed_by(self, attackers)
-            self.destroyed_by(attacker, ships)
-
     def destroyed_by(self, attacker, ships):
         if self in ships: ships.remove(self)
 

@@ -94,9 +94,10 @@ class TestCollisions:
         asteroids = [asteroid]
         missile = Missile(pos, Vector2(0, 0))
         missiles = [missile]
-        asteroid.collide_with_attacker(missile, missiles, asteroids)
+        main.mutual_destruction(asteroid, asteroids, missile, missiles)
         assert not missiles
         assert u.score == 20
+        assert len(asteroids) == 2
 
     def test_missile_ship_does_not_score(self):
         u.score = 0
@@ -105,7 +106,7 @@ class TestCollisions:
         ships = [ship]
         missile = Missile(pos, Vector2(0, 0))
         missiles = [missile]
-        ship.collide_with_attacker(missile, missiles, ships)
+        main.mutual_destruction(ship, ships, missile, missiles)
         assert not missiles
         assert not ships
         assert u.score == 0
@@ -118,7 +119,7 @@ class TestCollisions:
         asteroids = [asteroid]
         ship = Ship(pos)
         ships = [ship]
-        asteroid.collide_with_attacker(ship, ships, asteroids)
+        main.mutual_destruction(asteroid, asteroids, ship, ships)
         assert not ships
         assert u.score == 0
 
@@ -130,7 +131,7 @@ class TestCollisions:
         asteroids = [asteroid]
         saucer = Saucer(pos)
         saucers = [saucer]
-        asteroid.collide_with_attacker(saucer, saucers, asteroids)
+        main.mutual_destruction(asteroid, asteroids, saucer, saucers)
         assert not saucers
         assert u.score == 0
 

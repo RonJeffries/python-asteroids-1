@@ -76,34 +76,29 @@ def main_loop():
     pygame.quit()
 
 
-def check_asteroids_vs_missiles():
-    check_individual_collisions(asteroids, missiles)
-
-
-def check_ship_vs_missiles():
-    check_individual_collisions(ships, missiles)
-
-
 def check_individual_collisions(targets, attackers):
     for target in targets.copy():
         for attacker in attackers.copy():
-            target.collide_with_attacker(attacker, attackers, targets)
-            if target not in targets:
+            if mutual_destruction(target, targets, attacker, attackers):
                 break
 
 
-def check_ship_vs_asteroids():
-    for the_ship in ships.copy():  # there's only one, do it first
-        for asteroid in asteroids.copy():
-            asteroid.collide_with_attacker(the_ship, ships, asteroids)
-            if the_ship not in ships:
-                break
+def mutual_destruction(target, targets, attacker, attackers):
+    if within_range(target, attacker):
+        attacker.destroyed_by(target, attackers)
+        target.destroyed_by(attacker, targets)
+
+
+def within_range(target, attacker):
+    in_range = target.radius + attacker.radius
+    dist = target.position.distance_to(attacker.position)
+    return dist <= in_range
 
 
 def check_collisions():
-    check_ship_vs_asteroids()
-    check_asteroids_vs_missiles()
-    check_ship_vs_missiles()
+    check_individual_collisions(ships, asteroids)
+    check_individual_collisions(asteroids, missiles)
+    check_individual_collisions(ships, missiles)
     if not ships:
         set_ship_timer(u.SHIP_EMERGENCE_TIME)
 
