@@ -76,6 +76,14 @@ def main_loop():
     pygame.quit()
 
 
+def check_collisions():
+    check_individual_collisions(ships, asteroids)
+    check_individual_collisions(asteroids, missiles)
+    check_individual_collisions(ships, missiles)
+    if not ships:
+        set_ship_timer(u.SHIP_EMERGENCE_TIME)
+
+
 def check_individual_collisions(targets, attackers):
     for target in targets.copy():
         for attacker in attackers.copy():
@@ -93,14 +101,6 @@ def within_range(target, attacker):
     in_range = target.radius + attacker.radius
     dist = target.position.distance_to(attacker.position)
     return dist <= in_range
-
-
-def check_collisions():
-    check_individual_collisions(ships, asteroids)
-    check_individual_collisions(asteroids, missiles)
-    check_individual_collisions(ships, missiles)
-    if not ships:
-        set_ship_timer(u.SHIP_EMERGENCE_TIME)
 
 
 def check_next_wave(dt):
