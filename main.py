@@ -77,18 +77,18 @@ def main_loop():
 
 
 def check_asteroids_vs_missiles():
-    for asteroid in asteroids.copy():
-        for missile in missiles.copy():
-            asteroid.collide_with_attacker(missile, missiles, asteroids)
-            if asteroid not in asteroids:
-                break
+    check_individual_collisions(asteroids, missiles)
 
 
 def check_ship_vs_missiles():
-    for the_ship in ships.copy():
-        for missile in missiles.copy():
-            the_ship.collide_with_attacker(missile, missiles, ships)
-            if the_ship not in ships:
+    check_individual_collisions(ships, missiles)
+
+
+def check_individual_collisions(targets, attackers):
+    for target in targets.copy():
+        for attacker in attackers.copy():
+            target.collide_with_attacker(attacker, attackers, targets)
+            if target not in targets:
                 break
 
 
