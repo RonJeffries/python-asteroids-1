@@ -1,42 +1,45 @@
 from pygame import Vector2
 
-import game
 import main
 import u
 from asteroid import Asteroid
 from game import safe_to_emerge
 from missile import Missile
 from ship import Ship
+from game import Game
+import game
 
 
 class TestCollisions:
     def test_respawn_ship(self):
+        game = Game(testing=True)
         ship = Ship(Vector2(0, 0))
         ship.velocity = Vector2(31, 32)
         ship.angle = 90
         ships = []
-        # set_ship_timer(3)
-        # check_ship_spawn(ship, ships, 0.1)
+        game.set_ship_timer(3)
+        game.check_ship_spawn(ship, ships, 0.1)
         assert not ships
-        # check_ship_spawn(ship, ships, u.SHIP_EMERGENCE_TIME)
+        game.check_ship_spawn(ship, ships, u.SHIP_EMERGENCE_TIME)
         assert ships
         assert ship.position == u.CENTER
         assert ship.velocity == Vector2(0, 0)
         assert ship.angle == 0
 
     def test_respawn_count(self):
+        test_game = Game(testing=True)
         ship = Ship(Vector2(0, 0))
         ships = []
         game.ships_remaining = 2
-        check_ship_spawn(ship, ships, 3.1)
+        test_game.check_ship_spawn(ship, ships, 3.1)
         assert game.ships_remaining == 1
         assert len(ships) == 1
         ships = []
-        check_ship_spawn(ship, ships, 3.1)
+        test_game.check_ship_spawn(ship, ships, 3.1)
         assert game.ships_remaining == 0
         assert len(ships) == 1
         ships = []
-        check_ship_spawn(ship, ships, 3.1)
+        test_game.check_ship_spawn(ship, ships, 3.1)
         assert game.game_over
         assert not ships
 

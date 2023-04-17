@@ -148,7 +148,8 @@ def safe_to_emerge(missiles, asteroids):
 
 
 class Game:
-    def __init__(self):
+    def __init__(self, testing=False):
+        if testing: return
         self.score_font = None
         self.running = False
         self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
