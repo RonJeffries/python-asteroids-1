@@ -168,9 +168,51 @@ class Game:
             ships.append(ship)
             ships_remaining -= 1
 
-    def set_instance(self, a_game):
-        global current_instance
-        current_instance = a_game
+    def define_game_over(self):
+        global game_over_surface, game_over_pos, help_lines
+        big_font = pygame.font.SysFont("arial", 64)
+        small_font = pygame.font.SysFont("arial", 48)
+        game_over_surface = big_font.render("GAME OVER", True, "white")
+        game_over_pos = game_over_surface.get_rect(centerx=u.CENTER.x, centery=u.CENTER.y / 2)
+        pos_left = u.CENTER.x - 150
+        pos_top = game_over_pos.centery
+        help_lines = []
+        messages = ["d - turn left", "f - turn right", "j - accelerate", "k - fire missile", "q - insert quarter", ]
+        for message in messages:
+            pos_top += 60
+            text = small_font.render(message, True, "white")
+            text_rect = text.get_rect(topleft=(pos_left, pos_top))
+            pair = (text, text_rect)
+            help_lines.append(pair)
+
+    def define_score(self):
+        u.score = 0
+        # move to Game class
+        self.score_font = pygame.font.SysFont("arial", 48)
+
+    def game_init(self):
+        pygame.init()
+        self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
+        pygame.display.set_caption("Asteroids")
+        self.define_game_over()
+        self.define_score()
+        self.running = True
+        self.insert_quarter(0)
+
+    def insert_quarter(self, number_of_ships):
+        global asteroids, missiles, ships
+        global asteroids_in_this_wave, game_over, ships_remaining
+        global wave_timer
+        asteroids = []
+        missiles = []
+        ships = []
+        asteroids_in_this_wave = 2
+        game_over = False
+        u.score = 0
+        ships_remaining = number_of_ships
+        self.set_ship_timer(u.SHIP_EMERGENCE_TIME)
+        wave_timer = u.ASTEROID_TIMER_STOPPED
+        self.delta_time = 0
 
     def main_loop(self):
         print("In game's loop")
@@ -196,52 +238,6 @@ class Game:
             self.delta_time = self.clock.tick(60) / 1000
         pygame.quit()
 
-    def game_init(self):
-        pygame.init()
-        self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
-        pygame.display.set_caption("Asteroids")
-        self.define_game_over()
-        self.define_score()
-        self.running = True
-        self.insert_quarter(0)
-
-    def define_game_over(self):
-        global game_over_surface, game_over_pos, help_lines
-        big_font = pygame.font.SysFont("arial", 64)
-        small_font = pygame.font.SysFont("arial", 48)
-        game_over_surface = big_font.render("GAME OVER", True, "white")
-        game_over_pos = game_over_surface.get_rect(centerx=u.CENTER.x, centery=u.CENTER.y / 2)
-        pos_left = u.CENTER.x - 150
-        pos_top = game_over_pos.centery
-        help_lines = []
-        messages = ["d - turn left", "f - turn right", "j - accelerate", "k - fire missile", "q - insert quarter", ]
-        for message in messages:
-            pos_top += 60
-            text = small_font.render(message, True, "white")
-            text_rect = text.get_rect(topleft=(pos_left, pos_top))
-            pair = (text, text_rect)
-            help_lines.append(pair)
-
-    def define_score(self):
-        u.score = 0
-        # move to Game class
-        self.score_font = pygame.font.SysFont("arial", 48)
-
-    def insert_quarter(self, number_of_ships):
-        global asteroids, missiles, ships
-        global asteroids_in_this_wave, game_over, ships_remaining
-        global wave_timer
-        asteroids = []
-        missiles = []
-        ships = []
-        asteroids_in_this_wave = 2
-        game_over = False
-        u.score = 0
-        ships_remaining = number_of_ships
-        self.set_ship_timer(u.SHIP_EMERGENCE_TIME)
-        wave_timer = u.ASTEROID_TIMER_STOPPED
-        self.delta_time = 0
-
     def move_everything(self,dt):
         for the_ship in ships:
             the_ship.move(dt)
@@ -249,6 +245,10 @@ class Game:
             asteroid.move(dt)
         for missile in missiles:
             missile.move(dt)
+
+    def set_instance(self, a_game):
+        global current_instance
+        current_instance = a_game
 
     def set_ship_timer(self, seconds):
         global ship_timer
