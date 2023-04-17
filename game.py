@@ -174,7 +174,7 @@ def set_ship_timer(seconds):
 class Game:
     def __init__(self):
         self.clock = pygame.time.Clock()
-        self.delta_time = 0
+        self.delta_time = 00
 
     def set_instance(self, a_game):
         global current_instance
