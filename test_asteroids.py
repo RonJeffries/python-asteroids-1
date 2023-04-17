@@ -4,7 +4,7 @@ import pytest
 from pygame.math import clamp, Vector2
 
 import u
-from main import game_init, next_wave_size
+from game import next_wave_size
 from ship import Ship
 
 

@@ -1,9 +1,10 @@
 from pygame import Vector2
 
+import game
 import main
 import u
 from asteroid import Asteroid
-from main import set_ship_timer, check_ship_spawn, safe_to_emerge
+from game import set_ship_timer, check_ship_spawn, safe_to_emerge
 from missile import Missile
 from ship import Ship
 
@@ -26,17 +27,17 @@ class TestCollisions:
     def test_respawn_count(self):
         ship = Ship(Vector2(0, 0))
         ships = []
-        main.ships_remaining = 2
+        game.ships_remaining = 2
         check_ship_spawn(ship, ships, 3.1)
-        assert main.ships_remaining == 1
+        assert game.ships_remaining == 1
         assert len(ships) == 1
         ships = []
         check_ship_spawn(ship, ships, 3.1)
-        assert main.ships_remaining == 0
+        assert game.ships_remaining == 0
         assert len(ships) == 1
         ships = []
         check_ship_spawn(ship, ships, 3.1)
-        assert main.game_over
+        assert game.game_over
         assert not ships
 
     def test_safe_to_emerge_hates_missiles(self):
@@ -94,7 +95,7 @@ class TestCollisions:
         asteroids = [asteroid]
         missile = Missile(pos, Vector2(0, 0))
         missiles = [missile]
-        main.mutual_destruction(asteroid, asteroids, missile, missiles)
+        game.mutual_destruction(asteroid, asteroids, missile, missiles)
         assert not missiles
         assert u.score == 20
         assert len(asteroids) == 2
@@ -106,7 +107,7 @@ class TestCollisions:
         ships = [ship]
         missile = Missile(pos, Vector2(0, 0))
         missiles = [missile]
-        main.mutual_destruction(ship, ships, missile, missiles)
+        game.mutual_destruction(ship, ships, missile, missiles)
         assert not missiles
         assert not ships
         assert u.score == 0
@@ -119,7 +120,7 @@ class TestCollisions:
         asteroids = [asteroid]
         ship = Ship(pos)
         ships = [ship]
-        main.mutual_destruction(asteroid, asteroids, ship, ships)
+        game.mutual_destruction(asteroid, asteroids, ship, ships)
         assert not ships
         assert u.score == 0
 
@@ -131,7 +132,7 @@ class TestCollisions:
         asteroids = [asteroid]
         saucer = Saucer(pos)
         saucers = [saucer]
-        main.mutual_destruction(asteroid, asteroids, saucer, saucers)
+        game.mutual_destruction(asteroid, asteroids, saucer, saucers)
         assert not saucers
         assert u.score == 0
 
