@@ -59,19 +59,6 @@ def check_next_wave(dt):
             create_wave_in_due_time(asteroids, dt)
 
 
-def check_ship_spawn(ship, ships, delta_time):
-    global game_over, ship_timer, ships_remaining
-    if ships: return
-    if ships_remaining <= 0:
-        game_over = True
-        return
-    ship_timer -= delta_time
-    if ship_timer <= 0 and safe_to_emerge(missiles, asteroids):
-        ship.reset()
-        ships.append(ship)
-        ships_remaining -= 1
-
-
 def control_ship(ship, dt):
     keys = pygame.key.get_pressed()
     if keys[pygame.K_q]:
@@ -168,6 +155,18 @@ class Game:
         self.clock = pygame.time.Clock()
         self.delta_time = 0
 
+    def check_ship_spawn(self, ship, ships, delta_time):
+        global game_over, ship_timer, ships_remaining
+        if ships: return
+        if ships_remaining <= 0:
+            game_over = True
+            return
+        ship_timer -= delta_time
+        if ship_timer <= 0 and safe_to_emerge(missiles, asteroids):
+            ship.reset()
+            ships.append(ship)
+            ships_remaining -= 1
+
     def set_instance(self, a_game):
         global current_instance
         current_instance = a_game
@@ -181,7 +180,7 @@ class Game:
                 if event.type == pygame.QUIT:
                     self.running = False
 
-            check_ship_spawn(ship, ships, self.delta_time)
+            self.check_ship_spawn(ship, ships, self.delta_time)
             check_next_wave(self.delta_time)
             control_ship(ship, self.delta_time)
 
