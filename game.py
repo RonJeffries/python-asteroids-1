@@ -137,18 +137,9 @@ def draw_score():
 
 def render_score():
     score_text = f"0000{u.score}"[-5:]
-    score_surface = score_font.render(score_text, True, "green")
+    score_surface = current_instance.score_font.render(score_text, True, "green")
     score_rect = score_surface.get_rect(topleft=(10,10))
     return score_surface, score_rect
-
-
-def move_everything(dt):
-    for ship in ships:
-        ship.move(dt)
-    for asteroid in asteroids:
-        asteroid.move(dt)
-    for missile in missiles:
-        missile.move(dt)
 
 
 def next_wave_size():
@@ -175,6 +166,7 @@ def set_ship_timer(seconds):
 
 class Game:
     def __init__(self):
+        self.score_font = None
         self.running = False
         self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
         self.clock = pygame.time.Clock()
@@ -186,7 +178,7 @@ class Game:
 
     def main_loop(self):
         print("In game's loop")
-        global ship, game_over_surface, game_over_pos
+        global game_over_surface, game_over_pos
         self.game_init()
         while self.running:
             for event in pygame.event.get():
@@ -200,7 +192,7 @@ class Game:
             for missile in missiles.copy():
                 missile.update(missiles, self.delta_time)
 
-            move_everything(self.delta_time)
+            self.move_everything(self.delta_time)
             check_collisions()
             draw_everything()
             if game_over: draw_game_over()
@@ -235,10 +227,9 @@ class Game:
             help_lines.append(pair)
 
     def define_score(self):
-        global score_font
         u.score = 0
         # move to Game class
-        score_font = pygame.font.SysFont("arial", 48)
+        self.score_font = pygame.font.SysFont("arial", 48)
 
     def insert_quarter(self, number_of_ships):
         global asteroids, missiles, ships
@@ -254,3 +245,11 @@ class Game:
         set_ship_timer(u.SHIP_EMERGENCE_TIME)
         wave_timer = u.ASTEROID_TIMER_STOPPED
         self.delta_time = 0
+
+    def move_everything(self,dt):
+        for the_ship in ships:
+            the_ship.move(dt)
+        for asteroid in asteroids:
+            asteroid.move(dt)
+        for missile in missiles:
+            missile.move(dt)
