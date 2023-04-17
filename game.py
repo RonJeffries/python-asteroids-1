@@ -28,7 +28,7 @@ def check_collisions():
     check_individual_collisions(asteroids, missiles)
     check_individual_collisions(ships, missiles)
     if not ships:
-        set_ship_timer(u.SHIP_EMERGENCE_TIME)
+        current_instance.set_ship_timer(u.SHIP_EMERGENCE_TIME)
 
 
 def check_individual_collisions(targets, attackers):
@@ -158,10 +158,6 @@ def safe_to_emerge(missiles, asteroids):
     return True
 
 
-def set_ship_timer(seconds):
-    global ship_timer
-    if ship_timer <= 0:
-        ship_timer = seconds
 
 
 class Game:
@@ -242,7 +238,7 @@ class Game:
         game_over = False
         u.score = 0
         ships_remaining = number_of_ships
-        set_ship_timer(u.SHIP_EMERGENCE_TIME)
+        self.set_ship_timer(u.SHIP_EMERGENCE_TIME)
         wave_timer = u.ASTEROID_TIMER_STOPPED
         self.delta_time = 0
 
@@ -253,3 +249,8 @@ class Game:
             asteroid.move(dt)
         for missile in missiles:
             missile.move(dt)
+
+    def set_ship_timer(self, seconds):
+        global ship_timer
+        if ship_timer <= 0:
+            ship_timer = seconds

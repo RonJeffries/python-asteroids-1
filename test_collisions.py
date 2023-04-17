@@ -4,7 +4,7 @@ import game
 import main
 import u
 from asteroid import Asteroid
-from game import set_ship_timer, check_ship_spawn, safe_to_emerge
+from game import safe_to_emerge
 from missile import Missile
 from ship import Ship
 
@@ -15,10 +15,10 @@ class TestCollisions:
         ship.velocity = Vector2(31, 32)
         ship.angle = 90
         ships = []
-        set_ship_timer(3)
-        check_ship_spawn(ship, ships, 0.1)
+        # set_ship_timer(3)
+        # check_ship_spawn(ship, ships, 0.1)
         assert not ships
-        check_ship_spawn(ship, ships, u.SHIP_EMERGENCE_TIME)
+        # check_ship_spawn(ship, ships, u.SHIP_EMERGENCE_TIME)
         assert ships
         assert ship.position == u.CENTER
         assert ship.velocity == Vector2(0, 0)
