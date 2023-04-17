@@ -24,23 +24,6 @@ ships_remaining = u.SHIPS_PER_QUARTER
 wave_timer = u.ASTEROID_TIMER_STOPPED
 
 
-def insert_quarter(number_of_ships):
-    global running
-    global asteroids, missiles, ships
-    asteroids = []
-    missiles = []
-    ships = []
-    global asteroids_in_this_wave, game_over, ships_remaining
-    asteroids_in_this_wave = 2
-    game_over = False
-    u.score = 0
-    ships_remaining = number_of_ships
-    set_ship_timer(u.SHIP_EMERGENCE_TIME)
-    global wave_timer, delta_time
-    wave_timer = u.ASTEROID_TIMER_STOPPED
-    delta_time = 0
-
-
 def check_collisions():
     check_individual_collisions(ships, asteroids)
     check_individual_collisions(asteroids, missiles)
@@ -93,7 +76,7 @@ def check_ship_spawn(ship, ships, delta_time):
 def control_ship(ship, dt):
     keys = pygame.key.get_pressed()
     if keys[pygame.K_q]:
-        insert_quarter(u.SHIPS_PER_QUARTER)
+        current_instance.insert_quarter(u.SHIPS_PER_QUARTER)
     if keys[pygame.K_f]:
         ship.turn_left(dt)
     if keys[pygame.K_d]:
@@ -114,30 +97,6 @@ def create_wave_in_due_time(asteroids, dt):
     if wave_timer <= 0:
         asteroids.extend([Asteroid() for _ in range(0, next_wave_size())])
         wave_timer = u.ASTEROID_TIMER_STOPPED
-
-
-def define_game_over():
-    global game_over_surface, game_over_pos, help_lines
-    big_font = pygame.font.SysFont("arial", 64)
-    small_font = pygame.font.SysFont("arial", 48)
-    game_over_surface = big_font.render("GAME OVER", True, "white")
-    game_over_pos = game_over_surface.get_rect(centerx=u.CENTER.x, centery=u.CENTER.y/2)
-    pos_left = u.CENTER.x - 150
-    pos_top = game_over_pos.centery
-    help_lines = []
-    messages = ["d - turn left", "f - turn right", "j - accelerate", "k - fire missile", "q - insert quarter", ]
-    for message in messages:
-        pos_top += 60
-        text = small_font.render(message, True, "white")
-        text_rect = text.get_rect(topleft=(pos_left,pos_top))
-        pair = (text, text_rect)
-        help_lines.append(pair)
-
-
-def define_score():
-    global score_font
-    u.score = 0
-    score_font = pygame.font.SysFont("arial", 48)
 
 
 def draw_everything():
@@ -217,6 +176,10 @@ class Game:
     def __init__(self):
         pass
 
+    def set_instance(self, a_game):
+        global current_instance
+        current_instance = a_game
+
     def main_loop(self):
         print("In game's loop")
         global running, ship, clock, delta_time, game_over_surface, game_over_pos
@@ -247,7 +210,45 @@ class Game:
         screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
         pygame.display.set_caption("Asteroids")
         clock = pygame.time.Clock()
-        define_game_over()
-        define_score()
+        self.define_game_over()
+        self.define_score()
         running = True
-        insert_quarter(0)
+        self.insert_quarter(0)
+
+    def define_game_over(self):
+        global game_over_surface, game_over_pos, help_lines
+        big_font = pygame.font.SysFont("arial", 64)
+        small_font = pygame.font.SysFont("arial", 48)
+        game_over_surface = big_font.render("GAME OVER", True, "white")
+        game_over_pos = game_over_surface.get_rect(centerx=u.CENTER.x, centery=u.CENTER.y / 2)
+        pos_left = u.CENTER.x - 150
+        pos_top = game_over_pos.centery
+        help_lines = []
+        messages = ["d - turn left", "f - turn right", "j - accelerate", "k - fire missile", "q - insert quarter", ]
+        for message in messages:
+            pos_top += 60
+            text = small_font.render(message, True, "white")
+            text_rect = text.get_rect(topleft=(pos_left, pos_top))
+            pair = (text, text_rect)
+            help_lines.append(pair)
+
+    def define_score(self):
+        global score_font
+        u.score = 0
+        score_font = pygame.font.SysFont("arial", 48)
+
+    def insert_quarter(self, number_of_ships):
+        global running
+        global asteroids, missiles, ships
+        asteroids = []
+        missiles = []
+        ships = []
+        global asteroids_in_this_wave, game_over, ships_remaining
+        asteroids_in_this_wave = 2
+        game_over = False
+        u.score = 0
+        ships_remaining = number_of_ships
+        set_ship_timer(u.SHIP_EMERGENCE_TIME)
+        global wave_timer, delta_time
+        wave_timer = u.ASTEROID_TIMER_STOPPED
+        delta_time = 0
