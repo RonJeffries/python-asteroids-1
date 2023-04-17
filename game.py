@@ -174,7 +174,7 @@ def set_ship_timer(seconds):
 
 class Game:
     def __init__(self):
-        pass
+        self.clock = pygame.time.Clock()
 
     def set_instance(self, a_game):
         global current_instance
@@ -201,15 +201,14 @@ class Game:
             draw_everything()
             if game_over: draw_game_over()
             pygame.display.flip()
-            delta_time = clock.tick(60) / 1000
+            delta_time = self.clock.tick(60) / 1000
         pygame.quit()
 
     def game_init(self):
-        global screen, clock, running
+        global screen, running
         pygame.init()
         screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
         pygame.display.set_caption("Asteroids")
-        clock = pygame.time.Clock()
         self.define_game_over()
         self.define_score()
         running = True
