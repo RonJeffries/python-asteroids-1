@@ -99,6 +99,7 @@ def create_wave_in_due_time(asteroids, dt):
 
 
 def draw_everything():
+    screen = current_instance.screen
     screen.fill("midnightblue")
     for ship in ships:
         ship.draw(screen)
@@ -119,10 +120,11 @@ def draw_available_ships():
 
 def draw_available_ship(ship_number, ship):
     ship.position += Vector2(35, 0)
-    ship.draw(screen)
+    ship.draw(current_instance.screen)
 
 
 def draw_game_over():
+    screen = current_instance.screen
     screen.blit(game_over_surface, game_over_pos)
     for text, pos in help_lines:
         screen.blit(text, pos)
@@ -130,7 +132,7 @@ def draw_game_over():
 
 def draw_score():
     score_surface, score_rect = render_score()
-    screen.blit(score_surface, score_rect)
+    current_instance.screen.blit(score_surface, score_rect)
 
 
 def render_score():
@@ -173,6 +175,8 @@ def set_ship_timer(seconds):
 
 class Game:
     def __init__(self):
+        self.running = False
+        self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
         self.clock = pygame.time.Clock()
         self.delta_time = 0
 
@@ -182,12 +186,12 @@ class Game:
 
     def main_loop(self):
         print("In game's loop")
-        global running, ship, game_over_surface, game_over_pos
+        global ship, game_over_surface, game_over_pos
         self.game_init()
-        while running:
+        while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
+                    self.running = False
 
             check_ship_spawn(ship, ships, self.delta_time)
             check_next_wave(self.delta_time)
@@ -205,13 +209,12 @@ class Game:
         pygame.quit()
 
     def game_init(self):
-        global screen, running
         pygame.init()
-        screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
+        self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
         pygame.display.set_caption("Asteroids")
         self.define_game_over()
         self.define_score()
-        running = True
+        self.running = True
         self.insert_quarter(0)
 
     def define_game_over(self):
@@ -238,7 +241,6 @@ class Game:
         score_font = pygame.font.SysFont("arial", 48)
 
     def insert_quarter(self, number_of_ships):
-        global running
         global asteroids, missiles, ships
         global asteroids_in_this_wave, game_over, ships_remaining
         global wave_timer
