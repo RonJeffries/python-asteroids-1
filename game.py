@@ -10,7 +10,6 @@ import u
 asteroids = []
 asteroids_in_this_wave = 2
 clock = pygame.time.Clock()
-delta_time = 0
 game_over = False
 game_over_surface: Surface
 game_over_pos: pygame.rect
@@ -175,6 +174,7 @@ def set_ship_timer(seconds):
 class Game:
     def __init__(self):
         self.clock = pygame.time.Clock()
+        self.delta_time = 0
 
     def set_instance(self, a_game):
         global current_instance
@@ -182,26 +182,26 @@ class Game:
 
     def main_loop(self):
         print("In game's loop")
-        global running, ship, clock, delta_time, game_over_surface, game_over_pos
+        global running, ship, game_over_surface, game_over_pos
         self.game_init()
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
 
-            check_ship_spawn(ship, ships, delta_time)
-            check_next_wave(delta_time)
-            control_ship(ship, delta_time)
+            check_ship_spawn(ship, ships, self.delta_time)
+            check_next_wave(self.delta_time)
+            control_ship(ship, self.delta_time)
 
             for missile in missiles.copy():
-                missile.update(missiles, delta_time)
+                missile.update(missiles, self.delta_time)
 
-            move_everything(delta_time)
+            move_everything(self.delta_time)
             check_collisions()
             draw_everything()
             if game_over: draw_game_over()
             pygame.display.flip()
-            delta_time = self.clock.tick(60) / 1000
+            self.delta_time = self.clock.tick(60) / 1000
         pygame.quit()
 
     def game_init(self):
@@ -250,4 +250,4 @@ class Game:
         set_ship_timer(u.SHIP_EMERGENCE_TIME)
         global wave_timer, delta_time
         wave_timer = u.ASTEROID_TIMER_STOPPED
-        delta_time = 0
+        self.delta_time = 0
