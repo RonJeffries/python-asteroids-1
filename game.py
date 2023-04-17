@@ -234,20 +234,21 @@ class Game:
     def define_score(self):
         global score_font
         u.score = 0
+        # move to Game class
         score_font = pygame.font.SysFont("arial", 48)
 
     def insert_quarter(self, number_of_ships):
         global running
         global asteroids, missiles, ships
+        global asteroids_in_this_wave, game_over, ships_remaining
+        global wave_timer
         asteroids = []
         missiles = []
         ships = []
-        global asteroids_in_this_wave, game_over, ships_remaining
         asteroids_in_this_wave = 2
         game_over = False
         u.score = 0
         ships_remaining = number_of_ships
         set_ship_timer(u.SHIP_EMERGENCE_TIME)
-        global wave_timer, delta_time
         wave_timer = u.ASTEROID_TIMER_STOPPED
         self.delta_time = 0
