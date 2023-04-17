@@ -24,18 +24,6 @@ ships_remaining = u.SHIPS_PER_QUARTER
 wave_timer = u.ASTEROID_TIMER_STOPPED
 
 
-def game_init():
-    global screen, clock, running
-    pygame.init()
-    screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
-    pygame.display.set_caption("Asteroids")
-    clock = pygame.time.Clock()
-    define_game_over()
-    define_score()
-    running = True
-    insert_quarter(0)
-
-
 def insert_quarter(number_of_ships):
     global running
     global asteroids, missiles, ships
@@ -232,7 +220,7 @@ class Game:
     def main_loop(self):
         print("In game's loop")
         global running, ship, clock, delta_time, game_over_surface, game_over_pos
-        game_init()
+        self.game_init()
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -252,3 +240,14 @@ class Game:
             pygame.display.flip()
             delta_time = clock.tick(60) / 1000
         pygame.quit()
+
+    def game_init(self):
+        global screen, clock, running
+        pygame.init()
+        screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
+        pygame.display.set_caption("Asteroids")
+        clock = pygame.time.Clock()
+        define_game_over()
+        define_score()
+        running = True
+        insert_quarter(0)
