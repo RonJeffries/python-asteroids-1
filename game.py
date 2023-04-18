@@ -174,7 +174,6 @@ class Game:
         self.delta_time = 0
 
     def main_loop(self):
-        print("In game's loop")
         self.game_init()
         while self.running:
             for event in pygame.event.get():
