@@ -10,7 +10,6 @@ import u
 asteroids = []
 asteroids_in_this_wave = 2
 missiles = []
-running = False
 screen: Surface
 ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
 ships = []
