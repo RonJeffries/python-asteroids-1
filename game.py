@@ -16,7 +16,6 @@ missiles = []
 running = False
 screen: Surface
 ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
-ship_timer = 0
 ships = []
 ships_remaining = u.SHIPS_PER_QUARTER
 wave_timer = u.ASTEROID_TIMER_STOPPED
@@ -148,13 +147,14 @@ def safe_to_emerge(missiles, asteroids):
 
 class Game:
     def __init__(self, testing=False):
-        if testing: return
+        self.ship_timer = 0
         self.game_over = False
         self.score_font = None
         self.running = False
-        self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
-        self.clock = pygame.time.Clock()
         self.delta_time = 0
+        if not testing:
+            self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
+            self.clock = pygame.time.Clock()
 
     def check_ship_spawn(self, ship, ships, delta_time):
         global ship_timer, ships_remaining
@@ -162,8 +162,8 @@ class Game:
         if ships_remaining <= 0:
             self.game_over = True
             return
-        ship_timer -= delta_time
-        if ship_timer <= 0 and safe_to_emerge(missiles, asteroids):
+        self.ship_timer -= delta_time
+        if self.ship_timer <= 0 and safe_to_emerge(missiles, asteroids):
             ship.reset()
             ships.append(ship)
             ships_remaining -= 1
@@ -251,6 +251,5 @@ class Game:
         current_instance = a_game
 
     def set_ship_timer(self, seconds):
-        global ship_timer
-        if ship_timer <= 0:
-            ship_timer = seconds
+        if self.ship_timer <= 0:
+            self.ship_timer = seconds
