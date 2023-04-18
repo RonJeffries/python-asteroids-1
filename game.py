@@ -7,15 +7,14 @@ import pygame
 from ship import Ship
 import u
 
-missiles = []
 ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
 ships = []
 
 
 def check_collisions():
     check_individual_collisions(ships, current_instance.asteroids)
-    check_individual_collisions(current_instance.asteroids, missiles)
-    check_individual_collisions(ships, missiles)
+    check_individual_collisions(current_instance.asteroids, current_instance.missiles)
+    check_individual_collisions(ships, current_instance.missiles)
     if not ships:
         current_instance.set_ship_timer(u.SHIP_EMERGENCE_TIME)
 
@@ -60,7 +59,7 @@ def control_ship(ship, dt):
     else:
         ship.power_off()
     if keys[pygame.K_k]:
-        ship.fire_if_possible(missiles)
+        ship.fire_if_possible(current_instance.missiles)
     else:
         ship.not_firing()
 
@@ -79,7 +78,7 @@ def draw_everything():
         ship.draw(screen)
     for asteroid in current_instance.asteroids:
         asteroid.draw(screen)
-    for missile in missiles:
+    for missile in current_instance.missiles:
         missile.draw(screen)
     draw_score()
     draw_available_ships()
@@ -135,6 +134,7 @@ def safe_to_emerge(missiles, asteroids):
 
 class Game:
     def __init__(self, testing=False):
+        self.missiles = []
         self.asteroids = []
         self.asteroids_in_this_wave = None
         self.wave_timer = u.ASTEROID_TIMER_STOPPED
@@ -157,7 +157,7 @@ class Game:
             self.game_over = True
             return
         self.ship_timer -= delta_time
-        if self.ship_timer <= 0 and safe_to_emerge(missiles, self.asteroids):
+        if self.ship_timer <= 0 and safe_to_emerge(self.missiles, self.asteroids):
             ship.reset()
             ships.append(ship)
             self.ships_remaining -= 1
@@ -195,7 +195,7 @@ class Game:
     def insert_quarter(self, number_of_ships):
         global missiles, ships
         self.asteroids = []
-        missiles = []
+        self.missiles = []
         ships = []
         self.asteroids_in_this_wave = 2
         self.game_over = False
@@ -218,8 +218,8 @@ class Game:
             check_next_wave(self.delta_time)
             control_ship(ship, self.delta_time)
 
-            for missile in missiles.copy():
-                missile.update(missiles, self.delta_time)
+            for missile in self.missiles.copy():
+                missile.update(self.missiles, self.delta_time)
 
             self.move_everything(self.delta_time)
             check_collisions()
@@ -234,7 +234,7 @@ class Game:
             the_ship.move(dt)
         for asteroid in self.asteroids:
             asteroid.move(dt)
-        for missile in missiles:
+        for missile in self.missiles:
             missile.move(dt)
 
     def set_instance(self, a_game):
