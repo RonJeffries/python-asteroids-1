@@ -17,7 +17,6 @@ running = False
 screen: Surface
 ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
 ships = []
-ships_remaining = u.SHIPS_PER_QUARTER
 wave_timer = u.ASTEROID_TIMER_STOPPED
 
 
@@ -99,7 +98,7 @@ def draw_everything():
 def draw_available_ships():
     ship = Ship(Vector2(20, 100))
     ship.angle = 90
-    for i in range(0, ships_remaining):
+    for i in range(0, current_instance.ships_remaining):
         draw_available_ship(i, ship)
 
 
@@ -152,21 +151,21 @@ class Game:
         self.score_font = None
         self.running = False
         self.delta_time = 0
+        self.ships_remaining = 0
         if not testing:
             self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
             self.clock = pygame.time.Clock()
 
     def check_ship_spawn(self, ship, ships, delta_time):
-        global ships_remaining
         if ships: return
-        if ships_remaining <= 0:
+        if self.ships_remaining <= 0:
             self.game_over = True
             return
         self.ship_timer -= delta_time
         if self.ship_timer <= 0 and safe_to_emerge(missiles, asteroids):
             ship.reset()
             ships.append(ship)
-            ships_remaining -= 1
+            self.ships_remaining -= 1
 
     def define_game_over(self):
         global game_over_surface, game_over_pos, help_lines
@@ -201,7 +200,7 @@ class Game:
 
     def insert_quarter(self, number_of_ships):
         global asteroids, missiles, ships
-        global asteroids_in_this_wave, ships_remaining
+        global asteroids_in_this_wave
         global wave_timer
         asteroids = []
         missiles = []
@@ -209,7 +208,7 @@ class Game:
         asteroids_in_this_wave = 2
         self.game_over = False
         u.score = 0
-        ships_remaining = number_of_ships
+        self.ships_remaining = number_of_ships
         self.set_ship_timer(u.SHIP_EMERGENCE_TIME)
         wave_timer = u.ASTEROID_TIMER_STOPPED
         self.delta_time = 0

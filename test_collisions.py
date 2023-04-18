@@ -13,11 +13,13 @@ import game
 class TestCollisions:
     def test_respawn_ship(self):
         game = Game(testing=True)
+        game.ships_remaining = 3
         ship = Ship(Vector2(0, 0))
         ship.velocity = Vector2(31, 32)
         ship.angle = 90
         ships = []
         game.set_ship_timer(3)
+        assert game.ship_timer == 3
         game.check_ship_spawn(ship, ships, 0.1)
         assert not ships
         game.check_ship_spawn(ship, ships, u.SHIP_EMERGENCE_TIME)
@@ -30,13 +32,13 @@ class TestCollisions:
         test_game = Game(testing=True)
         ship = Ship(Vector2(0, 0))
         ships = []
-        game.ships_remaining = 2
+        test_game.ships_remaining = 2
         test_game.check_ship_spawn(ship, ships, 3.1)
-        assert game.ships_remaining == 1
+        assert test_game.ships_remaining == 1
         assert len(ships) == 1
         ships = []
         test_game.check_ship_spawn(ship, ships, 3.1)
-        assert game.ships_remaining == 0
+        assert test_game.ships_remaining == 0
         assert len(ships) == 1
         ships = []
         test_game.check_ship_spawn(ship, ships, 3.1)
