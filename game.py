@@ -13,7 +13,6 @@ missiles = []
 screen: Surface
 ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
 ships = []
-wave_timer = u.ASTEROID_TIMER_STOPPED
 
 
 def check_collisions():
@@ -44,10 +43,9 @@ def within_range(target, attacker):
 
 
 def check_next_wave(dt):
-    global wave_timer
     if not asteroids:
-        if wave_timer == u.ASTEROID_TIMER_STOPPED:
-            wave_timer = u.ASTEROID_DELAY
+        if current_instance.wave_timer == u.ASTEROID_TIMER_STOPPED:
+            current_instance.wave_timer = u.ASTEROID_DELAY
         else:
             create_wave_in_due_time(asteroids, dt)
 
@@ -71,9 +69,8 @@ def control_ship(ship, dt):
 
 
 def create_wave_in_due_time(asteroids, dt):
-    global wave_timer
-    wave_timer -= dt
-    if wave_timer <= 0:
+    current_instance.wave_timer -= dt
+    if current_instance.wave_timer <= 0:
         asteroids.extend([Asteroid() for _ in range(0, next_wave_size())])
         wave_timer = u.ASTEROID_TIMER_STOPPED
 
@@ -142,6 +139,7 @@ def safe_to_emerge(missiles, asteroids):
 
 class Game:
     def __init__(self, testing=False):
+        self.wave_timer = u.ASTEROID_TIMER_STOPPED
         self.help_lines = None
         self.game_over_pos = None
         self.game_over_surface = None
@@ -199,7 +197,6 @@ class Game:
     def insert_quarter(self, number_of_ships):
         global asteroids, missiles, ships
         global asteroids_in_this_wave
-        global wave_timer
         asteroids = []
         missiles = []
         ships = []
@@ -208,7 +205,7 @@ class Game:
         u.score = 0
         self.ships_remaining = number_of_ships
         self.set_ship_timer(u.SHIP_EMERGENCE_TIME)
-        wave_timer = u.ASTEROID_TIMER_STOPPED
+        self.wave_timer = u.ASTEROID_TIMER_STOPPED
         self.delta_time = 0
 
     def main_loop(self):
