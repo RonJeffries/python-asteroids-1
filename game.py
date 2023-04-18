@@ -109,7 +109,7 @@ def draw_available_ship(ship_number, ship):
 
 def draw_game_over():
     screen = current_instance.screen
-    screen.blit(game_over_surface, game_over_pos)
+    screen.blit(current_instance.game_over_surface, game_over_pos)
     for text, pos in help_lines:
         screen.blit(text, pos)
 
@@ -146,6 +146,7 @@ def safe_to_emerge(missiles, asteroids):
 
 class Game:
     def __init__(self, testing=False):
+        self.game_over_surface = None
         self.ship_timer = 0
         self.game_over = False
         self.score_font = None
@@ -168,11 +169,11 @@ class Game:
             self.ships_remaining -= 1
 
     def define_game_over(self):
-        global game_over_surface, game_over_pos, help_lines
+        global game_over_pos, help_lines
         big_font = pygame.font.SysFont("arial", 64)
         small_font = pygame.font.SysFont("arial", 48)
-        game_over_surface = big_font.render("GAME OVER", True, "white")
-        game_over_pos = game_over_surface.get_rect(centerx=u.CENTER.x, centery=u.CENTER.y / 2)
+        self.game_over_surface = big_font.render("GAME OVER", True, "white")
+        game_over_pos = self.game_over_surface.get_rect(centerx=u.CENTER.x, centery=u.CENTER.y / 2)
         pos_left = u.CENTER.x - 150
         pos_top = game_over_pos.centery
         help_lines = []
@@ -215,7 +216,7 @@ class Game:
 
     def main_loop(self):
         print("In game's loop")
-        global game_over_surface, game_over_pos
+        global game_over_pos
         self.game_init()
         while self.running:
             for event in pygame.event.get():
