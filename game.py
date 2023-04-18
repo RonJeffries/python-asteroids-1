@@ -164,7 +164,7 @@ class Game:
     def insert_quarter(self, number_of_ships):
         self.asteroids = []
         self.missiles = []
-        ships = []
+        self.ships = []
         self.asteroids_in_this_wave = 2
         self.game_over = False
         u.score = 0
