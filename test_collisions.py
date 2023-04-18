@@ -3,7 +3,6 @@ from pygame import Vector2
 import main
 import u
 from asteroid import Asteroid
-from game import safe_to_emerge
 from missile import Missile
 from ship import Ship
 from game import Game
@@ -46,18 +45,20 @@ class TestCollisions:
         assert not ships
 
     def test_safe_to_emerge_hates_missiles(self):
+        game = Game(True)
         missiles = []
         asteroids = []
-        assert safe_to_emerge(missiles, asteroids)
+        assert game.safe_to_emerge(missiles, asteroids)
         missiles.append(Missile(Vector2(0, 0), Vector2(0, 0)))
-        assert not safe_to_emerge(missiles, asteroids)
+        assert not game.safe_to_emerge(missiles, asteroids)
 
     def test_safe_to_emerge_hates_close_asteroids(self):
+        game = Game(True)
         asteroids = []
         missiles = []
-        assert safe_to_emerge(missiles, asteroids)
+        assert game.safe_to_emerge(missiles, asteroids)
         asteroids.append(Asteroid(2, u.CENTER))
-        assert not safe_to_emerge(missiles, asteroids)
+        assert not game.safe_to_emerge(missiles, asteroids)
 
     def test_firing_limit(self):
         ship = Ship(u.CENTER)

@@ -120,12 +120,6 @@ def next_wave_size():
     return current_instance.asteroids_in_this_wave
 
 
-def safe_to_emerge(missiles, asteroids):
-    if missiles: return False
-    for asteroid in asteroids:
-        if asteroid.position.distance_to(u.CENTER) < u.SAFE_EMERGENCE_DISTANCE:
-            return False
-    return True
 
 
 
@@ -157,7 +151,7 @@ class Game:
             self.game_over = True
             return
         self.ship_timer -= delta_time
-        if self.ship_timer <= 0 and safe_to_emerge(self.missiles, self.asteroids):
+        if self.ship_timer <= 0 and self.safe_to_emerge(self.missiles, self.asteroids):
             ship.reset()
             ships.append(ship)
             self.ships_remaining -= 1
@@ -193,7 +187,6 @@ class Game:
         self.insert_quarter(0)
 
     def insert_quarter(self, number_of_ships):
-        global missiles, ships
         self.asteroids = []
         self.missiles = []
         ships = []
@@ -207,7 +200,6 @@ class Game:
 
     def main_loop(self):
         print("In game's loop")
-        global game_over_pos
         self.game_init()
         while self.running:
             for event in pygame.event.get():
@@ -236,6 +228,13 @@ class Game:
             asteroid.move(dt)
         for missile in self.missiles:
             missile.move(dt)
+
+    def safe_to_emerge(self, missiles, asteroids):
+        if missiles: return False
+        for asteroid in asteroids:
+            if asteroid.position.distance_to(u.CENTER) < u.SAFE_EMERGENCE_DISTANCE:
+                return False
+        return True
 
     def set_instance(self, a_game):
         global current_instance
