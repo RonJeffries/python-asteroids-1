@@ -10,7 +10,6 @@ import u
 asteroids = []
 asteroids_in_this_wave = 2
 clock = pygame.time.Clock()
-game_over_surface: Surface
 missiles = []
 running = False
 screen: Surface
