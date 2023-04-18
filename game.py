@@ -8,42 +8,6 @@ from ship import Ship
 import u
 
 
-
-
-
-
-
-
-
-
-def check_next_wave(dt):
-    if not current_instance.asteroids:
-        if current_instance.wave_timer == u.ASTEROID_TIMER_STOPPED:
-            current_instance.wave_timer = u.ASTEROID_DELAY
-        else:
-            current_instance.create_wave_in_due_time(current_instance.asteroids, dt)
-
-
-def control_ship(ship, dt):
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_q]:
-        current_instance.insert_quarter(u.SHIPS_PER_QUARTER)
-    if keys[pygame.K_f]:
-        ship.turn_left(dt)
-    if keys[pygame.K_d]:
-        ship.turn_right(dt)
-    if keys[pygame.K_j]:
-        ship.power_on(dt)
-    else:
-        ship.power_off()
-    if keys[pygame.K_k]:
-        ship.fire_if_possible(current_instance.missiles)
-    else:
-        ship.not_firing()
-
-
-
-
 def draw_everything():
     screen = current_instance.screen
     screen.fill("midnightblue")
@@ -88,11 +52,6 @@ def render_score():
     return score_surface, score_rect
 
 
-def next_wave_size():
-    current_instance.asteroids_in_this_wave += 2
-    if current_instance.asteroids_in_this_wave > 10:
-        current_instance.asteroids_in_this_wave = 11
-    return current_instance.asteroids_in_this_wave
 
 
 
@@ -143,6 +102,13 @@ class Game:
         dist = target.position.distance_to(attacker.position)
         return dist <= in_range
 
+    def check_next_wave(self, delta_time):
+        if not self.asteroids:
+            if self.wave_timer == u.ASTEROID_TIMER_STOPPED:
+                self.wave_timer = u.ASTEROID_DELAY
+            else:
+                self.create_wave_in_due_time(current_instance.asteroids, delta_time)
+
     def check_ship_spawn(self, ship, ships, delta_time):
         if ships: return
         if self.ships_remaining <= 0:
@@ -154,10 +120,27 @@ class Game:
             ships.append(ship)
             self.ships_remaining -= 1
 
+    def control_ship(self, ship, dt):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_q]:
+            current_instance.insert_quarter(u.SHIPS_PER_QUARTER)
+        if keys[pygame.K_f]:
+            ship.turn_left(dt)
+        if keys[pygame.K_d]:
+            ship.turn_right(dt)
+        if keys[pygame.K_j]:
+            ship.power_on(dt)
+        else:
+            ship.power_off()
+        if keys[pygame.K_k]:
+            ship.fire_if_possible(current_instance.missiles)
+        else:
+            ship.not_firing()
+
     def create_wave_in_due_time(self, asteroids, dt):
         self.wave_timer -= dt
         if self.wave_timer <= 0:
-            asteroids.extend([Asteroid() for _ in range(0, next_wave_size())])
+            asteroids.extend([Asteroid() for _ in range(0, self.next_wave_size())])
             self.wave_timer = u.ASTEROID_TIMER_STOPPED
 
     def define_game_over(self):
@@ -211,8 +194,8 @@ class Game:
                     self.running = False
 
             self.check_ship_spawn(self.ship, self.ships, self.delta_time)
-            check_next_wave(self.delta_time)
-            control_ship(self.ship, self.delta_time)
+            self.check_next_wave(self.delta_time)
+            self.control_ship(self.ship, self.delta_time)
 
             for missile in self.missiles.copy():
                 missile.update(self.missiles, self.delta_time)
@@ -232,6 +215,12 @@ class Game:
             asteroid.move(dt)
         for missile in self.missiles:
             missile.move(dt)
+
+    def next_wave_size(self):
+        self.asteroids_in_this_wave += 2
+        if self.asteroids_in_this_wave > 10:
+            self.asteroids_in_this_wave = 11
+        return self.asteroids_in_this_wave
 
     def safe_to_emerge(self, missiles, asteroids):
         if missiles: return False
