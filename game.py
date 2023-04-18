@@ -11,7 +11,6 @@ asteroids = []
 asteroids_in_this_wave = 2
 clock = pygame.time.Clock()
 game_over_surface: Surface
-game_over_pos: pygame.rect
 missiles = []
 running = False
 screen: Surface
@@ -109,8 +108,8 @@ def draw_available_ship(ship_number, ship):
 
 def draw_game_over():
     screen = current_instance.screen
-    screen.blit(current_instance.game_over_surface, game_over_pos)
-    for text, pos in help_lines:
+    screen.blit(current_instance.game_over_surface, current_instance.game_over_pos)
+    for text, pos in current_instance.help_lines:
         screen.blit(text, pos)
 
 
@@ -146,6 +145,8 @@ def safe_to_emerge(missiles, asteroids):
 
 class Game:
     def __init__(self, testing=False):
+        self.help_lines = None
+        self.game_over_pos = None
         self.game_over_surface = None
         self.ship_timer = 0
         self.game_over = False
@@ -169,21 +170,20 @@ class Game:
             self.ships_remaining -= 1
 
     def define_game_over(self):
-        global game_over_pos, help_lines
         big_font = pygame.font.SysFont("arial", 64)
         small_font = pygame.font.SysFont("arial", 48)
         self.game_over_surface = big_font.render("GAME OVER", True, "white")
-        game_over_pos = self.game_over_surface.get_rect(centerx=u.CENTER.x, centery=u.CENTER.y / 2)
+        self.game_over_pos = self.game_over_surface.get_rect(centerx=u.CENTER.x, centery=u.CENTER.y / 2)
         pos_left = u.CENTER.x - 150
-        pos_top = game_over_pos.centery
-        help_lines = []
+        pos_top = self.game_over_pos.centery
+        self.help_lines = []
         messages = ["d - turn left", "f - turn right", "j - accelerate", "k - fire missile", "q - insert quarter", ]
         for message in messages:
             pos_top += 60
             text = small_font.render(message, True, "white")
             text_rect = text.get_rect(topleft=(pos_left, pos_top))
             pair = (text, text_rect)
-            help_lines.append(pair)
+            self.help_lines.append(pair)
 
     def define_score(self):
         u.score = 0
