@@ -1,6 +1,6 @@
 # Game
 
-from pygame import Surface, Vector2
+from pygame import Vector2
 
 from asteroid import Asteroid
 import pygame
@@ -10,24 +10,24 @@ import u
 
 class Game:
     def __init__(self, testing=False):
-        self.ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
-        self.ships = []
-        self.missiles = []
         self.asteroids = []
         self.asteroids_in_this_wave = None
-        self.wave_timer = u.ASTEROID_TIMER_STOPPED
-        self.help_lines = None
+        self.delta_time = 0
+        self.game_over = False
         self.game_over_pos = None
         self.game_over_surface = None
-        self.ship_timer = 0
-        self.game_over = False
-        self.score_font = None
+        self.help_lines = None
+        self.missiles = []
         self.running = False
-        self.delta_time = 0
+        self.score_font = None
+        self.ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
+        self.ship_timer = 0
+        self.ships = []
         self.ships_remaining = 0
+        self.wave_timer = u.ASTEROID_TIMER_STOPPED
         if not testing:
-            self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
             self.clock = pygame.time.Clock()
+            self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
 
     def check_collisions(self):
         self.check_individual_collisions(self.ships, self.asteroids)
@@ -130,9 +130,9 @@ class Game:
         ship = Ship(Vector2(20, 100))
         ship.angle = 90
         for i in range(0, self.ships_remaining):
-            self.draw_available_ship(i, ship)
+            self.draw_available_ship(ship)
 
-    def draw_available_ship(self, ship_number, ship):
+    def draw_available_ship(self, ship):
         ship.position += Vector2(35, 0)
         ship.draw(self.screen)
 
