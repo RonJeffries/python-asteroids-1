@@ -8,7 +8,6 @@ from ship import Ship
 import u
 
 asteroids = []
-asteroids_in_this_wave = 2
 missiles = []
 ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
 ships = []
@@ -119,11 +118,10 @@ def render_score():
 
 
 def next_wave_size():
-    global asteroids_in_this_wave
-    asteroids_in_this_wave += 2
-    if asteroids_in_this_wave > 10:
-        asteroids_in_this_wave = 11
-    return asteroids_in_this_wave
+    current_instance.asteroids_in_this_wave += 2
+    if current_instance.asteroids_in_this_wave > 10:
+        current_instance.asteroids_in_this_wave = 11
+    return current_instance.asteroids_in_this_wave
 
 
 def safe_to_emerge(missiles, asteroids):
@@ -138,6 +136,7 @@ def safe_to_emerge(missiles, asteroids):
 
 class Game:
     def __init__(self, testing=False):
+        self.asteroids_in_this_wave = None
         self.wave_timer = u.ASTEROID_TIMER_STOPPED
         self.help_lines = None
         self.game_over_pos = None
@@ -195,11 +194,10 @@ class Game:
 
     def insert_quarter(self, number_of_ships):
         global asteroids, missiles, ships
-        global asteroids_in_this_wave
         asteroids = []
         missiles = []
         ships = []
-        asteroids_in_this_wave = 2
+        self.asteroids_in_this_wave = 2
         self.game_over = False
         u.score = 0
         self.ships_remaining = number_of_ships
