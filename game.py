@@ -7,7 +7,6 @@ import pygame
 from ship import Ship
 import u
 
-ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
 
 
 def check_collisions():
@@ -133,6 +132,7 @@ def safe_to_emerge(missiles, asteroids):
 
 class Game:
     def __init__(self, testing=False):
+        self.ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
         self.ships = []
         self.missiles = []
         self.asteroids = []
@@ -214,9 +214,9 @@ class Game:
                 if event.type == pygame.QUIT:
                     self.running = False
 
-            self.check_ship_spawn(ship, self.ships, self.delta_time)
+            self.check_ship_spawn(self.ship, self.ships, self.delta_time)
             check_next_wave(self.delta_time)
-            control_ship(ship, self.delta_time)
+            control_ship(self.ship, self.delta_time)
 
             for missile in self.missiles.copy():
                 missile.update(self.missiles, self.delta_time)
