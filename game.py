@@ -8,14 +8,13 @@ from ship import Ship
 import u
 
 ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
-ships = []
 
 
 def check_collisions():
-    check_individual_collisions(ships, current_instance.asteroids)
+    check_individual_collisions(current_instance.ships, current_instance.asteroids)
     check_individual_collisions(current_instance.asteroids, current_instance.missiles)
-    check_individual_collisions(ships, current_instance.missiles)
-    if not ships:
+    check_individual_collisions(current_instance.ships, current_instance.missiles)
+    if not current_instance.ships:
         current_instance.set_ship_timer(u.SHIP_EMERGENCE_TIME)
 
 
@@ -74,7 +73,7 @@ def create_wave_in_due_time(asteroids, dt):
 def draw_everything():
     screen = current_instance.screen
     screen.fill("midnightblue")
-    for ship in ships:
+    for ship in current_instance.ships:
         ship.draw(screen)
     for asteroid in current_instance.asteroids:
         asteroid.draw(screen)
@@ -134,6 +133,7 @@ def safe_to_emerge(missiles, asteroids):
 
 class Game:
     def __init__(self, testing=False):
+        self.ships = []
         self.missiles = []
         self.asteroids = []
         self.asteroids_in_this_wave = None
@@ -214,7 +214,7 @@ class Game:
                 if event.type == pygame.QUIT:
                     self.running = False
 
-            self.check_ship_spawn(ship, ships, self.delta_time)
+            self.check_ship_spawn(ship, self.ships, self.delta_time)
             check_next_wave(self.delta_time)
             control_ship(ship, self.delta_time)
 
@@ -230,7 +230,7 @@ class Game:
         pygame.quit()
 
     def move_everything(self,dt):
-        for the_ship in ships:
+        for the_ship in self.ships:
             the_ship.move(dt)
         for asteroid in self.asteroids:
             asteroid.move(dt)
