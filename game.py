@@ -14,10 +14,6 @@ import u
 
 
 
-def within_range(target, attacker):
-    in_range = target.radius + attacker.radius
-    dist = target.position.distance_to(attacker.position)
-    return dist <= in_range
 
 
 def check_next_wave(dt):
@@ -138,9 +134,14 @@ class Game:
                     break
 
     def mutual_destruction(self, target, targets, attacker, attackers):
-        if within_range(target, attacker):
+        if self.within_range(target, attacker):
             attacker.destroyed_by(target, attackers)
             target.destroyed_by(attacker, targets)
+
+    def within_range(self, target, attacker):
+        in_range = target.radius + attacker.radius
+        dist = target.position.distance_to(attacker.position)
+        return dist <= in_range
 
     def check_ship_spawn(self, ship, ships, delta_time):
         if ships: return
