@@ -7,15 +7,14 @@ import pygame
 from ship import Ship
 import u
 
-asteroids = []
 missiles = []
 ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
 ships = []
 
 
 def check_collisions():
-    check_individual_collisions(ships, asteroids)
-    check_individual_collisions(asteroids, missiles)
+    check_individual_collisions(ships, current_instance.asteroids)
+    check_individual_collisions(current_instance.asteroids, missiles)
     check_individual_collisions(ships, missiles)
     if not ships:
         current_instance.set_ship_timer(u.SHIP_EMERGENCE_TIME)
@@ -41,11 +40,11 @@ def within_range(target, attacker):
 
 
 def check_next_wave(dt):
-    if not asteroids:
+    if not current_instance.asteroids:
         if current_instance.wave_timer == u.ASTEROID_TIMER_STOPPED:
             current_instance.wave_timer = u.ASTEROID_DELAY
         else:
-            create_wave_in_due_time(asteroids, dt)
+            create_wave_in_due_time(current_instance.asteroids, dt)
 
 
 def control_ship(ship, dt):
@@ -78,7 +77,7 @@ def draw_everything():
     screen.fill("midnightblue")
     for ship in ships:
         ship.draw(screen)
-    for asteroid in asteroids:
+    for asteroid in current_instance.asteroids:
         asteroid.draw(screen)
     for missile in missiles:
         missile.draw(screen)
@@ -136,6 +135,7 @@ def safe_to_emerge(missiles, asteroids):
 
 class Game:
     def __init__(self, testing=False):
+        self.asteroids = []
         self.asteroids_in_this_wave = None
         self.wave_timer = u.ASTEROID_TIMER_STOPPED
         self.help_lines = None
@@ -157,7 +157,7 @@ class Game:
             self.game_over = True
             return
         self.ship_timer -= delta_time
-        if self.ship_timer <= 0 and safe_to_emerge(missiles, asteroids):
+        if self.ship_timer <= 0 and safe_to_emerge(missiles, self.asteroids):
             ship.reset()
             ships.append(ship)
             self.ships_remaining -= 1
@@ -193,8 +193,8 @@ class Game:
         self.insert_quarter(0)
 
     def insert_quarter(self, number_of_ships):
-        global asteroids, missiles, ships
-        asteroids = []
+        global missiles, ships
+        self.asteroids = []
         missiles = []
         ships = []
         self.asteroids_in_this_wave = 2
@@ -232,7 +232,7 @@ class Game:
     def move_everything(self,dt):
         for the_ship in ships:
             the_ship.move(dt)
-        for asteroid in asteroids:
+        for asteroid in self.asteroids:
             asteroid.move(dt)
         for missile in missiles:
             missile.move(dt)
