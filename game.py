@@ -8,14 +8,6 @@ from ship import Ship
 import u
 
 
-
-
-
-
-
-
-
-
 class Game:
     def __init__(self, testing=False):
         self.ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
@@ -65,7 +57,7 @@ class Game:
             if self.wave_timer == u.ASTEROID_TIMER_STOPPED:
                 self.wave_timer = u.ASTEROID_DELAY
             else:
-                self.create_wave_in_due_time(current_instance.asteroids, delta_time)
+                self.create_wave_in_due_time(self.asteroids, delta_time)
 
     def check_ship_spawn(self, ship, ships, delta_time):
         if ships: return
@@ -81,7 +73,7 @@ class Game:
     def control_ship(self, ship, dt):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_q]:
-            current_instance.insert_quarter(u.SHIPS_PER_QUARTER)
+            self.insert_quarter(u.SHIPS_PER_QUARTER)
         if keys[pygame.K_f]:
             ship.turn_left(dt)
         if keys[pygame.K_d]:
@@ -91,7 +83,7 @@ class Game:
         else:
             ship.power_off()
         if keys[pygame.K_k]:
-            ship.fire_if_possible(current_instance.missiles)
+            ship.fire_if_possible(self.missiles)
         else:
             ship.not_firing()
 
@@ -123,13 +115,13 @@ class Game:
         self.score_font = pygame.font.SysFont("arial", 48)
 
     def draw_everything(self):
-        screen = current_instance.screen
+        screen = self.screen
         screen.fill("midnightblue")
-        for ship in current_instance.ships:
+        for ship in self.ships:
             ship.draw(screen)
-        for asteroid in current_instance.asteroids:
+        for asteroid in self.asteroids:
             asteroid.draw(screen)
-        for missile in current_instance.missiles:
+        for missile in self.missiles:
             missile.draw(screen)
         self.draw_score()
         self.draw_available_ships()
@@ -137,26 +129,26 @@ class Game:
     def draw_available_ships(self):
         ship = Ship(Vector2(20, 100))
         ship.angle = 90
-        for i in range(0, current_instance.ships_remaining):
+        for i in range(0, self.ships_remaining):
             self.draw_available_ship(i, ship)
 
     def draw_available_ship(self, ship_number, ship):
         ship.position += Vector2(35, 0)
-        ship.draw(current_instance.screen)
+        ship.draw(self.screen)
 
     def draw_game_over(self):
-        screen = current_instance.screen
-        screen.blit(current_instance.game_over_surface, current_instance.game_over_pos)
-        for text, pos in current_instance.help_lines:
+        screen = self.screen
+        screen.blit(self.game_over_surface, self.game_over_pos)
+        for text, pos in self.help_lines:
             screen.blit(text, pos)
 
     def draw_score(self):
         score_surface, score_rect = self.render_score()
-        current_instance.screen.blit(score_surface, score_rect)
+        self.screen.blit(score_surface, score_rect)
 
     def render_score(self):
         score_text = f"0000{u.score}"[-5:]
-        score_surface = current_instance.score_font.render(score_text, True, "green")
+        score_surface = self.score_font.render(score_text, True, "green")
         score_rect = score_surface.get_rect(topleft=(10, 10))
         return score_surface, score_rect
 
