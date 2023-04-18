@@ -157,7 +157,7 @@ class Game:
             self.clock = pygame.time.Clock()
 
     def check_ship_spawn(self, ship, ships, delta_time):
-        global ship_timer, ships_remaining
+        global ships_remaining
         if ships: return
         if ships_remaining <= 0:
             self.game_over = True
