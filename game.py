@@ -9,25 +9,9 @@ import u
 
 
 
-def check_collisions():
-    check_individual_collisions(current_instance.ships, current_instance.asteroids)
-    check_individual_collisions(current_instance.asteroids, current_instance.missiles)
-    check_individual_collisions(current_instance.ships, current_instance.missiles)
-    if not current_instance.ships:
-        current_instance.set_ship_timer(u.SHIP_EMERGENCE_TIME)
 
 
-def check_individual_collisions(targets, attackers):
-    for target in targets.copy():
-        for attacker in attackers.copy():
-            if mutual_destruction(target, targets, attacker, attackers):
-                break
 
-
-def mutual_destruction(target, targets, attacker, attackers):
-    if within_range(target, attacker):
-        attacker.destroyed_by(target, attackers)
-        target.destroyed_by(attacker, targets)
 
 
 def within_range(target, attacker):
@@ -41,7 +25,7 @@ def check_next_wave(dt):
         if current_instance.wave_timer == u.ASTEROID_TIMER_STOPPED:
             current_instance.wave_timer = u.ASTEROID_DELAY
         else:
-            create_wave_in_due_time(current_instance.asteroids, dt)
+            current_instance.create_wave_in_due_time(current_instance.asteroids, dt)
 
 
 def control_ship(ship, dt):
@@ -62,11 +46,6 @@ def control_ship(ship, dt):
         ship.not_firing()
 
 
-def create_wave_in_due_time(asteroids, dt):
-    current_instance.wave_timer -= dt
-    if current_instance.wave_timer <= 0:
-        asteroids.extend([Asteroid() for _ in range(0, next_wave_size())])
-        wave_timer = u.ASTEROID_TIMER_STOPPED
 
 
 def draw_everything():
@@ -145,6 +124,24 @@ class Game:
             self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
             self.clock = pygame.time.Clock()
 
+    def check_collisions(self):
+        self.check_individual_collisions(self.ships, self.asteroids)
+        self.check_individual_collisions(self.asteroids, self.missiles)
+        self.check_individual_collisions(self.ships, self.missiles)
+        if not self.ships:
+            self.set_ship_timer(u.SHIP_EMERGENCE_TIME)
+
+    def check_individual_collisions(self, targets, attackers):
+        for target in targets.copy():
+            for attacker in attackers.copy():
+                if self.mutual_destruction(target, targets, attacker, attackers):
+                    break
+
+    def mutual_destruction(self, target, targets, attacker, attackers):
+        if within_range(target, attacker):
+            attacker.destroyed_by(target, attackers)
+            target.destroyed_by(attacker, targets)
+
     def check_ship_spawn(self, ship, ships, delta_time):
         if ships: return
         if self.ships_remaining <= 0:
@@ -155,6 +152,12 @@ class Game:
             ship.reset()
             ships.append(ship)
             self.ships_remaining -= 1
+
+    def create_wave_in_due_time(self, asteroids, dt):
+        self.wave_timer -= dt
+        if self.wave_timer <= 0:
+            asteroids.extend([Asteroid() for _ in range(0, next_wave_size())])
+            self.wave_timer = u.ASTEROID_TIMER_STOPPED
 
     def define_game_over(self):
         big_font = pygame.font.SysFont("arial", 64)
@@ -214,7 +217,7 @@ class Game:
                 missile.update(self.missiles, self.delta_time)
 
             self.move_everything(self.delta_time)
-            check_collisions()
+            self.check_collisions()
             draw_everything()
             if self.game_over: draw_game_over()
             pygame.display.flip()

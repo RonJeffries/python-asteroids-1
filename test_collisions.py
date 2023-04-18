@@ -95,6 +95,7 @@ class TestCollisions:
         assert saucer.score_list == [0, 0, 0]
 
     def test_missile_asteroid_scores(self):
+        game = Game(True)
         u.score = 0
         pos = Vector2(100, 100)
         asteroid = Asteroid(2, pos)
@@ -107,6 +108,7 @@ class TestCollisions:
         assert len(asteroids) == 2
 
     def test_missile_ship_does_not_score(self):
+        game = Game(True)
         u.score = 0
         pos = Vector2(100, 100)
         ship = Ship(pos)
@@ -119,6 +121,7 @@ class TestCollisions:
         assert u.score == 0
 
     def test_asteroid_ship_does_not_score(self):
+        game = Game(True)
         u.score = 0
         pos = Vector2(100, 100)
         asteroid = Asteroid(2, pos)
@@ -131,6 +134,7 @@ class TestCollisions:
         assert u.score == 0
 
     def test_asteroid_saucer_does_not_score(self):
+        game = Game(True)
         u.score = 0
         pos = Vector2(100, 100)
         asteroid = Asteroid(2, pos)
