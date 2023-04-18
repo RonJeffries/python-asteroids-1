@@ -217,10 +217,6 @@ class Game:
                 return False
         return True
 
-    def set_instance(self, a_game):
-        global current_instance
-        current_instance = a_game
-
     def set_ship_timer(self, seconds):
         if self.ship_timer <= 0:
             self.ship_timer = seconds

@@ -101,7 +101,6 @@ class TestAsteroids:
     def test_wave_sizes(self):
         game = Game(True)
         game.asteroids_in_this_wave = 2
-        game.set_instance(game)
         assert game.next_wave_size() == 4
         assert game.next_wave_size() == 6
         assert game.next_wave_size() == 8
