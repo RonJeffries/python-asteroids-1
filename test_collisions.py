@@ -40,7 +40,7 @@ class TestCollisions:
         assert len(ships) == 1
         ships = []
         test_game.check_ship_spawn(ship, ships, 3.1)
-        assert game.game_over
+        assert test_game.game_over
         assert not ships
 
     def test_safe_to_emerge_hates_missiles(self):

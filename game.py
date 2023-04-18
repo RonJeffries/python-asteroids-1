@@ -10,7 +10,6 @@ import u
 asteroids = []
 asteroids_in_this_wave = 2
 clock = pygame.time.Clock()
-game_over = False
 game_over_surface: Surface
 game_over_pos: pygame.rect
 missiles = []
@@ -150,6 +149,7 @@ def safe_to_emerge(missiles, asteroids):
 class Game:
     def __init__(self, testing=False):
         if testing: return
+        self.game_over = False
         self.score_font = None
         self.running = False
         self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
@@ -157,10 +157,10 @@ class Game:
         self.delta_time = 0
 
     def check_ship_spawn(self, ship, ships, delta_time):
-        global game_over, ship_timer, ships_remaining
+        global ship_timer, ships_remaining
         if ships: return
         if ships_remaining <= 0:
-            game_over = True
+            self.game_over = True
             return
         ship_timer -= delta_time
         if ship_timer <= 0 and safe_to_emerge(missiles, asteroids):
@@ -201,13 +201,13 @@ class Game:
 
     def insert_quarter(self, number_of_ships):
         global asteroids, missiles, ships
-        global asteroids_in_this_wave, game_over, ships_remaining
+        global asteroids_in_this_wave, ships_remaining
         global wave_timer
         asteroids = []
         missiles = []
         ships = []
         asteroids_in_this_wave = 2
-        game_over = False
+        self.game_over = False
         u.score = 0
         ships_remaining = number_of_ships
         self.set_ship_timer(u.SHIP_EMERGENCE_TIME)
@@ -233,7 +233,7 @@ class Game:
             self.move_everything(self.delta_time)
             check_collisions()
             draw_everything()
-            if game_over: draw_game_over()
+            if self.game_over: draw_game_over()
             pygame.display.flip()
             self.delta_time = self.clock.tick(60) / 1000
         pygame.quit()
