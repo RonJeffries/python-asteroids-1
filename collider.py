@@ -15,6 +15,16 @@ class Collider:
         return self.game.score
 
     def check_individual_collisions(self, attackers, targets):
-        self.game.check_individual_collisions(attackers, targets)
+        for target in targets.copy():
+            for attacker in attackers.copy():
+                if self.mutual_destruction(target, targets, attacker, attackers):
+                    break
+
+    def mutual_destruction(self, target, targets, attacker, attackers):
+        return self.game.mutual_destruction(target, targets, attacker, attackers)
+
+    
+
+
 
 

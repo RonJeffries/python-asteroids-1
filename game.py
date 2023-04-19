@@ -44,12 +44,6 @@ class Game:
             self.set_ship_timer(u.SHIP_EMERGENCE_TIME)
         return self.score
 
-    def check_individual_collisions(self, targets, attackers):
-        for target in targets.copy():
-            for attacker in attackers.copy():
-                if self.mutual_destruction(target, targets, attacker, attackers):
-                    break
-
     def mutual_destruction(self, target, targets, attacker, attackers):
         if self.within_range(target, attacker):
             self.score += target.score_against(attacker)
