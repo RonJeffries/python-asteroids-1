@@ -4,6 +4,8 @@ from pygame import Vector2
 
 from asteroid import Asteroid
 import pygame
+
+from collider import Collider
 from ship import Ship
 import u
 
@@ -35,12 +37,12 @@ class Game:
             self.define_game_over()
             self.define_score()
 
-    def check_collisions(self):
-        self.check_individual_collisions(self.ships, self.asteroids)
-        self.check_individual_collisions(self.asteroids, self.missiles)
-        self.check_individual_collisions(self.ships, self.missiles)
+    def process_collisions(self):
+        collider = Collider(asteroids=self.asteroids, missiles=self.missiles, saucers=[], ships=self.ships, game=self)
+        collider.check_collisions()
         if not self.ships:
             self.set_ship_timer(u.SHIP_EMERGENCE_TIME)
+        return self.score
 
     def check_individual_collisions(self, targets, attackers):
         for target in targets.copy():
@@ -54,6 +56,9 @@ class Game:
             self.score += attacker.score_against(target)
             attacker.destroyed_by(target, attackers)
             target.destroyed_by(attacker, targets)
+            return True
+        else:
+            return False
 
     def within_range(self, target, attacker):
         in_range = target.radius + attacker.radius
@@ -189,7 +194,7 @@ class Game:
             self.control_ship(self.ship, self.delta_time)
 
             self.move_everything(self.delta_time)
-            self.check_collisions()
+            self.process_collisions()
             self.draw_everything()
             if self.game_over: self.draw_game_over()
             pygame.display.flip()

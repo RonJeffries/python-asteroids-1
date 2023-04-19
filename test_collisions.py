@@ -3,10 +3,10 @@ from pygame import Vector2
 import main
 import u
 from asteroid import Asteroid
+from collider import Collider
 from missile import Missile
 from ship import Ship
 from game import Game
-import game
 
 
 class TestCollisions:
@@ -145,6 +145,23 @@ class TestCollisions:
     def test_create_asteroid_at_zero(self):
         asteroid = Asteroid(2, Vector2(0, 0))
         assert asteroid.position == Vector2(0, 0)
+
+    def test_collider(self):
+        game = Game(True)
+        collider = Collider(asteroids=[],missiles=[], saucers=[], ships=[], game=game)
+        score = collider.check_collisions()
+        assert score == 0
+
+    def test_collider_with_score(self):
+        game = Game(True)
+        asteroid = Asteroid(2, Vector2(100, 100))
+        game.asteroids=[asteroid]
+        missile = Missile(Vector2(100, 100), Vector2(3, 3))
+        game.missiles=[missile]
+        collider = Collider(asteroids=game.asteroids, missiles=game.missiles, saucers=[], ships=[], game=game)
+        score = collider.check_collisions()
+        assert score == 20
+        assert game.score == 20
 
 
 class Saucer:
