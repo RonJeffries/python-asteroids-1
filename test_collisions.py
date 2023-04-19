@@ -96,7 +96,6 @@ class TestCollisions:
 
     def test_missile_asteroid_scores(self):
         game = Game(True)
-        game.score = 0
         pos = Vector2(100, 100)
         asteroid = Asteroid(2, pos)
         asteroids = [asteroid]
@@ -109,7 +108,6 @@ class TestCollisions:
 
     def test_missile_ship_does_not_score(self):
         game = Game(True)
-        game.score = 0
         pos = Vector2(100, 100)
         ship = Ship(pos)
         ships = [ship]
@@ -122,7 +120,6 @@ class TestCollisions:
 
     def test_asteroid_ship_does_not_score(self):
         game = Game(True)
-        game.score = 0
         pos = Vector2(100, 100)
         asteroid = Asteroid(2, pos)
         print("position", asteroid.position)
@@ -135,7 +132,6 @@ class TestCollisions:
 
     def test_asteroid_saucer_does_not_score(self):
         game = Game(True)
-        game.score = 0
         pos = Vector2(100, 100)
         asteroid = Asteroid(2, pos)
         print("position", asteroid.position)
