@@ -28,6 +28,9 @@ class Ship:
     def destroyed_by(self, attacker, ships):
         if self in ships: ships.remove(self)
 
+    def score_against(self, _):
+        return 0
+
     def within_range(self, point, other_radius):
         dist = point.distance_to(self.position)
         return dist < self.radius + other_radius

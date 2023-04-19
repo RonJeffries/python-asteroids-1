@@ -15,6 +15,9 @@ class Missile:
     def destroyed_by(self, attacker, missiles):
         if self in missiles: missiles.remove(self)
 
+    def score_against(self, _):
+        return 0
+
     def draw(self, screen):
         pygame.draw.circle(screen, "white", self.position, 4)
 

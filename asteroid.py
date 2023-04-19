@@ -36,8 +36,10 @@ class Asteroid:
         return dist < self.radius + other_radius
 
     def destroyed_by(self, attacker, asteroids):
-        u.score += attacker.score_list[self.size]
         self.split_or_die(asteroids)
+
+    def score_against(self, attacker):
+        return attacker.score_list[self.size]
 
     def split_or_die(self, asteroids):
         if self not in asteroids: return # already dead

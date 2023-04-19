@@ -19,6 +19,7 @@ class Game:
         self.help_lines = None
         self.missiles = []
         self.running = False
+        self.score = 0
         self.score_font = None
         self.ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
         self.ship_timer = 0
@@ -44,6 +45,8 @@ class Game:
 
     def mutual_destruction(self, target, targets, attacker, attackers):
         if self.within_range(target, attacker):
+            self.score += target.score_against(attacker)
+            self.score += attacker.score_against(target)
             attacker.destroyed_by(target, attackers)
             target.destroyed_by(attacker, targets)
 
@@ -110,8 +113,7 @@ class Game:
             self.help_lines.append(pair)
 
     def define_score(self):
-        u.score = 0
-        # move to Game class
+        self.score = 0
         self.score_font = pygame.font.SysFont("arial", 48)
 
     def draw_everything(self):
@@ -147,7 +149,7 @@ class Game:
         self.screen.blit(score_surface, score_rect)
 
     def render_score(self):
-        score_text = f"0000{u.score}"[-5:]
+        score_text = f"0000{self.score}"[-5:]
         score_surface = self.score_font.render(score_text, True, "green")
         score_rect = score_surface.get_rect(topleft=(10, 10))
         return score_surface, score_rect
@@ -167,7 +169,7 @@ class Game:
         self.ships = []
         self.asteroids_in_this_wave = 2
         self.game_over = False
-        u.score = 0
+        self.score = 0
         self.ships_remaining = number_of_ships
         self.set_ship_timer(u.SHIP_EMERGENCE_TIME)
         self.wave_timer = u.ASTEROID_TIMER_STOPPED

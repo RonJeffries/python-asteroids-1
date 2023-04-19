@@ -96,7 +96,7 @@ class TestCollisions:
 
     def test_missile_asteroid_scores(self):
         game = Game(True)
-        u.score = 0
+        game.score = 0
         pos = Vector2(100, 100)
         asteroid = Asteroid(2, pos)
         asteroids = [asteroid]
@@ -104,12 +104,12 @@ class TestCollisions:
         missiles = [missile]
         game.mutual_destruction(asteroid, asteroids, missile, missiles)
         assert not missiles
-        assert u.score == 20
+        assert game.score == 20
         assert len(asteroids) == 2
 
     def test_missile_ship_does_not_score(self):
         game = Game(True)
-        u.score = 0
+        game.score = 0
         pos = Vector2(100, 100)
         ship = Ship(pos)
         ships = [ship]
@@ -118,11 +118,11 @@ class TestCollisions:
         game.mutual_destruction(ship, ships, missile, missiles)
         assert not missiles
         assert not ships
-        assert u.score == 0
+        assert game.score == 0
 
     def test_asteroid_ship_does_not_score(self):
         game = Game(True)
-        u.score = 0
+        game.score = 0
         pos = Vector2(100, 100)
         asteroid = Asteroid(2, pos)
         print("position", asteroid.position)
@@ -131,11 +131,11 @@ class TestCollisions:
         ships = [ship]
         game.mutual_destruction(asteroid, asteroids, ship, ships)
         assert not ships
-        assert u.score == 0
+        assert game.score == 0
 
     def test_asteroid_saucer_does_not_score(self):
         game = Game(True)
-        u.score = 0
+        game.score = 0
         pos = Vector2(100, 100)
         asteroid = Asteroid(2, pos)
         print("position", asteroid.position)
@@ -144,7 +144,7 @@ class TestCollisions:
         saucers = [saucer]
         game.mutual_destruction(asteroid, asteroids, saucer, saucers)
         assert not saucers
-        assert u.score == 0
+        assert game.score == 0
 
     def test_create_asteroid_at_zero(self):
         asteroid = Asteroid(2, Vector2(0, 0))
@@ -159,3 +159,6 @@ class Saucer:
 
     def destroyed_by(self, attacker, saucers):
         if self in saucers: saucers.remove(self)
+
+    def score_against(self, _):
+        return 0
