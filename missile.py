@@ -6,7 +6,7 @@ import u
 
 class Missile:
     def __init__(self, position, velocity):
-        self.score_list = [100, 50, 20]
+        self.score_list = [100, 50, 20] # or [0, 0, 0] if you're a saucer missile?
         self.position = position.copy()
         self.velocity = velocity.copy()
         self.radius = 2
