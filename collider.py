@@ -9,9 +9,12 @@ class Collider:
         self.game = game
 
     def check_collisions(self):
-        self.game.check_individual_collisions(self.ships, self.asteroids)
-        self.game.check_individual_collisions(self.asteroids, self.missiles)
-        self.game.check_individual_collisions(self.ships, self.missiles)
+        self.check_individual_collisions(self.ships, self.asteroids)
+        self.check_individual_collisions(self.asteroids, self.missiles)
+        self.check_individual_collisions(self.ships, self.missiles)
         return self.game.score
+
+    def check_individual_collisions(self, attackers, targets):
+        self.game.check_individual_collisions(attackers, targets)
 
 
