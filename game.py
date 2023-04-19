@@ -38,26 +38,10 @@ class Game:
             self.define_score()
 
     def process_collisions(self):
-        collider = Collider(asteroids=self.asteroids, missiles=self.missiles, saucers=[], ships=self.ships, game=self)
-        collider.check_collisions()
+        collider = Collider(asteroids=self.asteroids, missiles=self.missiles, saucers=[], ships=self.ships)
+        self.score += collider.check_collisions()
         if not self.ships:
             self.set_ship_timer(u.SHIP_EMERGENCE_TIME)
-        return self.score
-
-    def mutual_destruction(self, target, targets, attacker, attackers):
-        if self.within_range(target, attacker):
-            self.score += target.score_against(attacker)
-            self.score += attacker.score_against(target)
-            attacker.destroyed_by(target, attackers)
-            target.destroyed_by(attacker, targets)
-            return True
-        else:
-            return False
-
-    def within_range(self, target, attacker):
-        in_range = target.radius + attacker.radius
-        dist = target.position.distance_to(attacker.position)
-        return dist <= in_range
 
     def check_next_wave(self, delta_time):
         if not self.asteroids:
