@@ -184,10 +184,9 @@ class Game:
 
             self.check_ship_spawn(self.ship, self.ships, self.delta_time)
             self.check_next_wave(self.delta_time)
-            self.control_ship(self.ship, self.delta_time)
+            self.check_missile_timeout()
 
-            for missile in self.missiles.copy():
-                missile.update(self.missiles, self.delta_time)
+            self.control_ship(self.ship, self.delta_time)
 
             self.move_everything(self.delta_time)
             self.check_collisions()
@@ -196,6 +195,10 @@ class Game:
             pygame.display.flip()
             self.delta_time = self.clock.tick(60) / 1000
         pygame.quit()
+
+    def check_missile_timeout(self):
+        for missile in self.missiles.copy():
+            missile.update(self.missiles, self.delta_time)
 
     def move_everything(self,dt):
         for the_ship in self.ships:
