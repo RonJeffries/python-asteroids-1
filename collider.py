@@ -30,7 +30,8 @@ class Collider:
         else:
             return False
 
-    def within_range(self, target, attacker):
+    @staticmethod
+    def within_range(target, attacker):
         in_range = target.radius + attacker.radius
         dist = target.position.distance_to(attacker.position)
         return dist <= in_range
