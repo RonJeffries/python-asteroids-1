@@ -29,6 +29,11 @@ class Game:
         if not testing:
             self.clock = pygame.time.Clock()
             self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
+            pygame.init()
+            self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
+            pygame.display.set_caption("Asteroids")
+            self.define_game_over()
+            self.define_score()
 
     def check_collisions(self):
         self.check_individual_collisions(self.ships, self.asteroids)
@@ -155,11 +160,6 @@ class Game:
         return score_surface, score_rect
 
     def game_init(self):
-        pygame.init()
-        self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
-        pygame.display.set_caption("Asteroids")
-        self.define_game_over()
-        self.define_score()
         self.running = True
         self.insert_quarter(0)
 

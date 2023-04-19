@@ -7,5 +7,5 @@ from game import Game
 
 class TestGame:
     def test_game_creation(self):
-        game = Game()
+        game = Game(True)
         assert game
