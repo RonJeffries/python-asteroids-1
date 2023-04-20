@@ -5,6 +5,7 @@ import u
 from asteroid import Asteroid
 from collider import Collider
 from missile import Missile
+from saucer import Saucer
 from ship import Ship
 from game import Game
 
@@ -161,15 +162,15 @@ class TestCollisions:
         game.process_collisions()
         assert game.score == 20
 
+    def test_cached_collider_is_safe(self):
+        asteroid = Asteroid(2, Vector2(100, 100))
+        missile = Missile(Vector2(100, 100), Vector2(3, 3))
+        asteroids=[asteroid]
+        missiles=[missile]
+        collider = Collider(asteroids, missiles, [], [])
+        collider.check_collisions()
+        assert collider.score == 20
+        collider.check_collisions()
+        assert collider.score == 20
 
-class Saucer:
-    def __init__(self, position=None):
-        if position is not None: self.position = position
-        self.score_list = [0, 0, 0]
-        self.radius = 20
 
-    def destroyed_by(self, attacker, saucers):
-        if self in saucers: saucers.remove(self)
-
-    def score_against(self, _):
-        return 0
