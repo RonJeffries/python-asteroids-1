@@ -45,6 +45,16 @@ class TestCollisions:
         assert test_game.game_over
         assert not ships
 
+    def test_spawn_saucer(self):
+        game = Game(testing=True)
+        saucer = game.saucer
+        game.game_init()
+        game.check_saucer_spawn(saucer, game.saucers, 0.1)
+        assert not game.saucers
+        game.check_saucer_spawn(saucer, game.saucers, u.SAUCER_EMERGENCE_TIME)
+        assert saucer in game.saucers
+        assert game.saucer_timer == u.SAUCER_EMERGENCE_TIME
+
     def test_safe_to_emerge_hates_missiles(self):
         game = Game(True)
         missiles = []

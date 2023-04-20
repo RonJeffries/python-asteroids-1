@@ -1,13 +1,18 @@
 # Saucer
+import random
+
 import pygame
 from pygame import Vector2
 
+import u
 from SurfaceMaker import SurfaceMaker
 
 
 class Saucer:
     def __init__(self, position=None):
-        if position is not None: self.position = position
+        self.velocity = u.SAUCER_VELOCITY
+        self.direction = 1
+        self.position = position if position is not None else u.CENTER
         self.score_list = [0, 0, 0]
         self.radius = 20
         base_size = Vector2(10, 6)
@@ -22,6 +27,19 @@ class Saucer:
     def draw(self, screen):
         top_left_corner = self.position - self.offset
         screen.blit(self.saucer_surface, top_left_corner)
+
+    def move(self, delta_time, saucers):
+        self.position += delta_time*self.velocity
+        x = self.position.x
+        if x < 0 or x > u.SCREEN_SIZE:
+            if self in saucers:
+                saucers.remove(self)
+
+    def ready(self):
+        self.velocity = self.direction*u.SAUCER_VELOCITY
+        x = 0 if self.direction > 0 else u.SCREEN_SIZE
+        self.position = Vector2(x, random.randrange(0, u.SCREEN_SIZE))
+        self.direction = -self.direction
 
     def score_against(self, _):
         return 0

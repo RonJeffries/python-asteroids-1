@@ -16,16 +16,20 @@ class Game:
         self.asteroids = []
         self.asteroids_in_this_wave = None
         self.delta_time = 0
+        self.elapsed_time = 0
         self.game_over = False
         self.game_over_pos = None
         self.game_over_surface = None
         self.help_lines = None
         self.missiles = []
         self.running = False
+        self.saucer = Saucer(Vector2(u.SCREEN_SIZE/4, u.SCREEN_SIZE/4))
+        self.saucers = []
+        self.saucer_timer = 0
+        self.saucer_zigzag_timer = 0
         self.score = 0
         self.score_font = None
         self.ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
-        self.saucer = Saucer(Vector2(u.SCREEN_SIZE/4, u.SCREEN_SIZE/4))
         self.ship_timer = 0
         self.ships = []
         self.ships_remaining = 0
@@ -51,6 +55,15 @@ class Game:
                 self.wave_timer = u.ASTEROID_DELAY
             else:
                 self.create_wave_in_due_time(self.asteroids, delta_time)
+
+    def check_saucer_spawn(self, saucer, saucers, delta_time):
+        if saucers: return
+        self.saucer_timer -= delta_time
+        self.elapsed_time += delta_time
+        if self.saucer_timer <= 0:
+            saucer.ready()
+            saucers.append(saucer)
+            self.saucer_timer = u.SAUCER_EMERGENCE_TIME
 
     def check_ship_spawn(self, ship, ships, delta_time):
         if ships: return
@@ -109,7 +122,8 @@ class Game:
     def draw_everything(self):
         screen = self.screen
         screen.fill("midnightblue")
-        self.saucer.draw(screen)
+        for saucer in self.saucers:
+            saucer.draw(screen)
         for ship in self.ships:
             ship.draw(screen)
         for asteroid in self.asteroids:
@@ -147,6 +161,7 @@ class Game:
 
     def game_init(self):
         self.running = True
+        self.saucer.direction = 1
         self.insert_quarter(0)
 
     def insert_quarter(self, number_of_ships):
@@ -155,6 +170,7 @@ class Game:
         self.ships = []
         self.asteroids_in_this_wave = 2
         self.game_over = False
+        self.saucer_timer = u.SAUCER_EMERGENCE_TIME
         self.score = 0
         self.ships_remaining = number_of_ships
         self.set_ship_timer(u.SHIP_EMERGENCE_TIME)
@@ -168,6 +184,7 @@ class Game:
                 if event.type == pygame.QUIT:
                     self.running = False
 
+            self.check_saucer_spawn(self.saucer, self.saucers, self.delta_time)
             self.check_ship_spawn(self.ship, self.ships, self.delta_time)
             self.check_next_wave(self.delta_time)
             self.check_missile_timeout()
@@ -187,6 +204,8 @@ class Game:
             missile.update(self.missiles, self.delta_time)
 
     def move_everything(self,dt):
+        for the_saucer in self.saucers.copy():
+            the_saucer.move(dt, self.saucers)
         for the_ship in self.ships:
             the_ship.move(dt)
         for asteroid in self.asteroids:
