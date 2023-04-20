@@ -6,6 +6,7 @@ from asteroid import Asteroid
 import pygame
 
 from collider import Collider
+from saucer import Saucer
 from ship import Ship
 import u
 
@@ -24,6 +25,7 @@ class Game:
         self.score = 0
         self.score_font = None
         self.ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
+        self.saucer = Saucer(Vector2(u.SCREEN_SIZE/4, u.SCREEN_SIZE/4))
         self.ship_timer = 0
         self.ships = []
         self.ships_remaining = 0
@@ -107,6 +109,7 @@ class Game:
     def draw_everything(self):
         screen = self.screen
         screen.fill("midnightblue")
+        self.saucer.draw(screen)
         for ship in self.ships:
             ship.draw(screen)
         for asteroid in self.asteroids:

@@ -3,6 +3,14 @@
 import pygame
 from pygame import Vector2
 
+raw_saucer_points = [
+    Vector2(-2.0, -1.0), Vector2(2.0, -1.0), Vector2(5.0, 1.0),
+    Vector2(-5.0, 1.0), Vector2(-2.0, 3.0), Vector2(2.0, 3.0),
+    Vector2(5.0, 1.0), Vector2(2.0, -1.0), Vector2(1.0, -3.0),
+    Vector2(-1.0, -3.0), Vector2(-2.0, -1.0), Vector2(-5.0, 1.0),
+    Vector2(-2.0, -1.0)
+]
+
 raw_ship_points = [Vector2(-3.0, -2.0), Vector2(-3.0, 2.0), Vector2(-5.0, 4.0),
                    Vector2(7.0, 0.0), Vector2(-5.0, -4.0), Vector2(-3.0, -2.0)]
 raw_flare_points = [Vector2(-3.0, -2.0), Vector2(-7.0, 0.0), Vector2(-3.0, 2.0)]
@@ -44,6 +52,15 @@ class SurfaceMaker:
     @staticmethod
     def adjust(point, center_adjustment, scale_factor):
         return (point + center_adjustment) * scale_factor
+
+    @staticmethod
+    def saucer_surface(saucer_size):
+        raw_points_span = Vector2(10, 6)
+        raw_points_offset = raw_points_span / 2
+        scale_factor = saucer_size.x / raw_points_span.x
+        saucer_surface = SurfaceMaker.create_scaled_surface(
+            saucer_size, raw_points_offset, scale_factor, raw_saucer_points)
+        return saucer_surface
 
     @staticmethod
     def ship_surfaces(ship_size):

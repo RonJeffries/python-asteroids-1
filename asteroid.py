@@ -22,7 +22,6 @@ class Asteroid:
 
     def draw(self, screen):
         top_left_corner = self.position - self.offset
-        pygame.draw.circle(screen, "red", self.position, 3)
         screen.blit(self.surface, top_left_corner)
 
     def move(self, delta_time):
