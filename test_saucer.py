@@ -1,4 +1,6 @@
 # test_saucer
+from math import sin, pi
+
 import u
 from saucer import Saucer
 
@@ -28,7 +30,11 @@ class TestSaucer:
         saucer.ready()
         saucer.move(1, saucers)
         assert saucers
-        saucer.move(u.SCREEN_SIZE/u.SAUCER_VELOCITY.x, saucers)
+        distance_to_edge = u.SCREEN_SIZE - saucer.position.x
+        slowest_possible_speed = u.SAUCER_VELOCITY.x * sin(pi/4)
+        a_little_bit_more = 50
+        time = (distance_to_edge + a_little_bit_more)/slowest_possible_speed
+        saucer.move(time, saucers)
         assert saucer.position.x > u.SCREEN_SIZE
         assert not saucers
 
@@ -39,15 +45,3 @@ class TestSaucer:
         saucer.ready()
         assert saucer.position.x == u.SCREEN_SIZE
 
-    def test_zig_zag_directions(self):
-        saucer = Saucer()
-        straight = u.SAUCER_VELOCITY
-        up = straight.rotate(45)
-        down = straight.rotate(-45)
-        assert saucer.new_direction(0) == up
-        assert saucer.new_direction(1) == straight
-        assert saucer.new_direction(2) == straight
-        assert saucer.new_direction(3) == down
-        assert saucer.new_direction(4) == up
-        assert saucer.new_direction(5) == straight
-        assert saucer.new_direction(-1) == down

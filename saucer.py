@@ -11,7 +11,7 @@ class Saucer:
         self.position = position if position is not None else u.CENTER
         self.size = size
         self.velocity = u.SAUCER_VELOCITY
-        self.directions = [self.velocity.rotate(45), self.velocity, self.velocity, self.velocity.rotate(-45)]
+        self.directions = (self.velocity.rotate(45), self.velocity, self.velocity, self.velocity.rotate(-45))
         self.direction = -1
         self.score_list = [0, 0, 0]
         self.radius = 20
@@ -44,11 +44,10 @@ class Saucer:
         self.zig_timer -= delta_time
         if self.zig_timer <= 0:
             self.zig_timer = u.SAUCER_ZIG_TIME
-            rand = random.randint(0, 3)
-            self.velocity = self.new_direction(rand)*self.direction
+            self.velocity = self.new_direction()*self.direction
 
-    def new_direction(self, index):
-        return self.directions[index % 4]
+    def new_direction(self):
+        return random.choice(self.directions)
 
     def ready(self):
         self.direction = -self.direction
