@@ -1,9 +1,7 @@
 # Saucer
+
 import random
-
-import pygame
 from pygame import Vector2
-
 import u
 from SurfaceMaker import SurfaceMaker
 
@@ -27,6 +25,9 @@ class Saucer:
     def draw(self, screen):
         top_left_corner = self.position - self.offset
         screen.blit(self.saucer_surface, top_left_corner)
+
+    def init_for_new_game(self):
+        self.direction = 1
 
     def move(self, delta_time, saucers):
         self.position += delta_time*self.velocity

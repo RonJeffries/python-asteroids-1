@@ -161,7 +161,7 @@ class Game:
 
     def game_init(self):
         self.running = True
-        self.saucer.direction = 1
+        self.saucer.init_for_new_game()
         self.insert_quarter(0)
 
     def insert_quarter(self, number_of_ships):
