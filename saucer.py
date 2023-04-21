@@ -7,16 +7,17 @@ from SurfaceMaker import SurfaceMaker
 
 
 class Saucer:
-    def __init__(self, position=None):
+    def __init__(self, position=None, size=2):
+        self.position = position if position is not None else u.CENTER
+        self.size = size
         self.velocity = u.SAUCER_VELOCITY
         self.direction = 1
-        self.position = position if position is not None else u.CENTER
         self.score_list = [0, 0, 0]
         self.radius = 20
-        base_size = Vector2(10, 6)
-        saucer_scale = 4
-        self.offset = base_size*saucer_scale/2
-        saucer_size = base_size*saucer_scale
+        raw_dimensions = Vector2(10, 6)
+        saucer_scale = 4*self.size
+        self.offset = raw_dimensions*saucer_scale/2
+        saucer_size = raw_dimensions*saucer_scale
         self.saucer_surface = SurfaceMaker.saucer_surface(saucer_size)
 
     def destroyed_by(self, attacker, saucers):
