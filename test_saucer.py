@@ -17,10 +17,10 @@ class TestSaucer:
         saucer = Saucer()
         saucer.ready()
         starting = saucer.position
-        saucer.move(1, [])
-        assert saucer.position.x == u.SAUCER_VELOCITY.x
-        saucer.move(1, [])
-        assert saucer.position.x == 2*u.SAUCER_VELOCITY.x
+        saucer.move(0.1, [])
+        assert saucer.position.x == u.SAUCER_VELOCITY.x*0.1
+        saucer.move(0.1, [])
+        assert saucer.position.x == 2*u.SAUCER_VELOCITY.x*0.1
 
     def test_vanish_at_edge(self):
         saucer = Saucer()
@@ -48,3 +48,6 @@ class TestSaucer:
         assert saucer.new_direction(1) == straight
         assert saucer.new_direction(2) == straight
         assert saucer.new_direction(3) == down
+        assert saucer.new_direction(4) == up
+        assert saucer.new_direction(5) == straight
+        assert saucer.new_direction(-1) == down
