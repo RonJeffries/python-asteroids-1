@@ -38,3 +38,13 @@ class TestSaucer:
         saucer.ready()
         saucer.ready()
         assert saucer.position.x == u.SCREEN_SIZE
+
+    def test_zig_zag_directions(self):
+        saucer = Saucer()
+        straight = u.SAUCER_VELOCITY
+        up = straight.rotate(45)
+        down = straight.rotate(-45)
+        assert saucer.new_direction(0) == up
+        assert saucer.new_direction(1) == straight
+        assert saucer.new_direction(2) == straight
+        assert saucer.new_direction(3) == down

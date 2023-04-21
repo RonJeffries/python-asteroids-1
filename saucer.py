@@ -11,7 +11,8 @@ class Saucer:
         self.position = position if position is not None else u.CENTER
         self.size = size
         self.velocity = u.SAUCER_VELOCITY
-        self.direction = 1
+        self.directions = [self.velocity.rotate(45), self.velocity, self.velocity, self.velocity.rotate(-45)]
+        self.direction = -1
         self.score_list = [0, 0, 0]
         self.radius = 20
         raw_dimensions = Vector2(10, 6)
@@ -19,6 +20,7 @@ class Saucer:
         self.offset = raw_dimensions*saucer_scale/2
         saucer_size = raw_dimensions*saucer_scale
         self.saucer_surface = SurfaceMaker.saucer_surface(saucer_size)
+        self.zig_timer = 1.5
 
     def destroyed_by(self, attacker, saucers):
         if self in saucers: saucers.remove(self)
@@ -28,20 +30,32 @@ class Saucer:
         screen.blit(self.saucer_surface, top_left_corner)
 
     def init_for_new_game(self):
-        self.direction = 1
+        self.direction = -1
 
     def move(self, delta_time, saucers):
+        self.check_zigzag(delta_time)
         self.position += delta_time*self.velocity
         x = self.position.x
         if x < 0 or x > u.SCREEN_SIZE:
             if self in saucers:
                 saucers.remove(self)
 
+    def check_zigzag(self, delta_time):
+        self.zig_timer -= delta_time
+        if self.zig_timer <= 0:
+            self.zig_timer = u.SAUCER_ZIG_TIME
+            rand = random.randint(0, 3)
+            self.velocity = self.new_direction(rand)*self.direction
+
+    def new_direction(self, index):
+        return self.directions[index % 4]
+
     def ready(self):
+        self.direction = -self.direction
         self.velocity = self.direction*u.SAUCER_VELOCITY
         x = 0 if self.direction > 0 else u.SCREEN_SIZE
         self.position = Vector2(x, random.randrange(0, u.SCREEN_SIZE))
-        self.direction = -self.direction
+        self.zig_timer = u.SAUCER_ZIG_TIME
 
     def score_against(self, _):
         return 0
