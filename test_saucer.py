@@ -30,12 +30,9 @@ class TestSaucer:
         saucer.ready()
         saucer.move(1, saucers)
         assert saucers
-        distance_to_edge = u.SCREEN_SIZE - saucer.position.x
-        slowest_possible_speed = u.SAUCER_VELOCITY.x * sin(pi/4)
-        a_little_bit_more = 50
-        time = (distance_to_edge + a_little_bit_more)/slowest_possible_speed
-        saucer.move(time, saucers)
-        assert saucer.position.x > u.SCREEN_SIZE
+        while saucer.position.x < u.SCREEN_SIZE:
+            assert saucers
+            saucer.move(0.1, saucers)
         assert not saucers
 
     def test_right_to_left(self):
