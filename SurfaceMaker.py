@@ -58,8 +58,9 @@ class SurfaceMaker:
         raw_points_span = Vector2(10, 6)
         raw_points_offset = raw_points_span / 2
         scale_factor = saucer_size.x / raw_points_span.x
+        room_for_fat_line = Vector2(0, 2)
         saucer_surface = SurfaceMaker.create_scaled_surface(
-            saucer_size, raw_points_offset, scale_factor, raw_saucer_points)
+            saucer_size + room_for_fat_line, raw_points_offset, scale_factor, raw_saucer_points)
         return saucer_surface
 
     @staticmethod
