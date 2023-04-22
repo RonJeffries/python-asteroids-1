@@ -205,6 +205,8 @@ class Game:
     def check_missile_timeout(self):
         for missile in self.missiles.copy():
             missile.update(self.missiles, self.delta_time)
+        for missile in self.saucer_missiles.copy():
+            missile.update(self.saucer_missiles, self.delta_time)
 
     def move_everything(self,dt):
         for the_saucer in self.saucers.copy():
