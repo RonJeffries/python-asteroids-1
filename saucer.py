@@ -51,8 +51,9 @@ class Saucer:
     def new_direction(self):
         return random.choice(self.directions)
 
-    def fire_if_possible(self, saucer_missiles):
-        if len(saucer_missiles) < u.SAUCER_MISSILE_LIMIT:
+    def fire_if_possible(self, delta_time, saucer_missiles):
+        self.missile_timer -= delta_time
+        if self.missile_timer <= 0 and len(saucer_missiles) < u.SAUCER_MISSILE_LIMIT:
             saucer_missiles.append(self.create_missile())
             self.missile_timer = u.SAUCER_MISSILE_DELAY
 

@@ -50,12 +50,15 @@ class TestSaucer:
     def test_can_only_fire_two(self):
         saucer = Saucer()
         saucer_missiles = []
-        saucer.missile_timer = 0
-        saucer.fire_if_possible(saucer_missiles)
+        assert saucer.missile_timer == u.SAUCER_MISSILE_DELAY
+        saucer.fire_if_possible(0.1, saucer_missiles)
+        assert not saucer_missiles
+        saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, saucer_missiles)
         assert len(saucer_missiles) == 1
         assert saucer.missile_timer == u.SAUCER_MISSILE_DELAY
-        saucer.fire_if_possible(saucer_missiles)
+        saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, saucer_missiles)
         assert len(saucer_missiles) == 2
-        saucer.fire_if_possible(saucer_missiles)
+        saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, saucer_missiles)
         assert len(saucer_missiles) == 2
+
 
