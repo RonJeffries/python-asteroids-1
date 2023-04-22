@@ -64,6 +64,7 @@ class Saucer:
         self.velocity = self.direction*u.SAUCER_VELOCITY
         x = 0 if self.direction > 0 else u.SCREEN_SIZE
         self.position = Vector2(x, random.randrange(0, u.SCREEN_SIZE))
+        self.missile_timer = u.SAUCER_MISSILE_DELAY
         self.zig_timer = u.SAUCER_ZIG_TIME
 
     def score_against(self, _):
