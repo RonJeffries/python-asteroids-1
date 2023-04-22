@@ -53,12 +53,27 @@ class Saucer:
         return random.choice(self.directions)
 
     def fire_if_possible(self, delta_time, saucer_missiles):
-        self.missile_timer -= delta_time
-        if self.missile_timer <= 0 and len(saucer_missiles) < u.SAUCER_MISSILE_LIMIT:
-            saucer_missiles.append(self.create_missile())
-            self.missile_timer = u.SAUCER_MISSILE_DELAY
+        if self.firing_is_possible(delta_time, saucer_missiles):
+            self.fire_a_missile(saucer_missiles)
 
-    def create_missile(self):
+    def fire_a_missile(self, saucer_missiles):
+        saucer_missiles.append(self.create_missile())
+        self.missile_timer = u.SAUCER_MISSILE_DELAY
+
+    def firing_is_possible(self, delta_time, saucer_missiles):
+        return self.missile_timer_expired(delta_time) and self.a_missile_is_available(saucer_missiles)
+
+    def missile_timer_expired(self, delta_time):
+        self.missile_timer -= delta_time
+        expired = self.missile_timer <= 0
+        return expired
+
+    @staticmethod
+    def a_missile_is_available(saucer_missiles):
+        return len(saucer_missiles) < u.SAUCER_MISSILE_LIMIT
+
+    @staticmethod
+    def create_missile():
         return Missile(u.CENTER, Vector2(70, 70))
 
     def ready(self):
