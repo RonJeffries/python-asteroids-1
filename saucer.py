@@ -4,6 +4,7 @@ import random
 from pygame import Vector2
 import u
 from SurfaceMaker import SurfaceMaker
+from missile import Missile
 
 
 class Saucer:
@@ -21,6 +22,7 @@ class Saucer:
         saucer_size = raw_dimensions*saucer_scale
         self.saucer_surface = SurfaceMaker.saucer_surface(saucer_size)
         self.zig_timer = 1.5
+        self.missile_timer = u.SAUCER_MISSILE_DELAY
 
     def destroyed_by(self, attacker, saucers):
         if self in saucers: saucers.remove(self)
@@ -48,6 +50,14 @@ class Saucer:
 
     def new_direction(self):
         return random.choice(self.directions)
+
+    def fire_if_possible(self, saucer_missiles):
+        if len(saucer_missiles) < u.SAUCER_MISSILE_LIMIT:
+            saucer_missiles.append(self.create_missile())
+            self.missile_timer = u.SAUCER_MISSILE_DELAY
+
+    def create_missile(self):
+        return Missile(u.CENTER, Vector2(70, 70))
 
     def ready(self):
         self.direction = -self.direction

@@ -37,8 +37,19 @@ class TestSaucer:
 
     def test_right_to_left(self):
         saucer = Saucer()
-        saucers = [saucer]
         saucer.ready()
         saucer.ready()
         assert saucer.position.x == u.SCREEN_SIZE
+
+    def test_can_only_fire_two(self):
+        saucer = Saucer()
+        saucer_missiles = []
+        saucer.fire_if_possible(saucer_missiles)
+        saucer.missile_timer = 0
+        assert len(saucer_missiles) == 1
+        assert saucer.missile_timer == u.SAUCER_MISSILE_DELAY
+        saucer.fire_if_possible(saucer_missiles)
+        assert len(saucer_missiles) == 2
+        saucer.fire_if_possible(saucer_missiles)
+        assert len(saucer_missiles) == 2
 
