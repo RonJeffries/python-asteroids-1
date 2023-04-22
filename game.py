@@ -45,7 +45,8 @@ class Game:
             self.define_score()
 
     def process_collisions(self):
-        collider = Collider(asteroids=self.asteroids, missiles=self.missiles, saucers=[], ships=self.ships)
+        collider = Collider(asteroids=self.asteroids, missiles=self.missiles, saucers=self.saucers, saucer_missiles=self.saucer_missiles,
+                            ships=self.ships)
         self.score += collider.check_collisions()
         if not self.ships:
             self.set_ship_timer(u.SHIP_EMERGENCE_TIME)
@@ -222,7 +223,7 @@ class Game:
 
     def next_wave_size(self):
         self.asteroids_in_this_wave += 2
-        if self.asteroids_in_this_wave > 10:
+        if self.asteroids_in_this_wave >` 10:
             self.asteroids_in_this_wave = 11
         return self.asteroids_in_this_wave
 

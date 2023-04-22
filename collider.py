@@ -1,10 +1,11 @@
 # Collider
 
 class Collider:
-    def __init__(self, asteroids, missiles, saucers, ships):
+    def __init__(self, asteroids, missiles, saucers, saucer_missiles, ships):
         self.asteroids = asteroids
         self.missiles = missiles
         self.saucers = saucers
+        self.saucer_missiles = saucer_missiles
         self.ships = ships
         self.score = 0
 
@@ -12,6 +13,7 @@ class Collider:
         self.check_individual_collisions(self.ships, self.asteroids)
         self.check_individual_collisions(self.asteroids, self.missiles)
         self.check_individual_collisions(self.ships, self.missiles)
+        self.check_individual_collisions(self.saucer_missiles, self.ships)
         return self.score
 
     def check_individual_collisions(self, attackers, targets):
