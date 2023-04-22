@@ -34,7 +34,8 @@ class Saucer:
     def init_for_new_game(self):
         self.direction = -1
 
-    def move(self, delta_time, saucers):
+    def move(self, delta_time, saucers, saucer_missiles):
+        self.fire_if_possible(delta_time, saucer_missiles)
         self.check_zigzag(delta_time)
         self.position += delta_time*self.velocity
         x = self.position.x

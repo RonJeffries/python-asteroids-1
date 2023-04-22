@@ -27,6 +27,7 @@ class Game:
         self.saucers = []
         self.saucer_timer = 0
         self.saucer_zigzag_timer = 0
+        self.saucer_missiles = []
         self.score = 0
         self.score_font = None
         self.ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
@@ -124,6 +125,8 @@ class Game:
         screen.fill("midnightblue")
         for saucer in self.saucers:
             saucer.draw(screen)
+        for missile in self.saucer_missiles:
+            missile.draw(screen)
         for ship in self.ships:
             ship.draw(screen)
         for asteroid in self.asteroids:
@@ -205,7 +208,9 @@ class Game:
 
     def move_everything(self,dt):
         for the_saucer in self.saucers.copy():
-            the_saucer.move(dt, self.saucers)
+            the_saucer.move(dt, self.saucers, self.saucer_missiles)
+        for missile in self.saucer_missiles:
+            missile.move(dt)
         for the_ship in self.ships:
             the_ship.move(dt)
         for asteroid in self.asteroids:
