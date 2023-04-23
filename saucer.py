@@ -63,6 +63,10 @@ class Saucer:
     def firing_is_possible(self, delta_time, saucer_missiles):
         return self.missile_timer_expired(delta_time) and self.a_missile_is_available(saucer_missiles)
 
+    def missile_at_angle(self, degrees):
+        missile_velocity = Vector2(u.MISSILE_SPEED, 0)
+        return Missile(self.position, self.velocity + missile_velocity)
+
     def missile_timer_expired(self, delta_time):
         self.missile_timer -= delta_time
         expired = self.missile_timer <= 0

@@ -1,6 +1,8 @@
 # test_saucer
 from math import sin, pi
 
+from pygame import Vector2
+
 import u
 from saucer import Saucer
 
@@ -60,5 +62,12 @@ class TestSaucer:
         assert len(saucer_missiles) == 2
         saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, saucer_missiles)
         assert len(saucer_missiles) == 2
+
+    def test_random_missile_velocity(self):
+        saucer = Saucer()
+        saucer.velocity = Vector2(100, 200)
+        zero_angle_velocity = Vector2(u.MISSILE_SPEED, 0)
+        missile = saucer.missile_at_angle(0)
+        assert missile.velocity == saucer.velocity + zero_angle_velocity
 
 
