@@ -223,7 +223,7 @@ class Game:
 
     def next_wave_size(self):
         self.asteroids_in_this_wave += 2
-        if self.asteroids_in_this_wave >` 10:
+        if self.asteroids_in_this_wave > 10:
             self.asteroids_in_this_wave = 11
         return self.asteroids_in_this_wave
 
