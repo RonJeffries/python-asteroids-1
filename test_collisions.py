@@ -60,7 +60,7 @@ class TestCollisions:
         missiles = []
         asteroids = []
         assert game.safe_to_emerge(missiles, asteroids)
-        missiles.append(Missile(Vector2(0, 0), Vector2(0, 0)))
+        missiles.append(Missile.from_ship(Vector2(0, 0), Vector2(0, 0)))
         assert not game.safe_to_emerge(missiles, asteroids)
 
     def test_safe_to_emerge_hates_close_asteroids(self):
@@ -100,7 +100,7 @@ class TestCollisions:
     def test_score_list(self):
         ship = Ship(u.CENTER)
         assert ship.score_list == [0, 0, 0]
-        missile = Missile(u.CENTER, Vector2(0, 0))
+        missile = Missile.from_ship(u.CENTER, Vector2(0, 0))
         assert missile.score_list == [100, 50, 20]
         saucer = Saucer()
         assert saucer.score_list == [0, 0, 0]
@@ -109,7 +109,7 @@ class TestCollisions:
         pos = Vector2(100, 100)
         asteroid = Asteroid(2, pos)
         asteroids = [asteroid]
-        missile = Missile(pos, Vector2(0, 0))
+        missile = Missile.from_ship(pos, Vector2(0, 0))
         missiles = [missile]
         collider = Collider(asteroids, missiles, [], [], [])
         collider.mutual_destruction(asteroid, asteroids, missile, missiles)
@@ -121,7 +121,7 @@ class TestCollisions:
         pos = Vector2(100, 100)
         ship = Ship(pos)
         ships = [ship]
-        missile = Missile(pos, Vector2(0, 0))
+        missile = Missile.from_ship(pos, Vector2(0, 0))
         missiles = [missile]
         collider = Collider([], missiles, [], [], ships)
         collider.mutual_destruction(ship, ships, missile, missiles)
@@ -167,14 +167,14 @@ class TestCollisions:
         game = Game(True)
         asteroid = Asteroid(2, Vector2(100, 100))
         game.asteroids=[asteroid]
-        missile = Missile(Vector2(100, 100), Vector2(3, 3))
+        missile = Missile.from_ship(Vector2(100, 100), Vector2(3, 3))
         game.missiles=[missile]
         game.process_collisions()
         assert game.score == 20
 
     def test_cached_collider_is_safe(self):
         asteroid = Asteroid(2, Vector2(100, 100))
-        missile = Missile(Vector2(100, 100), Vector2(3, 3))
+        missile = Missile.from_ship(Vector2(100, 100), Vector2(3, 3))
         asteroids=[asteroid]
         missiles=[missile]
         collider = Collider(asteroids, missiles, [], [], [])

@@ -5,12 +5,20 @@ import u
 
 
 class Missile:
-    def __init__(self, position, velocity):
-        self.score_list = [100, 50, 20] # or [0, 0, 0] if you're a saucer missile?
+    def __init__(self, position, velocity, score_list):
+        self.score_list = score_list
         self.position = position.copy()
         self.velocity = velocity.copy()
         self.radius = 2
         self.time = 0
+
+    @classmethod
+    def from_ship(cls, position, velocity):
+        return cls(position, velocity, u.MISSILE_SCORE_LIST)
+
+    @classmethod
+    def from_saucer(cls, position, velocity):
+        return cls(position, velocity, [0, 0, 0])
 
     def destroyed_by(self, attacker, missiles):
         if self in missiles: missiles.remove(self)

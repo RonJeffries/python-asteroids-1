@@ -66,7 +66,7 @@ class Saucer:
     def missile_at_angle(self, degrees):
         missile_velocity = Vector2(u.MISSILE_SPEED, 0).rotate(degrees)
         offset = Vector2(2*self.radius, 0).rotate(degrees)
-        return Missile(self.position + offset, self.velocity + missile_velocity)
+        return Missile.from_saucer(self.position + offset, self.velocity + missile_velocity)
 
     def missile_timer_expired(self, delta_time):
         self.missile_timer -= delta_time

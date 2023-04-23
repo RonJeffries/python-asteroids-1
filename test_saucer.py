@@ -4,6 +4,7 @@ from math import sin, pi
 from pygame import Vector2
 
 import u
+from missile import Missile
 from saucer import Saucer
 
 
@@ -83,5 +84,23 @@ class TestSaucer:
         missile = saucer.missile_at_angle(90)
         expected_offset = Vector2(2*saucer.radius, 0).rotate(90)
         assert missile.position == saucer.position + expected_offset
+
+    def test_vectors_mutate(self):
+        v1 = Vector2(1, 2)
+        v1_original = v1
+        assert v1 is v1_original
+        v2 = Vector2(3, 4)
+        v1 += v2
+        assert v1 is v1_original
+        v1 = v1 + v2
+        assert v1 is not v1_original
+
+    def test_missile_scoring(self):
+        p = Vector2(12, 34)
+        v = Vector2(56, 78)
+        ship_missile = Missile.from_ship(p,v)
+        assert ship_missile.score_list == u.MISSILE_SCORE_LIST
+        saucer_missile = Missile.from_saucer(p,v)
+        assert saucer_missile.score_list == [0, 0, 0]
 
 
