@@ -77,9 +77,9 @@ class Saucer:
     def a_missile_is_available(saucer_missiles):
         return len(saucer_missiles) < u.SAUCER_MISSILE_LIMIT
 
-    @staticmethod
-    def create_missile():
-        return Missile(u.CENTER, Vector2(70, 70))
+    def create_missile(self):
+        degrees = random.random()*360.0
+        return self.missile_at_angle(degrees)
 
     def ready(self):
         self.direction = -self.direction
