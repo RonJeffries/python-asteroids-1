@@ -1,19 +1,15 @@
 # Collider
+import itertools
+
 
 class Collider:
     def __init__(self, asteroids, missiles, saucers, saucer_missiles, ships):
-        self.asteroids = asteroids
-        self.missiles = missiles
-        self.saucers = saucers
-        self.saucer_missiles = saucer_missiles
-        self.ships = ships
+        self.movers = [asteroids, missiles, saucers, saucer_missiles, ships]
         self.score = 0
 
     def check_collisions(self):
-        self.check_individual_collisions(self.ships, self.asteroids)
-        self.check_individual_collisions(self.asteroids, self.missiles)
-        self.check_individual_collisions(self.ships, self.missiles)
-        self.check_individual_collisions(self.saucer_missiles, self.ships)
+        for pair in itertools.combinations(self.movers, 2):
+            self.check_individual_collisions(pair[0], pair[1])
         return self.score
 
     def check_individual_collisions(self, attackers, targets):
