@@ -19,6 +19,7 @@ class Asteroid:
         self.velocity = u.ASTEROID_SPEED.rotate(angle_of_travel)
         self.offset = Vector2(self.radius, self.radius)
         self.surface = SurfaceMaker.asteroid_surface(self.radius * 2)
+        self.saucer_score_list = [0, 0]
 
     def draw(self, screen):
         top_left_corner = self.position - self.offset
