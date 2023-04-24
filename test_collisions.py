@@ -174,6 +174,18 @@ class TestCollisions:
         assert not saucers
         assert collider.score == 200
 
+    def test_small_saucer_ship_missile_scores(self):
+        pos = Vector2(100, 100)
+        saucer = Saucer(pos, 1)
+        saucers = [saucer]
+        missile = Missile.from_ship(pos, Vector2(0, 0))
+        missiles = [missile]
+        collider = Collider([], missiles, saucers, [], [])
+        collider.mutual_destruction(saucer, saucers, missile, missiles)
+        assert not missiles
+        assert not saucers
+        assert collider.score == 1000
+
     def test_saucer_vs_saucer_missile_does_not_score(self):
         pos = Vector2(100, 100)
         saucer = Saucer(pos)
