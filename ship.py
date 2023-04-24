@@ -10,7 +10,6 @@ from missile import Missile
 
 class Ship:
     def __init__(self, position):
-        self.score_list = [0, 0, 0]
         self.saucer_score_list = [0, 0]
         self.position = position.copy()
         self.velocity = Vector2(0, 0)
@@ -22,6 +21,12 @@ class Ship:
         ship_scale = 4
         ship_size = Vector2(14, 8)*ship_scale
         self.ship_surface, self.ship_accelerating_surface = SurfaceMaker.ship_surfaces(ship_size)
+
+    def get_asteroid_scores(self):
+        return [0, 0, 0]
+
+    def get_saucer_scores(self):
+        return [0, 0]
 
     def accelerate_by(self, accel):
         self.velocity = self.velocity + accel

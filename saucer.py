@@ -14,7 +14,6 @@ class Saucer:
         self.velocity = u.SAUCER_VELOCITY
         self.directions = (self.velocity.rotate(45), self.velocity, self.velocity, self.velocity.rotate(-45))
         self.direction = -1
-        self.score_list = [0, 0, 0]
         self.radius = 20
         raw_dimensions = Vector2(10, 6)
         saucer_scale = 4*self.size
@@ -63,6 +62,12 @@ class Saucer:
     def firing_is_possible(self, delta_time, saucer_missiles):
         return self.missile_timer_expired(delta_time) and self.a_missile_is_available(saucer_missiles)
 
+    def get_asteroid_scores(self):
+        return [0, 0, 0]
+
+    def get_saucer_scores(self):
+        return [0, 0]
+
     def missile_at_angle(self, degrees):
         missile_velocity = Vector2(u.MISSILE_SPEED, 0).rotate(degrees)
         offset = Vector2(2*self.radius, 0).rotate(degrees)
@@ -90,4 +95,4 @@ class Saucer:
         self.zig_timer = u.SAUCER_ZIG_TIME
 
     def score_against(self, attacker):
-        return attacker.saucer_score_list[self.size - 1]
+        return attacker.get_saucer_scores()[self.size - 1]
