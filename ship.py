@@ -21,10 +21,10 @@ class Ship:
         ship_size = Vector2(14, 8)*ship_scale
         self.ship_surface, self.ship_accelerating_surface = SurfaceMaker.ship_surfaces(ship_size)
 
-    def get_asteroid_scores(self):
+    def scores_for_hitting_asteroid(self):
         return [0, 0, 0]
 
-    def get_saucer_scores(self):
+    def scores_for_hitting_saucer(self):
         return [0, 0]
 
     def accelerate_by(self, accel):

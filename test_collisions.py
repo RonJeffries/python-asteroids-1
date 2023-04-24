@@ -99,11 +99,11 @@ class TestCollisions:
 
     def test_score_list(self):
         ship = Ship(u.CENTER)
-        assert ship.get_asteroid_scores() == [0, 0, 0]
+        assert ship.scores_for_hitting_asteroid() == [0, 0, 0]
         missile = Missile.from_ship(u.CENTER, Vector2(0, 0))
-        assert missile.get_asteroid_scores() == [100, 50, 20]
+        assert missile.scores_for_hitting_asteroid() == [100, 50, 20]
         saucer = Saucer()
-        assert saucer.get_asteroid_scores() == [0, 0, 0]
+        assert saucer.scores_for_hitting_asteroid() == [0, 0, 0]
 
     def test_missile_asteroid_scores(self):
         pos = Vector2(100, 100)
@@ -191,20 +191,20 @@ class TestCollisions:
         missile = Missile.from_ship(Vector2(100, 100), Vector2(100, 100))
         saucer = Saucer()
         ship = Ship(Vector2(200, 200))
-        assert asteroid.get_asteroid_scores()
-        assert missile.get_asteroid_scores()
-        assert saucer.get_asteroid_scores()
-        assert ship.get_asteroid_scores()
+        assert asteroid.scores_for_hitting_asteroid()
+        assert missile.scores_for_hitting_asteroid()
+        assert saucer.scores_for_hitting_asteroid()
+        assert ship.scores_for_hitting_asteroid()
 
     def test_everyone_supports_saucer_score_lists(self):
         asteroid = Asteroid()
         missile = Missile.from_ship(Vector2(100, 100), Vector2(100, 100))
         saucer = Saucer()
         ship = Ship(Vector2(200, 200))
-        assert asteroid.get_saucer_scores()
-        assert missile.get_saucer_scores()
-        assert saucer.get_saucer_scores()
-        assert ship.get_saucer_scores()
+        assert asteroid.scores_for_hitting_saucer()
+        assert missile.scores_for_hitting_saucer()
+        assert saucer.scores_for_hitting_saucer()
+        assert ship.scores_for_hitting_saucer()
 
     def test_create_asteroid_at_zero(self):
         asteroid = Asteroid(2, Vector2(0, 0))

@@ -21,10 +21,10 @@ class Missile:
     def from_saucer(cls, position, velocity):
         return cls(position, velocity, [0, 0, 0], [0, 0])
 
-    def get_asteroid_scores(self):
+    def scores_for_hitting_asteroid(self):
         return self.score_list
 
-    def get_saucer_scores(self):
+    def scores_for_hitting_saucer(self):
         return self.saucer_score_list
 
     def destroyed_by(self, attacker, missiles):

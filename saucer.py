@@ -62,10 +62,10 @@ class Saucer:
     def firing_is_possible(self, delta_time, saucer_missiles):
         return self.missile_timer_expired(delta_time) and self.a_missile_is_available(saucer_missiles)
 
-    def get_asteroid_scores(self):
+    def scores_for_hitting_asteroid(self):
         return [0, 0, 0]
 
-    def get_saucer_scores(self):
+    def scores_for_hitting_saucer(self):
         return [0, 0]
 
     def missile_at_angle(self, degrees):
@@ -95,4 +95,4 @@ class Saucer:
         self.zig_timer = u.SAUCER_ZIG_TIME
 
     def score_for_hitting(self, attacker):
-        return attacker.get_saucer_scores()[self.size - 1]
+        return attacker.scores_for_hitting_saucer()[self.size - 1]

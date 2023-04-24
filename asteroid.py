@@ -20,10 +20,10 @@ class Asteroid:
         self.offset = Vector2(self.radius, self.radius)
         self.surface = SurfaceMaker.asteroid_surface(self.radius * 2)
 
-    def get_asteroid_scores(self):
+    def scores_for_hitting_asteroid(self):
         return [0, 0, 0]
 
-    def get_saucer_scores(self):
+    def scores_for_hitting_saucer(self):
         return [0, 0]
 
     def draw(self, screen):
@@ -44,7 +44,7 @@ class Asteroid:
         self.split_or_die(asteroids)
 
     def score_for_hitting(self, attacker):
-        return attacker.get_asteroid_scores()[self.size]
+        return attacker.scores_for_hitting_asteroid()[self.size]
 
     def split_or_die(self, asteroids):
         if self not in asteroids: return # already dead
