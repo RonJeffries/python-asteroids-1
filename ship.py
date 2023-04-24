@@ -11,6 +11,7 @@ from missile import Missile
 class Ship:
     def __init__(self, position):
         self.score_list = [0, 0, 0]
+        self.saucer_score_list = [0, 0]
         self.position = position.copy()
         self.velocity = Vector2(0, 0)
         self.can_fire = True
