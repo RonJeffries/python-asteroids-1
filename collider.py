@@ -20,8 +20,8 @@ class Collider:
 
     def mutual_destruction(self, target, targets, attacker, attackers):
         if self.within_range(target, attacker):
-            self.score += target.score_against(attacker)
-            self.score += attacker.score_against(target)
+            self.score += target.score_for_hitting(attacker)
+            self.score += attacker.score_for_hitting(target)
             attacker.destroyed_by(target, attackers)
             target.destroyed_by(attacker, targets)
             return True

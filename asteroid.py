@@ -19,7 +19,6 @@ class Asteroid:
         self.velocity = u.ASTEROID_SPEED.rotate(angle_of_travel)
         self.offset = Vector2(self.radius, self.radius)
         self.surface = SurfaceMaker.asteroid_surface(self.radius * 2)
-        self.saucer_score_list = [0, 0]
 
     def get_asteroid_scores(self):
         return [0, 0, 0]
@@ -44,7 +43,7 @@ class Asteroid:
     def destroyed_by(self, attacker, asteroids):
         self.split_or_die(asteroids)
 
-    def score_against(self, attacker):
+    def score_for_hitting(self, attacker):
         return attacker.get_asteroid_scores()[self.size]
 
     def split_or_die(self, asteroids):

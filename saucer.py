@@ -94,5 +94,5 @@ class Saucer:
         self.missile_timer = u.SAUCER_MISSILE_DELAY
         self.zig_timer = u.SAUCER_ZIG_TIME
 
-    def score_against(self, attacker):
+    def score_for_hitting(self, attacker):
         return attacker.get_saucer_scores()[self.size - 1]

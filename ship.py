@@ -10,7 +10,6 @@ from missile import Missile
 
 class Ship:
     def __init__(self, position):
-        self.saucer_score_list = [0, 0]
         self.position = position.copy()
         self.velocity = Vector2(0, 0)
         self.can_fire = True
@@ -34,7 +33,7 @@ class Ship:
     def destroyed_by(self, attacker, ships):
         if self in ships: ships.remove(self)
 
-    def score_against(self, _):
+    def score_for_hitting(self, _anyone):
         return 0
 
     def within_range(self, point, other_radius):

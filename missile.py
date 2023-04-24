@@ -30,7 +30,7 @@ class Missile:
     def destroyed_by(self, attacker, missiles):
         if self in missiles: missiles.remove(self)
 
-    def score_against(self, _):
+    def score_for_hitting(self, _anyone):
         return 0
 
     def draw(self, screen):
