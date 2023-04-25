@@ -190,7 +190,7 @@ class Game:
 
             self.check_saucer_spawn(self.saucer, self.saucers, self.delta_time)
             self.check_ship_spawn(self.ship, self.ships, self.delta_time)
-            # self.check_next_wave(self.delta_time)
+            self.check_next_wave(self.delta_time)
             self.check_missile_timeout()
 
             self.control_ship(self.ship, self.delta_time)
