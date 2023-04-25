@@ -211,7 +211,7 @@ class Game:
 
     def move_everything(self,dt):
         for the_saucer in self.saucers.copy():
-            the_saucer.move(dt, self.saucers, self.saucer_missiles)
+            the_saucer.move(dt, self.saucers, self.saucer_missiles, self.ships)
         for missile in self.saucer_missiles:
             missile.move(dt)
         for the_ship in self.ships:

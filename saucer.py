@@ -33,8 +33,8 @@ class Saucer:
     def init_for_new_game(self):
         self.direction = -1
 
-    def move(self, delta_time, saucers, saucer_missiles):
-        self.fire_if_possible(delta_time, saucer_missiles)
+    def move(self, delta_time, saucers, saucer_missiles, ships=[]):
+        self.fire_if_possible(delta_time, saucer_missiles, ships)
         self.check_zigzag(delta_time)
         self.position += delta_time*self.velocity
         x = self.position.x
@@ -51,12 +51,12 @@ class Saucer:
     def new_direction(self):
         return random.choice(self.directions)
 
-    def fire_if_possible(self, delta_time, saucer_missiles):
+    def fire_if_possible(self, delta_time, saucer_missiles, ships=[]):
         if self.firing_is_possible(delta_time, saucer_missiles):
-            self.fire_a_missile(saucer_missiles)
+            self.fire_a_missile(saucer_missiles, ships)
 
-    def fire_a_missile(self, saucer_missiles):
-        saucer_missiles.append(self.create_missile())
+    def fire_a_missile(self, saucer_missiles, ships=[]):
+        saucer_missiles.append(self.create_missile(ships))
         self.missile_timer = u.SAUCER_MISSILE_DELAY
 
     def firing_is_possible(self, delta_time, saucer_missiles):
@@ -82,7 +82,7 @@ class Saucer:
     def a_missile_is_available(saucer_missiles):
         return len(saucer_missiles) < u.SAUCER_MISSILE_LIMIT
 
-    def create_missile(self):
+    def create_missile(self, ships=[]):
         degrees = random.random()*360.0
         return self.missile_at_angle(degrees)
 
