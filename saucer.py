@@ -1,6 +1,8 @@
 # Saucer
 
 import random
+from math import atan2, degrees
+
 from pygame import Vector2
 import u
 from SurfaceMaker import SurfaceMaker
@@ -16,9 +18,9 @@ class Saucer:
         self.direction = -1
         self.radius = 20
         raw_dimensions = Vector2(10, 6)
-        saucer_scale = 4*self.size
-        self.offset = raw_dimensions*saucer_scale/2
-        saucer_size = raw_dimensions*saucer_scale
+        saucer_scale = 4 * self.size
+        self.offset = raw_dimensions * saucer_scale / 2
+        saucer_size = raw_dimensions * saucer_scale
         self.saucer_surface = SurfaceMaker.saucer_surface(saucer_size)
         self.zig_timer = 1.5
         self.missile_timer = u.SAUCER_MISSILE_DELAY
@@ -36,7 +38,7 @@ class Saucer:
     def move(self, delta_time, saucers, saucer_missiles, ships=[]):
         self.fire_if_possible(delta_time, saucer_missiles, ships)
         self.check_zigzag(delta_time)
-        self.position += delta_time*self.velocity
+        self.position += delta_time * self.velocity
         x = self.position.x
         if x < 0 or x > u.SCREEN_SIZE:
             if self in saucers:
@@ -46,7 +48,7 @@ class Saucer:
         self.zig_timer -= delta_time
         if self.zig_timer <= 0:
             self.zig_timer = u.SAUCER_ZIG_TIME
-            self.velocity = self.new_direction()*self.direction
+            self.velocity = self.new_direction() * self.direction
 
     def new_direction(self):
         return random.choice(self.directions)
@@ -68,10 +70,10 @@ class Saucer:
     def scores_for_hitting_saucer(self):
         return [0, 0]
 
-    def missile_at_angle(self, degrees):
-        missile_velocity = Vector2(u.MISSILE_SPEED, 0).rotate(degrees)
-        offset = Vector2(2*self.radius, 0).rotate(degrees)
-        return Missile.from_saucer(self.position + offset, self.velocity + missile_velocity)
+    def missile_at_angle(self, degrees, velocity_adjustment):
+        missile_velocity = Vector2(u.MISSILE_SPEED, 0).rotate(degrees) + velocity_adjustment
+        offset = Vector2(2 * self.radius, 0).rotate(degrees)
+        return Missile.from_saucer(self.position + offset, missile_velocity)
 
     def missile_timer_expired(self, delta_time):
         self.missile_timer -= delta_time
@@ -83,12 +85,23 @@ class Saucer:
         return len(saucer_missiles) < u.SAUCER_MISSILE_LIMIT
 
     def create_missile(self, ships=[]):
-        degrees = random.random()*360.0
-        return self.missile_at_angle(degrees)
+        if ships and random.random() <= u.SAUCER_TARGETING_FRACTION:
+            velocity_adjustment = Vector2(0, 0)
+            ship = ships[0]
+            degrees = self.angle_to(ship.position)
+        else:
+            velocity_adjustment = self.velocity
+            degrees = random.random() * 360.0
+        return self.missile_at_angle(degrees, velocity_adjustment)
+
+    def angle_to(self, position):
+        aiming_point = nearest_point(self.position, position, u.SCREEN_SIZE)
+        angle_point = aiming_point - self.position
+        return degrees(atan2(angle_point.y, angle_point.x))
 
     def ready(self):
         self.direction = -self.direction
-        self.velocity = self.direction*u.SAUCER_VELOCITY
+        self.velocity = self.direction * u.SAUCER_VELOCITY
         x = 0 if self.direction > 0 else u.SCREEN_SIZE
         self.position = Vector2(x, random.randrange(0, u.SCREEN_SIZE))
         self.missile_timer = u.SAUCER_MISSILE_DELAY
@@ -96,3 +109,23 @@ class Saucer:
 
     def score_for_hitting(self, attacker):
         return attacker.scores_for_hitting_saucer()[self.size - 1]
+
+
+def nearest(shooter, target, size):
+    dist = abs(target - shooter)
+    t_min = target - size
+    t_min_dist = abs(t_min - shooter)
+    t_max = target + size
+    t_max_dist = abs(t_max - shooter)
+    if t_min_dist < dist:
+        return t_min
+    elif t_max_dist < dist:
+        return t_max
+    else:
+        return target
+
+
+def nearest_point(shooter, target, size):
+    nearest_x = nearest(shooter.x, target.x, size)
+    nearest_y = nearest(shooter.y, target.y, size)
+    return Vector2(nearest_x, nearest_y)

@@ -68,20 +68,20 @@ class TestSaucer:
         saucer = Saucer()
         saucer.velocity = Vector2(100, 200)
         zero_angle_velocity = Vector2(u.MISSILE_SPEED, 0)
-        missile = saucer.missile_at_angle(0)
+        missile = saucer.missile_at_angle(0, saucer.velocity)
         assert missile.velocity == saucer.velocity + zero_angle_velocity
 
     def test_random_missile_velocity_90(self):
         saucer = Saucer()
         saucer.velocity = Vector2(100, 200)
         zero_angle_velocity = Vector2(u.MISSILE_SPEED, 0)
-        missile = saucer.missile_at_angle(90)
+        missile = saucer.missile_at_angle(90, saucer.velocity)
         assert missile.velocity == saucer.velocity + zero_angle_velocity.rotate(90)
 
     def test_random_missile_position_90(self):
         saucer = Saucer()
         saucer.position = Vector2(123, 456)
-        missile = saucer.missile_at_angle(90)
+        missile = saucer.missile_at_angle(90, saucer.velocity)
         expected_offset = Vector2(2*saucer.radius, 0).rotate(90)
         assert missile.position == saucer.position + expected_offset
 
