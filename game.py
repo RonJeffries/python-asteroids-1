@@ -39,7 +39,6 @@ class Game:
             self.clock = pygame.time.Clock()
             self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
             pygame.init()
-            self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
             pygame.display.set_caption("Asteroids")
             self.define_game_over()
             self.define_score()
