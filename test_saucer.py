@@ -28,9 +28,9 @@ class TestSaucer:
         saucer = Saucer()
         saucer.ready()
         starting = saucer.position
-        saucer.move(0.1, [], [], [])
+        saucer.move(delta_time=0.1, saucers=[], saucer_missiles=[], ships=[])
         assert saucer.position.x == u.SAUCER_VELOCITY.x*0.1
-        saucer.move(0.1, [], [], [])
+        saucer.move(delta_time=0.1, saucers=[], saucer_missiles=[], ships=[])
         assert saucer.position.x == 2*u.SAUCER_VELOCITY.x*0.1
 
     def test_vanish_at_edge(self):
@@ -41,7 +41,7 @@ class TestSaucer:
         assert saucers
         while saucer.position.x < u.SCREEN_SIZE:
             assert saucers
-            saucer.move(0.1, saucers, [], [])
+            saucer.move(delta_time=0.1, saucers=saucers, saucer_missiles=[], ships=[])
         assert not saucers
 
     def test_right_to_left(self):
@@ -54,14 +54,14 @@ class TestSaucer:
         saucer = Saucer()
         saucer_missiles = []
         assert saucer.missile_timer == u.SAUCER_MISSILE_DELAY
-        saucer.fire_if_possible(0.1, saucer_missiles, [])
+        saucer.fire_if_possible(delta_time=0.1, saucer_missiles=saucer_missiles, ships=[])
         assert not saucer_missiles
-        saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, saucer_missiles, [])
+        saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, saucer_missiles=saucer_missiles, ships=[])
         assert len(saucer_missiles) == 1
         assert saucer.missile_timer == u.SAUCER_MISSILE_DELAY
-        saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, saucer_missiles, [])
+        saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, saucer_missiles=saucer_missiles, ships=[])
         assert len(saucer_missiles) == 2
-        saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, saucer_missiles, [])
+        saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, saucer_missiles=saucer_missiles, ships=[])
         assert len(saucer_missiles) == 2
 
     def test_random_missile_velocity_0(self):
