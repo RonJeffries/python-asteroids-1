@@ -5,7 +5,7 @@ import u
 from asteroid import Asteroid
 from collider import Collider
 from missile import Missile
-from saucer import Saucer
+from saucer import Saucer, nearest, nearest_point
 from ship import Ship
 from game import Game
 
@@ -268,22 +268,4 @@ class TestCollisions:
         assert nearest_point(shooter, target, screen_size) == Vector2(100, -100)
 
 
-def nearest(shooter, target, size):
-    dist = abs(target - shooter)
-    t_min = target - size
-    t_min_dist = abs(t_min - shooter)
-    t_max = target + size
-    t_max_dist = abs(t_max - shooter)
-    if t_min_dist < dist:
-        return t_min
-    elif t_max_dist < dist:
-        return t_max
-    else:
-        return target
-
-
-def nearest_point(shooter, target, size):
-    nearest_x = nearest(shooter.x, target.x, size)
-    nearest_y = nearest(shooter.y, target.y, size)
-    return Vector2(nearest_x, nearest_y)
 
