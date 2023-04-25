@@ -6,6 +6,7 @@ from pygame import Vector2
 import u
 from missile import Missile
 from saucer import Saucer
+from ship import Ship
 
 
 class TestSaucer:
@@ -102,5 +103,37 @@ class TestSaucer:
         assert ship_missile.score_list == u.MISSILE_SCORE_LIST
         saucer_missile = Missile.from_saucer(p,v)
         assert saucer_missile.score_list == [0, 0, 0]
+
+    def test_missile_spec_targeted(self):
+        saucer = Saucer(Vector2(100, 110))
+        saucer.velocity = Vector2(99, 77)
+        ships = [Ship(Vector2(100, 100))]
+        should_target = 0.1
+        random_angle = None
+        degrees, velocity_adjustment = saucer.missile_spec(should_target, random_angle, ships)
+        assert velocity_adjustment == Vector2(0, 0)
+        assert degrees == -90
+
+    def test_missile_spec_no_ship(self):
+        saucer = Saucer(Vector2(100, 110))
+        saucer.velocity = Vector2(99, 77)
+        ships = []
+        should_target = 0.1
+        random_angle = 0.5
+        degrees, velocity_adjustment = saucer.missile_spec(should_target, random_angle, ships)
+        assert velocity_adjustment == saucer.velocity
+        assert degrees == 180
+
+    def test_missile_spec_no_dice(self):
+        saucer = Saucer(Vector2(100, 110))
+        saucer.velocity = Vector2(99, 77)
+        ships = [Ship(Vector2(100, 100))]
+        should_target = 0.26
+        random_angle = 0.5
+        degrees, velocity_adjustment = saucer.missile_spec(should_target, random_angle, ships)
+        assert velocity_adjustment == saucer.velocity
+        assert degrees == 180
+
+
 
 
