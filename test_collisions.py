@@ -248,4 +248,42 @@ class TestCollisions:
         collider.check_collisions()
         assert collider.score == 20
 
+    def test_can_choose_nearest_scalar_target(self):
+        target = 100
+        screen_size = 500
+        shooter = 200
+        assert nearest(shooter, target, screen_size) == 100
+        shooter = 400
+        assert nearest(shooter, target, screen_size) == 100 + 500
+        target = 400
+        shooter = 100
+        assert nearest(shooter, target, screen_size) == 400 - 500
+
+    def test_can_choose_nearest_point(self):
+        target = Vector2(100, 400)
+        screen_size = 500
+        shooter = Vector2(150, 150)
+        assert nearest_point(shooter, target, screen_size) == Vector2(100, 400)
+        shooter = Vector2(150, 50)
+        assert nearest_point(shooter, target, screen_size) == Vector2(100, -100)
+
+
+def nearest(shooter, target, size):
+    dist = abs(target - shooter)
+    t_min = target - size
+    t_min_dist = abs(t_min - shooter)
+    t_max = target + size
+    t_max_dist = abs(t_max - shooter)
+    if t_min_dist < dist:
+        return t_min
+    elif t_max_dist < dist:
+        return t_max
+    else:
+        return target
+
+
+def nearest_point(shooter, target, size):
+    nearest_x = nearest(shooter.x, target.x, size)
+    nearest_y = nearest(shooter.y, target.y, size)
+    return Vector2(nearest_x, nearest_y)
 
