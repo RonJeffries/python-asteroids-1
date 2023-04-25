@@ -31,8 +31,8 @@ class Game:
         self.score = 0
         self.score_font = None
         self.ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
-        self.ship_timer = 0
         self.ships = []
+        self.ship_timer = 0
         self.ships_remaining = 0
         self.wave_timer = u.ASTEROID_TIMER_STOPPED
         if not testing:
