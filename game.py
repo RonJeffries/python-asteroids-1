@@ -51,13 +51,31 @@ class Game:
         pygame.init()
         pygame.display.set_caption("Asteroids")
         self.clock = pygame.time.Clock()
-        self.game_over_pos = None
-        self.game_over_surface = None
-        self.help_lines = None
         self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
-        self.score_font = None
-        self.define_game_over()
-        self.define_score()
+        self.init_game_over()
+        self.init_score()
+
+    # noinspection PyAttributeOutsideInit
+    def init_game_over(self):
+        big_font = pygame.font.SysFont("arial", 64)
+        small_font = pygame.font.SysFont("arial", 48)
+        self.game_over_surface = big_font.render("GAME OVER", True, "white")
+        self.game_over_pos = self.game_over_surface.get_rect(centerx=u.CENTER.x, centery=u.CENTER.y / 2)
+        pos_left = u.CENTER.x - 150
+        pos_top = self.game_over_pos.centery
+        self.help_lines = []
+        messages = ["d - turn left", "f - turn right", "j - accelerate", "k - fire missile", "q - insert quarter", ]
+        for message in messages:
+            pos_top += 60
+            text = small_font.render(message, True, "white")
+            text_rect = text.get_rect(topleft=(pos_left, pos_top))
+            pair = (text, text_rect)
+            self.help_lines.append(pair)
+
+    # noinspection PyAttributeOutsideInit
+    def init_score(self):
+        self.score = 0
+        self.score_font = pygame.font.SysFont("arial", 48)
 
     def process_collisions(self):
         collider = Collider(asteroids=self.asteroids, missiles=self.missiles, saucers=self.saucers, saucer_missiles=self.saucer_missiles,
@@ -115,26 +133,6 @@ class Game:
         if self.wave_timer <= 0:
             asteroids.extend([Asteroid() for _ in range(0, self.next_wave_size())])
             self.wave_timer = u.ASTEROID_TIMER_STOPPED
-
-    def define_game_over(self):
-        big_font = pygame.font.SysFont("arial", 64)
-        small_font = pygame.font.SysFont("arial", 48)
-        self.game_over_surface = big_font.render("GAME OVER", True, "white")
-        self.game_over_pos = self.game_over_surface.get_rect(centerx=u.CENTER.x, centery=u.CENTER.y / 2)
-        pos_left = u.CENTER.x - 150
-        pos_top = self.game_over_pos.centery
-        self.help_lines = []
-        messages = ["d - turn left", "f - turn right", "j - accelerate", "k - fire missile", "q - insert quarter", ]
-        for message in messages:
-            pos_top += 60
-            text = small_font.render(message, True, "white")
-            text_rect = text.get_rect(topleft=(pos_left, pos_top))
-            pair = (text, text_rect)
-            self.help_lines.append(pair)
-
-    def define_score(self):
-        self.score = 0
-        self.score_font = pygame.font.SysFont("arial", 48)
 
     def draw_everything(self):
         screen = self.screen
