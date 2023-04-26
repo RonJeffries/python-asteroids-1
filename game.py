@@ -13,33 +13,40 @@ import u
 
 class Game:
     def __init__(self, testing=False):
-        self.asteroids = []
-        self.asteroids_in_this_wave = None
+
+        # General Game Values
         self.delta_time = 0
         self.elapsed_time = 0
         self.game_over = False
-        self.game_over_pos = None
-        self.game_over_surface = None
-        self.help_lines = None
-        self.missiles = []
         self.running = False
-        self.saucer = Saucer(Vector2(u.SCREEN_SIZE/4, u.SCREEN_SIZE/4))
-        self.saucers = []
+        self.score = 0
+
+        # Asteroids game values
+        self.asteroids_in_this_wave: int
         self.saucer_timer = 0
         self.saucer_zigzag_timer = 0
-        self.saucer_missiles = []
-        self.score = 0
-        self.score_font = None
-        self.ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
-        self.ships = []
         self.ship_timer = 0
         self.ships_remaining = 0
         self.wave_timer = u.ASTEROID_TIMER_STOPPED
+
+        # Space Objects and Collections
+        self.asteroids = []
+        self.missiles = []
+        self.saucer = Saucer(Vector2(u.SCREEN_SIZE/4, u.SCREEN_SIZE/4))
+        self.saucers = []
+        self.saucer_missiles = []
+        self.ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
+        self.ships = []
+
         if not testing:
-            self.clock = pygame.time.Clock()
-            self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
             pygame.init()
             pygame.display.set_caption("Asteroids")
+            self.clock = pygame.time.Clock()
+            self.game_over_pos = None
+            self.game_over_surface = None
+            self.help_lines = None
+            self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
+            self.score_font = None
             self.define_game_over()
             self.define_score()
 
