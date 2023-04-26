@@ -87,21 +87,20 @@ class Saucer:
     def create_missile(self, ships):
         should_target = random.random()
         random_angle = random.random()
-        degrees, velocity_adjustment = self.missile_spec(should_target, random_angle, ships)
-        return self.missile_at_angle(degrees, velocity_adjustment)
+        return self.suitable_missile(should_target, random_angle, ships)
 
-    def missile_spec(self, should_target, random_angle, ships):
-        if ships and should_target <= u.SAUCER_TARGETING_FRACTION:
-            velocity_adjustment = Vector2(0, 0)
-            ship = ships[0]
-            degrees = self.angle_to(ship.position)
-        else:
-            velocity_adjustment = self.velocity
-            degrees = random_angle * 360.0
-        return degrees, velocity_adjustment
+    def suitable_missile(self, should_target, random_angle, ships):
+        if self.targeting_ship(ships, should_target):
+            targeting_angle = self.angle_to(ships[0])
+            zero_velocity = Vector2(0, 0)
+            return self.missile_at_angle(targeting_angle, zero_velocity)
+        return self.missile_at_angle(random_angle * 360.0, self.velocity)
 
-    def angle_to(self, position):
-        aiming_point = nearest_point(self.position, position, u.SCREEN_SIZE)
+    def targeting_ship(self, ships, should_target):
+        return ships and should_target <= u.SAUCER_TARGETING_FRACTION
+
+    def angle_to(self, ship):
+        aiming_point = nearest_point(self.position, ship.position, u.SCREEN_SIZE)
         angle_point = aiming_point - self.position
         return degrees(atan2(angle_point.y, angle_point.x))
 

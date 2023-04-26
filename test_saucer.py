@@ -110,9 +110,9 @@ class TestSaucer:
         ships = [Ship(Vector2(100, 100))]
         should_target = 0.1
         random_angle = None
-        degrees, velocity_adjustment = saucer.missile_spec(should_target, random_angle, ships)
-        assert velocity_adjustment == Vector2(0, 0)
-        assert degrees == -90
+        missile = saucer.suitable_missile(should_target, random_angle, ships)
+        assert missile.velocity == Vector2(0, -u.SPEED_OF_LIGHT/3)
+        # assert degrees == -90
 
     def test_missile_spec_no_ship(self):
         saucer = Saucer(Vector2(100, 110))
@@ -120,9 +120,8 @@ class TestSaucer:
         ships = []
         should_target = 0.1
         random_angle = 0.5
-        degrees, velocity_adjustment = saucer.missile_spec(should_target, random_angle, ships)
-        assert velocity_adjustment == saucer.velocity
-        assert degrees == 180
+        missile = saucer.suitable_missile(should_target, random_angle, ships)
+        assert abs(missile.velocity.x - saucer.velocity.x + 166.667) < 0.01
 
     def test_missile_spec_no_dice(self):
         saucer = Saucer(Vector2(100, 110))
@@ -130,9 +129,13 @@ class TestSaucer:
         ships = [Ship(Vector2(100, 100))]
         should_target = 0.26
         random_angle = 0.5
-        degrees, velocity_adjustment = saucer.missile_spec(should_target, random_angle, ships)
-        assert velocity_adjustment == saucer.velocity
-        assert degrees == 180
+        missile = saucer.suitable_missile(should_target, random_angle, ships)
+        assert missile.velocity.x - 67.666 < 0.01
+        assert missile.velocity.y == 77
+
+    def test_empty_string(self):
+        assert not ""
+        assert "False"
 
 
 
