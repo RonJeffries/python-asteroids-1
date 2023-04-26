@@ -1,6 +1,7 @@
 # test_saucer
 from math import sin, pi
 
+import pytest
 from pygame import Vector2
 
 import u
@@ -121,7 +122,7 @@ class TestSaucer:
         should_target = 0.1
         random_angle = 0.5
         missile = saucer.suitable_missile(should_target, random_angle, ships)
-        assert abs(missile.velocity.x - saucer.velocity.x + 166.667) < 0.01
+        assert missile.velocity.x - saucer.velocity.x == pytest.approx(-166.667, 0.01)
 
     def test_missile_spec_no_dice(self):
         saucer = Saucer(Vector2(100, 110))
@@ -130,7 +131,7 @@ class TestSaucer:
         should_target = 0.26
         random_angle = 0.5
         missile = saucer.suitable_missile(should_target, random_angle, ships)
-        assert missile.velocity.x - 67.666 < 0.01
+        assert missile.velocity.x == pytest.approx(-67.666, 0.01)
         assert missile.velocity.y == 77
 
     def test_empty_string(self):
