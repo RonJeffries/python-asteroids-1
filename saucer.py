@@ -70,11 +70,6 @@ class Saucer:
     def scores_for_hitting_saucer(self):
         return [0, 0]
 
-    def missile_at_angle(self, degrees, velocity_adjustment):
-        missile_velocity = Vector2(u.MISSILE_SPEED, 0).rotate(degrees) + velocity_adjustment
-        offset = Vector2(2 * self.radius, 0).rotate(degrees)
-        return Missile.from_saucer(self.position + offset, missile_velocity)
-
     def missile_timer_expired(self, delta_time):
         self.missile_timer -= delta_time
         expired = self.missile_timer <= 0
@@ -90,14 +85,19 @@ class Saucer:
         return self.suitable_missile(should_target, random_angle, ships)
 
     def suitable_missile(self, should_target, random_angle, ships):
-        if self.targeting_ship(ships, should_target):
-            targeting_angle = self.angle_to(ships[0])
-            zero_velocity = Vector2(0, 0)
-            return self.missile_at_angle(targeting_angle, zero_velocity)
-        return self.missile_at_angle(random_angle * 360.0, self.velocity)
+        if self.cannot_target_ship(ships, should_target):
+            return self.missile_at_angle(random_angle * 360.0, self.velocity)
+        targeting_angle = self.angle_to(ships[0])
+        velocity_adjustment = Vector2(0, 0)
+        return self.missile_at_angle(targeting_angle, velocity_adjustment)
 
-    def targeting_ship(self, ships, should_target):
-        return ships and should_target <= u.SAUCER_TARGETING_FRACTION
+    def cannot_target_ship(self, ships, should_target):
+        return not ships or should_target > u.SAUCER_TARGETING_FRACTION
+
+    def missile_at_angle(self, degrees, velocity_adjustment):
+        missile_velocity = Vector2(u.MISSILE_SPEED, 0).rotate(degrees) + velocity_adjustment
+        offset = Vector2(2 * self.radius, 0).rotate(degrees)
+        return Missile.from_saucer(self.position + offset, missile_velocity)
 
     def angle_to(self, ship):
         aiming_point = nearest_point(self.position, ship.position, u.SCREEN_SIZE)
