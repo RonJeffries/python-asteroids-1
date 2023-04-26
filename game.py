@@ -224,17 +224,17 @@ class Game:
         for missile in self.saucer_missiles.copy():
             missile.update(self.saucer_missiles, delta_time)
 
-    def move_everything(self,dt):
+    def move_everything(self, delta_time):
         for the_saucer in self.saucers.copy():
-            the_saucer.move(dt, self.saucers, self.saucer_missiles, self.ships)
+            the_saucer.move(delta_time, self.saucers, self.saucer_missiles, self.ships)
         for missile in self.saucer_missiles:
-            missile.move(dt)
+            missile.move(delta_time)
         for the_ship in self.ships:
-            the_ship.move(dt)
+            the_ship.move(delta_time)
         for asteroid in self.asteroids:
-            asteroid.move(dt)
+            asteroid.move(delta_time)
         for missile in self.missiles:
-            missile.move(dt)
+            missile.move(delta_time)
 
     def next_wave_size(self):
         self.asteroids_in_this_wave += 2
