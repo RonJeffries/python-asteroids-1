@@ -201,26 +201,28 @@ class Game:
                 if event.type == pygame.QUIT:
                     self.running = False
 
-            self.check_saucer_spawn(self.saucer, self.saucers, self.delta_time)
-            self.check_ship_spawn(self.ship, self.ships, self.delta_time)
-            self.check_next_wave(self.delta_time)
-            self.check_missile_timeout()
+            self.asteroids_tick(self.delta_time)
 
-            self.control_ship(self.ship, self.delta_time)
-
-            self.move_everything(self.delta_time)
-            self.process_collisions()
-            self.draw_everything()
-            if self.game_over: self.draw_game_over()
             pygame.display.flip()
             self.delta_time = self.clock.tick(60) / 1000
         pygame.quit()
 
-    def check_missile_timeout(self):
+    def asteroids_tick(self, delta_time):
+        self.check_saucer_spawn(self.saucer, self.saucers, delta_time)
+        self.check_ship_spawn(self.ship, self.ships, delta_time)
+        self.check_next_wave(delta_time)
+        self.check_missile_timeout(self.delta_time)
+        self.control_ship(self.ship, delta_time)
+        self.move_everything(delta_time)
+        self.process_collisions()
+        self.draw_everything()
+        if self.game_over: self.draw_game_over()
+
+    def check_missile_timeout(self, delta_time):
         for missile in self.missiles.copy():
-            missile.update(self.missiles, self.delta_time)
+            missile.update(self.missiles, delta_time)
         for missile in self.saucer_missiles.copy():
-            missile.update(self.saucer_missiles, self.delta_time)
+            missile.update(self.saucer_missiles, delta_time)
 
     def move_everything(self,dt):
         for the_saucer in self.saucers.copy():
