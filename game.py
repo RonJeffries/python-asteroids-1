@@ -13,15 +13,21 @@ import u
 
 class Game:
     def __init__(self, testing=False):
+        self.init_general_game_values()
+        self.init_asteroids_game_values()
+        self.init_space_objects()
+        self.init_pygame_and_display(testing)
 
-        # General Game Values
+    # noinspection PyAttributeOutsideInit
+    def init_general_game_values(self):
         self.delta_time = 0
         self.elapsed_time = 0
         self.game_over = False
         self.running = False
         self.score = 0
 
-        # Asteroids game values
+    # noinspection PyAttributeOutsideInit
+    def init_asteroids_game_values(self):
         self.asteroids_in_this_wave: int
         self.saucer_timer = 0
         self.saucer_zigzag_timer = 0
@@ -29,26 +35,29 @@ class Game:
         self.ships_remaining = 0
         self.wave_timer = u.ASTEROID_TIMER_STOPPED
 
-        # Space Objects and Collections
+    # noinspection PyAttributeOutsideInit
+    def init_space_objects(self):
         self.asteroids = []
         self.missiles = []
-        self.saucer = Saucer(Vector2(u.SCREEN_SIZE/4, u.SCREEN_SIZE/4))
+        self.saucer = Saucer(Vector2(u.SCREEN_SIZE / 4, u.SCREEN_SIZE / 4))
         self.saucers = []
         self.saucer_missiles = []
         self.ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
         self.ships = []
 
-        if not testing:
-            pygame.init()
-            pygame.display.set_caption("Asteroids")
-            self.clock = pygame.time.Clock()
-            self.game_over_pos = None
-            self.game_over_surface = None
-            self.help_lines = None
-            self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
-            self.score_font = None
-            self.define_game_over()
-            self.define_score()
+    # noinspection PyAttributeOutsideInit
+    def init_pygame_and_display(self, testing):
+        if testing: return
+        pygame.init()
+        pygame.display.set_caption("Asteroids")
+        self.clock = pygame.time.Clock()
+        self.game_over_pos = None
+        self.game_over_surface = None
+        self.help_lines = None
+        self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
+        self.score_font = None
+        self.define_game_over()
+        self.define_score()
 
     def process_collisions(self):
         collider = Collider(asteroids=self.asteroids, missiles=self.missiles, saucers=self.saucers, saucer_missiles=self.saucer_missiles,
