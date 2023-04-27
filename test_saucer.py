@@ -138,6 +138,14 @@ class TestSaucer:
         assert not ""
         assert "False"
 
+    def test_methods(self):
+        methods = dir(Saucer)
+        methods = [x for x in methods if callable(getattr(Saucer, x))]
+        methods = [x for x in methods if not x.startswith("__")]
+        for m in methods:
+            print(m)
+        assert True
+
 
 
 

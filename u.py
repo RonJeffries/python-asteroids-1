@@ -1,7 +1,7 @@
 # U - Universal Constants
 import pygame
 
-SCREEN_SIZE = 768
+SCREEN_SIZE = 1024
 SPEED_OF_LIGHT = 500
 
 ASTEROID_DELAY = 4
