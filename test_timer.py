@@ -6,6 +6,17 @@ from saucer import Saucer
 from timer import Timer
 
 
+class Checker():
+    def __init__(self, extra):
+        self.happened = 0
+        self.extra = extra if extra else 0
+
+    def set(self, value):
+        self.happened = value + self.extra
+        return True
+
+
+
 class TestTimer():
     def test_creation(self):
         happened = False
@@ -60,3 +71,15 @@ class TestTimer():
         timer = Timer(delay, start_saucer, saucer, saucers)
         timer.tick(1.1)
         assert saucers
+
+    def test_with_method(self):
+        checker = Checker(19)
+        another = Checker(9)
+        some_value = 31
+        timer = Timer(1, checker.set, some_value)
+        timer2 = Timer(1, another.set, 21)
+        timer.tick(1.1)
+        assert checker.happened == 31 + 19
+        timer2.tick(1.1)
+        assert another.happened == 21 + 9
+

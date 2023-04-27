@@ -27,12 +27,12 @@ class Saucer:
         self.set_zig_timer()
 
     def set_zig_timer(self):
-        def zig(saucer):
-            saucer.velocity = saucer.new_direction() * saucer.direction
-            return True
-
         # noinspection PyAttributeOutsideInit
-        self.zig_timer = Timer(u.SAUCER_ZIG_TIME, zig, self)
+        self.zig_timer = Timer(u.SAUCER_ZIG_TIME, self.zig_zag_action)
+
+    def zig_zag_action(self):
+        self.velocity = self.new_direction() * self.direction
+        return True
 
     def destroyed_by(self, attacker, saucers):
         if self in saucers: saucers.remove(self)
