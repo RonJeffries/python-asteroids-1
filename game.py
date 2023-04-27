@@ -21,7 +21,6 @@ class Game:
     # noinspection PyAttributeOutsideInit
     def init_general_game_values(self):
         self.delta_time = 0
-        self.elapsed_time = 0
         self.game_over = False
         self.running = False
         self.score = 0
@@ -94,7 +93,6 @@ class Game:
     def check_saucer_spawn(self, saucer, saucers, delta_time):
         if saucers: return
         self.saucer_timer -= delta_time
-        self.elapsed_time += delta_time
         if self.saucer_timer <= 0:
             saucer.ready()
             saucers.append(saucer)

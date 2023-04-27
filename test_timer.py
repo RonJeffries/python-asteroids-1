@@ -1,6 +1,8 @@
 # test timer object
 
 import pytest
+
+from saucer import Saucer
 from timer import Timer
 
 
@@ -45,3 +47,16 @@ class TestTimer():
         with pytest.raises(Exception):
             timer.tick(1.5)
         assert happened
+
+    def test_timer_with_args(self):
+        saucer = Saucer()
+        saucers = []
+
+        def start_saucer(saucer, saucers):
+            saucer.ready()
+            saucers.append(saucer)
+            return True
+        delay = 1
+        timer = Timer(delay, start_saucer, saucer, saucers)
+        timer.tick(1.1)
+        assert saucers
