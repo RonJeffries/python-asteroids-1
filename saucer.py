@@ -24,11 +24,15 @@ class Saucer:
         saucer_size = raw_dimensions * saucer_scale
         self.saucer_surface = SurfaceMaker.saucer_surface(saucer_size)
         self.missile_timer = u.SAUCER_MISSILE_DELAY
+        self.set_zig_timer()
 
+    def set_zig_timer(self):
         def zig(saucer):
-            saucer.velocity = saucer.new_direction()*saucer.direction
+            saucer.velocity = saucer.new_direction() * saucer.direction
             return True
-        self.zig_timer = Timer(1.5, zig, self)
+
+        # noinspection PyAttributeOutsideInit
+        self.zig_timer = Timer(u.SAUCER_ZIG_TIME, zig, self)
 
     def destroyed_by(self, attacker, saucers):
         if self in saucers: saucers.remove(self)
@@ -112,11 +116,7 @@ class Saucer:
         x = 0 if self.direction > 0 else u.SCREEN_SIZE
         self.position = Vector2(x, random.randrange(0, u.SCREEN_SIZE))
         self.missile_timer = u.SAUCER_MISSILE_DELAY
-
-        def zig(saucer):
-            saucer.velocity = saucer.new_direction()*saucer.direction
-            return True
-        self.zig_timer = Timer(1.5, zig, self)
+        self.set_zig_timer()
 
     def score_for_hitting(self, attacker):
         return attacker.scores_for_hitting_saucer()[self.size - 1]

@@ -16,14 +16,13 @@ class TestSaucer:
         saucer.ready()
         assert saucer.position.x == 0
         assert saucer.velocity == u.SAUCER_VELOCITY
-        assert saucer.zig_timer == u.SAUCER_ZIG_TIME
         assert saucer.missile_timer == u.SAUCER_MISSILE_DELAY
-        saucer.zig_timer = 0
         saucer.missile_timer = 0
         saucer.ready()
         assert saucer.position.x == u.SCREEN_SIZE
         assert saucer.velocity == -u.SAUCER_VELOCITY
-        assert saucer.zig_timer == u.SAUCER_ZIG_TIME
+        assert saucer.zig_timer.delay == u.SAUCER_ZIG_TIME
+        assert saucer.zig_timer.elapsed == 0
         assert saucer.missile_timer == u.SAUCER_MISSILE_DELAY
 
     def test_move(self):
