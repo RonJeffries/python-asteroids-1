@@ -7,6 +7,7 @@ from pygame import Vector2
 import u
 from SurfaceMaker import SurfaceMaker
 from missile import Missile
+from timer import Timer
 
 
 class Saucer:
@@ -22,8 +23,12 @@ class Saucer:
         self.offset = raw_dimensions * saucer_scale / 2
         saucer_size = raw_dimensions * saucer_scale
         self.saucer_surface = SurfaceMaker.saucer_surface(saucer_size)
-        self.zig_timer = 1.5
         self.missile_timer = u.SAUCER_MISSILE_DELAY
+
+        def zig(saucer):
+            saucer.velocity = saucer.new_direction()*saucer.direction
+            return True
+        self.zig_timer = Timer(1.5, zig, self)
 
     def destroyed_by(self, attacker, saucers):
         if self in saucers: saucers.remove(self)
@@ -45,10 +50,7 @@ class Saucer:
                 saucers.remove(self)
 
     def check_zigzag(self, delta_time):
-        self.zig_timer -= delta_time
-        if self.zig_timer <= 0:
-            self.zig_timer = u.SAUCER_ZIG_TIME
-            self.velocity = self.new_direction() * self.direction
+        self.zig_timer.tick(delta_time)
 
     def new_direction(self):
         return random.choice(self.directions)
@@ -110,7 +112,11 @@ class Saucer:
         x = 0 if self.direction > 0 else u.SCREEN_SIZE
         self.position = Vector2(x, random.randrange(0, u.SCREEN_SIZE))
         self.missile_timer = u.SAUCER_MISSILE_DELAY
-        self.zig_timer = u.SAUCER_ZIG_TIME
+
+        def zig(saucer):
+            saucer.velocity = saucer.new_direction()*saucer.direction
+            return True
+        self.zig_timer = Timer(1.5, zig, self)
 
     def score_for_hitting(self, attacker):
         return attacker.scores_for_hitting_saucer()[self.size - 1]
