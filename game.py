@@ -16,6 +16,7 @@ class Game:
         self.init_general_game_values()
         self.init_asteroids_game_values()
         self.init_space_objects()
+        # self.init_timers()
         self.init_pygame_and_display(testing)
 
     # noinspection PyAttributeOutsideInit
@@ -29,7 +30,6 @@ class Game:
     def init_asteroids_game_values(self):
         self.asteroids_in_this_wave: int
         self.saucer_timer = 0
-        self.saucer_zigzag_timer = 0
         self.ship_timer = 0
         self.ships_remaining = 0
         self.wave_timer = u.ASTEROID_TIMER_STOPPED
