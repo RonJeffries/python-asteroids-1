@@ -12,7 +12,6 @@ class Missile:
         self.position = position.copy()
         self.velocity = velocity.copy()
         self.radius = 2
-        self.time = 0
         self.timer = Timer(u.MISSILE_LIFETIME, self.timeout)
 
     @classmethod
