@@ -12,7 +12,5 @@ class Timer:
         self.elapsed += delta_time
         if self.elapsed >= self.delay:
             action_complete = self.action(*self.args, *tick_args)
-            if action_complete is None:
-                raise Exception("Timer action may not return None")
-            if action_complete:
+            if action_complete is None or action_complete:
                 self.elapsed = 0

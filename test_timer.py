@@ -47,7 +47,7 @@ class TestTimer():
         assert happened
         assert timer.elapsed == 0
 
-    def test_none_raises_exception(self):
+    def test_returning_none_resets_timer(self):
         happened = False
 
         def action_without_return():
@@ -55,8 +55,7 @@ class TestTimer():
             happened = True
         delay = 1
         timer = Timer(delay, action_without_return)
-        with pytest.raises(Exception):
-            timer.tick(1.5)
+        timer.tick(1.5)
         assert happened
 
     def test_timer_with_args(self):

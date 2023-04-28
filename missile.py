@@ -48,5 +48,4 @@ class Missile:
 
     def timeout(self, missiles):
         missiles.remove(self)
-        return True
 

@@ -32,7 +32,6 @@ class Saucer:
 
     def zig_zag_action(self):
         self.velocity = self.new_direction() * self.direction
-        return True
 
     def destroyed_by(self, attacker, saucers):
         if self in saucers: saucers.remove(self)
