@@ -53,7 +53,10 @@ class TestCollisions:
         assert not game.saucers
         game.check_saucer_spawn(saucer, game.saucers, u.SAUCER_EMERGENCE_TIME)
         assert saucer in game.saucers
-        assert game.saucer_timer == u.SAUCER_EMERGENCE_TIME
+        game.saucers.remove(saucer)
+        assert not game.saucers
+        game.check_saucer_spawn(saucer, game.saucers, u.SAUCER_EMERGENCE_TIME)
+        assert saucer in game.saucers
 
     def test_safe_to_emerge_hates_missiles(self):
         game = Game(True)
