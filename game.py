@@ -9,7 +9,7 @@ from collider import Collider
 from saucer import Saucer
 from ship import Ship
 import u
-
+from timer import Timer
 
 class Game:
     def __init__(self, testing=False):
@@ -32,7 +32,7 @@ class Game:
         self.saucer_timer = 0
         self.ship_timer = 0
         self.ships_remaining = 0
-        self.wave_timer = u.ASTEROID_TIMER_STOPPED
+        self.init_wave_timer()
 
     # noinspection PyAttributeOutsideInit
     def init_space_objects(self):
@@ -85,10 +85,7 @@ class Game:
 
     def check_next_wave(self, delta_time):
         if not self.asteroids:
-            if self.wave_timer == u.ASTEROID_TIMER_STOPPED:
-                self.wave_timer = u.ASTEROID_DELAY
-            else:
-                self.create_wave_in_due_time(self.asteroids, delta_time)
+            self.wave_timer.tick(delta_time, self.asteroids)
 
     def check_saucer_spawn(self, saucer, saucers, delta_time):
         if saucers: return
@@ -126,11 +123,8 @@ class Game:
         else:
             ship.not_firing()
 
-    def create_wave_in_due_time(self, asteroids, dt):
-        self.wave_timer -= dt
-        if self.wave_timer <= 0:
-            asteroids.extend([Asteroid() for _ in range(0, self.next_wave_size())])
-            self.wave_timer = u.ASTEROID_TIMER_STOPPED
+    def create_wave(self, asteroids):
+        asteroids.extend([Asteroid() for _ in range(0, self.next_wave_size())])
 
     def draw_everything(self):
         screen = self.screen
@@ -189,8 +183,11 @@ class Game:
         self.score = 0
         self.ships_remaining = number_of_ships
         self.set_ship_timer(u.SHIP_EMERGENCE_TIME)
-        self.wave_timer = u.ASTEROID_TIMER_STOPPED
+        self.init_wave_timer()
         self.delta_time = 0
+
+    def init_wave_timer(self):
+        self.wave_timer = Timer(u.ASTEROID_DELAY, self.create_wave)
 
     def main_loop(self):
         self.game_init()
