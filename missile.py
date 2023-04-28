@@ -2,6 +2,7 @@
 
 import pygame
 import u
+from timer import Timer
 
 
 class Missile:
@@ -12,6 +13,7 @@ class Missile:
         self.velocity = velocity.copy()
         self.radius = 2
         self.time = 0
+        self.timer = Timer(u.MISSILE_LIFETIME, self.timeout)
 
     @classmethod
     def from_ship(cls, position, velocity):
@@ -43,7 +45,9 @@ class Missile:
         self.position = position
 
     def update(self, missiles, delta_time):
-        self.time += delta_time
-        if self.time > u.MISSILE_LIFETIME:
-            missiles.remove(self)
+        self.timer.tick(delta_time, missiles)
+
+    def timeout(self, missiles):
+        missiles.remove(self)
+        return True
 
