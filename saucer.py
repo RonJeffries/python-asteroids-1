@@ -23,8 +23,11 @@ class Saucer:
         self.offset = raw_dimensions * saucer_scale / 2
         saucer_size = raw_dimensions * saucer_scale
         self.saucer_surface = SurfaceMaker.saucer_surface(saucer_size)
-        self.missile_timer = u.SAUCER_MISSILE_DELAY
+        self.set_firing_timer()
         self.set_zig_timer()
+
+    def set_firing_timer(self):
+        self.missile_timer = Timer(u.SAUCER_MISSILE_DELAY, self.fire_if_missile_available)
 
     def set_zig_timer(self):
         # noinspection PyAttributeOutsideInit
@@ -59,30 +62,27 @@ class Saucer:
         return random.choice(self.directions)
 
     def fire_if_possible(self, delta_time, saucer_missiles, ships):
-        if self.firing_is_possible(delta_time, saucer_missiles):
+        self.missile_timer.tick(delta_time, saucer_missiles, ships)
+
+    def fire_if_missile_available(self, saucer_missiles, ships):
+        if self.a_missile_is_available(saucer_missiles):
             self.fire_a_missile(saucer_missiles, ships)
+            return True
+        else:
+            return False
+
+    @staticmethod
+    def a_missile_is_available(saucer_missiles):
+        return len(saucer_missiles) < u.SAUCER_MISSILE_LIMIT
 
     def fire_a_missile(self, saucer_missiles, ships):
         saucer_missiles.append(self.create_missile(ships))
-        self.missile_timer = u.SAUCER_MISSILE_DELAY
-
-    def firing_is_possible(self, delta_time, saucer_missiles):
-        return self.missile_timer_expired(delta_time) and self.a_missile_is_available(saucer_missiles)
 
     def scores_for_hitting_asteroid(self):
         return [0, 0, 0]
 
     def scores_for_hitting_saucer(self):
         return [0, 0]
-
-    def missile_timer_expired(self, delta_time):
-        self.missile_timer -= delta_time
-        expired = self.missile_timer <= 0
-        return expired
-
-    @staticmethod
-    def a_missile_is_available(saucer_missiles):
-        return len(saucer_missiles) < u.SAUCER_MISSILE_LIMIT
 
     def create_missile(self, ships):
         should_target = random.random()
@@ -114,7 +114,7 @@ class Saucer:
         self.velocity = self.direction * u.SAUCER_VELOCITY
         x = 0 if self.direction > 0 else u.SCREEN_SIZE
         self.position = Vector2(x, random.randrange(0, u.SCREEN_SIZE))
-        self.missile_timer = u.SAUCER_MISSILE_DELAY
+        self.set_firing_timer()
         self.set_zig_timer()
 
     def score_for_hitting(self, attacker):

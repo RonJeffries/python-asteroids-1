@@ -16,14 +16,14 @@ class TestSaucer:
         saucer.ready()
         assert saucer.position.x == 0
         assert saucer.velocity == u.SAUCER_VELOCITY
-        assert saucer.missile_timer == u.SAUCER_MISSILE_DELAY
-        saucer.missile_timer = 0
+        assert saucer.missile_timer.elapsed == 0
+        saucer.missile_timer.elapsed = 0.5
         saucer.ready()
         assert saucer.position.x == u.SCREEN_SIZE
         assert saucer.velocity == -u.SAUCER_VELOCITY
         assert saucer.zig_timer.delay == u.SAUCER_ZIG_TIME
         assert saucer.zig_timer.elapsed == 0
-        assert saucer.missile_timer == u.SAUCER_MISSILE_DELAY
+        assert saucer.missile_timer.elapsed == 0
 
     def test_move(self):
         saucer = Saucer()
@@ -54,12 +54,10 @@ class TestSaucer:
     def test_can_only_fire_two(self):
         saucer = Saucer()
         saucer_missiles = []
-        assert saucer.missile_timer == u.SAUCER_MISSILE_DELAY
         saucer.fire_if_possible(delta_time=0.1, saucer_missiles=saucer_missiles, ships=[])
         assert not saucer_missiles
         saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, saucer_missiles=saucer_missiles, ships=[])
         assert len(saucer_missiles) == 1
-        assert saucer.missile_timer == u.SAUCER_MISSILE_DELAY
         saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, saucer_missiles=saucer_missiles, ships=[])
         assert len(saucer_missiles) == 2
         saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, saucer_missiles=saucer_missiles, ships=[])
