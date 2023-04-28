@@ -30,7 +30,7 @@ class Game:
     def init_asteroids_game_values(self):
         self.asteroids_in_this_wave: int
         self.init_saucer_timer()
-        self.ship_timer = 0
+        self.set_ship_timer(u.SHIP_EMERGENCE_TIME)
         self.ships_remaining = 0
         self.init_wave_timer()
 
@@ -83,8 +83,6 @@ class Game:
         collider = Collider(asteroids=self.asteroids, missiles=self.missiles, saucers=self.saucers, saucer_missiles=self.saucer_missiles,
                             ships=self.ships)
         self.score += collider.check_collisions()
-        if not self.ships:
-            self.set_ship_timer(u.SHIP_EMERGENCE_TIME)
 
     def check_next_wave(self, delta_time):
         if not self.asteroids:
@@ -103,11 +101,15 @@ class Game:
         if self.ships_remaining <= 0:
             self.game_over = True
             return
-        self.ship_timer -= delta_time
-        if self.ship_timer <= 0 and self.safe_to_emerge(self.missiles, self.asteroids):
-            ship.reset()
-            ships.append(ship)
-            self.ships_remaining -= 1
+        self.ship_timer.tick(delta_time, ship, ships)
+
+    def spawn_ship_when_ready(self, ship, ships):
+        if not self.safe_to_emerge(self.missiles, self.asteroids):
+            return False
+        ship.reset()
+        ships.append(ship)
+        self.ships_remaining -= 1
+        return True
 
     def control_ship(self, ship, dt):
         keys = pygame.key.get_pressed()
@@ -248,5 +250,4 @@ class Game:
         return True
 
     def set_ship_timer(self, seconds):
-        if self.ship_timer <= 0:
-            self.ship_timer = seconds
+        self.ship_timer = Timer(seconds, self.spawn_ship_when_ready)

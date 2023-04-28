@@ -18,8 +18,7 @@ class TestCollisions:
         ship.velocity = Vector2(31, 32)
         ship.angle = 90
         ships = []
-        game.set_ship_timer(3)
-        assert game.ship_timer == 3
+        game.set_ship_timer(u.SHIP_EMERGENCE_TIME)
         game.check_ship_spawn(ship, ships, 0.1)
         assert not ships
         game.check_ship_spawn(ship, ships, u.SHIP_EMERGENCE_TIME)
