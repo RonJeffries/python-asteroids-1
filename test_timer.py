@@ -83,3 +83,14 @@ class TestTimer():
         timer2.tick(1.1)
         assert another.happened == 21 + 9
 
+    def test_tick_args(self):
+        result = ""
+
+        def action(action_arg, tick_arg):
+            nonlocal result
+            result = action_arg + " " + tick_arg
+            return True
+        timer  = Timer(1, action, "action arg")
+        timer.tick(1.1, "tick arg")
+        assert result == "action arg tick arg"
+

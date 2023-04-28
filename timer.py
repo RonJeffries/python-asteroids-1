@@ -8,10 +8,10 @@ class Timer:
         self.args = args
         self.elapsed = 0
 
-    def tick(self, delta_time):
+    def tick(self, delta_time, *tick_args):
         self.elapsed += delta_time
         if self.elapsed >= self.delay:
-            action_complete = self.action(*self.args)
+            action_complete = self.action(*self.args, *tick_args)
             if action_complete is None:
                 raise Exception("Timer action may not return None")
             if action_complete:
