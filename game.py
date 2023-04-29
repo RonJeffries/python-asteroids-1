@@ -198,16 +198,19 @@ class Game:
 
     def main_loop(self):
         self.game_init()
+        self.keep_going = False
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
+                    self.keep_going = False
 
             self.asteroids_tick(self.delta_time)
 
             pygame.display.flip()
             self.delta_time = self.clock.tick(60) / 1000
         pygame.quit()
+        return self.keep_going
 
     def asteroids_tick(self, delta_time):
         self.check_saucer_spawn(self.saucer, self.saucers, delta_time)

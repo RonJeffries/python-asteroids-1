@@ -5,5 +5,7 @@ from game import Game
 asteroids_game: Game
 
 if __name__ == "__main__":
-    asteroids_game = Game()
-    asteroids_game.main_loop()
+    keep_going = True
+    while keep_going:
+        asteroids_game = Game()
+        keep_going = asteroids_game.main_loop()
