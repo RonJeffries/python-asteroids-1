@@ -177,11 +177,13 @@ class Game:
         score_rect = score_surface.get_rect(topleft=(10, 10))
         return score_surface, score_rect
 
+    # noinspection PyAttributeOutsideInit
     def game_init(self):
         self.running = True
         self.saucer.init_for_new_game()
         self.insert_quarter(u.SHIPS_PER_QUARTER)
 
+    # noinspection PyAttributeOutsideInit
     def insert_quarter(self, number_of_ships):
         self.asteroids = []
         self.missiles = []
@@ -197,6 +199,7 @@ class Game:
         self.delta_time = 0
 
     def init_wave_timer(self):
+        # noinspection PyAttributeOutsideInit
         self.wave_timer = Timer(u.ASTEROID_DELAY, self.create_wave)
 
     def main_loop(self):
