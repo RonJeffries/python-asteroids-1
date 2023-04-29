@@ -19,6 +19,8 @@ class Game:
         self.init_space_objects()
         # self.init_timers()
         self.init_pygame_and_display(testing)
+        if not testing:
+            self.insert_quarter(u.SHIPS_PER_QUARTER)
 
     # noinspection PyAttributeOutsideInit
     def init_general_game_values(self):
@@ -115,7 +117,8 @@ class Game:
     def control_ship(self, ship, dt):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_q]:
-            self.insert_quarter(u.SHIPS_PER_QUARTER)
+            self.keep_going = True
+            self.running = False
         if keys[pygame.K_f]:
             ship.turn_left(dt)
         if keys[pygame.K_d]:
@@ -177,7 +180,7 @@ class Game:
     def game_init(self):
         self.running = True
         self.saucer.init_for_new_game()
-        self.insert_quarter(0)
+        self.insert_quarter(u.SHIPS_PER_QUARTER)
 
     def insert_quarter(self, number_of_ships):
         self.asteroids = []
