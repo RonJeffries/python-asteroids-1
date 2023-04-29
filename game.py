@@ -11,6 +11,7 @@ from ship import Ship
 import u
 from timer import Timer
 
+
 class Game:
     def __init__(self, testing=False):
         self.init_general_game_values()
