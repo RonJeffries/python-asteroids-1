@@ -9,6 +9,7 @@ from collider import Collider
 from saucer import Saucer
 from ship import Ship
 import u
+from spaceobjects import SpaceObjects
 from timer import Timer
 
 
@@ -49,6 +50,7 @@ class Game:
         self.saucer_missiles = []
         self.ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
         self.ships = []
+        self.space_objects = SpaceObjects(self.asteroids, self.missiles, self.saucers, self.saucer_missiles, self.ships)
 
     # noinspection PyAttributeOutsideInit
     def init_pygame_and_display(self, testing):
@@ -83,8 +85,7 @@ class Game:
         self.score_font = pygame.font.SysFont("arial", 48)
 
     def process_collisions(self):
-        collider = Collider(asteroids=self.asteroids, missiles=self.missiles, saucers=self.saucers, saucer_missiles=self.saucer_missiles,
-                            ships=self.ships)
+        collider = Collider(self.space_objects)
         self.score += collider.check_collisions()
 
     def check_next_wave(self, delta_time):
@@ -185,10 +186,10 @@ class Game:
 
     # noinspection PyAttributeOutsideInit
     def insert_quarter(self, number_of_ships):
-        self.asteroids = []
-        self.missiles = []
-        self.saucers = []
-        self.ships = []
+        self.asteroids.clear()
+        self.missiles.clear()
+        self.saucers.clear()
+        self.ships.clear()
         self.asteroids_in_this_wave = 2
         self.game_over = False
         self.init_saucer_timer()
