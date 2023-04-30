@@ -43,14 +43,34 @@ class Game:
 
     # noinspection PyAttributeOutsideInit
     def init_space_objects(self):
-        self.asteroids = []
-        self.missiles = []
+        asteroids = []
+        missiles = []
         self.saucer = Saucer(Vector2(u.SCREEN_SIZE / 4, u.SCREEN_SIZE / 4))
-        self.saucers = []
-        self.saucer_missiles = []
+        saucers = []
+        saucer_missiles = []
         self.ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
-        self.ships = []
-        self.space_objects = SpaceObjects(self.asteroids, self.missiles, self.saucers, self.saucer_missiles, self.ships)
+        ships = []
+        self.space_objects = SpaceObjects(asteroids, missiles, saucers, saucer_missiles, ships)
+
+    @property
+    def asteroids(self):
+        return self.space_objects.asteroids
+
+    @property
+    def missiles(self):
+        return self.space_objects.missiles
+
+    @property
+    def saucers(self):
+        return self.space_objects.saucers
+
+    @property
+    def saucer_missiles(self):
+        return self.space_objects.saucer_missiles
+
+    @property
+    def ships(self):
+        return self.space_objects.ships
 
     # noinspection PyAttributeOutsideInit
     def init_pygame_and_display(self, testing):
