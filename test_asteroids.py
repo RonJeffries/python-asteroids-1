@@ -93,9 +93,9 @@ class TestAsteroids:
         ship.fire_if_possible(missiles)
         assert len(missiles) == 1
         missile = missiles[0]
-        missile.update(missiles, 0.5)
+        missile.update(0.5, missiles)
         assert len(missiles) == 1
-        missile.update(missiles, 3.0)
+        missile.update(3.0, missiles)
         assert len(missiles) == 0
 
     def test_wave_sizes(self):
