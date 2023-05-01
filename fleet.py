@@ -14,5 +14,5 @@ class Fleet:
         if flyer in self.flyers: self.flyers.remove(flyer)
 
     def draw(self, screen):
-        for flyer in self.flyers:
+        for flyer in self:
             flyer.draw(screen)
