@@ -39,5 +39,6 @@ class Fleets:
         result = True
         for fleet in self.fleets:
             result = result and fleet.tick(delta_time)
+        self.move_everything(delta_time)
         return result
 

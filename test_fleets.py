@@ -4,6 +4,14 @@ from fleets import Fleets
 from fleet import Fleet
 
 
+class FakeFlyer:
+    def __init__(self):
+        pass
+
+    def move(self, delta_time, fleet):
+        pass
+
+
 class TestFleets:
     def test_creation(self):
         asteroids = ["asteroid"]
@@ -33,11 +41,11 @@ class TestFleets:
         assert fleet
 
     def test_fleets_tick(self):
-        asteroids = ["asteroid"]
-        missiles = ["missile"]
-        saucers = ["saucer"]
-        saucer_missiles = ["saucer_missile"]
-        ships = ["ship"]
+        asteroids = [FakeFlyer()]
+        missiles = [FakeFlyer()]
+        saucers = [FakeFlyer()]
+        saucer_missiles = [FakeFlyer()]
+        ships = [FakeFlyer()]
         fleets = Fleets(asteroids, missiles, saucers, saucer_missiles, ships)
         result = fleets.tick(0.1)
         assert result

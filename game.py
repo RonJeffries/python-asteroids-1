@@ -237,7 +237,6 @@ class Game:
         self.check_saucer_firing(delta_time, self. saucers, self.saucer_missiles, self.ships)
         self.check_next_wave(delta_time)
         self.control_ship(self.ship, delta_time)
-        self.move_everything(delta_time)
         self.process_collisions()
         self.draw_everything()
         if self.game_over: self.draw_game_over()
@@ -245,9 +244,6 @@ class Game:
     def check_saucer_firing(self, delta_time, saucers, saucer_missiles, ships):
         for saucer in saucers:
             saucer.fire_if_possible(delta_time, saucer_missiles, ships)
-
-    def move_everything(self, delta_time):
-        self.fleets.move_everything(delta_time)
 
     def next_wave_size(self):
         self.asteroids_in_this_wave += 2
