@@ -20,6 +20,10 @@ class Fleets:
         return self.fleets[2].flyers
 
     @property
+    def saucer_missiles(self):
+        return self.fleets[3].flyers
+
+    @property
     def ships(self):
         return self.fleets[4].flyers
 

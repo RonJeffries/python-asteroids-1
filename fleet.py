@@ -5,7 +5,7 @@ class Fleet:
         self.flyers = flyers
 
     def __iter__(self):
-        return self.flyers.__iter__()
+        return self.flyers.copy().__iter__()
 
     def append(self, flyer):
         self.flyers.append(flyer)

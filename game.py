@@ -65,6 +65,10 @@ class Game:
         return self.space_objects.saucers
 
     @property
+    def saucer_missiles(self):
+        return self.space_objects.saucer_missiles
+
+    @property
     def ships(self):
         return self.space_objects.ships
 
@@ -229,12 +233,17 @@ class Game:
     def asteroids_tick(self, delta_time):
         self.check_saucer_spawn(self.saucer, self.saucers, delta_time)
         self.check_ship_spawn(self.ship, self.ships, delta_time)
+        self.check_saucer_firing(delta_time, self. saucers, self.saucer_missiles, self.ships)
         self.check_next_wave(delta_time)
         self.control_ship(self.ship, delta_time)
         self.move_everything(delta_time)
         self.process_collisions()
         self.draw_everything()
         if self.game_over: self.draw_game_over()
+
+    def check_saucer_firing(self, delta_time, saucers, saucer_missiles, ships):
+        for saucer in saucers:
+            saucer.fire_if_possible(delta_time, saucer_missiles, ships)
 
     def move_everything(self, delta_time):
         self.space_objects.move_everything(delta_time)
