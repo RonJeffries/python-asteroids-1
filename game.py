@@ -17,7 +17,7 @@ class Game:
     def __init__(self, testing=False):
         self.init_general_game_values()
         self.init_asteroids_game_values()
-        self.init_space_objects()
+        self.init_fleets()
         # self.init_timers()
         self.init_pygame_and_display(testing)
         if not testing:
@@ -42,7 +42,7 @@ class Game:
         self.saucer_timer = Timer(u.SAUCER_EMERGENCE_TIME, self.bring_in_saucer)
 
     # noinspection PyAttributeOutsideInit
-    def init_space_objects(self):
+    def init_fleets(self):
         asteroids = []
         missiles = []
         self.saucer = Saucer(Vector2(u.SCREEN_SIZE / 4, u.SCREEN_SIZE / 4))
@@ -50,27 +50,27 @@ class Game:
         saucer_missiles = []
         self.ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
         ships = []
-        self.space_objects = Fleets(asteroids, missiles, saucers, saucer_missiles, ships)
+        self.fleets = Fleets(asteroids, missiles, saucers, saucer_missiles, ships)
 
     @property
     def asteroids(self):
-        return self.space_objects.asteroids
+        return self.fleets.asteroids
 
     @property
     def missiles(self):
-        return self.space_objects.missiles
+        return self.fleets.missiles
 
     @property
     def saucers(self):
-        return self.space_objects.saucers
+        return self.fleets.saucers
 
     @property
     def saucer_missiles(self):
-        return self.space_objects.saucer_missiles
+        return self.fleets.saucer_missiles
 
     @property
     def ships(self):
-        return self.space_objects.ships
+        return self.fleets.ships
 
     # noinspection PyAttributeOutsideInit
     def init_pygame_and_display(self, testing):
@@ -105,7 +105,7 @@ class Game:
         self.score_font = pygame.font.SysFont("arial", 48)
 
     def process_collisions(self):
-        collider = Collider(self.space_objects)
+        collider = Collider(self.fleets)
         self.score += collider.check_collisions()
 
     def check_next_wave(self, delta_time):
@@ -159,7 +159,7 @@ class Game:
     def draw_everything(self):
         screen = self.screen
         screen.fill("midnightblue")
-        self.space_objects.draw(screen)
+        self.fleets.draw(screen)
         self.draw_score()
         self.draw_available_ships()
 
@@ -231,6 +231,7 @@ class Game:
         return self.keep_going
 
     def asteroids_tick(self, delta_time):
+        self.fleets.tick(delta_time)
         self.check_saucer_spawn(self.saucer, self.saucers, delta_time)
         self.check_ship_spawn(self.ship, self.ships, delta_time)
         self.check_saucer_firing(delta_time, self. saucers, self.saucer_missiles, self.ships)
@@ -246,7 +247,7 @@ class Game:
             saucer.fire_if_possible(delta_time, saucer_missiles, ships)
 
     def move_everything(self, delta_time):
-        self.space_objects.move_everything(delta_time)
+        self.fleets.move_everything(delta_time)
 
     def next_wave_size(self):
         self.asteroids_in_this_wave += 2

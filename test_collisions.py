@@ -234,9 +234,9 @@ class TestCollisions:
     def test_collider_via_game_with_score(self):
         game = Game(True)
         asteroid = Asteroid(2, Vector2(100, 100))
-        game.space_objects.asteroids.append(asteroid)
+        game.fleets.asteroids.append(asteroid)
         missile = Missile.from_ship(Vector2(100, 100), Vector2(3, 3))
-        game.space_objects.missiles.append(missile)
+        game.fleets.missiles.append(missile)
         game.process_collisions()
         assert game.score == 20
 
