@@ -20,3 +20,6 @@ class Fleet:
     def move(self, delta_time):
         for flyer in self:
             flyer.move(delta_time, self)
+
+    def tick(self, delta_time):
+        return True

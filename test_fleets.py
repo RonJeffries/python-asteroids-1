@@ -31,3 +31,14 @@ class TestFleets:
         asteroids = ["asteroid"]
         fleet = Fleet(asteroids)
         assert fleet
+
+    def test_fleets_tick(self):
+        asteroids = ["asteroid"]
+        missiles = ["missile"]
+        saucers = ["saucer"]
+        saucer_missiles = ["saucer_missile"]
+        ships = ["ship"]
+        fleets = Fleets(asteroids, missiles, saucers, saucer_missiles, ships)
+        result = fleets.tick(0.1)
+        assert result
+
