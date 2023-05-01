@@ -23,3 +23,8 @@ class Fleet:
 
     def tick(self, delta_time):
         return True
+
+
+class ShipFleet(Fleet):
+    def __init__(self, flyers):
+        super().__init__(flyers)
