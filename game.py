@@ -140,14 +140,6 @@ class Game:
         if keys[pygame.K_q]:
             self.keep_going = True
             self.running = False
-        if keys[pygame.K_f]:
-            ship.turn_left(dt)
-        if keys[pygame.K_d]:
-            ship.turn_right(dt)
-        if keys[pygame.K_j]:
-            ship.power_on(dt)
-        else:
-            ship.power_off()
         if keys[pygame.K_k]:
             ship.fire_if_possible(self.missiles)
         else:

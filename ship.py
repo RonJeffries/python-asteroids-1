@@ -30,6 +30,17 @@ class Ship:
     def accelerate_by(self, accel):
         self.velocity = self.velocity + accel
 
+    def control_motion(self, delta_time):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_f]:
+            self.turn_left(delta_time)
+        if keys[pygame.K_d]:
+            self.turn_right(delta_time)
+        if keys[pygame.K_j]:
+            self.power_on(delta_time)
+        else:
+            self.power_off()
+
     def destroyed_by(self, attacker, ships):
         if self in ships: ships.remove(self)
 
