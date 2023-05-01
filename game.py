@@ -65,10 +65,6 @@ class Game:
         return self.space_objects.saucers
 
     @property
-    def saucer_missiles(self):
-        return self.space_objects.saucer_missiles
-
-    @property
     def ships(self):
         return self.space_objects.ships
 
