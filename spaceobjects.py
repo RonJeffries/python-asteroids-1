@@ -24,3 +24,8 @@ class SpaceObjects:
     def ships(self):
         return self.collections[4]
 
+    def draw(self, screen):
+        for fleet in self.collections:
+            for flyer in fleet:
+                flyer.draw(screen)
+

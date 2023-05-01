@@ -159,16 +159,7 @@ class Game:
     def draw_everything(self):
         screen = self.screen
         screen.fill("midnightblue")
-        for saucer in self.saucers:
-            saucer.draw(screen)
-        for missile in self.saucer_missiles:
-            missile.draw(screen)
-        for ship in self.ships:
-            ship.draw(screen)
-        for asteroid in self.asteroids:
-            asteroid.draw(screen)
-        for missile in self.missiles:
-            missile.draw(screen)
+        self.space_objects.draw(screen)
         self.draw_score()
         self.draw_available_ships()
 
