@@ -8,6 +8,9 @@ class FakeFlyer:
     def __init__(self):
         pass
 
+    def control_motion(self, delta_time):
+        pass
+
     def move(self, delta_time, fleet):
         pass
 
