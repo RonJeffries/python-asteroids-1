@@ -16,3 +16,7 @@ class Fleet:
     def draw(self, screen):
         for flyer in self:
             flyer.draw(screen)
+
+    def move(self, delta_time):
+        for flyer in self:
+            flyer.move(delta_time, self)

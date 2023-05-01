@@ -32,14 +32,6 @@ class Fleets:
             fleet.draw(screen)
 
     def move_everything(self, delta_time):
-        for the_saucer in self.saucers.copy():
-            the_saucer.move(delta_time, self.saucers, self.saucer_missiles, self.ships)
-        for missile in self.saucer_missiles:
-            missile.move(delta_time)
-        for the_ship in self.ships:
-            the_ship.move(delta_time)
-        for asteroid in self.asteroids:
-            asteroid.move(delta_time)
-        for missile in self.missiles:
-            missile.move(delta_time)
+        for fleet in self.fleets:
+            fleet.move(delta_time)
 

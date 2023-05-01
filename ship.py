@@ -62,7 +62,7 @@ class Ship:
     def missile_velocity(self):
         return Vector2(u.MISSILE_SPEED, 0).rotate(-self.angle) + self.velocity
 
-    def move(self, delta_time):
+    def move(self, delta_time, _ships):
         position = self.position + self.velocity * delta_time
         position.x = position.x % u.SCREEN_SIZE
         position.y = position.y % u.SCREEN_SIZE

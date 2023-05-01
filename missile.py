@@ -37,7 +37,7 @@ class Missile:
     def draw(self, screen):
         pygame.draw.circle(screen, "white", self.position, 4)
 
-    def move(self, deltaTime):
+    def move(self, deltaTime, _missiles):
         position = self.position + self.velocity * deltaTime
         position.x = position.x % u.SCREEN_SIZE
         position.y = position.y % u.SCREEN_SIZE

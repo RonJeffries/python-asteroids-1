@@ -29,20 +29,20 @@ class TestSaucer:
         saucer = Saucer()
         saucer.ready()
         starting = saucer.position
-        saucer.move(delta_time=0.1, saucers=[], saucer_missiles=[], ships=[])
+        saucer.move(delta_time=0.1, saucers=[])
         assert saucer.position.x == u.SAUCER_VELOCITY.x*0.1
-        saucer.move(delta_time=0.1, saucers=[], saucer_missiles=[], ships=[])
+        saucer.move(delta_time=0.1, saucers=[])
         assert saucer.position.x == 2*u.SAUCER_VELOCITY.x*0.1
 
     def test_vanish_at_edge(self):
         saucer = Saucer()
         saucers = [saucer]
         saucer.ready()
-        saucer.move(1, saucers, [], [])
+        saucer.move(1, saucers)
         assert saucers
         while saucer.position.x < u.SCREEN_SIZE:
             assert saucers
-            saucer.move(delta_time=0.1, saucers=saucers, saucer_missiles=[], ships=[])
+            saucer.move(delta_time=0.1, saucers=saucers)
         assert not saucers
 
     def test_right_to_left(self):

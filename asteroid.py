@@ -30,7 +30,7 @@ class Asteroid:
         top_left_corner = self.position - self.offset
         screen.blit(self.surface, top_left_corner)
 
-    def move(self, delta_time):
+    def move(self, delta_time, _asteroids):
         position = self.position + self.velocity * delta_time
         position.x = position.x % u.SCREEN_SIZE
         position.y = position.y % u.SCREEN_SIZE
