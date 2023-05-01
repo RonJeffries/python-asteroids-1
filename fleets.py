@@ -1,31 +1,31 @@
 # SpaceObjects
 
-class SpaceObjects:
+class Fleets:
     def __init__(self, asteroids, missiles, saucers, saucer_missiles, ships):
-        self.collections = (asteroids, missiles, saucers, saucer_missiles, ships)
+        self.fleets = (asteroids, missiles, saucers, saucer_missiles, ships)
 
     @property
     def asteroids(self):
-        return self.collections[0]
+        return self.fleets[0]
 
     @property
     def missiles(self):
-        return self.collections[1]
+        return self.fleets[1]
 
     @property
     def saucers(self):
-        return self.collections[2]
+        return self.fleets[2]
 
     @property
     def saucer_missiles(self):
-        return self.collections[3]
+        return self.fleets[3]
 
     @property
     def ships(self):
-        return self.collections[4]
+        return self.fleets[4]
 
     def draw(self, screen):
-        for fleet in self.collections:
+        for fleet in self.fleets:
             for flyer in fleet:
                 flyer.draw(screen)
 

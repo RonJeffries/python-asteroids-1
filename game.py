@@ -9,7 +9,7 @@ from collider import Collider
 from saucer import Saucer
 from ship import Ship
 import u
-from spaceobjects import SpaceObjects
+from fleets import Fleets
 from timer import Timer
 
 
@@ -50,7 +50,7 @@ class Game:
         saucer_missiles = []
         self.ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
         ships = []
-        self.space_objects = SpaceObjects(asteroids, missiles, saucers, saucer_missiles, ships)
+        self.space_objects = Fleets(asteroids, missiles, saucers, saucer_missiles, ships)
 
     @property
     def asteroids(self):

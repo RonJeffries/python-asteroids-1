@@ -8,7 +8,7 @@ class Collider:
         self.score = 0
 
     def check_collisions(self):
-        for pair in itertools.combinations(self.space_objects.collections, 2):
+        for pair in itertools.combinations(self.space_objects.fleets, 2):
             self.check_individual_collisions(pair[0], pair[1])
         return self.score
 

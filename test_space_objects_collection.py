@@ -1,6 +1,6 @@
 import pytest
 
-from spaceobjects import SpaceObjects
+from fleets import Fleets
 
 
 class TestSpaceObjectsCollection:
@@ -10,7 +10,7 @@ class TestSpaceObjectsCollection:
         saucers = ["saucer"]
         saucer_missiles = ["saucer_missile"]
         ships = ["ship"]
-        space_objects = SpaceObjects(asteroids, missiles, saucers,  saucer_missiles, ships)
+        space_objects = Fleets(asteroids, missiles, saucers, saucer_missiles, ships)
 
     def test_access(self):
         asteroids = ["asteroid"]
@@ -18,7 +18,7 @@ class TestSpaceObjectsCollection:
         saucers = ["saucer"]
         saucer_missiles = ["saucer_missile"]
         ships = ["ship"]
-        space_objects = SpaceObjects(asteroids, missiles, saucers, saucer_missiles, ships)
+        space_objects = Fleets(asteroids, missiles, saucers, saucer_missiles, ships)
         assert space_objects.asteroids == asteroids
         assert space_objects.missiles == missiles
         assert space_objects.saucers == saucers

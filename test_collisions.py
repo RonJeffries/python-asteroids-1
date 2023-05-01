@@ -8,7 +8,7 @@ from missile import Missile
 from saucer import Saucer, nearest, nearest_point
 from ship import Ship
 from game import Game
-from spaceobjects import SpaceObjects
+from fleets import Fleets
 
 
 class TestCollisions:
@@ -114,7 +114,7 @@ class TestCollisions:
         asteroids = [asteroid]
         missile = Missile.from_ship(pos, Vector2(0, 0))
         missiles = [missile]
-        collider = Collider(SpaceObjects(asteroids, missiles, [], [], []))
+        collider = Collider(Fleets(asteroids, missiles, [], [], []))
         collider.mutual_destruction(asteroid, asteroids, missile, missiles)
         assert not missiles
         assert collider.score == 20
@@ -126,7 +126,7 @@ class TestCollisions:
         ships = [ship]
         missile = Missile.from_ship(pos, Vector2(0, 0))
         missiles = [missile]
-        collider = Collider(SpaceObjects([], missiles, [], [], ships))
+        collider = Collider(Fleets([], missiles, [], [], ships))
         collider.mutual_destruction(ship, ships, missile, missiles)
         assert not missiles
         assert not ships
@@ -138,7 +138,7 @@ class TestCollisions:
         asteroids = [asteroid]
         ship = Ship(pos)
         ships = [ship]
-        collider = Collider(SpaceObjects(asteroids, [], [], [], ships))
+        collider = Collider(Fleets(asteroids, [], [], [], ships))
         collider.mutual_destruction(asteroid, asteroids, ship, ships)
         assert not ships
         assert collider.score == 0
@@ -149,7 +149,7 @@ class TestCollisions:
         saucers = [saucer]
         ship = Ship(pos)
         ships = [ship]
-        collider = Collider(SpaceObjects([], [], saucers, [], ships))
+        collider = Collider(Fleets([], [], saucers, [], ships))
         collider.mutual_destruction(saucer, saucers, ship, ships)
         assert not ships
         assert collider.score == 0
@@ -160,7 +160,7 @@ class TestCollisions:
         asteroids = [asteroid]
         saucer = Saucer(pos)
         saucers = [saucer]
-        collider = Collider(SpaceObjects(asteroids, [], saucers, [], []))
+        collider = Collider(Fleets(asteroids, [], saucers, [], []))
         collider.mutual_destruction(asteroid, asteroids, saucer, saucers)
         assert not saucers
         assert collider.score == 0
@@ -171,7 +171,7 @@ class TestCollisions:
         saucers = [saucer]
         missile = Missile.from_ship(pos, Vector2(0, 0))
         missiles = [missile]
-        collider = Collider(SpaceObjects([], missiles, saucers, [], []))
+        collider = Collider(Fleets([], missiles, saucers, [], []))
         collider.mutual_destruction(saucer, saucers, missile, missiles)
         assert not missiles
         assert not saucers
@@ -183,7 +183,7 @@ class TestCollisions:
         saucers = [saucer]
         missile = Missile.from_ship(pos, Vector2(0, 0))
         missiles = [missile]
-        collider = Collider(SpaceObjects([], missiles, saucers, [], []))
+        collider = Collider(Fleets([], missiles, saucers, [], []))
         collider.mutual_destruction(saucer, saucers, missile, missiles)
         assert not missiles
         assert not saucers
@@ -195,7 +195,7 @@ class TestCollisions:
         saucers = [saucer]
         missile = Missile.from_saucer(pos, Vector2(0, 0))
         missiles = [missile]
-        collider = Collider(SpaceObjects([], missiles, saucers, [], []))
+        collider = Collider(Fleets([], missiles, saucers, [], []))
         collider.mutual_destruction(saucer, saucers, missile, missiles)
         assert not missiles
         assert not saucers
@@ -227,7 +227,7 @@ class TestCollisions:
 
     def test_collider(self):
         game = Game(True)
-        collider = Collider(SpaceObjects([], [], [], [], []))
+        collider = Collider(Fleets([], [], [], [], []))
         score = collider.check_collisions()
         assert score == 0
 
@@ -245,7 +245,7 @@ class TestCollisions:
         missile = Missile.from_ship(Vector2(100, 100), Vector2(3, 3))
         asteroids=[asteroid]
         missiles=[missile]
-        collider = Collider(SpaceObjects(asteroids, missiles, [], [], []))
+        collider = Collider(Fleets(asteroids, missiles, [], [], []))
         collider.check_collisions()
         assert collider.score == 20
         collider.check_collisions()
