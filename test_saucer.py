@@ -11,14 +11,13 @@ from ship import Ship
 
 
 class TestSaucer:
-    def test_ready(self):
+    def test_alternating_direction(self):
         saucer = Saucer()
-        saucer.ready()
         assert saucer.position.x == 0
         assert saucer.velocity == u.SAUCER_VELOCITY
         assert saucer.missile_timer.elapsed == 0
         saucer.missile_timer.elapsed = 0.5
-        saucer.ready()
+        saucer = Saucer()
         assert saucer.position.x == u.SCREEN_SIZE
         assert saucer.velocity == -u.SAUCER_VELOCITY
         assert saucer.zig_timer.delay == u.SAUCER_ZIG_TIME
@@ -35,9 +34,10 @@ class TestSaucer:
         assert saucer.position.x == 2*u.SAUCER_VELOCITY.x*0.1
 
     def test_vanish_at_edge(self):
+        Saucer.init_for_new_game()
         saucer = Saucer()
         saucers = [saucer]
-        saucer.ready()
+        assert saucer.position.x == 0
         saucer.move(1, saucers)
         assert saucers
         while saucer.position.x < u.SCREEN_SIZE:
@@ -46,9 +46,9 @@ class TestSaucer:
         assert not saucers
 
     def test_right_to_left(self):
+        Saucer.init_for_new_game()
         saucer = Saucer()
-        saucer.ready()
-        saucer.ready()
+        saucer = Saucer()
         assert saucer.position.x == u.SCREEN_SIZE
 
     def test_can_only_fire_two(self):
@@ -103,7 +103,8 @@ class TestSaucer:
         assert saucer_missile.score_list == [0, 0, 0]
 
     def test_missile_spec_targeted(self):
-        saucer = Saucer(Vector2(100, 110))
+        saucer = Saucer()
+        saucer.position = Vector2(100, 110)
         saucer.velocity = Vector2(99, 77)
         ships = [Ship(Vector2(100, 100))]
         should_target = 0.1

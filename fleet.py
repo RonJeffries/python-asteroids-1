@@ -1,4 +1,6 @@
 # Fleet
+from timer import Timer
+
 
 class Fleet:
     def __init__(self, flyers):
@@ -27,3 +29,14 @@ class Fleet:
 class ShipFleet(Fleet):
     def __init__(self, flyers):
         super().__init__(flyers)
+
+
+class SaucerFleet(Fleet):
+    def __init__(self, flyers):
+        super().__init__(flyers)
+        self.timer = Timer(u.SAUCER_EMERGENCE_TIME, self.bring_in_saucer)
+
+    def bring_in_saucer(self, saucer):
+        saucer.ready()
+        self.flyers.append(saucer)
+

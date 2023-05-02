@@ -1,7 +1,8 @@
 import pytest
 
+import u
 from fleets import Fleets
-from fleet import Fleet
+from fleet import Fleet, SaucerFleet
 
 
 class FakeFlyer:
@@ -55,4 +56,13 @@ class TestFleets:
         fleets = Fleets(asteroids, missiles, saucers, saucer_missiles, ships)
         result = fleets.tick(0.1)
         assert result
+
+    # def test_saucer_spawn(self):
+    #     saucers = []
+    #     saucer_fleet = SaucerFleet(saucers)
+    #     saucer_fleet.tick(0.1)
+    #     assert not saucers
+    #     saucer_fleet.tick(u.SAUCER_EMERGENCE_TIME)
+    #     assert saucers
+
 

@@ -11,12 +11,20 @@ from timer import Timer
 
 
 class Saucer:
+    direction = -1
+
+    @classmethod
+    def init_for_new_game(cls):
+        cls.direction = -1
+
     def __init__(self, position=None, size=2):
-        self.position = position if position is not None else u.CENTER
         self.size = size
-        self.velocity = u.SAUCER_VELOCITY
+        Saucer.direction = -Saucer.direction
+        x = 0 if Saucer.direction > 0 else u.SCREEN_SIZE
+        self.position = Vector2(x, random.randrange(0, u.SCREEN_SIZE))
+        self.velocity = Saucer.direction * u.SAUCER_VELOCITY
         self.directions = (self.velocity.rotate(45), self.velocity, self.velocity, self.velocity.rotate(-45))
-        self.direction = -1
+        print(Saucer.direction, self.velocity, self.directions)
         self.radius = 20
         raw_dimensions = Vector2(10, 6)
         saucer_scale = 4 * self.size
@@ -26,6 +34,7 @@ class Saucer:
         self.set_firing_timer()
         self.set_zig_timer()
 
+    # noinspection PyAttributeOutsideInit
     def set_firing_timer(self):
         self.missile_timer = Timer(u.SAUCER_MISSILE_DELAY, self.fire_if_missile_available)
 
@@ -34,7 +43,7 @@ class Saucer:
         self.zig_timer = Timer(u.SAUCER_ZIG_TIME, self.zig_zag_action)
 
     def zig_zag_action(self):
-        self.velocity = self.new_direction() * self.direction
+        self.velocity = self.new_direction()
 
     def destroyed_by(self, attacker, saucers):
         if self in saucers: saucers.remove(self)
@@ -42,9 +51,6 @@ class Saucer:
     def draw(self, screen):
         top_left_corner = self.position - self.offset
         screen.blit(self.saucer_surface, top_left_corner)
-
-    def init_for_new_game(self):
-        self.direction = -1
 
     def move(self, delta_time, saucers):
         # self.fire_if_possible(delta_time, saucer_missiles, ships)
@@ -110,12 +116,7 @@ class Saucer:
         return degrees(atan2(angle_point.y, angle_point.x))
 
     def ready(self):
-        self.direction = -self.direction
-        self.velocity = self.direction * u.SAUCER_VELOCITY
-        x = 0 if self.direction > 0 else u.SCREEN_SIZE
-        self.position = Vector2(x, random.randrange(0, u.SCREEN_SIZE))
-        self.set_firing_timer()
-        self.set_zig_timer()
+        pass
 
     def score_for_hitting(self, attacker):
         return attacker.scores_for_hitting_saucer()[self.size - 1]

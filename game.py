@@ -45,7 +45,6 @@ class Game:
     def init_fleets(self):
         asteroids = []
         missiles = []
-        self.saucer = Saucer(Vector2(u.SCREEN_SIZE / 4, u.SCREEN_SIZE / 4))
         saucers = []
         saucer_missiles = []
         self.ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
@@ -112,13 +111,12 @@ class Game:
         if not self.asteroids:
             self.wave_timer.tick(delta_time, self.asteroids)
 
-    def check_saucer_spawn(self, saucer, saucers, delta_time):
+    def check_saucer_spawn(self, saucers, delta_time):
         if saucers: return
-        self.saucer_timer.tick(delta_time, saucer, saucers)
+        self.saucer_timer.tick(delta_time, saucers)
 
-    def bring_in_saucer(self, saucer, saucers):
-        saucer.ready()
-        saucers.append(saucer)
+    def bring_in_saucer(self, saucers):
+        saucers.append(Saucer())
 
     def check_ship_spawn(self, ship, ships, delta_time):
         if ships: return
@@ -181,7 +179,7 @@ class Game:
     # noinspection PyAttributeOutsideInit
     def game_init(self):
         self.running = True
-        self.saucer.init_for_new_game()
+        Saucer.init_for_new_game()
         self.insert_quarter(u.SHIPS_PER_QUARTER)
 
     # noinspection PyAttributeOutsideInit
@@ -221,7 +219,7 @@ class Game:
 
     def asteroids_tick(self, delta_time):
         self.fleets.tick(delta_time)
-        self.check_saucer_spawn(self.saucer, self.saucers, delta_time)
+        self.check_saucer_spawn(self.saucers, delta_time)
         self.check_ship_spawn(self.ship, self.ships, delta_time)
         self.check_saucer_firing(delta_time, self. saucers, self.saucer_missiles, self.ships)
         self.check_next_wave(delta_time)
