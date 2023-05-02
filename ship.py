@@ -31,6 +31,8 @@ class Ship:
         self.velocity = self.velocity + accel
 
     def control_motion(self, delta_time):
+        if not pygame.get_init():
+            return
         keys = pygame.key.get_pressed()
         if keys[pygame.K_f]:
             self.turn_left(delta_time)
@@ -74,6 +76,7 @@ class Ship:
         return Vector2(u.MISSILE_SPEED, 0).rotate(-self.angle) + self.velocity
 
     def move(self, delta_time, _ships):
+        self.control_motion(delta_time)
         position = self.position + self.velocity * delta_time
         position.x = position.x % u.SCREEN_SIZE
         position.y = position.y % u.SCREEN_SIZE

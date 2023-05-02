@@ -28,8 +28,3 @@ class Fleet:
 class ShipFleet(Fleet):
     def __init__(self, flyers):
         super().__init__(flyers)
-
-    def move(self, delta_time):
-        for ship in self:
-            ship.control_motion(delta_time)
-            ship.move(delta_time, self)
