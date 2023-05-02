@@ -17,10 +17,10 @@ class Fleet:
         for flyer in self:
             flyer.draw(screen)
 
-    def tick(self, delta_time):
+    def tick(self, delta_time, fleets):
         result = True
         for flyer in self:
-            result = result and flyer.tick(delta_time, self)
+            result = result and flyer.tick(delta_time, self, fleets)
         return result
 
 

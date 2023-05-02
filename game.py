@@ -127,13 +127,6 @@ class Game:
             return
         self.ship_timer.tick(delta_time, ship, ships)
 
-    def check_ship_firing(self, ship):
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_k]:
-            ship.fire_if_possible(self.missiles)
-        else:
-            ship.not_firing()
-
     def spawn_ship_when_ready(self, ship, ships):
         if not self.safe_to_emerge(self.missiles, self.asteroids):
             return False
@@ -231,7 +224,6 @@ class Game:
         self.check_saucer_spawn(self.saucer, self.saucers, delta_time)
         self.check_ship_spawn(self.ship, self.ships, delta_time)
         self.check_saucer_firing(delta_time, self. saucers, self.saucer_missiles, self.ships)
-        if self.ships: self.check_ship_firing(self.ship)
         self.check_next_wave(delta_time)
         self.control_game(self.ship, delta_time)
         self.process_collisions()

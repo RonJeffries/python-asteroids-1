@@ -47,7 +47,7 @@ class Missile:
     def update(self, delta_time, missiles):
         self.timer.tick(delta_time, missiles)
 
-    def tick(self, delta_time, fleet):
+    def tick(self, delta_time, fleet, _fleets):
         self.move(delta_time, fleet)
         return True
 

@@ -30,7 +30,7 @@ class Ship:
     def accelerate_by(self, accel):
         self.velocity = self.velocity + accel
 
-    def control_motion(self, delta_time):
+    def control_motion(self, delta_time, missiles):
         if not pygame.get_init():
             return
         keys = pygame.key.get_pressed()
@@ -42,6 +42,10 @@ class Ship:
             self.power_on(delta_time)
         else:
             self.power_off()
+        if keys[pygame.K_k]:
+            self.fire_if_possible(missiles)
+        else:
+            self.not_firing()
 
     def destroyed_by(self, attacker, ships):
         if self in ships: ships.remove(self)
@@ -76,7 +80,6 @@ class Ship:
         return Vector2(u.MISSILE_SPEED, 0).rotate(-self.angle) + self.velocity
 
     def move(self, delta_time, _ships):
-        self.control_motion(delta_time)
         position = self.position + self.velocity * delta_time
         position.x = position.x % u.SCREEN_SIZE
         position.y = position.y % u.SCREEN_SIZE
@@ -101,7 +104,8 @@ class Ship:
         else:
             return self.ship_surface
 
-    def tick(self, delta_time, fleet):
+    def tick(self, delta_time, fleet, fleets):
+        self.control_motion(delta_time, fleets.missiles)
         self.move(delta_time, fleet)
         return True
 

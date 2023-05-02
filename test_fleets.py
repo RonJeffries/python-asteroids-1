@@ -14,7 +14,7 @@ class FakeFlyer:
     def move(self, delta_time, fleet):
         pass
 
-    def tick(self, delta_time, fleet):
+    def tick(self, _delta_time, _fleet, _fleets):
         return True
 
 

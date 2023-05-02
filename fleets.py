@@ -34,6 +34,6 @@ class Fleets:
     def tick(self, delta_time):
         result = True
         for fleet in self.fleets:
-            result = result and fleet.tick(delta_time)
+            result = result and fleet.tick(delta_time, self)
         return result
 
