@@ -12,6 +12,8 @@ from timer import Timer
 
 class Saucer:
     direction = -1
+    saucer_surface = None
+    offset = None
 
     @classmethod
     def init_for_new_game(cls):
@@ -25,11 +27,12 @@ class Saucer:
         self.velocity = Saucer.direction * u.SAUCER_VELOCITY
         self.directions = (self.velocity.rotate(45), self.velocity, self.velocity, self.velocity.rotate(-45))
         self.radius = 20
-        raw_dimensions = Vector2(10, 6)
-        saucer_scale = 4 * self.size
-        self.offset = raw_dimensions * saucer_scale / 2
-        saucer_size = raw_dimensions * saucer_scale
-        self.saucer_surface = SurfaceMaker.saucer_surface(saucer_size)
+        if not Saucer.saucer_surface:
+            raw_dimensions = Vector2(10, 6)
+            saucer_scale = 4 * self.size
+            Saucer.offset = raw_dimensions * saucer_scale / 2
+            saucer_size = raw_dimensions * saucer_scale
+            Saucer.saucer_surface = SurfaceMaker.saucer_surface(saucer_size)
         self.set_firing_timer()
         self.set_zig_timer()
 
@@ -48,8 +51,8 @@ class Saucer:
         if self in saucers: saucers.remove(self)
 
     def draw(self, screen):
-        top_left_corner = self.position - self.offset
-        screen.blit(self.saucer_surface, top_left_corner)
+        top_left_corner = self.position - Saucer.offset
+        screen.blit(Saucer.saucer_surface, top_left_corner)
 
     def move(self, delta_time, saucers):
         # self.fire_if_possible(delta_time, saucer_missiles, ships)
