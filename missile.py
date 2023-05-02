@@ -47,6 +47,10 @@ class Missile:
     def update(self, delta_time, missiles):
         self.timer.tick(delta_time, missiles)
 
+    def tick(self, delta_time, fleet):
+        self.move(delta_time, fleet)
+        return True
+
     def timeout(self, missiles):
         missiles.remove(self)
 

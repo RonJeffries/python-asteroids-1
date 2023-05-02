@@ -14,6 +14,9 @@ class FakeFlyer:
     def move(self, delta_time, fleet):
         pass
 
+    def tick(self, delta_time, fleet):
+        return True
+
 
 class TestFleets:
     def test_creation(self):

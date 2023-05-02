@@ -54,3 +54,7 @@ class Asteroid:
             asteroids.append(a1)
             a2 = Asteroid(self.size - 1, self.position)
             asteroids.append(a2)
+
+    def tick(self, delta_time, fleet):
+        self.move(delta_time, fleet)
+        return True

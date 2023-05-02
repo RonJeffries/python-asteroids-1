@@ -17,12 +17,11 @@ class Fleet:
         for flyer in self:
             flyer.draw(screen)
 
-    def move(self, delta_time):
-        for flyer in self:
-            flyer.move(delta_time, self)
-
     def tick(self, delta_time):
-        return True
+        result = True
+        for flyer in self:
+            result = result and flyer.tick(delta_time, self)
+        return result
 
 
 class ShipFleet(Fleet):

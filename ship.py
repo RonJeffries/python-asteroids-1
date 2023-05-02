@@ -101,6 +101,10 @@ class Ship:
         else:
             return self.ship_surface
 
+    def tick(self, delta_time, fleet):
+        self.move(delta_time, fleet)
+        return True
+
     def turn_left(self, dt):
         self.angle = self.angle - u.SHIP_ROTATION_STEP * dt
 

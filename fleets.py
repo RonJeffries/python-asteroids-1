@@ -31,14 +31,9 @@ class Fleets:
         for fleet in self.fleets:
             fleet.draw(screen)
 
-    def move_everything(self, delta_time):
-        for fleet in self.fleets:
-            fleet.move(delta_time)
-
     def tick(self, delta_time):
         result = True
         for fleet in self.fleets:
             result = result and fleet.tick(delta_time)
-        self.move_everything(delta_time)
         return result
 
