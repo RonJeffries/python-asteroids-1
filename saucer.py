@@ -24,7 +24,6 @@ class Saucer:
         self.position = Vector2(x, random.randrange(0, u.SCREEN_SIZE))
         self.velocity = Saucer.direction * u.SAUCER_VELOCITY
         self.directions = (self.velocity.rotate(45), self.velocity, self.velocity, self.velocity.rotate(-45))
-        print(Saucer.direction, self.velocity, self.directions)
         self.radius = 20
         raw_dimensions = Vector2(10, 6)
         saucer_scale = 4 * self.size
