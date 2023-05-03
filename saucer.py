@@ -27,14 +27,17 @@ class Saucer:
         self.velocity = Saucer.direction * u.SAUCER_VELOCITY
         self.directions = (self.velocity.rotate(45), self.velocity, self.velocity, self.velocity.rotate(-45))
         self.radius = 20
+        self.create_surface_class_members()
+        self.set_firing_timer()
+        self.set_zig_timer()
+
+    def create_surface_class_members(self):
         if not Saucer.saucer_surface:
             raw_dimensions = Vector2(10, 6)
             saucer_scale = 4 * self.size
             Saucer.offset = raw_dimensions * saucer_scale / 2
             saucer_size = raw_dimensions * saucer_scale
             Saucer.saucer_surface = SurfaceMaker.saucer_surface(saucer_size)
-        self.set_firing_timer()
-        self.set_zig_timer()
 
     # noinspection PyAttributeOutsideInit
     def set_firing_timer(self):
