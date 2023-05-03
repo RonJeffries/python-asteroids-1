@@ -33,13 +33,9 @@ class Game:
     # noinspection PyAttributeOutsideInit
     def init_asteroids_game_values(self):
         self.asteroids_in_this_wave: int
-        self.init_saucer_timer()
         self.set_ship_timer(u.SHIP_EMERGENCE_TIME)
         self.ships_remaining = 0
         self.init_wave_timer()
-
-    def init_saucer_timer(self):
-        self.saucer_timer = Timer(u.SAUCER_EMERGENCE_TIME, self.bring_in_saucer)
 
     # noinspection PyAttributeOutsideInit
     def init_fleets(self):
@@ -112,11 +108,7 @@ class Game:
             self.wave_timer.tick(delta_time, self.asteroids)
 
     def check_saucer_spawn(self, saucers, delta_time):
-        if saucers: return
-        self.saucer_timer.tick(delta_time, saucers)
-
-    def bring_in_saucer(self, saucers):
-        saucers.append(Saucer())
+        pass
 
     def check_ship_spawn(self, ship, ships, delta_time):
         if ships: return
@@ -190,7 +182,6 @@ class Game:
         self.ships.clear()
         self.asteroids_in_this_wave = 2
         self.game_over = False
-        self.init_saucer_timer()
         self.score = 0
         self.ships_remaining = number_of_ships
         self.set_ship_timer(u.SHIP_EMERGENCE_TIME)
@@ -219,7 +210,6 @@ class Game:
 
     def asteroids_tick(self, delta_time):
         self.fleets.tick(delta_time)
-        self.check_saucer_spawn(self.saucers, delta_time)
         self.check_ship_spawn(self.ship, self.ships, delta_time)
         self.check_saucer_firing(delta_time, self. saucers, self.saucer_missiles, self.ships)
         self.check_next_wave(delta_time)

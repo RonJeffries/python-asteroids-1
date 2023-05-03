@@ -1,11 +1,11 @@
 # SpaceObjects
 
-from fleet import Fleet, ShipFleet
+from fleet import Fleet, ShipFleet, SaucerFleet
 
 
 class Fleets:
     def __init__(self, asteroids, missiles, saucers, saucer_missiles, ships):
-        self.fleets = (Fleet(asteroids), Fleet(missiles), Fleet(saucers), Fleet(saucer_missiles), ShipFleet(ships))
+        self.fleets = (Fleet(asteroids), Fleet(missiles), SaucerFleet(saucers), Fleet(saucer_missiles), ShipFleet(ships))
 
     @property
     def asteroids(self):
@@ -32,8 +32,9 @@ class Fleets:
             fleet.draw(screen)
 
     def tick(self, delta_time):
-        result = True
+        all_true = True
         for fleet in self.fleets:
-            result = result and fleet.tick(delta_time, self)
-        return result
+            if not fleet.tick(delta_time, self):
+                all_true = False
+        return all_true
 

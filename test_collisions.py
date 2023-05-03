@@ -4,6 +4,7 @@ import main
 import u
 from asteroid import Asteroid
 from collider import Collider
+from fleet import SaucerFleet
 from missile import Missile
 from saucer import Saucer, nearest, nearest_point
 from ship import Ship
@@ -45,17 +46,30 @@ class TestCollisions:
         assert test_game.game_over
         assert not ships
 
+    # def test_spawn_saucer(self):
+    #     game = Game(testing=True)
+    #     game.game_init()
+    #     game.check_saucer_spawn(game.saucers, 0.1)
+    #     assert not game.saucers
+    #     game.check_saucer_spawn(game.saucers, u.SAUCER_EMERGENCE_TIME)
+    #     assert game.saucers
+    #     game.saucers.clear()
+    #     assert not game.saucers
+    #     game.check_saucer_spawn(game.saucers, u.SAUCER_EMERGENCE_TIME)
+    #     assert game.saucers
+
     def test_spawn_saucer(self):
-        game = Game(testing=True)
-        game.game_init()
-        game.check_saucer_spawn(game.saucers, 0.1)
-        assert not game.saucers
-        game.check_saucer_spawn(game.saucers, u.SAUCER_EMERGENCE_TIME)
-        assert game.saucers
-        game.saucers.clear()
-        assert not game.saucers
-        game.check_saucer_spawn(game.saucers, u.SAUCER_EMERGENCE_TIME)
-        assert game.saucers
+        saucers = []
+        fleet = SaucerFleet(saucers)
+        Saucer.init_for_new_game()
+        fleet.tick(0.1, None)
+        assert not saucers
+        fleet.tick(u.SAUCER_EMERGENCE_TIME, None)
+        assert saucers  # first create
+        saucers.clear()
+        assert not saucers
+        fleet.tick(u.SAUCER_EMERGENCE_TIME + 0.1, None)
+        assert saucers  # second create
 
     def test_safe_to_emerge_hates_missiles(self):
         game = Game(True)

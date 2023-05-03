@@ -12,6 +12,7 @@ from ship import Ship
 
 class TestSaucer:
     def test_alternating_direction(self):
+        Saucer.init_for_new_game()
         saucer = Saucer()
         assert saucer.position.x == 0
         assert saucer.velocity == u.SAUCER_VELOCITY
@@ -25,6 +26,7 @@ class TestSaucer:
         assert saucer.missile_timer.elapsed == 0
 
     def test_move(self):
+        Saucer.init_for_new_game()
         saucer = Saucer()
         saucer.ready()
         starting = saucer.position

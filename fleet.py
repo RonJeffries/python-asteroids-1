@@ -1,4 +1,6 @@
 # Fleet
+import u
+from saucer import Saucer
 from timer import Timer
 
 
@@ -22,7 +24,7 @@ class Fleet:
     def tick(self, delta_time, fleets):
         result = True
         for flyer in self:
-            result = result and flyer.tick(delta_time, self, fleets)
+            result = flyer.tick(delta_time, self, fleets) and result
         return result
 
 
@@ -36,7 +38,12 @@ class SaucerFleet(Fleet):
         super().__init__(flyers)
         self.timer = Timer(u.SAUCER_EMERGENCE_TIME, self.bring_in_saucer)
 
-    def bring_in_saucer(self, saucer):
-        saucer.ready()
-        self.flyers.append(saucer)
+    def bring_in_saucer(self):
+        self.flyers.append(Saucer())
+        return True
 
+    def tick(self, delta_time, fleets):
+        super().tick(delta_time, fleets)
+        if not self.flyers:
+            self.timer.tick(delta_time)
+        return True
