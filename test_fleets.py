@@ -12,6 +12,9 @@ class FakeFlyer:
     def control_motion(self, delta_time):
         pass
 
+    def fire_if_possible(self, _delta_time, _saucer_missiles, _ships):
+        pass
+
     def move(self, delta_time, fleet):
         pass
 
@@ -59,10 +62,11 @@ class TestFleets:
 
     def test_saucer_spawn(self):
         saucers = []
-        saucer_fleet = SaucerFleet(saucers)
-        saucer_fleet.tick(0.1, None)
+        fleets = Fleets([], [], saucers, [], [])
+        saucer_fleet = fleets.saucers
+        saucer_fleet.tick(0.1, fleets)
         assert not saucers
-        saucer_fleet.tick(u.SAUCER_EMERGENCE_TIME, None)
+        saucer_fleet.tick(u.SAUCER_EMERGENCE_TIME, fleets)
         assert saucers
 
     def test_len_etc(self):

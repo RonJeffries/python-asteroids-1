@@ -56,6 +56,10 @@ class SaucerFleet(Fleet):
 
     def tick(self, delta_time, fleets):
         super().tick(delta_time, fleets)
+        saucer_missiles = fleets.saucer_missiles
+        ships = fleets.ships
+        for saucer in self:
+            saucer.fire_if_possible(delta_time, saucer_missiles, ships)
         if not self.flyers:
             self.timer.tick(delta_time)
         return True
