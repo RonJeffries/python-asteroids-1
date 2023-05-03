@@ -65,11 +65,13 @@ class TestFleets:
         saucer_fleet.tick(u.SAUCER_EMERGENCE_TIME, None)
         assert saucers
 
-    def test_len(self):
+    def test_len_etc(self):
         saucer_missiles = []
         fleets = Fleets([], [], [], saucer_missiles, [])
         s_m_fleet = fleets.saucer_missiles
-        print(s_m_fleet)
         assert len(s_m_fleet) == 0
+        s_m_fleet.extend([1, 20, 300])
+        assert len(s_m_fleet) == 3
+        assert s_m_fleet[1] == 20
 
 

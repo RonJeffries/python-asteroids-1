@@ -23,8 +23,8 @@ class Fleet:
     def clear(self):
         self.flyers.clear()
 
-    def extend(self, *args):
-        self.flyers.extend(*args)
+    def extend(self, list):
+        self.flyers.extend(list)
 
     def remove(self, flyer):
         if flyer in self.flyers: self.flyers.remove(flyer)
