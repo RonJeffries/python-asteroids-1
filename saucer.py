@@ -126,7 +126,10 @@ class Saucer:
     def score_for_hitting(self, attacker):
         return attacker.scores_for_hitting_saucer()[self.size - 1]
 
-    def tick(self, delta_time, fleet, _fleets):
+    def tick(self, delta_time, fleet, fleets):
+        saucer_missiles = fleets.saucer_missiles
+        ships = fleets.ships
+        self.fire_if_possible(delta_time, saucer_missiles, ships)
         self.move(delta_time, fleet)
         return True
 
