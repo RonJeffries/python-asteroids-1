@@ -211,7 +211,7 @@ class Game:
     def asteroids_tick(self, delta_time):
         self.fleets.tick(delta_time)
         self.check_ship_spawn(self.ship, self.ships, delta_time)
-        self.check_saucer_firing(delta_time, self. saucers, self.saucer_missiles, self.ships)
+        self.check_saucer_firing(delta_time, self.saucers, self.saucer_missiles, self.ships)
         self.check_next_wave(delta_time)
         self.control_game(self.ship, delta_time)
         self.process_collisions()

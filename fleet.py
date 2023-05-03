@@ -11,8 +11,20 @@ class Fleet:
     def __iter__(self):
         return self.flyers.copy().__iter__()
 
+    def __len__(self):
+        return len(self.flyers)
+
+    def __getitem__(self, item):
+        return self.flyers[item]
+
     def append(self, flyer):
         self.flyers.append(flyer)
+
+    def clear(self):
+        self.flyers.clear()
+
+    def extend(self, *args):
+        self.flyers.extend(*args)
 
     def remove(self, flyer):
         if flyer in self.flyers: self.flyers.remove(flyer)

@@ -9,23 +9,23 @@ class Fleets:
 
     @property
     def asteroids(self):
-        return self.fleets[0].flyers
+        return self.fleets[0]
 
     @property
     def missiles(self):
-        return self.fleets[1].flyers
+        return self.fleets[1]
 
     @property
     def saucers(self):
-        return self.fleets[2].flyers
+        return self.fleets[2]
 
     @property
     def saucer_missiles(self):
-        return self.fleets[3].flyers
+        return self.fleets[3]
 
     @property
     def ships(self):
-        return self.fleets[4].flyers
+        return self.fleets[4]
 
     def draw(self, screen):
         for fleet in self.fleets:

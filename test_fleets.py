@@ -36,11 +36,11 @@ class TestFleets:
         saucer_missiles = ["saucer_missile"]
         ships = ["ship"]
         fleets = Fleets(asteroids, missiles, saucers, saucer_missiles, ships)
-        assert fleets.asteroids == asteroids
-        assert fleets.missiles == missiles
-        assert fleets.saucers == saucers
-        # assert fleets.saucer_missiles == saucer_missiles
-        assert fleets.ships == ships
+        assert fleets.asteroids.flyers == asteroids
+        assert fleets.missiles.flyers == missiles
+        assert fleets.saucers.flyers == saucers
+        assert fleets.saucer_missiles.flyers == saucer_missiles
+        assert fleets.ships.flyers == ships
 
     def test_fleet_creation(self):
         asteroids = ["asteroid"]
@@ -57,12 +57,19 @@ class TestFleets:
         result = fleets.tick(0.1)
         assert result
 
-    # def test_saucer_spawn(self):
-    #     saucers = []
-    #     saucer_fleet = SaucerFleet(saucers)
-    #     saucer_fleet.tick(0.1)
-    #     assert not saucers
-    #     saucer_fleet.tick(u.SAUCER_EMERGENCE_TIME)
-    #     assert saucers
+    def test_saucer_spawn(self):
+        saucers = []
+        saucer_fleet = SaucerFleet(saucers)
+        saucer_fleet.tick(0.1, None)
+        assert not saucers
+        saucer_fleet.tick(u.SAUCER_EMERGENCE_TIME, None)
+        assert saucers
+
+    def test_len(self):
+        saucer_missiles = []
+        fleets = Fleets([], [], [], saucer_missiles, [])
+        s_m_fleet = fleets.saucer_missiles
+        print(s_m_fleet)
+        assert len(s_m_fleet) == 0
 
 
