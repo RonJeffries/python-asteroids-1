@@ -1,5 +1,6 @@
 # Fleet
 import u
+from asteroid import Asteroid
 from saucer import Saucer
 from timer import Timer
 
@@ -64,3 +65,13 @@ class SaucerFleet(Fleet):
 class AsteroidFleet(Fleet):
     def __init__(self, asteroids):
         super().__init__(asteroids)
+        self.timer = Timer(u.ASTEROID_DELAY, self.create_wave)
+
+    def create_wave(self):
+        self.append(Asteroid())
+
+    def tick(self, delta_time, fleets):
+        super().tick(delta_time, fleets)
+        if not self.flyers:
+            self.timer.tick(delta_time)
+        return True

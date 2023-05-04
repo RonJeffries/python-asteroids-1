@@ -78,8 +78,18 @@ class TestFleets:
         assert len(s_m_fleet) == 3
         assert s_m_fleet[1] == 20
 
-    def test_asteroid_fleet(self):
+    def test_asteroid_fleet_exists(self):
         asteroids = []
         fleet = AsteroidFleet(asteroids)
+
+    def test_asteroid_wave(self):
+        asteroids = []
+        fleets = Fleets(asteroids, [], [], [], [])
+        asteroid_fleet = fleets.asteroids
+        asteroid_fleet.tick(0.1, fleets)
+        assert not asteroids
+        asteroid_fleet.tick(u.ASTEROID_DELAY, fleets)
+        assert asteroids
+
 
 
