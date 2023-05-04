@@ -164,6 +164,25 @@ class TestFleets:
         ship_fleet.tick(0.001, fleets)
         assert ships
 
+    def test_can_run_out_of_ships(self):
+        ShipFleet.rez_from_fleet = True
+        ships = []
+        fleets = Fleets([], [], [], [], ships)
+        ship_fleet = fleets.ships
+        ShipFleet.ships_remaining = 2
+        ship_fleet.tick(u.SHIP_EMERGENCE_TIME, fleets)
+        assert ships
+        assert ship_fleet.ships_remaining == 1
+        ships.clear()
+        ship_fleet.tick(u.SHIP_EMERGENCE_TIME, fleets)
+        assert ships
+        assert ship_fleet.ships_remaining == 0
+        assert not ship_fleet.game_over
+        ships.clear()
+        ship_fleet.tick(u.SHIP_EMERGENCE_TIME, fleets)
+        assert not ships
+        assert ship_fleet.game_over
+
 
 
 

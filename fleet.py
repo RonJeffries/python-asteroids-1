@@ -44,15 +44,22 @@ class Fleet:
 
 class ShipFleet(Fleet):
     rez_from_fleet = False
+    ships_remaining = u.SHIPS_PER_QUARTER
+    game_over = False
 
     def __init__(self, flyers):
         super().__init__(flyers)
         self.ship_timer = Timer(u.SHIP_EMERGENCE_TIME, self.spawn_ship_when_ready)
+        ShipFleet.ships_remaining = u.SHIPS_PER_QUARTER
 
     def spawn_ship_when_ready(self, fleets):
+        if not self.ships_remaining:
+            ShipFleet.game_over = True
+            return True
         if self.safe_to_emerge(fleets):
             ships = fleets.ships
             ships.append(Ship(u.CENTER))
+            ShipFleet.ships_remaining -= 1
             return True
         else:
             return False
