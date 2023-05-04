@@ -86,6 +86,7 @@ class TestFleets:
         asteroids = []
         fleets = Fleets(asteroids, [], [], [], [])
         asteroid_fleet = fleets.asteroids
+        assert isinstance(asteroid_fleet, AsteroidFleet)
         asteroid_fleet.tick(0.1, fleets)
         assert not asteroids
         asteroid_fleet.tick(u.ASTEROID_DELAY, fleets)
