@@ -32,10 +32,8 @@ class Game:
 
     # noinspection PyAttributeOutsideInit
     def init_asteroids_game_values(self):
-        self.asteroids_in_this_wave: int
         self.set_ship_timer(u.SHIP_EMERGENCE_TIME)
         self.ships_remaining = 0
-        self.init_wave_timer()
 
     # noinspection PyAttributeOutsideInit
     def init_fleets(self):
@@ -103,13 +101,6 @@ class Game:
         collider = Collider(self.fleets)
         self.score += collider.check_collisions()
 
-    def check_next_wave(self, delta_time):
-        if not self.asteroids:
-            self.wave_timer.tick(delta_time, self.asteroids)
-
-    def check_saucer_spawn(self, saucers, delta_time):
-        pass
-
     def check_ship_spawn(self, ship, ships, delta_time):
         if ships: return
         if self.ships_remaining <= 0:
@@ -130,10 +121,6 @@ class Game:
         if keys[pygame.K_q]:
             self.keep_going = True
             self.running = False
-
-
-    def create_wave(self, asteroids):
-        asteroids.extend([Asteroid() for _ in range(0, self.next_wave_size())])
 
     def draw_everything(self):
         screen = self.screen
@@ -180,17 +167,11 @@ class Game:
         self.missiles.clear()
         self.saucers.clear()
         self.ships.clear()
-        self.asteroids_in_this_wave = 2
         self.game_over = False
         self.score = 0
         self.ships_remaining = number_of_ships
         self.set_ship_timer(u.SHIP_EMERGENCE_TIME)
-        self.init_wave_timer()
         self.delta_time = 0
-
-    def init_wave_timer(self):
-        # noinspection PyAttributeOutsideInit
-        self.wave_timer = Timer(u.ASTEROID_DELAY, self.create_wave)
 
     def main_loop(self):
         self.game_init()
@@ -211,17 +192,10 @@ class Game:
     def asteroids_tick(self, delta_time):
         self.fleets.tick(delta_time)
         self.check_ship_spawn(self.ship, self.ships, delta_time)
-        self.check_next_wave(delta_time)
         self.control_game(self.ship, delta_time)
         self.process_collisions()
         self.draw_everything()
         if self.game_over: self.draw_game_over()
-
-    def next_wave_size(self):
-        self.asteroids_in_this_wave += 2
-        if self.asteroids_in_this_wave > 10:
-            self.asteroids_in_this_wave = 11
-        return self.asteroids_in_this_wave
 
     def safe_to_emerge(self, missiles, asteroids):
         if missiles: return False

@@ -89,7 +89,22 @@ class TestFleets:
         asteroid_fleet.tick(0.1, fleets)
         assert not asteroids
         asteroid_fleet.tick(u.ASTEROID_DELAY, fleets)
-        assert asteroids
+        assert len(asteroids) == 4
+        asteroid_fleet.clear()
+        asteroid_fleet.tick(u.ASTEROID_DELAY, fleets)
+        assert len(asteroids) == 6
+        asteroid_fleet.clear()
+        asteroid_fleet.tick(u.ASTEROID_DELAY, fleets)
+        assert len(asteroids) == 8
+        asteroid_fleet.clear()
+        asteroid_fleet.tick(u.ASTEROID_DELAY, fleets)
+        assert len(asteroids) == 10
+        asteroid_fleet.clear()
+        asteroid_fleet.tick(u.ASTEROID_DELAY, fleets)
+        assert len(asteroids) == 11
+        asteroid_fleet.clear()
+        asteroid_fleet.tick(u.ASTEROID_DELAY, fleets)
+        assert len(asteroids) == 11
 
 
 
