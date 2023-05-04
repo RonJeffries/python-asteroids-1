@@ -1,8 +1,11 @@
 import pytest
+from pygame import Vector2
 
 import u
+from asteroid import Asteroid
 from fleets import Fleets
 from fleet import Fleet, SaucerFleet, AsteroidFleet, ShipFleet
+from missile import Missile
 
 
 class FakeFlyer:
@@ -115,6 +118,38 @@ class TestFleets:
         assert not ships
         ship_fleet.tick(0.1, fleets)
         assert not ships
+        ship_fleet.tick(u.SHIP_EMERGENCE_TIME, fleets)
+        assert ships
+
+    def test_unsafe_because_missile(self):
+        ShipFleet.rez_from_fleet = True
+        ships = []
+        missile = Missile(u.CENTER, Vector2(0,0), [0,0,0], [0,0,0])
+        missiles = [missile]
+        fleets = Fleets([], missiles, [], [], ships)
+        ship_fleet = fleets.ships
+        assert not ships
+        ship_fleet.tick(u.SHIP_EMERGENCE_TIME, fleets)
+        assert not ships
+        missiles.clear()
+        ship_fleet.tick(0.001, fleets)
+        assert ships
+
+    def test_unsafe_because_saucer_missile(self):
+        ShipFleet.rez_from_fleet = True
+        ships = []
+        missile = Missile(u.CENTER, Vector2(0,0), [0,0,0], [0,0,0])
+        saucer_missiles = [missile]
+        fleets = Fleets([], [], [], saucer_missiles, ships)
+        ship_fleet = fleets.ships
+        assert not ships
+        ship_fleet.tick(u.SHIP_EMERGENCE_TIME, fleets)
+        assert not ships
+        saucer_missiles.clear()
+        ship_fleet.tick(0.001, fleets)
+        assert ships
+
+
 
 
 

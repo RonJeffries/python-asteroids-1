@@ -2,6 +2,7 @@
 import u
 from asteroid import Asteroid
 from saucer import Saucer
+from ship import Ship
 from timer import Timer
 
 
@@ -46,6 +47,29 @@ class ShipFleet(Fleet):
 
     def __init__(self, flyers):
         super().__init__(flyers)
+        self.ship_timer = Timer(u.SHIP_EMERGENCE_TIME, self.spawn_ship_when_ready)
+
+    def spawn_ship_when_ready(self, fleets):
+        if self.safe_to_emerge(fleets):
+            ships = fleets.ships
+            ships.append(Ship(u.CENTER))
+            return True
+        else:
+            return False
+
+    def safe_to_emerge(self, fleets):
+        if len(fleets.missiles) > 0:
+            return False
+        if len(fleets.saucer_missiles) > 0:
+            return False
+        return True
+
+    def tick(self, delta_time, fleets):
+        ships = fleets.ships
+        if len(ships) == 0:
+            self.ship_timer.tick(delta_time, fleets)
+        super().tick(delta_time, fleets)
+        return True
 
 
 class SaucerFleet(Fleet):
@@ -53,14 +77,14 @@ class SaucerFleet(Fleet):
         super().__init__(flyers)
         self.timer = Timer(u.SAUCER_EMERGENCE_TIME, self.bring_in_saucer)
 
-    def bring_in_saucer(self):
+    def bring_in_saucer(self, fleets):
         self.flyers.append(Saucer())
         return True
 
     def tick(self, delta_time, fleets):
         super().tick(delta_time, fleets)
         if not self.flyers:
-            self.timer.tick(delta_time)
+            self.timer.tick(delta_time, fleets)
         return True
 
 
