@@ -149,6 +149,21 @@ class TestFleets:
         ship_fleet.tick(0.001, fleets)
         assert ships
 
+    def test_unsafe_because_asteroid(self):
+        ShipFleet.rez_from_fleet = True
+        ships = []
+        asteroid = Asteroid()
+        asteroid.position = u.CENTER + Vector2(u.SAFE_EMERGENCE_DISTANCE - 0.1, 0)
+        asteroids = [asteroid]
+        fleets = Fleets(asteroids, [], [], [], ships)
+        ship_fleet = fleets.ships
+        assert not ships
+        ship_fleet.tick(u.SHIP_EMERGENCE_TIME, fleets)
+        assert not ships
+        asteroids.clear()
+        ship_fleet.tick(0.001, fleets)
+        assert ships
+
 
 
 

@@ -62,7 +62,14 @@ class ShipFleet(Fleet):
             return False
         if len(fleets.saucer_missiles) > 0:
             return False
+        return self.asteroids_far_enough_away(fleets.asteroids)
+
+    def asteroids_far_enough_away(self, asteroids):
+        for asteroid in asteroids:
+            if asteroid.position.distance_to(u.CENTER) < u.SAFE_EMERGENCE_DISTANCE:
+                return False
         return True
+
 
     def tick(self, delta_time, fleets):
         ships = fleets.ships
