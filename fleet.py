@@ -42,6 +42,8 @@ class Fleet:
 
 
 class ShipFleet(Fleet):
+    rez_from_fleet = False
+
     def __init__(self, flyers):
         super().__init__(flyers)
 

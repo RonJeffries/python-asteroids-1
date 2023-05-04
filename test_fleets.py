@@ -2,7 +2,7 @@ import pytest
 
 import u
 from fleets import Fleets
-from fleet import Fleet, SaucerFleet, AsteroidFleet
+from fleet import Fleet, SaucerFleet, AsteroidFleet, ShipFleet
 
 
 class FakeFlyer:
@@ -106,6 +106,15 @@ class TestFleets:
         asteroid_fleet.clear()
         asteroid_fleet.tick(u.ASTEROID_DELAY, fleets)
         assert len(asteroids) == 11
+
+    def test_ship_rez(self):
+        ShipFleet.rez_from_fleet = True
+        ships = []
+        fleets = Fleets([], [], [], [], ships)
+        ship_fleet = fleets.ships
+        assert not ships
+        ship_fleet.tick(0.1, fleets)
+        assert not ships
 
 
 
