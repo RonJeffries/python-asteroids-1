@@ -70,10 +70,9 @@ class ShipFleet(Fleet):
                 return False
         return True
 
-
     def tick(self, delta_time, fleets):
         ships = fleets.ships
-        if len(ships) == 0:
+        if self.rez_from_fleet and len(ships) == 0:
             self.ship_timer.tick(delta_time, fleets)
         super().tick(delta_time, fleets)
         return True
