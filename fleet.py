@@ -59,3 +59,8 @@ class SaucerFleet(Fleet):
         if not self.flyers:
             self.timer.tick(delta_time)
         return True
+
+
+class AsteroidFleet(Fleet):
+    def __init__(self, asteroids):
+        super().__init__(asteroids)

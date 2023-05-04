@@ -2,7 +2,7 @@ import pytest
 
 import u
 from fleets import Fleets
-from fleet import Fleet, SaucerFleet
+from fleet import Fleet, SaucerFleet, AsteroidFleet
 
 
 class FakeFlyer:
@@ -77,5 +77,9 @@ class TestFleets:
         s_m_fleet.extend([1, 20, 300])
         assert len(s_m_fleet) == 3
         assert s_m_fleet[1] == 20
+
+    def test_asteroid_fleet(self):
+        asteroids = []
+        fleet = AsteroidFleet(asteroids)
 
 
