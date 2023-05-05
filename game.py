@@ -148,13 +148,10 @@ class Game:
 
     # noinspection PyAttributeOutsideInit
     def insert_quarter(self, number_of_ships):
-        self.asteroids.clear()
-        self.missiles.clear()
-        self.saucers.clear()
-        self.ships.clear()
+        self.fleets.clear()
         self.game_over = False
         self.score = 0
-        self.ships_remaining = number_of_ships
+        self.ships_remaining = number_of_ships  # TODO remove
         self.delta_time = 0
 
     def main_loop(self):

@@ -27,6 +27,10 @@ class Fleets:
     def ships(self):
         return self.fleets[4]
 
+    def clear(self):
+        for fleet in self.fleets:
+            fleet.clear()
+
     def draw(self, screen):
         for fleet in self.fleets:
             fleet.draw(screen)
