@@ -133,7 +133,7 @@ class Game:
     def draw_available_ships(self):
         ship = Ship(Vector2(20, 100))
         ship.angle = 90
-        ships_remaining = ShipFleet.ships_remaining if ShipFleet.rez_from_fleet else self.ships_remaining
+        ships_remaining = ShipFleet.ships_remaining
         for i in range(0, ships_remaining):
             self.draw_available_ship(ship)
 
@@ -193,12 +193,10 @@ class Game:
 
     def asteroids_tick(self, delta_time):
         self.fleets.tick(delta_time)
-        if not ShipFleet.rez_from_fleet:
-            self.check_ship_spawn(self.ship, self.ships, delta_time)
         self.control_game(self.ship, delta_time)
         self.process_collisions()
         self.draw_everything()
-        game_over = ShipFleet.game_over if ShipFleet.rez_from_fleet else self.game_over
+        game_over = ShipFleet.game_over
         if game_over: self.draw_game_over()
 
     def safe_to_emerge(self, missiles, asteroids):

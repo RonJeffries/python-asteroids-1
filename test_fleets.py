@@ -136,7 +136,6 @@ class TestFleets:
         assert ships
 
     def test_unsafe_because_saucer_missile(self):
-        ShipFleet.rez_from_fleet = True
         ships = []
         missile = Missile(u.CENTER, Vector2(0,0), [0,0,0], [0,0,0])
         saucer_missiles = [missile]

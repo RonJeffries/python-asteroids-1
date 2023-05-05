@@ -43,7 +43,6 @@ class Fleet:
 
 
 class ShipFleet(Fleet):
-    rez_from_fleet = False
     ships_remaining = u.SHIPS_PER_QUARTER
     game_over = False
 
@@ -79,7 +78,7 @@ class ShipFleet(Fleet):
 
     def tick(self, delta_time, fleets):
         ships = fleets.ships
-        if self.rez_from_fleet and len(ships) == 0:
+        if len(ships) == 0:
             self.ship_timer.tick(delta_time, fleets)
         super().tick(delta_time, fleets)
         return True

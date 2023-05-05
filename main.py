@@ -6,7 +6,6 @@ asteroids_game: Game
 
 if __name__ == "__main__":
     keep_going = True
-    ShipFleet.rez_from_fleet = True
     while keep_going:
         asteroids_game = Game()
         keep_going = asteroids_game.main_loop()
