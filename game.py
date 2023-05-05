@@ -45,26 +45,6 @@ class Game:
         ships = []
         self.fleets = Fleets(asteroids, missiles, saucers, saucer_missiles, ships)
 
-    @property
-    def asteroids(self):
-        return self.fleets.asteroids
-
-    @property
-    def missiles(self):
-        return self.fleets.missiles
-
-    @property
-    def saucers(self):
-        return self.fleets.saucers
-
-    @property
-    def saucer_missiles(self):
-        return self.fleets.saucer_missiles
-
-    @property
-    def ships(self):
-        return self.fleets.ships
-
     # noinspection PyAttributeOutsideInit
     def init_pygame_and_display(self, testing):
         if testing: return
