@@ -33,7 +33,6 @@ class Game:
 
     # noinspection PyAttributeOutsideInit
     def init_asteroids_game_values(self):
-        self.set_ship_timer(u.SHIP_EMERGENCE_TIME)
         self.ships_remaining = 0
 
     # noinspection PyAttributeOutsideInit
@@ -102,21 +101,6 @@ class Game:
         collider = Collider(self.fleets)
         self.score += collider.check_collisions()
 
-    def check_ship_spawn(self, ship, ships, delta_time):
-        if ships: return
-        if self.ships_remaining <= 0:
-            self.game_over = True
-            return
-        self.ship_timer.tick(delta_time, ship, ships)
-
-    def spawn_ship_when_ready(self, ship, ships):
-        if not self.safe_to_emerge(self.missiles, self.asteroids):
-            return False
-        ship.reset()
-        ships.append(ship)
-        self.ships_remaining -= 1
-        return True
-
     def control_game(self, ship, dt):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_q]:
@@ -171,7 +155,6 @@ class Game:
         self.game_over = False
         self.score = 0
         self.ships_remaining = number_of_ships
-        self.set_ship_timer(u.SHIP_EMERGENCE_TIME)
         self.delta_time = 0
 
     def main_loop(self):
@@ -197,12 +180,3 @@ class Game:
         self.draw_everything()
         if ShipFleet.game_over: self.draw_game_over()
 
-    def safe_to_emerge(self, missiles, asteroids):
-        if missiles: return False
-        for asteroid in asteroids:
-            if asteroid.position.distance_to(u.CENTER) < u.SAFE_EMERGENCE_DISTANCE:
-                return False
-        return True
-
-    def set_ship_timer(self, seconds):
-        self.ship_timer = Timer(seconds, self.spawn_ship_when_ready)

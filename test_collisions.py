@@ -13,56 +13,6 @@ from fleets import Fleets
 
 
 class TestCollisions:
-    def test_respawn_ship(self):
-        game = Game(testing=True)
-        game.ships_remaining = 3
-        ship = Ship(Vector2(0, 0))
-        ship.velocity = Vector2(31, 32)
-        ship.angle = 90
-        ships = []
-        game.set_ship_timer(u.SHIP_EMERGENCE_TIME)
-        game.check_ship_spawn(ship, ships, 0.1)
-        assert not ships
-        game.check_ship_spawn(ship, ships, u.SHIP_EMERGENCE_TIME)
-        assert ships
-        assert ship.position == u.CENTER
-        assert ship.velocity == Vector2(0, 0)
-        assert ship.angle == 0
-
-    def test_respawn_count(self):
-        test_game = Game(testing=True)
-        ship = Ship(Vector2(0, 0))
-        ships = []
-        test_game.ships_remaining = 2
-        test_game.check_ship_spawn(ship, ships, 3.1)
-        assert test_game.ships_remaining == 1
-        assert len(ships) == 1
-        ships = []
-        test_game.check_ship_spawn(ship, ships, 3.1)
-        assert test_game.ships_remaining == 0
-        assert len(ships) == 1
-        ships = []
-        test_game.check_ship_spawn(ship, ships, 3.1)
-        assert test_game.game_over
-        assert not ships
-
-
-    def test_safe_to_emerge_hates_missiles(self):
-        game = Game(True)
-        missiles = []
-        asteroids = []
-        assert game.safe_to_emerge(missiles, asteroids)
-        missiles.append(Missile.from_ship(Vector2(0, 0), Vector2(0, 0)))
-        assert not game.safe_to_emerge(missiles, asteroids)
-
-    def test_safe_to_emerge_hates_close_asteroids(self):
-        game = Game(True)
-        asteroids = []
-        missiles = []
-        assert game.safe_to_emerge(missiles, asteroids)
-        asteroids.append(Asteroid(2, u.CENTER))
-        assert not game.safe_to_emerge(missiles, asteroids)
-
     def test_firing_limit(self):
         ship = Ship(u.CENTER)
         count = 0
