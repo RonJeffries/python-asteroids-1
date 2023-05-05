@@ -33,7 +33,7 @@ class Game:
 
     # noinspection PyAttributeOutsideInit
     def init_asteroids_game_values(self):
-        self.ships_remaining = 0
+        pass
 
     # noinspection PyAttributeOutsideInit
     def init_fleets(self):
@@ -131,7 +131,6 @@ class Game:
         self.fleets.clear()
         self.game_over = False
         self.score = 0
-        self.ships_remaining = number_of_ships  # TODO remove
         self.delta_time = 0
 
     def main_loop(self):
