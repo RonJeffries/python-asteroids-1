@@ -37,18 +37,18 @@ class Missile:
     def draw(self, screen):
         pygame.draw.circle(screen, "white", self.position, 4)
 
-    def move(self, delta_time, missiles):
-        self.update(delta_time, missiles)
+    def move(self, delta_time):
         position = self.position + self.velocity * delta_time
         position.x = position.x % u.SCREEN_SIZE
         position.y = position.y % u.SCREEN_SIZE
         self.position = position
 
-    def update(self, delta_time, missiles):
+    def tick_timer(self, delta_time, missiles):
         self.timer.tick(delta_time, missiles)
 
     def tick(self, delta_time, fleet, _fleets):
-        self.move(delta_time, fleet)
+        self.tick_timer(delta_time, fleet)
+        self.move(delta_time)
         return True
 
     def timeout(self, missiles):
