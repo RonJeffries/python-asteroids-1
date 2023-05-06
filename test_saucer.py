@@ -49,9 +49,23 @@ class TestSaucer:
 
     def test_right_to_left(self):
         Saucer.init_for_new_game()
-        saucer = Saucer()
+        _saucer = Saucer()
         saucer = Saucer()
         assert saucer.position.x == u.SCREEN_SIZE
+
+    def test_off_low(self):
+        saucer = Saucer()
+        saucer.position = Vector2(100, 3)
+        saucer.velocity = Vector2(100, -100)
+        saucer.move(0.1, [])
+        assert saucer.position.y > 1000
+
+    def test_off_high(self):
+        saucer = Saucer()
+        saucer.position = Vector2(100, 1021)
+        saucer.velocity = Vector2(100, 100)
+        saucer.move(0.1, [])
+        assert saucer.position.y < 50
 
     def test_can_only_fire_two(self):
         saucer = Saucer()

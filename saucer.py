@@ -59,6 +59,7 @@ class Saucer:
 
     def move(self, delta_time, saucers):
         self.position += delta_time * self.velocity
+        self.position.y = self.position.y % u.SCREEN_SIZE
         x = self.position.x
         if x < 0 or x > u.SCREEN_SIZE:
             if self in saucers:
