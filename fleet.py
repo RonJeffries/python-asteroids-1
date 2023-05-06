@@ -55,25 +55,12 @@ class ShipFleet(Fleet):
         if not self.ships_remaining:
             ShipFleet.game_over = True
             return True
-        if self.safe_to_emerge(fleets):
+        if fleets.safe_to_emerge():
             self.append(Ship(u.CENTER))
             ShipFleet.ships_remaining -= 1
             return True
         else:
             return False
-
-    def safe_to_emerge(self, fleets):
-        if len(fleets.missiles) > 0:
-            return False
-        if len(fleets.saucer_missiles) > 0:
-            return False
-        return self.asteroids_far_enough_away(fleets.asteroids)
-
-    def asteroids_far_enough_away(self, asteroids):
-        for asteroid in asteroids:
-            if asteroid.position.distance_to(u.CENTER) < u.SAFE_EMERGENCE_DISTANCE:
-                return False
-        return True
 
     def tick(self, delta_time, fleets):
         ships = fleets.ships

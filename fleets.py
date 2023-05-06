@@ -1,5 +1,5 @@
 # SpaceObjects
-
+import u
 from fleet import Fleet, ShipFleet, SaucerFleet, AsteroidFleet
 
 
@@ -34,6 +34,19 @@ class Fleets:
     def draw(self, screen):
         for fleet in self.fleets:
             fleet.draw(screen)
+
+    def safe_to_emerge(self):
+        if len(self.missiles) > 0:
+            return False
+        if len(self.saucer_missiles) > 0:
+            return False
+        return self.all_asteroids_are_away_from_center()
+
+    def all_asteroids_are_away_from_center(self):
+        for asteroid in self.asteroids:
+            if asteroid.position.distance_to(u.CENTER) < u.SAFE_EMERGENCE_DISTANCE:
+                return False
+        return True
 
     def tick(self, delta_time):
         all_true = True
