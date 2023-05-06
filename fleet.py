@@ -56,8 +56,7 @@ class ShipFleet(Fleet):
             ShipFleet.game_over = True
             return True
         if self.safe_to_emerge(fleets):
-            ships = fleets.ships
-            ships.append(Ship(u.CENTER))
+            self.append(Ship(u.CENTER))
             ShipFleet.ships_remaining -= 1
             return True
         else:
