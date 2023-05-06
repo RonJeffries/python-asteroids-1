@@ -58,8 +58,6 @@ class Saucer:
         screen.blit(Saucer.saucer_surface, top_left_corner)
 
     def move(self, delta_time, saucers):
-        # self.fire_if_possible(delta_time, saucer_missiles, ships)
-        self.check_zigzag(delta_time)
         self.position += delta_time * self.velocity
         x = self.position.x
         if x < 0 or x > u.SCREEN_SIZE:
@@ -130,6 +128,7 @@ class Saucer:
         saucer_missiles = fleets.saucer_missiles
         ships = fleets.ships
         self.fire_if_possible(delta_time, saucer_missiles, ships)
+        self.check_zigzag(delta_time)
         self.move(delta_time, fleet)
         return True
 
