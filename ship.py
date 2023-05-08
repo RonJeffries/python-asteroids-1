@@ -45,7 +45,7 @@ class Ship:
         if keys[pygame.K_k]:
             self.fire_if_possible(missiles)
         else:
-            self.not_firing()
+            self.can_fire = True
 
     def destroyed_by(self, attacker, ships):
         if self in ships: ships.remove(self)
@@ -69,9 +69,6 @@ class Ship:
 
     def create_missile(self):
         return Missile.from_ship(self.missile_start(), self.missile_velocity())
-
-    def not_firing(self):
-        self.can_fire = True
 
     def missile_start(self):
         radius = self.radius + 11
