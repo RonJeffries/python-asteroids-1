@@ -45,6 +45,57 @@ class Fleet:
         return result
 
 
+class AsteroidFleet(Fleet):
+    def __init__(self, asteroids):
+        super().__init__(asteroids)
+        self.timer = Timer(u.ASTEROID_DELAY, self.create_wave)
+        self.asteroids_in_this_wave = 2
+
+    def create_wave(self):
+        self.extend([Asteroid() for _ in range(0, self.next_wave_size())])
+
+    def next_wave_size(self):
+        self.asteroids_in_this_wave += 2
+        if self.asteroids_in_this_wave > 10:
+            self.asteroids_in_this_wave = 11
+        return self.asteroids_in_this_wave
+
+    def tick(self, delta_time, fleets):
+        super().tick(delta_time, fleets)
+        if not self.flyers:
+            self.timer.tick(delta_time)
+        return True
+
+
+class MissileFleet(Fleet):
+    def __init__(self, flyers, maximum_number_of_missiles):
+        self.maximum_number_of_missiles = maximum_number_of_missiles
+        super().__init__(flyers)
+
+    def fire(self, callback):
+        if len(self) < self.maximum_number_of_missiles:
+            self.append(callback())
+            return True
+        else:
+            return False
+
+
+class SaucerFleet(Fleet):
+    def __init__(self, flyers):
+        super().__init__(flyers)
+        self.timer = Timer(u.SAUCER_EMERGENCE_TIME, self.bring_in_saucer)
+
+    def bring_in_saucer(self, fleets):
+        self.flyers.append(Saucer())
+        return True
+
+    def tick(self, delta_time, fleets):
+        super().tick(delta_time, fleets)
+        if not self.flyers:
+            self.timer.tick(delta_time, fleets)
+        return True
+
+
 class ShipFleet(Fleet):
     ships_remaining = u.SHIPS_PER_QUARTER
     game_over = False
@@ -69,42 +120,4 @@ class ShipFleet(Fleet):
         if not fleets.ships:
             self.ship_timer.tick(delta_time, fleets)
         super().tick(delta_time, fleets)
-        return True
-
-
-class SaucerFleet(Fleet):
-    def __init__(self, flyers):
-        super().__init__(flyers)
-        self.timer = Timer(u.SAUCER_EMERGENCE_TIME, self.bring_in_saucer)
-
-    def bring_in_saucer(self, fleets):
-        self.flyers.append(Saucer())
-        return True
-
-    def tick(self, delta_time, fleets):
-        super().tick(delta_time, fleets)
-        if not self.flyers:
-            self.timer.tick(delta_time, fleets)
-        return True
-
-
-class AsteroidFleet(Fleet):
-    def __init__(self, asteroids):
-        super().__init__(asteroids)
-        self.timer = Timer(u.ASTEROID_DELAY, self.create_wave)
-        self.asteroids_in_this_wave = 2
-
-    def create_wave(self):
-        self.extend([Asteroid() for _ in range(0, self.next_wave_size())])
-
-    def next_wave_size(self):
-        self.asteroids_in_this_wave += 2
-        if self.asteroids_in_this_wave > 10:
-            self.asteroids_in_this_wave = 11
-        return self.asteroids_in_this_wave
-
-    def tick(self, delta_time, fleets):
-        super().tick(delta_time, fleets)
-        if not self.flyers:
-            self.timer.tick(delta_time)
         return True

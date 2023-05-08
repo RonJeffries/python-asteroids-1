@@ -4,7 +4,7 @@ from pygame import Vector2
 import u
 from asteroid import Asteroid
 from fleets import Fleets
-from fleet import Fleet, SaucerFleet, AsteroidFleet, ShipFleet
+from fleet import Fleet, SaucerFleet, AsteroidFleet, ShipFleet, MissileFleet
 from missile import Missile
 
 
@@ -181,6 +181,28 @@ class TestFleets:
         ship_fleet.tick(u.SHIP_EMERGENCE_TIME, fleets)
         assert not ships
         assert ship_fleet.game_over
+
+    def test_missile_fleet(self):
+        missiles = []
+        fleet = MissileFleet(missiles, 3)
+        fired = fleet.fire(lambda:  666 )
+        assert fired
+        assert len(missiles) == 1
+        assert missiles[-1] == 666
+
+        fired = fleet.fire(lambda:  777 )
+        assert fired
+        assert len(missiles) == 2
+        assert missiles[-1] == 777
+
+        fired = fleet.fire(lambda:  888 )
+        assert fired
+        assert len(missiles) == 3
+        assert missiles[-1] == 888
+
+        fired = fleet.fire(lambda:  999 )
+        assert not fired
+        assert len(missiles) == 3
 
 
 
