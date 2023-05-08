@@ -1,11 +1,11 @@
 # SpaceObjects
 import u
-from fleet import Fleet, ShipFleet, SaucerFleet, AsteroidFleet
+from fleet import Fleet, ShipFleet, SaucerFleet, AsteroidFleet, MissileFleet
 
 
 class Fleets:
     def __init__(self, asteroids, missiles, saucers, saucer_missiles, ships):
-        self.fleets = (AsteroidFleet(asteroids), Fleet(missiles), SaucerFleet(saucers), Fleet(saucer_missiles), ShipFleet(ships))
+        self.fleets = (AsteroidFleet(asteroids), MissileFleet(missiles, u.MISSILE_LIMIT), SaucerFleet(saucers), MissileFleet(saucer_missiles, u.SAUCER_MISSILE_LIMIT), ShipFleet(ships))
 
     @property
     def asteroids(self):
