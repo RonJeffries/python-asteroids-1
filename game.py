@@ -19,14 +19,13 @@ class Game:
         self.init_pygame_and_display(testing)
         self.running = not testing
 
-    # noinspection PyAttributeOutsideInit
     def init_fleets(self):
         asteroids = []
         missiles = []
         saucers = []
         saucer_missiles = []
-        self.ship = Ship(pygame.Vector2(u.SCREEN_SIZE / 2, u.SCREEN_SIZE / 2))
         ships = []
+        # noinspection PyAttributeOutsideInit
         self.fleets = Fleets(asteroids, missiles, saucers, saucer_missiles, ships)
 
     # noinspection PyAttributeOutsideInit
@@ -65,9 +64,10 @@ class Game:
         collider = Collider(self.fleets)
         self.score += collider.check_collisions()
 
-    def control_game(self, ship, dt):
+    def control_game(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_q]:
+            # noinspection PyAttributeOutsideInit
             self.keep_going = True
             self.running = False
 
@@ -122,7 +122,7 @@ class Game:
 
     def asteroids_tick(self, delta_time):
         self.fleets.tick(delta_time)
-        self.control_game(self.ship, delta_time)
+        self.control_game()
         self.process_collisions()
         self.draw_everything()
         if ShipFleet.game_over: self.draw_game_over()
