@@ -15,18 +15,9 @@ class Game:
     def __init__(self, testing=False):
         self.delta_time = 0
         self.score = 0
-        self.init_fleets()
+        self.fleets = Fleets()
         self.init_pygame_and_display(testing)
         self.running = not testing
-
-    def init_fleets(self):
-        asteroids = []
-        missiles = []
-        saucers = []
-        saucer_missiles = []
-        ships = []
-        # noinspection PyAttributeOutsideInit
-        self.fleets = Fleets(asteroids, missiles, saucers, saucer_missiles, ships)
 
     # noinspection PyAttributeOutsideInit
     def init_pygame_and_display(self, testing):

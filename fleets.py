@@ -4,7 +4,12 @@ from fleet import Fleet, ShipFleet, SaucerFleet, AsteroidFleet, MissileFleet
 
 
 class Fleets:
-    def __init__(self, asteroids, missiles, saucers, saucer_missiles, ships):
+    def __init__(self, asteroids=None, missiles=None, saucers=None, saucer_missiles=None, ships=None):
+        asteroids = asteroids if asteroids is not None else []
+        missiles = missiles if missiles is not None else []
+        saucers = saucers if saucers is not None else []
+        saucer_missiles = saucer_missiles if saucer_missiles is not None else []
+        ships = ships if ships is not None else []
         self.fleets = (AsteroidFleet(asteroids), MissileFleet(missiles, u.MISSILE_LIMIT), SaucerFleet(saucers), MissileFleet(saucer_missiles, u.SAUCER_MISSILE_LIMIT), ShipFleet(ships))
 
     @property
