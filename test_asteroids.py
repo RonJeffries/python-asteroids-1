@@ -4,7 +4,7 @@ import pytest
 from pygame.math import clamp, Vector2
 
 import u
-from fleet import AsteroidFleet
+from fleet import AsteroidFleet, MissileFleet
 from game import Game
 from ship import Ship
 
@@ -90,7 +90,7 @@ class TestAsteroids:
 
     def test_missile_timeout(self):
         ship = Ship(Vector2(100,100))
-        missiles = []
+        missiles = MissileFleet([], 4)
         ship.fire_if_possible(missiles)
         assert len(missiles) == 1
         missile = missiles[0]

@@ -64,9 +64,11 @@ class Ship:
         screen.blit(rotated, self.position - half)
 
     def fire_if_possible(self, missiles):
-        if self.can_fire and len(missiles) < u.MISSILE_LIMIT:
-            missiles.append(Missile.from_ship(self.missile_start(), self.missile_velocity()))
+        if self.can_fire and missiles.fire(self.create_missile):
             self.can_fire = False
+
+    def create_missile(self):
+        return Missile.from_ship(self.missile_start(), self.missile_velocity())
 
     def not_firing(self):
         self.can_fire = True

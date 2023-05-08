@@ -4,7 +4,7 @@ import main
 import u
 from asteroid import Asteroid
 from collider import Collider
-from fleet import SaucerFleet
+from fleet import SaucerFleet, MissileFleet
 from missile import Missile
 from saucer import Saucer, nearest, nearest_point
 from ship import Ship
@@ -16,7 +16,7 @@ class TestCollisions:
     def test_firing_limit(self):
         ship = Ship(u.CENTER)
         count = 0
-        missiles = []
+        missiles = MissileFleet([], u.MISSILE_LIMIT)
         while len(missiles) < u.MISSILE_LIMIT:
             ship.can_fire = True
             ship.fire_if_possible(missiles)
