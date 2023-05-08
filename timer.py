@@ -1,8 +1,10 @@
 # Timer
+from typing import Callable, Union
 
 
 class Timer:
-    def __init__(self, delay, action, *args):
+    def __init__(self, delay, action: Callable[[...], Union[None, bool]], *args):
+        """action is callable returning None or bool"""
         self.delay = delay
         self.action = action
         self.args = args

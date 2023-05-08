@@ -72,9 +72,9 @@ class MissileFleet(Fleet):
         self.maximum_number_of_missiles = maximum_number_of_missiles
         super().__init__(flyers)
 
-    def fire(self, callback):
+    def fire(self, callback, *args) -> bool:
         if len(self) < self.maximum_number_of_missiles:
-            self.append(callback())
+            self.append(callback(*args))
             return True
         else:
             return False

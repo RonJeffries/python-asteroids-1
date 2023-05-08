@@ -204,6 +204,14 @@ class TestFleets:
         assert not fired
         assert len(missiles) == 3
 
+    def test_missile_fleet_parameter(self):
+        missiles = []
+        fleet = MissileFleet(missiles, 2)
+        fired = fleet.fire(lambda m: m*2, 333)
+        assert fired
+        assert len(missiles) == 1
+        assert missiles[-1] == 666
+
 
 
 

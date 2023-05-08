@@ -5,6 +5,7 @@ import pytest
 from pygame import Vector2
 
 import u
+from fleet import MissileFleet
 from missile import Missile
 from saucer import Saucer
 from ship import Ship
@@ -69,7 +70,7 @@ class TestSaucer:
 
     def test_can_only_fire_two(self):
         saucer = Saucer()
-        saucer_missiles = []
+        saucer_missiles = MissileFleet([], u.SAUCER_MISSILE_LIMIT)
         saucer.fire_if_possible(delta_time=0.1, saucer_missiles=saucer_missiles, ships=[])
         assert not saucer_missiles
         saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, saucer_missiles=saucer_missiles, ships=[])

@@ -74,19 +74,8 @@ class Saucer:
     def fire_if_possible(self, delta_time, saucer_missiles, ships):
         self.missile_timer.tick(delta_time, saucer_missiles, ships)
 
-    def fire_if_missile_available(self, saucer_missiles, ships):
-        if self.a_missile_is_available(saucer_missiles):
-            self.fire_a_missile(saucer_missiles, ships)
-            return True
-        else:
-            return False
-
-    @staticmethod
-    def a_missile_is_available(saucer_missiles):
-        return len(saucer_missiles) < u.SAUCER_MISSILE_LIMIT
-
-    def fire_a_missile(self, saucer_missiles, ships):
-        saucer_missiles.append(self.create_missile(ships))
+    def fire_if_missile_available(self, saucer_missiles, ships) -> bool:
+        return saucer_missiles.fire(self.create_missile, ships)
 
     def scores_for_hitting_asteroid(self):
         return [0, 0, 0]
