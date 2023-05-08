@@ -36,9 +36,9 @@ class Fleets:
             fleet.draw(screen)
 
     def safe_to_emerge(self):
-        if len(self.missiles) > 0:
+        if self.missiles:
             return False
-        if len(self.saucer_missiles) > 0:
+        if self.saucer_missiles:
             return False
         return self.all_asteroids_are_away_from_center()
 

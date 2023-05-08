@@ -10,6 +10,9 @@ class Fleet:
     def __init__(self, flyers):
         self.flyers = flyers
 
+    def __bool__(self):
+        return bool(self.flyers)
+
     def __iter__(self):
         return self.flyers.copy().__iter__()
 
@@ -63,8 +66,7 @@ class ShipFleet(Fleet):
             return False
 
     def tick(self, delta_time, fleets):
-        ships = fleets.ships
-        if len(ships) == 0:
+        if not fleets.ships:
             self.ship_timer.tick(delta_time, fleets)
         super().tick(delta_time, fleets)
         return True
