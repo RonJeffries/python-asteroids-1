@@ -2,38 +2,22 @@
 
 from pygame import Vector2
 
-from asteroid import Asteroid
 import pygame
 
 from collider import Collider
 from fleet import ShipFleet
-from saucer import Saucer
 from ship import Ship
 import u
 from fleets import Fleets
-from timer import Timer
 
 
 class Game:
     def __init__(self, testing=False):
-        self.init_general_game_values()
-        self.init_asteroids_game_values()
-        self.init_fleets()
-        # self.init_timers()
-        self.init_pygame_and_display(testing)
-        if not testing:
-            self.insert_quarter(u.SHIPS_PER_QUARTER)
-
-    # noinspection PyAttributeOutsideInit
-    def init_general_game_values(self):
         self.delta_time = 0
-        self.game_over = False
-        self.running = False
         self.score = 0
-
-    # noinspection PyAttributeOutsideInit
-    def init_asteroids_game_values(self):
-        pass
+        self.init_fleets()
+        self.init_pygame_and_display(testing)
+        self.running = not testing
 
     # noinspection PyAttributeOutsideInit
     def init_fleets(self):
@@ -121,20 +105,7 @@ class Game:
         return score_surface, score_rect
 
     # noinspection PyAttributeOutsideInit
-    def game_init(self):
-        self.running = True
-        Saucer.init_for_new_game()
-        self.insert_quarter(u.SHIPS_PER_QUARTER)
-
-    # noinspection PyAttributeOutsideInit
-    def insert_quarter(self, number_of_ships):
-        self.fleets.clear()
-        self.game_over = False
-        self.score = 0
-        self.delta_time = 0
-
     def main_loop(self):
-        self.game_init()
         self.keep_going = False
         while self.running:
             for event in pygame.event.get():
