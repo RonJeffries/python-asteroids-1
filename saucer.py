@@ -77,10 +77,12 @@ class Saucer:
     def fire_if_missile_available(self, saucer_missiles, ships) -> bool:
         return saucer_missiles.fire(self.create_missile, ships)
 
-    def scores_for_hitting_asteroid(self):
+    @staticmethod
+    def scores_for_hitting_asteroid():
         return [0, 0, 0]
 
-    def scores_for_hitting_saucer(self):
+    @staticmethod
+    def scores_for_hitting_saucer():
         return [0, 0]
 
     def create_missile(self, ships):
@@ -96,7 +98,8 @@ class Saucer:
         velocity_adjustment = Vector2(0, 0)
         return self.missile_at_angle(targeting_angle, velocity_adjustment)
 
-    def cannot_target_ship(self, ships, should_target):
+    @staticmethod
+    def cannot_target_ship(ships, should_target):
         return not ships or should_target > u.SAUCER_TARGETING_FRACTION
 
     def missile_at_angle(self, degrees, velocity_adjustment):
