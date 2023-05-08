@@ -84,6 +84,7 @@ class Saucer:
         return [0, 0]
 
     def create_missile(self, ships):
+        """callback method, called from saucer_missiles.fire"""
         should_target = random.random()
         random_angle = random.random()
         return self.suitable_missile(should_target, random_angle, ships)
