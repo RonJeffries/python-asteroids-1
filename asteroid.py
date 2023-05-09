@@ -1,6 +1,5 @@
 # Asteroid
 
-import pygame
 from pygame.math import Vector2
 import random
 
@@ -11,7 +10,7 @@ import u
 class Asteroid:
     def __init__(self, size=2, position=None):
         self.size = size
-        if self.size not in [0,1,2]:
+        if self.size not in [0, 1, 2]:
             self.size = 2
         self.radius = [16, 32, 64][self.size]
         self.position = position if position is not None else Vector2(0, random.randrange(0, u.SCREEN_SIZE))
@@ -20,10 +19,12 @@ class Asteroid:
         self.offset = Vector2(self.radius, self.radius)
         self.surface = SurfaceMaker.asteroid_surface(self.radius * 2)
 
-    def scores_for_hitting_asteroid(self):
+    @staticmethod
+    def scores_for_hitting_asteroid():
         return [0, 0, 0]
 
-    def scores_for_hitting_saucer(self):
+    @staticmethod
+    def scores_for_hitting_saucer():
         return [0, 0]
 
     def draw(self, screen):
