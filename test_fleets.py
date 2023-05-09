@@ -4,7 +4,7 @@ from pygame import Vector2
 import u
 from asteroid import Asteroid
 from fleets import Fleets
-from fleet import Fleet, SaucerFleet, AsteroidFleet, ShipFleet, MissileFleet
+from fleet import Fleet, SaucerFleet, AsteroidFleet, ShipFleet, MissileFleet, ExplosionFleet
 from missile import Missile
 
 
@@ -211,6 +211,12 @@ class TestFleets:
         assert fired
         assert len(missiles) == 1
         assert missiles[-1] == 666
+
+    def test_explosion_fleet(self):
+        fleet = ExplosionFleet()
+        explosion = fleet.flyers
+        fleet.explosion_at(u.CENTER)
+        assert explosion
 
 
 

@@ -49,7 +49,7 @@ class Ship:
 
     def destroyed_by(self, attacker, ships, fleets):
         if self in ships: ships.remove(self)
-        # create explosion
+        fleets.explosion_at(self.position)
 
     def score_for_hitting(self, _anyone):
         return 0

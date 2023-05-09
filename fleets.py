@@ -1,6 +1,6 @@
 # SpaceObjects
 import u
-from fleet import Fleet, ShipFleet, SaucerFleet, AsteroidFleet, MissileFleet
+from fleet import Fleet, ShipFleet, SaucerFleet, AsteroidFleet, MissileFleet, ExplosionFleet
 
 
 class Fleets:
@@ -10,7 +10,13 @@ class Fleets:
         saucers = saucers if saucers is not None else []
         saucer_missiles = saucer_missiles if saucer_missiles is not None else []
         ships = ships if ships is not None else []
-        self.fleets = (AsteroidFleet(asteroids), MissileFleet(missiles, u.MISSILE_LIMIT), SaucerFleet(saucers), MissileFleet(saucer_missiles, u.SAUCER_MISSILE_LIMIT), ShipFleet(ships))
+        self.fleets = (
+            AsteroidFleet(asteroids),
+            MissileFleet(missiles, u.MISSILE_LIMIT),
+            SaucerFleet(saucers),
+            MissileFleet(saucer_missiles, u.SAUCER_MISSILE_LIMIT),
+            ShipFleet(ships),
+            ExplosionFleet())
 
     @property
     def asteroids(self):
@@ -32,6 +38,14 @@ class Fleets:
     def ships(self):
         return self.fleets[4]
 
+    @property
+    def explosions(self):
+        return self.fleets[5]
+
+    @property
+    def colliding_fleets(self):
+        return (self.asteroids, self.missiles, self.saucers, self.saucer_missiles, self.ships)
+
     def clear(self):
         for fleet in self.fleets:
             fleet.clear()
@@ -39,6 +53,9 @@ class Fleets:
     def draw(self, screen):
         for fleet in self.fleets:
             fleet.draw(screen)
+
+    def explosion_at(self, position):
+        self.explosions.explosion_at(position)
 
     def safe_to_emerge(self):
         if self.missiles:

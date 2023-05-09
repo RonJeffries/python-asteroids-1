@@ -1,6 +1,11 @@
 # Fleet
+import random
+
+from pygame import Vector2
+
 import u
 from asteroid import Asteroid
+from missile import Missile
 from saucer import Saucer
 from ship import Ship
 from timer import Timer
@@ -67,6 +72,17 @@ class AsteroidFleet(Fleet):
         return True
 
 
+class ExplosionFleet(Fleet):
+    def __init__(self):
+        super().__init__([])
+
+    def explosion_at(self, position):
+        for i in range(5):
+            angle = random.randrange(360)
+            velocity = Vector2(u.MISSILE_SPEED/3,0).rotate(angle)
+            self.flyers.append(Missile(position, velocity, [0,0,0], [0,0]))
+
+
 class MissileFleet(Fleet):
     def __init__(self, flyers, maximum_number_of_missiles):
         self.maximum_number_of_missiles = maximum_number_of_missiles
@@ -104,6 +120,7 @@ class ShipFleet(Fleet):
         super().__init__(flyers)
         self.ship_timer = Timer(u.SHIP_EMERGENCE_TIME, self.spawn_ship_when_ready)
         ShipFleet.ships_remaining = u.SHIPS_PER_QUARTER
+        ShipFleet.game_over = False
 
     def spawn_ship_when_ready(self, fleets):
         if not self.ships_remaining:
