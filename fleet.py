@@ -5,6 +5,7 @@ from pygame import Vector2
 
 import u
 from asteroid import Asteroid
+from fragment import Fragment
 from missile import Missile
 from saucer import Saucer
 from ship import Ship
@@ -77,10 +78,10 @@ class ExplosionFleet(Fleet):
         super().__init__([])
 
     def explosion_at(self, position):
-        for i in range(5):
+        for i in range(8):
             angle = random.randrange(360)
-            velocity = Vector2(u.MISSILE_SPEED/3,0).rotate(angle)
-            self.flyers.append(Missile(position, velocity, [0,0,0], [0,0]))
+            fragment = Fragment(position=position, angle=angle)
+            self.flyers.append(fragment)
 
 
 class MissileFleet(Fleet):
