@@ -13,7 +13,7 @@ class TestFragments():
 
     def test_frag_random_angle(self):
         angle = 180
-        frag = Fragment(position = u.CENTER, angle=angle)
+        frag = Fragment(position = u.CENTER, angle=angle, speed_mul=1)
         assert frag.velocity == Vector2(u.FRAGMENT_SPEED, 0).rotate(angle)
         assert frag.velocity.x == -u.FRAGMENT_SPEED
 
@@ -28,7 +28,7 @@ class TestFragments():
         assert not frags
 
     def test_fragment_move(self):
-        frag = Fragment(position=u.CENTER, angle=0)
+        frag = Fragment(position=u.CENTER, angle=0, speed_mul=1)
         assert frag.velocity == Vector2(u.FRAGMENT_SPEED, 0)
         frag.move(0.1)
         assert frag.position == u.CENTER + Vector2(u.FRAGMENT_SPEED*0.1, 0)
