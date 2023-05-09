@@ -78,9 +78,10 @@ class ExplosionFleet(Fleet):
         super().__init__([])
 
     def explosion_at(self, position):
-        for i in range(5):
+        how_many = 5
+        for i in range(how_many):
             twiddle = random.randrange(-20, 20)
-            fragment = Fragment(position=position, angle=360*i/5 + twiddle)
+            fragment = Fragment(position=position, angle=360 * i / how_many + twiddle)
             self.flyers.append(fragment)
 
 
