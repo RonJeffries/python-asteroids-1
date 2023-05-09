@@ -7,10 +7,17 @@ from timer import Timer
 
 
 class Fragment():
-    def __init__(self, angle=None):
-        angle = angle if angle else random.randrange(360)
+    def __init__(self, position, angle=None):
+        angle = angle if angle is not None else random.randrange(360)
+        self.position = position
         self.velocity = Vector2(u.FRAGMENT_SPEED, 0).rotate(angle)
         self.timer = Timer(u.FRAGMENT_LIFETIME, self.timeout)
+
+    def move(self, delta_time):
+        position = self.position + self.velocity * delta_time
+        position.x = position.x % u.SCREEN_SIZE
+        position.y = position.y % u.SCREEN_SIZE
+        self.position = position
 
     def tick(self, delta_time, fragments, _fleets):
         self.timer.tick(delta_time, fragments)
