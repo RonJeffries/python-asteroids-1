@@ -1,12 +1,9 @@
 # Fleet
 import random
 
-from pygame import Vector2
-
 import u
 from asteroid import Asteroid
 from fragment import Fragment
-from missile import Missile
 from saucer import Saucer
 from ship import Ship
 from timer import Timer
@@ -34,11 +31,12 @@ class Fleet:
     def clear(self):
         self.flyers.clear()
 
-    def extend(self, list):
-        self.flyers.extend(list)
+    def extend(self, list_of_flyers):
+        self.flyers.extend(list_of_flyers)
 
     def remove(self, flyer):
-        if flyer in self.flyers: self.flyers.remove(flyer)
+        if flyer in self.flyers:
+            self.flyers.remove(flyer)
 
     def draw(self, screen):
         for flyer in self:
@@ -103,7 +101,7 @@ class SaucerFleet(Fleet):
         super().__init__(flyers)
         self.timer = Timer(u.SAUCER_EMERGENCE_TIME, self.bring_in_saucer)
 
-    def bring_in_saucer(self, fleets):
+    def bring_in_saucer(self, _fleets):
         self.flyers.append(Saucer())
         return True
 
