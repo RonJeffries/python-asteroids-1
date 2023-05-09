@@ -3,12 +3,12 @@ import itertools
 
 
 class Collider:
-    def __init__(self, space_objects):
-        self.space_objects = space_objects
+    def __init__(self, fleets):
+        self.fleets = fleets
         self.score = 0
 
     def check_collisions(self):
-        for pair in itertools.combinations(self.space_objects.fleets, 2):
+        for pair in itertools.combinations(self.fleets.fleets, 2):
             self.check_individual_collisions(pair[0], pair[1])
         return self.score
 
@@ -22,8 +22,8 @@ class Collider:
         if self.within_range(target, attacker):
             self.score += target.score_for_hitting(attacker)
             self.score += attacker.score_for_hitting(target)
-            attacker.destroyed_by(target, attackers)
-            target.destroyed_by(attacker, targets)
+            attacker.destroyed_by(target, attackers, self.fleets)
+            target.destroyed_by(attacker, targets, self.fleets)
             return True
         else:
             return False

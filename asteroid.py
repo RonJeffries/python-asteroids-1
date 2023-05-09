@@ -40,7 +40,7 @@ class Asteroid:
         dist = point.distance_to(self.position)
         return dist < self.radius + other_radius
 
-    def destroyed_by(self, attacker, asteroids):
+    def destroyed_by(self, attacker, asteroids, fleets):
         self.split_or_die(asteroids)
 
     def score_for_hitting(self, attacker):

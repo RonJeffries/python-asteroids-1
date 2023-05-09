@@ -47,8 +47,9 @@ class Ship:
         else:
             self.can_fire = True
 
-    def destroyed_by(self, attacker, ships):
+    def destroyed_by(self, attacker, ships, fleets):
         if self in ships: ships.remove(self)
+        # create explosion
 
     def score_for_hitting(self, _anyone):
         return 0

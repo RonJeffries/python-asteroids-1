@@ -28,7 +28,7 @@ class Missile:
     def scores_for_hitting_saucer(self):
         return self.saucer_score_list
 
-    def destroyed_by(self, attacker, missiles):
+    def destroyed_by(self, attacker, missiles, fleets):
         if self in missiles: missiles.remove(self)
 
     def score_for_hitting(self, _anyone):
