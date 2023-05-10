@@ -10,8 +10,12 @@ class Flyer():
     def __init__(self):
         pass
 
-class Asteroid:
+    def destroyed_by(self, attacker, asteroids, fleets):
+        pass
+
+class Asteroid(Flyer):
     def __init__(self, size=2, position=None):
+        super().__init__()
         self.size = size
         if self.size not in [0, 1, 2]:
             self.size = 2

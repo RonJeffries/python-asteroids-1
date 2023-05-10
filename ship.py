@@ -5,11 +5,13 @@ from pygame import Vector2
 import random
 from SurfaceMaker import SurfaceMaker
 import u
+from asteroid import Flyer
 from missile import Missile
 
 
-class Ship:
+class Ship(Flyer):
     def __init__(self, position):
+        super().__init__()
         self.position = position.copy()
         self.velocity = Vector2(0, 0)
         self.can_fire = True
