@@ -82,9 +82,9 @@ class ExplosionFleet(Fleet):
         for i in range(how_many):
             fragment_class = fragment_classes[i]
             base_direction = 360 * i / how_many
-            self.make_fragment(base_direction, fragment_class, position)
+            self.make_fragment(fragment_class, position, base_direction)
 
-    def make_fragment(self, base_direction, fragment_class, position):
+    def make_fragment(self, fragment_class, position, base_direction):
         twiddle = random.randrange(-20, 20)
         fragment = fragment_class(position=position, angle=base_direction + twiddle)
         self.flyers.append(fragment)
