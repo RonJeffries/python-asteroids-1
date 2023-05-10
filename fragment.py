@@ -16,13 +16,17 @@ class Fragment:
         self.theta = random.randrange(0, 360)
         self.delta_theta = random.uniform(180, 360)*random.choice((1, -1))
         self.timer = Timer(u.FRAGMENT_LIFETIME, self.timeout)
+        self.create_fragments()
+
+    def create_fragments(self):
         half_length = random.uniform(6, 10)
         begin = Vector2(-half_length, 0)
         end = Vector2(half_length, 0)
-        self.frags = [[begin, end]]
+        # noinspection PyAttributeOutsideInit
+        self.fragments = [[begin, end]]
 
     def draw(self, screen):
-        self.draw_lines(screen, self.position, self.theta, self.frags)
+        self.draw_lines(screen, self.position, self.theta, self.fragments)
 
     def draw_lines(self, screen, position, theta, pairs):
         for pair in pairs:
