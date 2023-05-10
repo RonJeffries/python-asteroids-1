@@ -21,8 +21,8 @@ class Fragment:
         self.timer = Timer(u.FRAGMENT_LIFETIME, self.timeout)
 
     def draw(self, screen):
-        frag = [self.begin, self.end]
-        self.draw_one_line(screen, self.position, self.theta, frag)
+        frags = [[self.begin, self.end]]
+        self.draw_lines(screen, self.position, self.theta, frags)
 
     def draw_lines(self, screen, position, theta, pairs):
         for pair in pairs:
