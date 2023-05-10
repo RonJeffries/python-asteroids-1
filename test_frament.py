@@ -6,7 +6,7 @@ from fleets import Fleets
 from fragment import Fragment
 
 
-class TestFragments():
+class TestFragments:
     def test_frag(self):
         frag = Fragment(position = u.CENTER)
         assert frag

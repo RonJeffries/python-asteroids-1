@@ -7,7 +7,7 @@ from SurfaceMaker import SurfaceMaker
 import u
 
 
-class Flyer():
+class Flyer:
     def __init__(self):
         pass
 

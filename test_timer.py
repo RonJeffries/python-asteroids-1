@@ -6,7 +6,7 @@ from saucer import Saucer
 from timer import Timer
 
 
-class Checker():
+class Checker:
     def __init__(self, extra):
         self.happened = 0
         self.extra = extra if extra else 0
@@ -16,8 +16,7 @@ class Checker():
         return True
 
 
-
-class TestTimer():
+class TestTimer:
     def test_creation(self):
         happened = False
 
@@ -25,6 +24,7 @@ class TestTimer():
             nonlocal happened
             happened = True
             return True
+
         delay = 3
         timer = Timer(delay, it_happened)
         assert not happened
@@ -40,6 +40,7 @@ class TestTimer():
             nonlocal happened
             happened = True
             return True
+
         delay = 1
         timer = Timer(delay, action)
         assert not happened
@@ -53,6 +54,7 @@ class TestTimer():
         def action_without_return():
             nonlocal happened
             happened = True
+
         delay = 1
         timer = Timer(delay, action_without_return)
         timer.tick(1.5)
@@ -66,6 +68,7 @@ class TestTimer():
             saucer.ready()
             saucers.append(saucer)
             return True
+
         delay = 1
         timer = Timer(delay, start_saucer, saucer, saucers)
         timer.tick(1.1)
@@ -89,7 +92,7 @@ class TestTimer():
             nonlocal result
             result = action_arg + " " + tick_arg
             return True
-        timer  = Timer(1, action, "action arg")
+
+        timer = Timer(1, action, "action arg")
         timer.tick(1.1, "tick arg")
         assert result == "action arg tick arg"
-

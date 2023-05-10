@@ -7,7 +7,7 @@ import u
 from timer import Timer
 
 
-class Fragment():
+class Fragment:
     def __init__(self, position, angle=None, speed_mul=None):
         angle = angle if angle is not None else random.randrange(360)
         self.position = position

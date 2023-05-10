@@ -44,7 +44,7 @@ class Fleets:
 
     @property
     def colliding_fleets(self):
-        return (self.asteroids, self.missiles, self.saucers, self.saucer_missiles, self.ships)
+        return self.asteroids, self.missiles, self.saucers, self.saucer_missiles, self.ships
 
     def clear(self):
         for fleet in self.fleets:
