@@ -25,6 +25,15 @@ class Fragment:
         end = self.position + self.end.rotate(self.theta)
         pygame.draw.line(screen, "white", begin, end, 3)
 
+    def draw_lines(self, screen, position, theta, pairs):
+        for pair in pairs:
+            self.draw_one_line(pair, position, screen, theta)
+
+    def draw_one_line(self, pair, position, screen, theta):
+        start = pair[0].rotate(theta) + position
+        end = pair[1].rotate(theta) + position
+        pygame.draw.line(screen, "white", start, end, 3)
+
     def move(self, delta_time):
         position = self.position + self.velocity * delta_time
         position.x = position.x % u.SCREEN_SIZE
@@ -45,9 +54,10 @@ class VFragment(Fragment):
         super().__init__(position, angle, speed_mul)
 
     def draw(self, screen):
-        v_shape = [Vector2(-7, 5), Vector2(7, 0), Vector2(-7, -5)]
-        points = [p.rotate(self.theta) + self.position for p in v_shape]
-        pygame.draw.lines(screen, "white", False, points, 3)
+        side_1 = [Vector2(-7, 5), Vector2(7, 0)]
+        side_2 = [Vector2(7, 0), Vector2(-7, -5)]
+        v = [side_1, side_2]
+        self.draw_lines(screen, self.position, self.theta, v)
 
 
 class GFragment(Fragment):
@@ -64,12 +74,3 @@ class GFragment(Fragment):
         arm = [Vector2(-9, 10), Vector2(9, 10)]
         pairs = [body, arm, left_leg, right_leg]
         self.draw_lines(screen, self.position, self.theta, pairs)
-
-    def draw_lines(self, screen, position, theta, pairs):
-        for pair in pairs:
-            self.draw_one_line(pair, position, screen, theta)
-
-    def draw_one_line(self, pair, position, screen, theta):
-        start = pair[0].rotate(theta) + position
-        end = pair[1].rotate(theta) + position
-        pygame.draw.line(screen, "white", start, end, 3)
