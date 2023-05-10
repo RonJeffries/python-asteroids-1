@@ -28,10 +28,12 @@ class Missile:
     def scores_for_hitting_saucer(self):
         return self.saucer_score_list
 
-    def destroyed_by(self, attacker, missiles, fleets):
-        if self in missiles: missiles.remove(self)
+    def destroyed_by(self, _attacker, missiles, _fleets):
+        if self in missiles:
+            missiles.remove(self)
 
-    def score_for_hitting(self, _anyone):
+    @staticmethod
+    def score_for_hitting(_anyone):
         return 0
 
     def draw(self, screen):
@@ -53,4 +55,3 @@ class Missile:
 
     def timeout(self, missiles):
         missiles.remove(self)
-
