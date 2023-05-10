@@ -21,15 +21,14 @@ class Fragment:
         self.timer = Timer(u.FRAGMENT_LIFETIME, self.timeout)
 
     def draw(self, screen):
-        begin = self.position + self.begin.rotate(self.theta)
-        end = self.position + self.end.rotate(self.theta)
-        pygame.draw.line(screen, "white", begin, end, 3)
+        frag = [self.begin, self.end]
+        self.draw_one_line(screen, self.position, self.theta, frag)
 
     def draw_lines(self, screen, position, theta, pairs):
         for pair in pairs:
-            self.draw_one_line(pair, position, screen, theta)
+            self.draw_one_line(screen, position, theta, pair)
 
-    def draw_one_line(self, pair, position, screen, theta):
+    def draw_one_line(self, screen, position, theta, pair):
         start = pair[0].rotate(theta) + position
         end = pair[1].rotate(theta) + position
         pygame.draw.line(screen, "white", start, end, 3)
