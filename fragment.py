@@ -60,19 +60,17 @@ class GFragment(Fragment):
         body_top_raw = Vector2(0, 16)
         body_bottom_raw = Vector2(0, 2)
         body = [body_bottom_raw, body_top_raw]
-        leg_left_raw = Vector2(-5, -16)
-        left_leg = [leg_left_raw, body_bottom_raw]
-        leg_right_raw = Vector2(5, -16)
-        right_leg = [leg_right_raw, body_bottom_raw]
+        left_leg = [(Vector2(-5, -16)), body_bottom_raw]
+        right_leg = [(Vector2(5, -16)), body_bottom_raw]
         arm = [(Vector2(-9, 10)), (Vector2(9, 10))]
         pairs = [arm]
         self.draw_lines(pairs, position, screen, theta)
         body_top = body_top_raw.rotate(theta)
         body_bottom = body_bottom_raw.rotate(theta)
         pygame.draw.line(screen, "white", body_top + position, body_bottom + position, 3)
-        leg_left = leg_left_raw.rotate(theta)
+        leg_left = Vector2(-5, -16).rotate(theta)
         pygame.draw.line(screen, "white", leg_left + position, body_bottom + position, 3)
-        leg_right = leg_right_raw.rotate(theta)
+        leg_right = Vector2(5, -16).rotate(theta)
         pygame.draw.line(screen, "white", leg_right + position, body_bottom + position, 3)
 
     def draw_lines(self, pairs, position, screen, theta):
