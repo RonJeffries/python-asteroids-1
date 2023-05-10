@@ -64,9 +64,9 @@ class TestTimer:
         saucer = Saucer()
         saucers = []
 
-        def start_saucer(saucer, saucers):
-            saucer.ready()
-            saucers.append(saucer)
+        def start_saucer(a_saucer, the_saucers):
+            a_saucer.ready()
+            the_saucers.append(a_saucer)
             return True
 
         delay = 1

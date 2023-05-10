@@ -53,8 +53,7 @@ class TestAsteroids:
 
     def test_slice(self):
         score = "0000200"
-        slice = score[-5:]
-        assert slice == "00200"
+        assert score[-5:] == "00200"
 
     def test_args(self):
         def local_function(a, b):

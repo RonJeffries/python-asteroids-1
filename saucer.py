@@ -102,9 +102,9 @@ class Saucer:
     def cannot_target_ship(ships, should_target):
         return not ships or should_target > u.SAUCER_TARGETING_FRACTION
 
-    def missile_at_angle(self, degrees, velocity_adjustment):
-        missile_velocity = Vector2(u.MISSILE_SPEED, 0).rotate(degrees) + velocity_adjustment
-        offset = Vector2(2 * self.radius, 0).rotate(degrees)
+    def missile_at_angle(self, desired_angle, velocity_adjustment):
+        missile_velocity = Vector2(u.MISSILE_SPEED, 0).rotate(desired_angle) + velocity_adjustment
+        offset = Vector2(2 * self.radius, 0).rotate(desired_angle)
         return Missile.from_saucer(self.position + offset, missile_velocity)
 
     def angle_to(self, ship):
