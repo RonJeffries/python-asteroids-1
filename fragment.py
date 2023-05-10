@@ -39,6 +39,7 @@ class Fragment:
     def timeout(self, fragments):
         fragments.remove(self)
 
+
 class VFragment(Fragment):
     def __init__(self, position, angle=None, speed_mul=None):
         super().__init__(position, angle, speed_mul)
@@ -48,24 +49,23 @@ class VFragment(Fragment):
         points = [p.rotate(self.theta) + self.position for p in v_shape]
         pygame.draw.lines(screen, "white", False, points, 3)
 
+
 class GFragment(Fragment):
     def __init__(self, position, angle=None, speed_mul=None):
         super().__init__(position, angle, speed_mul)
 
     def draw(self, screen):
-        theta = self.theta
-        head_off = Vector2(0,16+8).rotate(theta)
-        position = self.position
-        pygame.draw.circle(screen, "white", position + head_off, 8, 2)
+        head_off = Vector2(0, 16 + 8).rotate(self.theta)
+        pygame.draw.circle(screen, "white", self.position + head_off, 8, 2)
         body_bottom = Vector2(0, 2)
-        body = [body_bottom, (Vector2(0, 16))]
-        left_leg = [(Vector2(-5, -16)), body_bottom]
-        right_leg = [(Vector2(5, -16)), body_bottom]
-        arm = [(Vector2(-9, 10)), (Vector2(9, 10))]
+        body = [Vector2(0, 16), body_bottom]
+        left_leg = [Vector2(-5, -16), body_bottom]
+        right_leg = [Vector2(5, -16), body_bottom]
+        arm = [Vector2(-9, 10), Vector2(9, 10)]
         pairs = [body, arm, left_leg, right_leg]
-        self.draw_lines(pairs, position, screen, theta)
+        self.draw_lines(screen, self.position, self.theta, pairs)
 
-    def draw_lines(self, pairs, position, screen, theta):
+    def draw_lines(self, screen, position, theta, pairs):
         for pair in pairs:
             self.draw_one_line(pair, position, screen, theta)
 
