@@ -53,15 +53,22 @@ class GFragment(Fragment):
         super().__init__(position, angle, speed_mul)
 
     def draw(self, screen):
-        head_off = Vector2(0,16+8).rotate(self.theta)
-        pygame.draw.circle(screen, "white", self.position + head_off, 8, 2)
-        body_top = Vector2(0, 16).rotate(self.theta)
-        body_bottom = Vector2(0, 2).rotate(self.theta)
-        pygame.draw.line(screen, "white", body_top+self.position, body_bottom+self.position, 3)
-        leg_left = Vector2(-5, -16).rotate(self.theta)
-        pygame.draw.line(screen, "white", leg_left+self.position, body_bottom+self.position, 3)
-        leg_right = Vector2(5, -16).rotate(self.theta)
-        pygame.draw.line(screen, "white", leg_right+self.position, body_bottom+self.position, 3)
-        arm_left = Vector2(-9, 10).rotate(self.theta)
-        arm_right = Vector2(9, 10).rotate(self.theta)
-        pygame.draw.line(screen, "white", arm_right+self.position, arm_left+self.position, 3)
+        theta = self.theta
+        head_off = Vector2(0,16+8).rotate(theta)
+        position = self.position
+        pygame.draw.circle(screen, "white", position + head_off, 8, 2)
+        body_top = Vector2(0, 16).rotate(theta)
+        body_bottom = Vector2(0, 2).rotate(theta)
+        pygame.draw.line(screen, "white", body_top + position, body_bottom + position, 3)
+        leg_left = Vector2(-5, -16).rotate(theta)
+        pygame.draw.line(screen, "white", leg_left + position, body_bottom + position, 3)
+        leg_right = Vector2(5, -16).rotate(theta)
+        pygame.draw.line(screen, "white", leg_right + position, body_bottom + position, 3)
+        arm_left_raw = Vector2(-9, 10)
+        arm_right_raw = Vector2(9, 10)
+        self.draw_one_line(arm_left_raw, arm_right_raw, position, screen, theta)
+
+    def draw_one_line(self, line_start, line_end, position, screen, theta):
+        arm_left = line_start.rotate(theta)
+        arm_right = line_end.rotate(theta)
+        pygame.draw.line(screen, "white", arm_right + position, arm_left + position, 3)
