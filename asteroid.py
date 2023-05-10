@@ -6,12 +6,14 @@ import random
 from SurfaceMaker import SurfaceMaker
 import u
 
+
 class Flyer():
     def __init__(self):
         pass
 
     def destroyed_by(self, attacker, asteroids, fleets):
         pass
+
 
 class Asteroid(Flyer):
     def __init__(self, size=2, position=None):
@@ -55,7 +57,8 @@ class Asteroid(Flyer):
         return attacker.scores_for_hitting_asteroid()[self.size]
 
     def split_or_die(self, asteroids):
-        if self not in asteroids: return # already dead
+        if self not in asteroids:
+            return # already dead
         asteroids.remove(self)
         if self.size > 0:
             a1 = Asteroid(self.size - 1, self.position)
