@@ -28,5 +28,6 @@ class AllStatic:
     def static_two(a, b):
         return AllStatic.static_one(2 * a, 2 * b)
 
-    def flip(self):
+    @staticmethod
+    def flip():
         AllStatic.direction = - AllStatic.direction
