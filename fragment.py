@@ -42,3 +42,7 @@ class Fragment:
 class VFragment(Fragment):
     def __init__(self, position, angle=None, speed_mul=None):
         super().__init__(position, angle, speed_mul)
+
+class GFragment(Fragment):
+    def __init__(self, position, angle=None, speed_mul=None):
+        super().__init__(position, angle, speed_mul)

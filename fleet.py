@@ -3,7 +3,7 @@ import random
 
 import u
 from asteroid import Asteroid
-from fragment import Fragment, VFragment
+from fragment import Fragment, VFragment, GFragment
 from saucer import Saucer
 from ship import Ship
 from timer import Timer
@@ -76,7 +76,8 @@ class ExplosionFleet(Fleet):
         super().__init__([])
 
     def explosion_at(self, position):
-        fragment_classes = [VFragment, VFragment, Fragment, Fragment, Fragment, Fragment, Fragment]
+        fragment_classes = [VFragment, GFragment, Fragment, Fragment, Fragment, Fragment, Fragment]
+        random.shuffle(fragment_classes)
         how_many = len(fragment_classes)
         for i in range(how_many):
             fragment_class = fragment_classes[i]
