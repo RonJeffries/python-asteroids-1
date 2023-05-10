@@ -67,9 +67,7 @@ class GFragment(Fragment):
     def __init__(self, position, angle=None, speed_mul=None):
         super().__init__(position, angle, speed_mul)
 
-    def draw(self, screen):
-        head_off = Vector2(0, 16 + 8).rotate(self.theta)
-        pygame.draw.circle(screen, "white", self.position + head_off, 8, 2)
+    def create_fragments(self):
         body_bottom = Vector2(0, 2)
         body = [Vector2(0, 16), body_bottom]
         left_leg = [Vector2(-5, -16), body_bottom]
@@ -77,4 +75,11 @@ class GFragment(Fragment):
         arm = [Vector2(-9, 10), Vector2(9, 10)]
         # noinspection PyAttributeOutsideInit
         self.fragments = [body, arm, left_leg, right_leg]
+
+    def draw(self, screen):
+        self.draw_head(screen)
         self.draw_lines(screen, self.position, self.theta, self.fragments)
+
+    def draw_head(self, screen):
+        head_off = Vector2(0, 16 + 8).rotate(self.theta)
+        pygame.draw.circle(screen, "white", self.position + head_off, 8, 2)
