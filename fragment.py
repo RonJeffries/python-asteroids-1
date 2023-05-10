@@ -64,9 +64,7 @@ class GFragment(Fragment):
         pygame.draw.line(screen, "white", leg_left + position, body_bottom + position, 3)
         leg_right = Vector2(5, -16).rotate(theta)
         pygame.draw.line(screen, "white", leg_right + position, body_bottom + position, 3)
-        arm_left_raw = Vector2(-9, 10)
-        arm_right_raw = Vector2(9, 10)
-        pair = [arm_left_raw, arm_right_raw]
+        pair = [(Vector2(-9, 10)), (Vector2(9, 10))]
         self.draw_one_line(pair, position, screen, theta)
 
     def draw_one_line(self, pair, position, screen, theta):
