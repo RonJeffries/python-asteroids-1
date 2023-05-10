@@ -169,7 +169,6 @@ class TestCollisions:
         assert asteroid.position == Vector2(0, 0)
 
     def test_collider(self):
-        game = Game(True)
         collider = Collider(Fleets([], [], [], [], []))
         score = collider.check_collisions()
         assert score == 0

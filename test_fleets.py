@@ -83,7 +83,7 @@ class TestFleets:
 
     def test_asteroid_fleet_exists(self):
         asteroids = []
-        fleet = AsteroidFleet(asteroids)
+        _fleet = AsteroidFleet(asteroids)
 
     def test_asteroid_wave(self):
         asteroids = []

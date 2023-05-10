@@ -13,6 +13,6 @@ class TestGame:
         things = [1, 2, 3, 4, 5]
         combinations = itertools.combinations(things, 2)
         count = 0
-        for pair in combinations:
+        for _pair in combinations:
             count += 1
         assert count == 10

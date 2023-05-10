@@ -50,7 +50,7 @@ class Saucer:
     def zig_zag_action(self):
         self.velocity = self.new_direction()
 
-    def destroyed_by(self, attacker, saucers, fleets):
+    def destroyed_by(self, _attacker, saucers, _fleets):
         if self in saucers: saucers.remove(self)
 
     def draw(self, screen):
