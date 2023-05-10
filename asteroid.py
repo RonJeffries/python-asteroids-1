@@ -6,6 +6,9 @@ import random
 from SurfaceMaker import SurfaceMaker
 import u
 
+class Flyer():
+    def __init__(self):
+        pass
 
 class Asteroid:
     def __init__(self, size=2, position=None):
