@@ -23,10 +23,12 @@ class Ship(Flyer):
         ship_size = Vector2(14, 8)*ship_scale
         self.ship_surface, self.ship_accelerating_surface = SurfaceMaker.ship_surfaces(ship_size)
 
-    def scores_for_hitting_asteroid(self):
+    @staticmethod
+    def scores_for_hitting_asteroid():
         return [0, 0, 0]
 
-    def scores_for_hitting_saucer(self):
+    @staticmethod
+    def scores_for_hitting_saucer():
         return [0, 0]
 
     def accelerate_by(self, accel):
@@ -53,7 +55,8 @@ class Ship(Flyer):
         if self in ships: ships.remove(self)
         fleets.explosion_at(self.position)
 
-    def score_for_hitting(self, _anyone):
+    @staticmethod
+    def score_for_hitting(_anyone):
         return 0
 
     def within_range(self, point, other_radius):
