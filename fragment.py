@@ -77,8 +77,8 @@ class GFragment(Fragment):
         self.fragments = [body, arm, left_leg, right_leg]
 
     def draw(self, screen):
+        super().draw(screen)
         self.draw_head(screen)
-        self.draw_lines(screen, self.position, self.theta, self.fragments)
 
     def draw_head(self, screen):
         head_off = Vector2(0, 16 + 8).rotate(self.theta)
