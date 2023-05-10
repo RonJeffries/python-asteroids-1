@@ -56,11 +56,11 @@ class VFragment(Fragment):
     def __init__(self, position, angle=None, speed_mul=None):
         super().__init__(position, angle, speed_mul)
 
-    def draw(self, screen):
+    def create_fragments(self):
         side_1 = [Vector2(-7, 5), Vector2(7, 0)]
         side_2 = [Vector2(7, 0), Vector2(-7, -5)]
-        v = [side_1, side_2]
-        self.draw_lines(screen, self.position, self.theta, v)
+        # noinspection PyAttributeOutsideInit
+        self.fragments  = [side_1, side_2]
 
 
 class GFragment(Fragment):
