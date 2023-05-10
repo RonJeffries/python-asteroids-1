@@ -4,6 +4,7 @@ import u
 from asteroid import Asteroid
 from fleets import Fleets
 from fleet import Fleet, AsteroidFleet, ShipFleet, MissileFleet, ExplosionFleet
+from fragment import Fragment
 from missile import Missile
 
 
@@ -216,7 +217,9 @@ class TestFleets:
         fleet = ExplosionFleet()
         explosion = fleet.flyers
         fleet.explosion_at(u.CENTER)
-        assert explosion
+        assert len(explosion) == 7
+        frags = [fragment for fragment in explosion if type(fragment) == Fragment]
+        assert len(frags) == 5
 
 
 

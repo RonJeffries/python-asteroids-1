@@ -38,3 +38,7 @@ class Fragment:
 
     def timeout(self, fragments):
         fragments.remove(self)
+
+class VFragment(Fragment):
+    def __init__(self, position, angle=None, speed_mul=None):
+        super().__init__(position, angle, speed_mul)

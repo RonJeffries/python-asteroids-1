@@ -3,7 +3,7 @@ import random
 
 import u
 from asteroid import Asteroid
-from fragment import Fragment
+from fragment import Fragment, VFragment
 from saucer import Saucer
 from ship import Ship
 from timer import Timer
@@ -76,11 +76,17 @@ class ExplosionFleet(Fleet):
         super().__init__([])
 
     def explosion_at(self, position):
-        how_many = 5
+        fragment_classes = [VFragment, VFragment, Fragment, Fragment, Fragment, Fragment, Fragment]
+        how_many = len(fragment_classes)
         for i in range(how_many):
-            twiddle = random.randrange(-20, 20)
-            fragment = Fragment(position=position, angle=360 * i / how_many + twiddle)
-            self.flyers.append(fragment)
+            fragment_class = fragment_classes[i]
+            base_direction = 360 * i / how_many
+            self.make_fragment(base_direction, fragment_class, position)
+
+    def make_fragment(self, base_direction, fragment_class, position):
+        twiddle = random.randrange(-20, 20)
+        fragment = fragment_class(position=position, angle=base_direction + twiddle)
+        self.flyers.append(fragment)
 
 
 class MissileFleet(Fleet):
