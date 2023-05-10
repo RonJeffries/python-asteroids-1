@@ -1,5 +1,4 @@
 # Asteroids Main program
-from fleet import ShipFleet
 from game import Game
 
 asteroids_game: Game

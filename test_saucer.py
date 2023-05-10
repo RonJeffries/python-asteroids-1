@@ -1,5 +1,4 @@
 # test_saucer
-from math import sin, pi
 
 import pytest
 from pygame import Vector2

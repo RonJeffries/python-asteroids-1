@@ -1,7 +1,5 @@
 # test timer object
 
-import pytest
-
 from saucer import Saucer
 from timer import Timer
 

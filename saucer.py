@@ -19,7 +19,7 @@ class Saucer:
     def init_for_new_game(cls):
         cls.direction = -1
 
-    def __init__(self, position=None, size=2):
+    def __init__(self, _position=None, size=2):
         self.size = size
         Saucer.direction = -Saucer.direction
         x = 0 if Saucer.direction > 0 else u.SCREEN_SIZE

@@ -1,7 +1,6 @@
 from pygame import Vector2
 
 import u
-from fleet import ExplosionFleet
 from fleets import Fleets
 from fragment import Fragment
 

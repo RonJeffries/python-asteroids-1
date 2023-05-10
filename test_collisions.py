@@ -1,10 +1,9 @@
 from pygame import Vector2
 
-import main
 import u
 from asteroid import Asteroid
 from collider import Collider
-from fleet import SaucerFleet, MissileFleet
+from fleet import MissileFleet
 from missile import Missile
 from saucer import Saucer, nearest, nearest_point
 from ship import Ship

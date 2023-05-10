@@ -1,6 +1,6 @@
 # SpaceObjects
 import u
-from fleet import Fleet, ShipFleet, SaucerFleet, AsteroidFleet, MissileFleet, ExplosionFleet
+from fleet import ShipFleet, SaucerFleet, AsteroidFleet, MissileFleet, ExplosionFleet
 
 
 class Fleets:

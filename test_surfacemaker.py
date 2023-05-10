@@ -1,6 +1,3 @@
-import pytest
-
-
 class TestSurfaceMaker:
 
     def test_fetch(self):

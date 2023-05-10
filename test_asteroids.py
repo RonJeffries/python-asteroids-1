@@ -5,7 +5,6 @@ from pygame.math import clamp, Vector2
 
 import u
 from fleet import AsteroidFleet, MissileFleet
-from game import Game
 from ship import Ship
 
 

@@ -1,10 +1,9 @@
-import pytest
 from pygame import Vector2
 
 import u
 from asteroid import Asteroid
 from fleets import Fleets
-from fleet import Fleet, SaucerFleet, AsteroidFleet, ShipFleet, MissileFleet, ExplosionFleet
+from fleet import Fleet, AsteroidFleet, ShipFleet, MissileFleet, ExplosionFleet
 from missile import Missile
 
 

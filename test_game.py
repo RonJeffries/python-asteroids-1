@@ -1,7 +1,5 @@
 import itertools
 
-import pygame
-import pytest
 
 from game import Game
 
