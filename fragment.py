@@ -57,11 +57,10 @@ class GFragment(Fragment):
         head_off = Vector2(0,16+8).rotate(theta)
         position = self.position
         pygame.draw.circle(screen, "white", position + head_off, 8, 2)
-        body_top_raw = Vector2(0, 16)
-        body_bottom_raw = Vector2(0, 2)
-        body = [body_bottom_raw, body_top_raw]
-        left_leg = [(Vector2(-5, -16)), body_bottom_raw]
-        right_leg = [(Vector2(5, -16)), body_bottom_raw]
+        body_bottom = Vector2(0, 2)
+        body = [body_bottom, (Vector2(0, 16))]
+        left_leg = [(Vector2(-5, -16)), body_bottom]
+        right_leg = [(Vector2(5, -16)), body_bottom]
         arm = [(Vector2(-9, 10)), (Vector2(9, 10))]
         pairs = [body, arm, left_leg, right_leg]
         self.draw_lines(pairs, position, screen, theta)
