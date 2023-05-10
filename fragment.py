@@ -75,5 +75,6 @@ class GFragment(Fragment):
         left_leg = [Vector2(-5, -16), body_bottom]
         right_leg = [Vector2(5, -16), body_bottom]
         arm = [Vector2(-9, 10), Vector2(9, 10)]
-        pairs = [body, arm, left_leg, right_leg]
-        self.draw_lines(screen, self.position, self.theta, pairs)
+        # noinspection PyAttributeOutsideInit
+        self.fragments = [body, arm, left_leg, right_leg]
+        self.draw_lines(screen, self.position, self.theta, self.fragments)
