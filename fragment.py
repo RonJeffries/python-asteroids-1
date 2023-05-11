@@ -43,22 +43,13 @@ class Fragment:
         self.theta = random.randrange(0, 360)
         self.delta_theta = random.uniform(180, 360)*random.choice((1, -1))
         self.timer = Timer(u.FRAGMENT_LIFETIME, self.timeout)
-        if not fragments:
-            self.fragments = self.create_fragments()
-        else:
-            self.fragments = fragments
-
-    def create_fragments(self):
-        raise RuntimeError("should be unused")
+        self.fragments = fragments
 
     def draw(self, screen):
-        self.draw_commands(screen, self.position, self.theta, self.fragments)
-
-    def draw_commands(self, screen, position, theta, commands):
-        for command in commands:
+        for command in self.fragments:
             operation = command[0]
             if operation == "line":
-                self.draw_one_line(screen, position, theta, command[1:])
+                self.draw_one_line(screen, self.position, self.theta, command[1:])
             elif operation == "head":
                 self.draw_head(screen, command[1:])
             else:
