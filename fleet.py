@@ -86,7 +86,10 @@ class ExplosionFleet(Fleet):
 
     def make_fragment(self, fragment_class, position, base_direction):
         twiddle = random.randrange(-20, 20)
-        fragment = fragment_class(position=position, angle=base_direction + twiddle)
+        if fragment_class == Fragment:
+            fragment = Fragment.simple_fragment(position=position, angle=base_direction+twiddle)
+        else:
+            fragment = fragment_class(position=position, angle=base_direction + twiddle)
         self.flyers.append(fragment)
 
 

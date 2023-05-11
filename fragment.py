@@ -8,7 +8,15 @@ from timer import Timer
 
 
 class Fragment:
-    def __init__(self, position, angle=None, speed_mul=None, fragments= None):
+
+    @classmethod
+    def simple_fragment(cls, position, angle=None, speed_mul=None):
+        half_length = random.uniform(6, 10)
+        begin = Vector2(-half_length, 0)
+        end = Vector2(half_length, 0)
+        return cls(position, angle, speed_mul, [[begin, end]])
+
+    def __init__(self, position, angle=None, speed_mul=None, fragments=None):
         angle = angle if angle is not None else random.randrange(360)
         self.position = position
         speed_mul = speed_mul if speed_mul is not None else random.uniform(0.25, 0.5)
@@ -18,12 +26,13 @@ class Fragment:
         self.timer = Timer(u.FRAGMENT_LIFETIME, self.timeout)
         if not fragments:
             self.fragments = self.create_fragments()
+        else:
+            self.fragments = fragments
 
     def create_fragments(self):
-        half_length = random.uniform(6, 10)
-        begin = Vector2(-half_length, 0)
-        end = Vector2(half_length, 0)
-        return [[begin, end]]
+        print("in create fragments")
+        return [[Vector2(-5, 0), Vector2(5, 0)]]
+
 
     def draw(self, screen):
         self.draw_lines(screen, self.position, self.theta, self.fragments)
