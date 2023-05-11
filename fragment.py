@@ -30,8 +30,7 @@ class Fragment:
             self.fragments = fragments
 
     def create_fragments(self):
-        print("in create fragments")
-        return [[Vector2(-5, 0), Vector2(5, 0)]]
+        raise RuntimeError("should be unused")
 
 
     def draw(self, screen):
