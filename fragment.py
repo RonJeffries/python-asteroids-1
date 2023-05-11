@@ -8,7 +8,7 @@ from timer import Timer
 
 
 class Fragment:
-    def __init__(self, position, angle=None, speed_mul=None):
+    def __init__(self, position, angle=None, speed_mul=None, fragments= None):
         angle = angle if angle is not None else random.randrange(360)
         self.position = position
         speed_mul = speed_mul if speed_mul is not None else random.uniform(0.25, 0.5)
@@ -16,7 +16,10 @@ class Fragment:
         self.theta = random.randrange(0, 360)
         self.delta_theta = random.uniform(180, 360)*random.choice((1, -1))
         self.timer = Timer(u.FRAGMENT_LIFETIME, self.timeout)
-        self.create_fragments()
+        if fragments:
+            self.fragments = fragments
+        else:
+            self.create_fragments()
 
     def create_fragments(self):
         half_length = random.uniform(6, 10)
