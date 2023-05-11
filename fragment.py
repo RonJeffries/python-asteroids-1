@@ -55,7 +55,11 @@ class Fragment:
 
     def draw_commands(self, screen, position, theta, commands):
         for command in commands:
-            self.draw_one_line(screen, position, theta, command[1:])
+            operation = command[0]
+            if operation == "line":
+                self.draw_one_line(screen, position, theta, command[1:])
+            else:
+                pass
 
     def draw_one_line(self, screen, position, theta, pair):
         start = pair[0].rotate(theta) + position
