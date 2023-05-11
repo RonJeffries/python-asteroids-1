@@ -87,15 +87,3 @@ class Fragment:
     def timeout(self, fragments):
         fragments.remove(self)
 
-
-class GFragment(Fragment):
-    def __init__(self, position, angle=None, speed_mul=None, fragments=None):
-        super().__init__(position, angle, speed_mul, fragments)
-
-    def draw(self, screen):
-        super().draw(screen)
-        self.draw_head(screen)
-
-    def draw_head(self, screen):
-        head_off = Vector2(0, 16 + 8).rotate(self.theta)
-        pygame.draw.circle(screen, "white", self.position + head_off, 8, 2)
