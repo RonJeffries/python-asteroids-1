@@ -76,22 +76,20 @@ class ExplosionFleet(Fleet):
         super().__init__([])
 
     def explosion_at(self, position):
-        fragment_classes = [VFragment, GFragment, Fragment, Fragment, Fragment, Fragment, Fragment]
-        random.shuffle(fragment_classes)
-        how_many = len(fragment_classes)
+        simple = Fragment.simple_fragment
+        vee = Fragment.v_fragment
+        guy = Fragment.astronaut_fragment
+        fragment_factory_methods = [vee, guy, simple, simple, simple, simple, simple]
+        random.shuffle(fragment_factory_methods)
+        how_many = len(fragment_factory_methods)
         for i in range(how_many):
-            fragment_class = fragment_classes[i]
+            factory_method = fragment_factory_methods[i]
             base_direction = 360 * i / how_many
-            self.make_fragment(fragment_class, position, base_direction)
+            self.make_fragment(factory_method, position, base_direction)
 
-    def make_fragment(self, fragment_class, position, base_direction):
+    def make_fragment(self, factory_method, position, base_direction):
         twiddle = random.randrange(-20, 20)
-        if fragment_class == Fragment:
-            fragment = Fragment.simple_fragment(position=position, angle=base_direction+twiddle)
-        elif fragment_class == VFragment:
-            fragment = Fragment.v_fragment(position=position, angle=base_direction+twiddle)
-        else:
-            fragment = Fragment.astronaut_fragment(position=position, angle=base_direction + twiddle)
+        fragment = factory_method(position=position, angle=base_direction+twiddle)
         self.flyers.append(fragment)
 
 
