@@ -16,17 +16,14 @@ class Fragment:
         self.theta = random.randrange(0, 360)
         self.delta_theta = random.uniform(180, 360)*random.choice((1, -1))
         self.timer = Timer(u.FRAGMENT_LIFETIME, self.timeout)
-        if fragments:
-            self.fragments = fragments
-        else:
-            self.create_fragments()
+        if not fragments:
+            self.fragments = self.create_fragments()
 
     def create_fragments(self):
         half_length = random.uniform(6, 10)
         begin = Vector2(-half_length, 0)
         end = Vector2(half_length, 0)
-        # noinspection PyAttributeOutsideInit
-        self.fragments = [[begin, end]]
+        return [[begin, end]]
 
     def draw(self, screen):
         self.draw_lines(screen, self.position, self.theta, self.fragments)
@@ -62,8 +59,7 @@ class VFragment(Fragment):
     def create_fragments(self):
         side_1 = [Vector2(-7, 5), Vector2(7, 0)]
         side_2 = [Vector2(7, 0), Vector2(-7, -5)]
-        # noinspection PyAttributeOutsideInit
-        self.fragments  = [side_1, side_2]
+        return [side_1, side_2]
 
 
 class GFragment(Fragment):
@@ -76,8 +72,7 @@ class GFragment(Fragment):
         left_leg = [Vector2(-5, -16), body_bottom]
         right_leg = [Vector2(5, -16), body_bottom]
         arm = [Vector2(-9, 10), Vector2(9, 10)]
-        # noinspection PyAttributeOutsideInit
-        self.fragments = [body, arm, left_leg, right_leg]
+        return [body, arm, left_leg, right_leg]
 
     def draw(self, screen):
         super().draw(screen)
