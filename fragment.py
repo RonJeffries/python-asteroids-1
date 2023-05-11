@@ -65,8 +65,9 @@ class Fragment:
                 pass
 
     def draw_head(self, screen, parameters):
-        head_off = Vector2(0, 16 + 8).rotate(self.theta)
-        pygame.draw.circle(screen, "white", self.position + head_off, 8, 2)
+        position, radius, width = parameters
+        head_off = position.rotate(self.theta)
+        pygame.draw.circle(screen, "white", self.position + head_off, radius, width)
 
     def draw_one_line(self, screen, position, theta, pair):
         start = pair[0].rotate(theta) + position
