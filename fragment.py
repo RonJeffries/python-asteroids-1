@@ -27,7 +27,7 @@ class Fragment:
     @classmethod
     def astronaut_fragment(cls, position, angle=None, speed_mul=None):
         line = "line"
-        head = ["head"]
+        head = ["head", Vector2(0, 24), 8, 2]
         body_bottom = Vector2(0, 2)
         body = [line, Vector2(0, 16), body_bottom]
         left_leg = [line, Vector2(-5, -16), body_bottom]
