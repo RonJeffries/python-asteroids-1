@@ -27,12 +27,13 @@ class Fragment:
     @classmethod
     def astronaut_fragment(cls, position, angle=None, speed_mul=None):
         line = "line"
+        head = ["head"]
         body_bottom = Vector2(0, 2)
         body = [line, Vector2(0, 16), body_bottom]
         left_leg = [line, Vector2(-5, -16), body_bottom]
         right_leg = [line, Vector2(5, -16), body_bottom]
         arm = [line, Vector2(-9, 10), Vector2(9, 10)]
-        return GFragment(position, angle, speed_mul, [body, arm, left_leg, right_leg])
+        return cls(position, angle, speed_mul, [head, body, arm, left_leg, right_leg])
 
     def __init__(self, position, angle=None, speed_mul=None, fragments=None):
         angle = angle if angle is not None else random.randrange(360)
@@ -58,8 +59,14 @@ class Fragment:
             operation = command[0]
             if operation == "line":
                 self.draw_one_line(screen, position, theta, command[1:])
+            elif operation == "head":
+                self.draw_head(screen)
             else:
                 pass
+
+    def draw_head(self, screen):
+        head_off = Vector2(0, 16 + 8).rotate(self.theta)
+        pygame.draw.circle(screen, "white", self.position + head_off, 8, 2)
 
     def draw_one_line(self, screen, position, theta, pair):
         start = pair[0].rotate(theta) + position
