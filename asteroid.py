@@ -5,6 +5,7 @@ import random
 
 from SurfaceMaker import SurfaceMaker
 import u
+from movable_position import MovableLocation
 
 
 class Flyer():
@@ -22,11 +23,24 @@ class Asteroid(Flyer):
         if self.size not in [0, 1, 2]:
             self.size = 2
         self.radius = [16, 32, 64][self.size]
-        self.position = position if position is not None else Vector2(0, random.randrange(0, u.SCREEN_SIZE))
+        position = position if position is not None else Vector2(0, random.randrange(0, u.SCREEN_SIZE))
         angle_of_travel = random.randint(0, 360)
-        self.velocity = u.ASTEROID_SPEED.rotate(angle_of_travel)
+        velocity = u.ASTEROID_SPEED.rotate(angle_of_travel)
+        self.location = MovableLocation(position, velocity)
         self.offset = Vector2(self.radius, self.radius)
         self.surface = SurfaceMaker.asteroid_surface(self.radius * 2)
+
+    @property
+    def position(self):
+        return self.location.position
+
+    @position.setter
+    def position(self, position):
+        self.location.position = position
+
+    @property
+    def velocity(self):
+        return self.location.velocity
 
     @staticmethod
     def scores_for_hitting_asteroid():
@@ -41,10 +55,7 @@ class Asteroid(Flyer):
         screen.blit(self.surface, top_left_corner)
 
     def move(self, delta_time, _asteroids):
-        position = self.position + self.velocity * delta_time
-        position.x = position.x % u.SCREEN_SIZE
-        position.y = position.y % u.SCREEN_SIZE
-        self.position = position
+        self.location.move(delta_time)
 
     def within_range(self, point, other_radius):
         dist = point.distance_to(self.position)
