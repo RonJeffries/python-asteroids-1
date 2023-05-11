@@ -60,11 +60,11 @@ class Fragment:
             if operation == "line":
                 self.draw_one_line(screen, position, theta, command[1:])
             elif operation == "head":
-                self.draw_head(screen)
+                self.draw_head(screen, command[1:])
             else:
                 pass
 
-    def draw_head(self, screen):
+    def draw_head(self, screen, parameters):
         head_off = Vector2(0, 16 + 8).rotate(self.theta)
         pygame.draw.circle(screen, "white", self.position + head_off, 8, 2)
 
