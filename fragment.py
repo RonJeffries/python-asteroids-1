@@ -16,6 +16,12 @@ class Fragment:
         end = Vector2(half_length, 0)
         return cls(position, angle, speed_mul, [[begin, end]])
 
+    @classmethod
+    def v_fragment(cls, position, angle=None, speed_mul=None):
+        side_1 = [Vector2(-7, 5), Vector2(7, 0)]
+        side_2 = [Vector2(7, 0), Vector2(-7, -5)]
+        return cls(position, angle, speed_mul, [side_1, side_2])
+
     def __init__(self, position, angle=None, speed_mul=None, fragments=None):
         angle = angle if angle is not None else random.randrange(360)
         self.position = position
@@ -65,9 +71,7 @@ class VFragment(Fragment):
         super().__init__(position, angle, speed_mul)
 
     def create_fragments(self):
-        side_1 = [Vector2(-7, 5), Vector2(7, 0)]
-        side_2 = [Vector2(7, 0), Vector2(-7, -5)]
-        return [side_1, side_2]
+        raise RuntimeError("VFragment should not call create_fragment")
 
 
 class GFragment(Fragment):

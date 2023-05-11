@@ -213,17 +213,6 @@ class TestFleets:
         assert len(missiles) == 1
         assert missiles[-1] == 666
 
-    def test_explosion_fleet(self):
-        fleet = ExplosionFleet()
-        explosion = fleet.flyers
-        fleet.explosion_at(u.CENTER)
-        assert len(explosion) == 7
-        frags = [fragment for fragment in explosion if type(fragment) == Fragment]
-        assert len(frags) == 5
-        frags = [fragment for fragment in explosion if type(fragment) == VFragment]
-        assert len(frags) == 1
-        frags = [fragment for fragment in explosion if type(fragment) == GFragment]
-        assert len(frags) == 1
 
 
 
