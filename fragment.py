@@ -22,6 +22,15 @@ class Fragment:
         side_2 = [Vector2(7, 0), Vector2(-7, -5)]
         return cls(position, angle, speed_mul, [side_1, side_2])
 
+    @classmethod
+    def astronaut_fragment(cls, position, angle=None, speed_mul=None):
+        body_bottom = Vector2(0, 2)
+        body = [Vector2(0, 16), body_bottom]
+        left_leg = [Vector2(-5, -16), body_bottom]
+        right_leg = [Vector2(5, -16), body_bottom]
+        arm = [Vector2(-9, 10), Vector2(9, 10)]
+        return GFragment(position, angle, speed_mul, [body, arm, left_leg, right_leg])
+
     def __init__(self, position, angle=None, speed_mul=None, fragments=None):
         angle = angle if angle is not None else random.randrange(360)
         self.position = position
@@ -37,7 +46,6 @@ class Fragment:
 
     def create_fragments(self):
         raise RuntimeError("should be unused")
-
 
     def draw(self, screen):
         self.draw_lines(screen, self.position, self.theta, self.fragments)
@@ -75,16 +83,11 @@ class VFragment(Fragment):
 
 
 class GFragment(Fragment):
-    def __init__(self, position, angle=None, speed_mul=None):
-        super().__init__(position, angle, speed_mul)
+    def __init__(self, position, angle=None, speed_mul=None, fragments=None):
+        super().__init__(position, angle, speed_mul, fragments)
 
     def create_fragments(self):
-        body_bottom = Vector2(0, 2)
-        body = [Vector2(0, 16), body_bottom]
-        left_leg = [Vector2(-5, -16), body_bottom]
-        right_leg = [Vector2(5, -16), body_bottom]
-        arm = [Vector2(-9, 10), Vector2(9, 10)]
-        return [body, arm, left_leg, right_leg]
+        raise RuntimeError("GFragment should not call create_fragments")
 
     def draw(self, screen):
         super().draw(screen)
