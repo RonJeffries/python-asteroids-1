@@ -11,24 +11,27 @@ class Fragment:
 
     @classmethod
     def simple_fragment(cls, position, angle=None, speed_mul=None):
+        line = "line"
         half_length = random.uniform(6, 10)
         begin = Vector2(-half_length, 0)
         end = Vector2(half_length, 0)
-        return cls(position, angle, speed_mul, [[begin, end]])
+        return cls(position, angle, speed_mul, [[line, begin, end]])
 
     @classmethod
     def v_fragment(cls, position, angle=None, speed_mul=None):
-        side_1 = [Vector2(-7, 5), Vector2(7, 0)]
-        side_2 = [Vector2(7, 0), Vector2(-7, -5)]
+        line = "line"
+        side_1 = [line, Vector2(-7, 5), Vector2(7, 0)]
+        side_2 = [line, Vector2(7, 0), Vector2(-7, -5)]
         return cls(position, angle, speed_mul, [side_1, side_2])
 
     @classmethod
     def astronaut_fragment(cls, position, angle=None, speed_mul=None):
+        line = "line"
         body_bottom = Vector2(0, 2)
-        body = [Vector2(0, 16), body_bottom]
-        left_leg = [Vector2(-5, -16), body_bottom]
-        right_leg = [Vector2(5, -16), body_bottom]
-        arm = [Vector2(-9, 10), Vector2(9, 10)]
+        body = [line, Vector2(0, 16), body_bottom]
+        left_leg = [line, Vector2(-5, -16), body_bottom]
+        right_leg = [line, Vector2(5, -16), body_bottom]
+        arm = [line, Vector2(-9, 10), Vector2(9, 10)]
         return GFragment(position, angle, speed_mul, [body, arm, left_leg, right_leg])
 
     def __init__(self, position, angle=None, speed_mul=None, fragments=None):
@@ -48,11 +51,11 @@ class Fragment:
         raise RuntimeError("should be unused")
 
     def draw(self, screen):
-        self.draw_lines(screen, self.position, self.theta, self.fragments)
+        self.draw_commands(screen, self.position, self.theta, self.fragments)
 
-    def draw_lines(self, screen, position, theta, pairs):
-        for pair in pairs:
-            self.draw_one_line(screen, position, theta, pair)
+    def draw_commands(self, screen, position, theta, commands):
+        for command in commands:
+            self.draw_one_line(screen, position, theta, command[1:])
 
     def draw_one_line(self, screen, position, theta, pair):
         start = pair[0].rotate(theta) + position
@@ -74,20 +77,9 @@ class Fragment:
         fragments.remove(self)
 
 
-class VFragment(Fragment):
-    def __init__(self, position, angle=None, speed_mul=None):
-        super().__init__(position, angle, speed_mul)
-
-    def create_fragments(self):
-        raise RuntimeError("VFragment should not call create_fragment")
-
-
 class GFragment(Fragment):
     def __init__(self, position, angle=None, speed_mul=None, fragments=None):
         super().__init__(position, angle, speed_mul, fragments)
-
-    def create_fragments(self):
-        raise RuntimeError("GFragment should not call create_fragments")
 
     def draw(self, screen):
         super().draw(screen)

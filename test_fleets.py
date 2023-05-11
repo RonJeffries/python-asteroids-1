@@ -4,7 +4,6 @@ import u
 from asteroid import Asteroid
 from fleets import Fleets
 from fleet import Fleet, AsteroidFleet, ShipFleet, MissileFleet, ExplosionFleet
-from fragment import Fragment, VFragment, GFragment
 from missile import Missile
 
 
