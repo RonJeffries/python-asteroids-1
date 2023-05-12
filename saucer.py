@@ -7,6 +7,7 @@ from pygame import Vector2
 import u
 from SurfaceMaker import SurfaceMaker
 from missile import Missile
+from movable_location import MovableLocation
 from timer import Timer
 
 
@@ -23,13 +24,30 @@ class Saucer:
         self.size = size
         Saucer.direction = -Saucer.direction
         x = 0 if Saucer.direction > 0 else u.SCREEN_SIZE
-        self.position = Vector2(x, random.randrange(0, u.SCREEN_SIZE))
-        self.velocity = Saucer.direction * u.SAUCER_VELOCITY
+        position = Vector2(x, random.randrange(0, u.SCREEN_SIZE))
+        velocity = Saucer.direction * u.SAUCER_VELOCITY
+        self.location = MovableLocation(position, velocity)
         self.directions = (self.velocity.rotate(45), self.velocity, self.velocity, self.velocity.rotate(-45))
         self.radius = 20
         self.create_surface_class_members()
         self.set_firing_timer()
         self.set_zig_timer()
+
+    @property
+    def position(self):
+        return self.location.position
+
+    @position.setter
+    def position(self, position):
+        self.location.position = position
+
+    @property
+    def velocity(self):
+        return self.location.velocity
+
+    @velocity.setter
+    def velocity(self, velocity):
+        self.location.velocity = velocity
 
     def create_surface_class_members(self):
         if not Saucer.saucer_surface:
@@ -58,10 +76,8 @@ class Saucer:
         screen.blit(Saucer.saucer_surface, top_left_corner)
 
     def move(self, delta_time, saucers):
-        self.position += delta_time * self.velocity
-        self.position.y = self.position.y % u.SCREEN_SIZE
-        x = self.position.x
-        if x < 0 or x > u.SCREEN_SIZE:
+        off_x, off_y = self.location.move(delta_time)
+        if off_x:
             if self in saucers:
                 saucers.remove(self)
 

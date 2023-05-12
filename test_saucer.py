@@ -41,9 +41,11 @@ class TestSaucer:
         assert saucer.position.x == 0
         saucer.move(1, saucers)
         assert saucers
-        while saucer.position.x < u.SCREEN_SIZE:
-            assert saucers
-            saucer.move(delta_time=0.1, saucers=saucers)
+        time = 0
+        delta_time = 0.1
+        while time < 10:
+            time += delta_time
+            saucer.move(delta_time=delta_time, saucers=saucers)
         assert not saucers
 
     def test_right_to_left(self):
