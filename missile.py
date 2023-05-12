@@ -54,7 +54,6 @@ class Missile:
         self.timer.tick(delta_time, missiles)
 
     def tick(self, delta_time, fleet, _fleets):
-        # see if I can push
         self.tick_timer(delta_time, fleet)
         self.move(delta_time)
         return True
