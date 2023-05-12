@@ -1,6 +1,6 @@
 from pygame import Vector2
 
-from movable_position import MovableLocation
+from movable_location import MovableLocation
 
 
 class TestMovablePosition:

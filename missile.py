@@ -2,6 +2,7 @@
 
 import pygame
 import u
+from movable_location import MovableLocation
 from timer import Timer
 
 
@@ -9,10 +10,17 @@ class Missile:
     def __init__(self, position, velocity, missile_score_list, saucer_score_list):
         self.score_list = missile_score_list
         self.saucer_score_list = saucer_score_list
-        self.position = position.copy()
-        self.velocity = velocity.copy()
+        self.location = MovableLocation(position, velocity)
         self.radius = 2
         self.timer = Timer(u.MISSILE_LIFETIME, self.timeout)
+
+    @property
+    def position(self):
+        return self.location.position
+
+    @property
+    def velocity(self):
+        return self.location.velocity
 
     @classmethod
     def from_ship(cls, position, velocity):
@@ -40,10 +48,7 @@ class Missile:
         pygame.draw.circle(screen, "white", self.position, 4)
 
     def move(self, delta_time):
-        position = self.position + self.velocity * delta_time
-        position.x = position.x % u.SCREEN_SIZE
-        position.y = position.y % u.SCREEN_SIZE
-        self.position = position
+        self.location.move(delta_time)
 
     def tick_timer(self, delta_time, missiles):
         self.timer.tick(delta_time, missiles)

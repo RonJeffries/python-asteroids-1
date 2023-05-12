@@ -5,7 +5,7 @@ import random
 
 from SurfaceMaker import SurfaceMaker
 import u
-from movable_position import MovableLocation
+from movable_location import MovableLocation
 
 
 class Flyer():
@@ -37,10 +37,6 @@ class Asteroid(Flyer):
     @position.setter
     def position(self, position):
         self.location.position = position
-
-    @property
-    def velocity(self):
-        return self.location.velocity
 
     @staticmethod
     def scores_for_hitting_asteroid():
