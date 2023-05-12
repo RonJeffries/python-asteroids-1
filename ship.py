@@ -99,6 +99,9 @@ class Ship(Flyer):
     def move(self, delta_time, _ships):
         self.location.move(delta_time)
 
+    def move_to(self, vector):
+        self.location.move_to(vector)
+
     def power_on(self, dt):
         self.accelerating = True
         accel = dt * self.acceleration.rotate(-self.angle)

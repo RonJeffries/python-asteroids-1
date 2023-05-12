@@ -19,3 +19,6 @@ class MovableLocation:
     def accelerate_by(self, acceleration_vector):
         self.velocity = self.velocity + acceleration_vector
 
+    def move_to(self, vector):
+        self.position = vector
+
