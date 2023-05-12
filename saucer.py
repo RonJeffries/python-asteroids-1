@@ -37,10 +37,6 @@ class Saucer:
     def position(self):
         return self.location.position
 
-    @position.setter
-    def position(self, position):
-        self.location.position = position
-
     @property
     def velocity(self):
         return self.location.velocity
@@ -80,6 +76,9 @@ class Saucer:
         if off_x:
             if self in saucers:
                 saucers.remove(self)
+
+    def move_to(self, vector):
+        self.location.move_to(vector)
 
     def check_zigzag(self, delta_time):
         self.zig_timer.tick(delta_time)

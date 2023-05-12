@@ -84,7 +84,7 @@ class TestCollisions:
     def test_saucer_ship_does_not_score(self):
         pos = Vector2(100, 100)
         saucer = Saucer()
-        saucer.position = pos
+        saucer.move_to(pos)
         saucers = [saucer]
         ship = Ship(pos)
         ships = [ship]
@@ -98,7 +98,7 @@ class TestCollisions:
         asteroid = Asteroid(2, pos)
         asteroids = [asteroid]
         saucer = Saucer()
-        saucer.position = pos
+        saucer.move_to(pos)
         saucers = [saucer]
         collider = Collider(Fleets(asteroids, [], saucers, [], []))
         collider.mutual_destruction(asteroid, asteroids, saucer, saucers)
@@ -108,7 +108,7 @@ class TestCollisions:
     def test_saucer_ship_missile_scores(self):
         pos = Vector2(100, 100)
         saucer = Saucer()
-        saucer.position = pos
+        saucer.move_to(pos)
         saucers = [saucer]
         missile = Missile.from_ship(pos, Vector2(0, 0))
         missiles = [missile]
@@ -121,7 +121,7 @@ class TestCollisions:
     def test_small_saucer_ship_missile_scores(self):
         pos = Vector2(100, 100)
         saucer = Saucer(pos, 1)
-        saucer.position = pos
+        saucer.move_to(pos)
         saucers = [saucer]
         missile = Missile.from_ship(pos, Vector2(0, 0))
         missiles = [missile]
@@ -134,7 +134,7 @@ class TestCollisions:
     def test_saucer_vs_saucer_missile_does_not_score(self):
         pos = Vector2(100, 100)
         saucer = Saucer()
-        saucer.position = pos
+        saucer.move_to(pos)
         saucers = [saucer]
         missile = Missile.from_saucer(pos, Vector2(0, 0))
         missiles = [missile]

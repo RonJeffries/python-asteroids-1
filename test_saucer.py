@@ -56,14 +56,14 @@ class TestSaucer:
 
     def test_off_low(self):
         saucer = Saucer()
-        saucer.position = Vector2(100, 3)
+        saucer.move_to(Vector2(100, 3))
         saucer.velocity = Vector2(100, -100)
         saucer.move(0.1, [])
         assert saucer.position.y > 1000
 
     def test_off_high(self):
         saucer = Saucer()
-        saucer.position = Vector2(100, 1021)
+        saucer.move_to(Vector2(100, 1021))
         saucer.velocity = Vector2(100, 100)
         saucer.move(0.1, [])
         assert saucer.position.y < 50
@@ -96,7 +96,7 @@ class TestSaucer:
 
     def test_random_missile_position_90(self):
         saucer = Saucer()
-        saucer.position = Vector2(123, 456)
+        saucer.move_to(Vector2(123, 456))
         missile = saucer.missile_at_angle(90, saucer.velocity)
         expected_offset = Vector2(2*saucer.radius, 0).rotate(90)
         assert missile.position == saucer.position + expected_offset
@@ -121,7 +121,7 @@ class TestSaucer:
 
     def test_missile_spec_targeted(self):
         saucer = Saucer()
-        saucer.position = Vector2(100, 110)
+        saucer.move_to(Vector2(100, 110))
         saucer.velocity = Vector2(99, 77)
         ships = [Ship(Vector2(100, 100))]
         should_target = 0.1
