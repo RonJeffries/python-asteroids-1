@@ -29,3 +29,18 @@ class TestMovablePosition:
         mp = MovableLocation(position, velocity, 1000)
         mp.accelerate_by(Vector2(15, 37))
         assert mp.velocity == Vector2(115, 237)
+
+    def test_wrap_booleans(self):
+        position = Vector2(990, 990)
+        velocity = Vector2(100, 50)
+        mp = MovableLocation(position, velocity, 1000)
+        off_x, off_y = mp.move(0.05)
+        assert not off_x
+        assert not off_y
+        off_x, off_y = mp.move(0.05)
+        assert off_x
+        assert not off_y
+        off_x, off_y = mp.move(0.1)
+        assert not off_x
+        assert off_y
+
