@@ -57,14 +57,14 @@ class TestSaucer:
     def test_off_low(self):
         saucer = Saucer()
         saucer.move_to(Vector2(100, 3))
-        saucer.velocity = Vector2(100, -100)
+        saucer.accelerate_to(Vector2(100, -100))
         saucer.move(0.1, [])
         assert saucer.position.y > 1000
 
     def test_off_high(self):
         saucer = Saucer()
         saucer.move_to(Vector2(100, 1021))
-        saucer.velocity = Vector2(100, 100)
+        saucer.accelerate_to(Vector2(100, 100))
         saucer.move(0.1, [])
         assert saucer.position.y < 50
 
@@ -82,14 +82,14 @@ class TestSaucer:
 
     def test_random_missile_velocity_0(self):
         saucer = Saucer()
-        saucer.velocity = Vector2(100, 200)
+        saucer.accelerate_to(Vector2(100, 200))
         zero_angle_velocity = Vector2(u.MISSILE_SPEED, 0)
         missile = saucer.missile_at_angle(0, saucer.velocity)
         assert missile.velocity == saucer.velocity + zero_angle_velocity
 
     def test_random_missile_velocity_90(self):
         saucer = Saucer()
-        saucer.velocity = Vector2(100, 200)
+        saucer.accelerate_to(Vector2(100, 200))
         zero_angle_velocity = Vector2(u.MISSILE_SPEED, 0)
         missile = saucer.missile_at_angle(90, saucer.velocity)
         assert missile.velocity == saucer.velocity + zero_angle_velocity.rotate(90)
@@ -122,7 +122,7 @@ class TestSaucer:
     def test_missile_spec_targeted(self):
         saucer = Saucer()
         saucer.move_to(Vector2(100, 110))
-        saucer.velocity = Vector2(99, 77)
+        saucer.accelerate_to(Vector2(99, 77))
         ships = [Ship(Vector2(100, 100))]
         should_target = 0.1
         random_angle = None
@@ -132,7 +132,7 @@ class TestSaucer:
 
     def test_missile_spec_no_ship(self):
         saucer = Saucer(Vector2(100, 110))
-        saucer.velocity = Vector2(99, 77)
+        saucer.accelerate_to(Vector2(99, 77))
         ships = []
         should_target = 0.1
         random_angle = 0.5
@@ -141,7 +141,7 @@ class TestSaucer:
 
     def test_missile_spec_no_dice(self):
         saucer = Saucer(Vector2(100, 110))
-        saucer.velocity = Vector2(99, 77)
+        saucer.accelerate_to(Vector2(99, 77))
         ships = [Ship(Vector2(100, 100))]
         should_target = 0.26
         random_angle = 0.5

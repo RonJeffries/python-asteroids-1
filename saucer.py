@@ -41,9 +41,8 @@ class Saucer:
     def velocity(self):
         return self.location.velocity
 
-    @velocity.setter
-    def velocity(self, velocity):
-        self.location.velocity = velocity
+    def accelerate_to(self, velocity):
+        self.location.accelerate_to(velocity)
 
     def create_surface_class_members(self):
         if not Saucer.saucer_surface:
@@ -62,7 +61,7 @@ class Saucer:
         self.zig_timer = Timer(u.SAUCER_ZIG_TIME, self.zig_zag_action)
 
     def zig_zag_action(self):
-        self.velocity = self.new_direction()
+        self.accelerate_to(self.new_direction())
 
     def destroyed_by(self, _attacker, saucers, _fleets):
         if self in saucers: saucers.remove(self)
