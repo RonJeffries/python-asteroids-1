@@ -34,10 +34,6 @@ class Asteroid(Flyer):
     def position(self):
         return self.location.position
 
-    @position.setter
-    def position(self, position):
-        self.location.position = position
-
     @staticmethod
     def scores_for_hitting_asteroid():
         return [0, 0, 0]
@@ -52,6 +48,9 @@ class Asteroid(Flyer):
 
     def move(self, delta_time, _asteroids):
         self.location.move(delta_time)
+
+    def move_to(self, vector):
+        self.location.move_to(vector)
 
     def within_range(self, point, other_radius):
         dist = point.distance_to(self.position)

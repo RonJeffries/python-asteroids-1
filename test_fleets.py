@@ -152,7 +152,7 @@ class TestFleets:
         ShipFleet.rez_from_fleet = True
         ships = []
         asteroid = Asteroid()
-        asteroid.position = u.CENTER + Vector2(u.SAFE_EMERGENCE_DISTANCE - 0.1, 0)
+        asteroid.move_to(u.CENTER + Vector2(u.SAFE_EMERGENCE_DISTANCE - 0.1, 0))
         asteroids = [asteroid]
         fleets = Fleets(asteroids, [], [], [], ships)
         ship_fleet = fleets.ships
