@@ -7,6 +7,9 @@ class MovableLocation:
         self.velocity = velocity
         self.size = size
 
+    def accelerate_by(self, acceleration_vector):
+        self.velocity = self.velocity + acceleration_vector
+
     def move(self, delta_time):
         position = self.position + self.velocity*delta_time
         old_x = position.x
@@ -15,9 +18,6 @@ class MovableLocation:
         position.y = position.y % self.size
         self.position = position
         return position.x != old_x, position.y != old_y
-
-    def accelerate_by(self, acceleration_vector):
-        self.velocity = self.velocity + acceleration_vector
 
     def move_to(self, vector):
         self.position = vector
