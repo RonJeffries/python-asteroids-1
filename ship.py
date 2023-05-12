@@ -7,13 +7,13 @@ from SurfaceMaker import SurfaceMaker
 import u
 from asteroid import Flyer
 from missile import Missile
+from movable_location import MovableLocation
 
 
 class Ship(Flyer):
     def __init__(self, position):
         super().__init__()
-        self.position = position.copy()
-        self.velocity = Vector2(0, 0)
+        self.location = MovableLocation(position, Vector2(0, 0))
         self.can_fire = True
         self.radius = 25
         self.angle = 0
@@ -22,6 +22,22 @@ class Ship(Flyer):
         ship_scale = 4
         ship_size = Vector2(14, 8)*ship_scale
         self.ship_surface, self.ship_accelerating_surface = SurfaceMaker.ship_surfaces(ship_size)
+
+    @property
+    def position(self):
+        return self.location.position
+
+    @position.setter
+    def position(self, position):
+        self.location.position = position
+
+    @property
+    def velocity(self):
+        return self.location.velocity
+
+    @velocity.setter
+    def velocity(self, velocity):
+        self.location.velocity = velocity
 
     @staticmethod
     def scores_for_hitting_asteroid():
@@ -85,10 +101,7 @@ class Ship(Flyer):
         return Vector2(u.MISSILE_SPEED, 0).rotate(-self.angle) + self.velocity
 
     def move(self, delta_time, _ships):
-        position = self.position + self.velocity * delta_time
-        position.x = position.x % u.SCREEN_SIZE
-        position.y = position.y % u.SCREEN_SIZE
-        self.position = position
+        self.location.move(delta_time)
 
     def power_on(self, dt):
         self.accelerating = True
