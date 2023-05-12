@@ -27,10 +27,6 @@ class Ship(Flyer):
     def position(self):
         return self.location.position
 
-    @position.setter
-    def position(self, position):
-        self.location.position = position
-
     @property
     def velocity(self):
         return self.location.velocity

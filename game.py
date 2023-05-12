@@ -70,13 +70,13 @@ class Game:
         self.draw_available_ships()
 
     def draw_available_ships(self):
-        ship = Ship(Vector2(20, 100))
-        ship.angle = 90
         for i in range(0, ShipFleet.ships_remaining):
-            self.draw_available_ship(ship)
+            self.draw_available_ship(i)
 
-    def draw_available_ship(self, ship):
-        ship.position += Vector2(35, 0)
+    def draw_available_ship(self,i):
+        position = i*Vector2(35, 0)
+        ship = Ship(Vector2(55,100) + position)
+        ship.angle = 90
         ship.draw(self.screen)
 
     def draw_game_over(self):
