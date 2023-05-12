@@ -22,3 +22,10 @@ class TestMovablePosition:
         mp = MovableLocation(position, velocity, 1000)
         mp.move(0.25)
         assert mp.position == Vector2(15, 40)
+
+    def test_acceleration(self):
+        position = Vector2(990, 990)
+        velocity = Vector2(100, 200)
+        mp = MovableLocation(position, velocity, 1000)
+        mp.accelerate_by(Vector2(15, 37))
+        assert mp.velocity == Vector2(115, 237)
