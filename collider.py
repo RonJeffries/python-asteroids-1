@@ -13,8 +13,8 @@ class Collider:
         return self.score
 
     def check_individual_collisions(self, attackers, targets):
-        for target in targets.flyers.copy():
-            for attacker in attackers.flyers.copy():
+        for target in targets:
+            for attacker in attackers:
                 if self.mutual_destruction(target, targets, attacker, attackers):
                     break
 
