@@ -110,6 +110,20 @@ class TestAsteroids:
         ship.enter_hyperspace_if_possible()
         assert ship.position == position and ship._angle == angle
 
+    def test_hyperspace_failure(self):
+        """hyperspace fails when random(0 thru 62) > asteroid count plus 44"""
+        ship = Ship(u.CENTER)
+        self.check_no_fail(ship, 0, 0)
+        self.check_fail(ship, 45, 0)
+        self.check_fail(ship, 62, 17)
+        self.check_no_fail(ship, 62, 18)
+
+    def check_no_fail(self, ship, roll, asteroids):
+        assert not ship.hyperspace_failure(roll, asteroids)
+
+    def check_fail(self, ship, roll, asteroids):
+        assert ship.hyperspace_failure(roll, asteroids)
+
     def test_wave_sizes(self):
         fleet = AsteroidFleet([])
         fleet.asteroids_in_this_wave = 2

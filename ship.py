@@ -101,6 +101,10 @@ class Ship(Flyer):
         if self._can_fire and missiles.fire(self.create_missile):
             self._can_fire = False
 
+    @staticmethod
+    def hyperspace_failure(roll, asteroid_count):
+        return roll > 44 + asteroid_count
+
     def create_missile(self):
         return Missile.from_ship(self.missile_start(), self.missile_velocity())
 
