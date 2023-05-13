@@ -26,13 +26,13 @@ class Asteroid(Flyer):
         position = position if position is not None else Vector2(0, random.randrange(0, u.SCREEN_SIZE))
         angle_of_travel = random.randint(0, 360)
         velocity = u.ASTEROID_SPEED.rotate(angle_of_travel)
-        self.location = MovableLocation(position, velocity)
-        self.offset = Vector2(self.radius, self.radius)
-        self.surface = SurfaceMaker.asteroid_surface(self.radius * 2)
+        self._location = MovableLocation(position, velocity)
+        self._offset = Vector2(self.radius, self.radius)
+        self._surface = SurfaceMaker.asteroid_surface(self.radius * 2)
 
     @property
     def position(self):
-        return self.location.position
+        return self._location.position
 
     @staticmethod
     def scores_for_hitting_asteroid():
@@ -43,14 +43,14 @@ class Asteroid(Flyer):
         return [0, 0]
 
     def draw(self, screen):
-        top_left_corner = self.position - self.offset
-        screen.blit(self.surface, top_left_corner)
+        top_left_corner = self.position - self._offset
+        screen.blit(self._surface, top_left_corner)
 
     def move(self, delta_time, _asteroids):
-        self.location.move(delta_time)
+        self._location.move(delta_time)
 
     def move_to(self, vector):
-        self.location.move_to(vector)
+        self._location.move_to(vector)
 
     def destroyed_by(self, attacker, asteroids, fleets):
         self.split_or_die(asteroids)
