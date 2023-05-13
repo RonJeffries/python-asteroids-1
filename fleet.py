@@ -43,10 +43,8 @@ class Fleet:
             flyer.draw(screen)
 
     def tick(self, delta_time, fleets):
-        result = True
         for flyer in self:
-            result = flyer.tick(delta_time, self, fleets) and result
-        return result
+            flyer.tick(delta_time, self, fleets)
 
 
 class AsteroidFleet(Fleet):
