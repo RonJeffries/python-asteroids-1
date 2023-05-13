@@ -23,6 +23,10 @@ class Fleets:
         return self.fleets[0]
 
     @property
+    def asteroid_count(self):
+        return len(self.asteroids)
+
+    @property
     def missiles(self):
         return self.fleets[1]
 

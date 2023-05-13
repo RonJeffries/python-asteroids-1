@@ -50,7 +50,7 @@ class Ship(Flyer):
     def accelerate_to(self, accel):
         self._location.accelerate_to(accel)
 
-    def control_motion(self, delta_time, missiles):
+    def control_motion(self, delta_time, fleet, fleets):
         if not pygame.get_init():
             return
         keys = pygame.key.get_pressed()
@@ -63,11 +63,11 @@ class Ship(Flyer):
         else:
             self.power_off()
         if keys[pygame.K_k]:
-            self.fire_if_possible(missiles)
+            self.fire_if_possible(fleets.missiles)
         else:
             self._can_fire = True
         if keys[pygame.K_SPACE]:
-            self.enter_hyperspace_if_possible()
+            self.enter_hyperspace_if_possible(fleet, fleets.asteroid_count, fleets)
         else:
             self._can_enter_hyperspace = True
 
@@ -85,17 +85,31 @@ class Ship(Flyer):
         half = pygame.Vector2(rotated.get_size()) / 2
         screen.blit(rotated, self.position - half)
 
-    def enter_hyperspace_if_possible(self):
-        if self._can_enter_hyperspace:
-            x = random.randrange(u.SCREEN_SIZE)
-            y = random.randrange(u.SCREEN_SIZE)
-            a = random.randrange(360)
-            self.move_to(Vector2(x, y))
-            dx = random.randrange(u.SHIP_HYPERSPACE_MAX_VELOCITY)
-            dy = random.randrange(u.SHIP_HYPERSPACE_MAX_VELOCITY)
-            self.accelerate_to(Vector2(dx, dy))
-            self._angle = a
-            self._can_enter_hyperspace = False
+    def enter_hyperspace_if_possible(self, ships_fleet, asteroid_count, fleets):
+        if not self._can_enter_hyperspace:
+            return
+        self._can_enter_hyperspace = False
+        roll = random.randrange(0, 63)
+        if self.hyperspace_failure(roll, asteroid_count):
+            self.explode(ships_fleet, fleets)
+        else:
+            self.hyperspace_transfer()
+
+    def explode(self, ship_fleet, fleets):
+        if self in ship_fleet: ship_fleet.remove(self)
+        fleets.explosion_at(self.position)
+
+
+    def hyperspace_transfer(self):
+        x = random.randrange(u.SCREEN_SIZE)
+        y = random.randrange(u.SCREEN_SIZE)
+        a = random.randrange(360)
+        self.move_to(Vector2(x, y))
+        dx = random.randrange(u.SHIP_HYPERSPACE_MAX_VELOCITY)
+        dy = random.randrange(u.SHIP_HYPERSPACE_MAX_VELOCITY)
+        self.accelerate_to(Vector2(dx, dy))
+        self._angle = a
+        self._can_enter_hyperspace = False
 
     def fire_if_possible(self, missiles):
         if self._can_fire and missiles.fire(self.create_missile):
@@ -142,7 +156,7 @@ class Ship(Flyer):
             return self._ship_surface
 
     def tick(self, delta_time, fleet, fleets):
-        self.control_motion(delta_time, fleets.missiles)
+        self.control_motion(delta_time, fleet, fleets)
         self.move(delta_time, fleet)
 
     def turn_left(self, dt):

@@ -102,12 +102,12 @@ class TestAsteroids:
         impossible_angle = 370
         ship = Ship(impossible)
         ship._angle = impossible_angle
-        ship.enter_hyperspace_if_possible()
+        ship.enter_hyperspace_if_possible([], 99, [])
         position = ship.position
         angle = ship._angle
         assert position != impossible and angle != impossible_angle
         assert ship._location.velocity != Vector2(0,0)
-        ship.enter_hyperspace_if_possible()
+        ship.enter_hyperspace_if_possible([], 99, []) # cannot fail
         assert ship.position == position and ship._angle == angle
 
     def test_hyperspace_failure(self):
