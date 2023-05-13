@@ -53,16 +53,6 @@ class TestFleets:
         fleet = Fleet(asteroids)
         assert fleet
 
-    def test_fleets_tick(self):
-        asteroids = [FakeFlyer()]
-        missiles = [FakeFlyer()]
-        saucers = [FakeFlyer()]
-        saucer_missiles = [FakeFlyer()]
-        ships = [FakeFlyer()]
-        fleets = Fleets(asteroids, missiles, saucers, saucer_missiles, ships)
-        result = fleets.tick(0.1)
-        assert result
-
     def test_saucer_spawn(self):
         saucers = []
         fleets = Fleets([], [], saucers, [], [])

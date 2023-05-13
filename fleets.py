@@ -71,9 +71,5 @@ class Fleets:
         return True
 
     def tick(self, delta_time):
-        all_true = True
         for fleet in self.fleets:
-            if not fleet.tick(delta_time, self):
-                all_true = False
-        return all_true
-
+            fleet.tick(delta_time, self)
