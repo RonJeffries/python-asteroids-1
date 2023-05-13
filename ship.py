@@ -66,6 +66,10 @@ class Ship(Flyer):
             self.fire_if_possible(missiles)
         else:
             self._can_fire = True
+        if keys[pygame.K_SPACE]:
+            self.enter_hyperspace_if_possible()
+        else:
+            self._can_enter_hyperspace = True
 
     def destroyed_by(self, attacker, ships, fleets):
         if self in ships: ships.remove(self)
@@ -87,6 +91,9 @@ class Ship(Flyer):
             y = random.randrange(u.SCREEN_SIZE)
             a = random.randrange(360)
             self.move_to(Vector2(x, y))
+            dx = random.randrange(u.SHIP_HYPERSPACE_MAX_VELOCITY)
+            dy = random.randrange(u.SHIP_HYPERSPACE_MAX_VELOCITY)
+            self.accelerate_to(Vector2(dx, dy))
             self._angle = a
             self._can_enter_hyperspace = False
 
