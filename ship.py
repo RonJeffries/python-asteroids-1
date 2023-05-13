@@ -13,27 +13,27 @@ from movable_location import MovableLocation
 class Ship(Flyer):
     def __init__(self, position):
         super().__init__()
-        self.location = MovableLocation(position, Vector2(0, 0))
-        self.can_fire = True
         self.radius = 25
-        self.angle = 0
-        self.acceleration = u.SHIP_ACCELERATION
-        self.accelerating = False
+        self._location = MovableLocation(position, Vector2(0, 0))
+        self._can_fire = True
+        self._angle = 0
+        self._acceleration = u.SHIP_ACCELERATION
+        self._accelerating = False
         ship_scale = 4
         ship_size = Vector2(14, 8)*ship_scale
-        self.ship_surface, self.ship_accelerating_surface = SurfaceMaker.ship_surfaces(ship_size)
+        self._ship_surface, self._ship_accelerating_surface = SurfaceMaker.ship_surfaces(ship_size)
 
     @property
     def position(self):
-        return self.location.position
+        return self._location.position
 
     @property
-    def velocity(self):
-        return self.location.velocity
+    def velocity_testing_only(self):
+        return self._location.velocity
 
-    @velocity.setter
-    def velocity(self, velocity):
-        self.location.velocity = velocity
+    @velocity_testing_only.setter
+    def velocity_testing_only(self, velocity):
+        self._location.velocity = velocity
 
     @staticmethod
     def scores_for_hitting_asteroid():
@@ -44,7 +44,10 @@ class Ship(Flyer):
         return [0, 0]
 
     def accelerate_by(self, accel):
-        self.velocity = self.velocity + accel
+        self._location.accelerate_by(accel)
+
+    def accelerate_to(self, accel):
+        self._location.accelerate_to(accel)
 
     def control_motion(self, delta_time, missiles):
         if not pygame.get_init():
@@ -61,7 +64,7 @@ class Ship(Flyer):
         if keys[pygame.K_k]:
             self.fire_if_possible(missiles)
         else:
-            self.can_fire = True
+            self._can_fire = True
 
     def destroyed_by(self, attacker, ships, fleets):
         if self in ships: ships.remove(self)
@@ -73,49 +76,49 @@ class Ship(Flyer):
 
     def draw(self, screen):
         ship_source = self.select_ship_source()
-        rotated = pygame.transform.rotate(ship_source.copy(), self.angle)
+        rotated = pygame.transform.rotate(ship_source.copy(), self._angle)
         half = pygame.Vector2(rotated.get_size()) / 2
         screen.blit(rotated, self.position - half)
 
     def fire_if_possible(self, missiles):
-        if self.can_fire and missiles.fire(self.create_missile):
-            self.can_fire = False
+        if self._can_fire and missiles.fire(self.create_missile):
+            self._can_fire = False
 
     def create_missile(self):
         return Missile.from_ship(self.missile_start(), self.missile_velocity())
 
     def missile_start(self):
         radius = self.radius + 11
-        offset = Vector2(radius, 0).rotate(-self.angle)
+        offset = Vector2(radius, 0).rotate(-self._angle)
         return self.position + offset
 
     def missile_velocity(self):
-        return Vector2(u.MISSILE_SPEED, 0).rotate(-self.angle) + self.velocity
+        return Vector2(u.MISSILE_SPEED, 0).rotate(-self._angle) + self.velocity_testing_only
 
     def move(self, delta_time, _ships):
-        self.location.move(delta_time)
+        self._location.move(delta_time)
 
     def move_to(self, vector):
-        self.location.move_to(vector)
+        self._location.move_to(vector)
 
     def power_on(self, dt):
-        self.accelerating = True
-        accel = dt * self.acceleration.rotate(-self.angle)
+        self._accelerating = True
+        accel = dt * self._acceleration.rotate(-self._angle)
         self.accelerate_by(accel)
 
     def power_off(self):
-        self.accelerating = False
+        self._accelerating = False
 
     def reset(self):
-        self.position = u.CENTER
-        self.velocity = Vector2(0, 0)
-        self.angle = 0
+        self.move_to(u.CENTER)
+        self.accelerate_to(Vector2(0, 0))
+        self._angle = 0
 
     def select_ship_source(self):
-        if self.accelerating and random.random() >= 0.66:
-            return self.ship_accelerating_surface
+        if self._accelerating and random.random() >= 0.66:
+            return self._ship_accelerating_surface
         else:
-            return self.ship_surface
+            return self._ship_surface
 
     def tick(self, delta_time, fleet, fleets):
         self.control_motion(delta_time, fleets.missiles)
@@ -123,7 +126,7 @@ class Ship(Flyer):
         return True
 
     def turn_left(self, dt):
-        self.angle = self.angle - u.SHIP_ROTATION_STEP * dt
+        self._angle = self._angle - u.SHIP_ROTATION_STEP * dt
 
     def turn_right(self, dt):
-        self.angle = self.angle + u.SHIP_ROTATION_STEP * dt
+        self._angle = self._angle + u.SHIP_ROTATION_STEP * dt

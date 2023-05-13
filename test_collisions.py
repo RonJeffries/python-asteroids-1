@@ -17,12 +17,12 @@ class TestCollisions:
         count = 0
         missiles = MissileFleet([], u.MISSILE_LIMIT)
         while len(missiles) < u.MISSILE_LIMIT:
-            ship.can_fire = True
+            ship._can_fire = True
             ship.fire_if_possible(missiles)
             count += 1
             assert len(missiles) == count
         assert len(missiles) == u.MISSILE_LIMIT
-        ship.can_fire = True
+        ship._can_fire = True
         ship.fire_if_possible(missiles)
         assert len(missiles) == u.MISSILE_LIMIT
 

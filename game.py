@@ -13,7 +13,7 @@ from fleets import Fleets
 
 class Game:
     available_ship = Ship(Vector2(0, 0))
-    available_ship.angle = 90
+    available_ship._angle = 90
 
     def __init__(self, testing=False):
         self.delta_time = 0

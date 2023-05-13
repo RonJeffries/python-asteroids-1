@@ -34,17 +34,17 @@ class TestAsteroids:
 
     def test_ship_move(self):
         ship = Ship(Vector2(50, 60))
-        ship.velocity = Vector2(10, 16)
+        ship.velocity_testing_only = Vector2(10, 16)
         ship.move(0.5, [ship])
         assert ship.position == Vector2(55, 68)
 
     def test_ship_acceleration(self):
         ship = Ship(Vector2(0, 0))
-        ship.angle = 45
-        ship.acceleration = pygame.Vector2(100, 0)
+        ship._angle = 45
+        ship._acceleration = pygame.Vector2(100, 0)
         ship.power_on(0.5)
-        assert ship.velocity.x == pytest.approx(35.3553, 0.01)
-        assert ship.velocity.y == pytest.approx(-35.3553, 0.01)
+        assert ship.velocity_testing_only.x == pytest.approx(35.3553, 0.01)
+        assert ship.velocity_testing_only.y == pytest.approx(-35.3553, 0.01)
 
     def test_mod(self):
         assert 1005 % 1000 == 5
@@ -72,15 +72,15 @@ class TestAsteroids:
 
     def test_missile_start(self):
         ship = Ship(Vector2(100, 100))
-        ship.angle = 45
+        ship._angle = 45
         pos = ship.missile_start()
         assert pos.x == pytest.approx(100+25, 0.5)
         assert pos.y == pytest.approx(100-25, 0.5)
 
     def test_missile_velocity(self):
         ship = Ship(Vector2(100, 100))
-        ship.angle = 45
-        ship.velocity = Vector2(500, 500)
+        ship._angle = 45
+        ship.velocity_testing_only = Vector2(500, 500)
         velocity = ship.missile_velocity()
         own_velocity = Vector2(u.MISSILE_SPEED, 0).rotate(-45)
         total_velocity = own_velocity + Vector2(500, 500)
