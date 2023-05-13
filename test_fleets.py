@@ -22,8 +22,7 @@ class FakeFlyer:
 
     @staticmethod
     def tick(_delta_time, _fleet, _fleets):
-        return True
-
+        pass
 
 class TestFleets:
     def test_creation(self):

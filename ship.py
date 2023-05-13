@@ -123,7 +123,6 @@ class Ship(Flyer):
     def tick(self, delta_time, fleet, fleets):
         self.control_motion(delta_time, fleets.missiles)
         self.move(delta_time, fleet)
-        return True
 
     def turn_left(self, dt):
         self._angle = self._angle - u.SHIP_ROTATION_STEP * dt

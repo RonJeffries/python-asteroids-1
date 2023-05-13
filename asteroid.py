@@ -70,4 +70,3 @@ class Asteroid(Flyer):
 
     def tick(self, delta_time, fleet, _fleets):
         self.move(delta_time, fleet)
-        return True

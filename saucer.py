@@ -142,7 +142,6 @@ class Saucer:
         self.fire_if_possible(delta_time, saucer_missiles, ships)
         self.check_zigzag(delta_time)
         self.move(delta_time, fleet)
-        return True
 
 
 def nearest(shooter, target, size):
