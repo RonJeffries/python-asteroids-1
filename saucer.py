@@ -21,28 +21,32 @@ class Saucer:
         cls.direction = -1
 
     def __init__(self, _position=None, size=2):
+        self.radius = 20
         self.size = size
         Saucer.direction = -Saucer.direction
         x = 0 if Saucer.direction > 0 else u.SCREEN_SIZE
         position = Vector2(x, random.randrange(0, u.SCREEN_SIZE))
         velocity = Saucer.direction * u.SAUCER_VELOCITY
-        self.location = MovableLocation(position, velocity)
-        self.directions = (self.velocity.rotate(45), self.velocity, self.velocity, self.velocity.rotate(-45))
-        self.radius = 20
+        self._location = MovableLocation(position, velocity)
+        self._directions = (velocity.rotate(45), velocity, velocity, velocity.rotate(-45))
         self.create_surface_class_members()
         self.set_firing_timer()
         self.set_zig_timer()
 
     @property
     def position(self):
-        return self.location.position
+        return self._location.position
 
     @property
-    def velocity(self):
-        return self.location.velocity
+    def _velocity(self):
+        return self._location.velocity
+
+    @property
+    def velocity_testing_only(self):
+        return self._velocity
 
     def accelerate_to(self, velocity):
-        self.location.accelerate_to(velocity)
+        self._location.accelerate_to(velocity)
 
     def create_surface_class_members(self):
         if not Saucer.saucer_surface:
@@ -71,19 +75,19 @@ class Saucer:
         screen.blit(Saucer.saucer_surface, top_left_corner)
 
     def move(self, delta_time, saucers):
-        off_x, off_y = self.location.move(delta_time)
+        off_x, off_y = self._location.move(delta_time)
         if off_x:
             if self in saucers:
                 saucers.remove(self)
 
     def move_to(self, vector):
-        self.location.move_to(vector)
+        self._location.move_to(vector)
 
     def check_zigzag(self, delta_time):
         self.zig_timer.tick(delta_time)
 
     def new_direction(self):
-        return random.choice(self.directions)
+        return random.choice(self._directions)
 
     def fire_if_possible(self, delta_time, saucer_missiles, ships):
         self.missile_timer.tick(delta_time, saucer_missiles, ships)
@@ -107,7 +111,7 @@ class Saucer:
 
     def suitable_missile(self, should_target, random_angle, ships):
         if self.cannot_target_ship(ships, should_target):
-            return self.missile_at_angle(random_angle * 360.0, self.velocity)
+            return self.missile_at_angle(random_angle * 360.0, self.velocity_testing_only)
         targeting_angle = self.angle_to(ships[0])
         velocity_adjustment = Vector2(0, 0)
         return self.missile_at_angle(targeting_angle, velocity_adjustment)

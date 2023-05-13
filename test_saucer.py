@@ -15,12 +15,12 @@ class TestSaucer:
         Saucer.init_for_new_game()
         saucer = Saucer()
         assert saucer.position.x == 0
-        assert saucer.velocity == u.SAUCER_VELOCITY
+        assert saucer.velocity_testing_only == u.SAUCER_VELOCITY
         assert saucer.missile_timer.elapsed == 0
         saucer.missile_timer.elapsed = 0.5
         saucer = Saucer()
         assert saucer.position.x == u.SCREEN_SIZE
-        assert saucer.velocity == -u.SAUCER_VELOCITY
+        assert saucer.velocity_testing_only == -u.SAUCER_VELOCITY
         assert saucer.zig_timer.delay == u.SAUCER_ZIG_TIME
         assert saucer.zig_timer.elapsed == 0
         assert saucer.missile_timer.elapsed == 0
@@ -84,20 +84,20 @@ class TestSaucer:
         saucer = Saucer()
         saucer.accelerate_to(Vector2(100, 200))
         zero_angle_velocity = Vector2(u.MISSILE_SPEED, 0)
-        missile = saucer.missile_at_angle(0, saucer.velocity)
-        assert missile.velocity == saucer.velocity + zero_angle_velocity
+        missile = saucer.missile_at_angle(0, saucer.velocity_testing_only)
+        assert missile.velocity_testing_only == saucer.velocity_testing_only + zero_angle_velocity
 
     def test_random_missile_velocity_90(self):
         saucer = Saucer()
         saucer.accelerate_to(Vector2(100, 200))
         zero_angle_velocity = Vector2(u.MISSILE_SPEED, 0)
-        missile = saucer.missile_at_angle(90, saucer.velocity)
-        assert missile.velocity == saucer.velocity + zero_angle_velocity.rotate(90)
+        missile = saucer.missile_at_angle(90, saucer.velocity_testing_only)
+        assert missile.velocity_testing_only == saucer.velocity_testing_only + zero_angle_velocity.rotate(90)
 
     def test_random_missile_position_90(self):
         saucer = Saucer()
         saucer.move_to(Vector2(123, 456))
-        missile = saucer.missile_at_angle(90, saucer.velocity)
+        missile = saucer.missile_at_angle(90, saucer.velocity_testing_only)
         expected_offset = Vector2(2*saucer.radius, 0).rotate(90)
         assert missile.position == saucer.position + expected_offset
 
@@ -127,7 +127,7 @@ class TestSaucer:
         should_target = 0.1
         random_angle = None
         missile = saucer.suitable_missile(should_target, random_angle, ships)
-        assert missile.velocity == Vector2(0, -u.SPEED_OF_LIGHT/3)
+        assert missile.velocity_testing_only == Vector2(0, -u.SPEED_OF_LIGHT / 3)
         # assert degrees == -90
 
     def test_missile_spec_no_ship(self):
@@ -137,7 +137,7 @@ class TestSaucer:
         should_target = 0.1
         random_angle = 0.5
         missile = saucer.suitable_missile(should_target, random_angle, ships)
-        assert missile.velocity.x - saucer.velocity.x == pytest.approx(-166.667, 0.01)
+        assert missile.velocity_testing_only.x - saucer.velocity_testing_only.x == pytest.approx(-166.667, 0.01)
 
     def test_missile_spec_no_dice(self):
         saucer = Saucer(Vector2(100, 110))
@@ -146,8 +146,8 @@ class TestSaucer:
         should_target = 0.26
         random_angle = 0.5
         missile = saucer.suitable_missile(should_target, random_angle, ships)
-        assert missile.velocity.x == pytest.approx(-67.666, 0.01)
-        assert missile.velocity.y == 77
+        assert missile.velocity_testing_only.x == pytest.approx(-67.666, 0.01)
+        assert missile.velocity_testing_only.y == 77
 
     def test_empty_string(self):
         assert not ""
