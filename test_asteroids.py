@@ -97,6 +97,18 @@ class TestAsteroids:
         missile.tick_timer(3.0, missiles)
         assert len(missiles) == 0
 
+    def test_hyperspace(self):
+        impossible = Vector2(-5, -5)
+        impossible_angle = 370
+        ship = Ship(impossible)
+        ship._angle = impossible_angle
+        ship.enter_hyperspace_if_possible()
+        position = ship.position
+        angle = ship._angle
+        assert position != impossible and angle != impossible_angle
+        ship.enter_hyperspace_if_possible()
+        assert ship.position == position and ship._angle == angle
+
     def test_wave_sizes(self):
         fleet = AsteroidFleet([])
         fleet.asteroids_in_this_wave = 2

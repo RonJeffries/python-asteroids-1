@@ -15,6 +15,7 @@ class Ship(Flyer):
         super().__init__()
         self.radius = 25
         self._location = MovableLocation(position, Vector2(0, 0))
+        self._can_enter_hyperspace = True
         self._can_fire = True
         self._angle = 0
         self._acceleration = u.SHIP_ACCELERATION
@@ -79,6 +80,15 @@ class Ship(Flyer):
         rotated = pygame.transform.rotate(ship_source.copy(), self._angle)
         half = pygame.Vector2(rotated.get_size()) / 2
         screen.blit(rotated, self.position - half)
+
+    def enter_hyperspace_if_possible(self):
+        if self._can_enter_hyperspace:
+            x = random.randrange(u.SCREEN_SIZE)
+            y = random.randrange(u.SCREEN_SIZE)
+            a = random.randrange(360)
+            self.move_to(Vector2(x, y))
+            self._angle = a
+            self._can_enter_hyperspace = False
 
     def fire_if_possible(self, missiles):
         if self._can_fire and missiles.fire(self.create_missile):
