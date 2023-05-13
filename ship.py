@@ -71,10 +71,6 @@ class Ship(Flyer):
     def score_for_hitting(_anyone):
         return 0
 
-    def within_range(self, point, other_radius):
-        dist = point.distance_to(self.position)
-        return dist < self.radius + other_radius
-
     def draw(self, screen):
         ship_source = self.select_ship_source()
         rotated = pygame.transform.rotate(ship_source.copy(), self.angle)

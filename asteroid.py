@@ -52,10 +52,6 @@ class Asteroid(Flyer):
     def move_to(self, vector):
         self.location.move_to(vector)
 
-    def within_range(self, point, other_radius):
-        dist = point.distance_to(self.position)
-        return dist < self.radius + other_radius
-
     def destroyed_by(self, attacker, asteroids, fleets):
         self.split_or_die(asteroids)
 
