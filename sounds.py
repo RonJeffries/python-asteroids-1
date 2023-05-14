@@ -17,7 +17,7 @@ class Sounds:
         print(name, sound.get_length())
         self.catalog[name] = sound
 
-    def play(self, name, location):
+    def play(self, name, location=None):
         if name in self.catalog:
             sound = self.catalog[name]
             count = sound.get_num_channels()
@@ -27,8 +27,8 @@ class Sounds:
 
     @staticmethod
     def set_volume(chan, location):
-        frac_left, frac_right = location.stereo_fractions() if location else (0.5, 0.5)
-        chan.set_volume(frac_left, frac_right)
+        frac_right = location.stereo_right() if location else 0.5
+        chan.set_volume(1-frac_right, frac_right)
 
 
 player = Sounds()
