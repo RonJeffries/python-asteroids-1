@@ -8,9 +8,12 @@ import u
 from asteroid import Flyer
 from missile import Missile
 from movable_location import MovableLocation
+from sounds import player
 
 
 class Ship(Flyer):
+    thrust_sound = None
+
     def __init__(self, position):
         super().__init__()
         self.radius = 25
@@ -99,7 +102,6 @@ class Ship(Flyer):
         if self in ship_fleet: ship_fleet.remove(self)
         fleets.explosion_at(self.position)
 
-
     def hyperspace_transfer(self):
         x = random.randrange(u.SCREEN_SIZE)
         y = random.randrange(u.SCREEN_SIZE)
@@ -138,6 +140,7 @@ class Ship(Flyer):
 
     def power_on(self, dt):
         self._accelerating = True
+        player.play("accelerate")
         accel = dt * self._acceleration.rotate(-self._angle)
         self.accelerate_by(accel)
 

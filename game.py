@@ -9,9 +9,11 @@ from fleet import ShipFleet
 from ship import Ship
 import u
 from fleets import Fleets
+from sounds import player
 
 
 class Game:
+
     available_ship = Ship(Vector2(0, 0))
     available_ship._angle = 90
 
@@ -26,6 +28,8 @@ class Game:
     def init_pygame_and_display(self, testing):
         if testing: return
         pygame.init()
+        pygame.mixer.init()
+        player.init_sounds()
         pygame.display.set_caption("Asteroids")
         self.clock = pygame.time.Clock()
         self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
