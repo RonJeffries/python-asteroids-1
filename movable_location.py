@@ -25,3 +25,7 @@ class MovableLocation:
     def move_to(self, vector):
         self.position = vector
 
+    def stereo_fractions(self):
+        frac_right = self.position.x/u.SCREEN_SIZE
+        return (1-frac_right, frac_right)
+

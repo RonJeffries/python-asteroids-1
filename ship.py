@@ -140,7 +140,7 @@ class Ship(Flyer):
 
     def power_on(self, dt):
         self._accelerating = True
-        player.play("accelerate")
+        player.play("accelerate", self._location)
         accel = dt * self._acceleration.rotate(-self._angle)
         self.accelerate_by(accel)
 
