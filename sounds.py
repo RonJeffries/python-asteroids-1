@@ -23,7 +23,7 @@ class Sounds:
         sound = pygame.mixer.Sound(file)
         sound.set_volume(volume)
         # sound.fadeout(150)
-        print(name, sound.get_length())
+        # print(name, sound.get_length())
         self.catalog[name] = sound
 
     def play(self, name, location=None, multi_channel=True):
