@@ -8,6 +8,7 @@ import u
 from SurfaceMaker import SurfaceMaker
 from missile import Missile
 from movable_location import MovableLocation
+from sounds import player
 from timer import Timer
 
 
@@ -68,6 +69,8 @@ class Saucer:
         self.accelerate_to(self.new_direction())
 
     def destroyed_by(self, _attacker, saucers, _fleets):
+        player.play("bang_large", self._location, 2)
+        player.play("bang_small", self._location, 2)
         if self in saucers: saucers.remove(self)
 
     def draw(self, screen):
