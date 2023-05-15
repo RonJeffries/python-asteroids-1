@@ -7,6 +7,15 @@ class Sounds:
 
     def init_sounds(self):
         self.add_sound("accelerate", "sounds/thrust.wav", 0.5)
+        self.add_sound("bang_large", "sounds/bangLarge.wav", 0.5)
+        self.add_sound("bang_medium", "sounds/bangMedium.wav", 0.5)
+        self.add_sound("bang_small", "sounds/bangSmall.wav", 0.5)
+        self.add_sound("beat1", "sounds/beat1.wav", 0.5)
+        self.add_sound("beat2", "sounds/beat2.wav", 0.5)
+        self.add_sound("extra_ship", "sounds/extraShip.wav", 0.5)
+        self.add_sound("fire", "sounds/fire.wav", 0.5)
+        self.add_sound("saucer_big", "sounds/saucerBig.wav", 0.5)
+        self.add_sound("saucer_small", "sounds/saucerSmall.wav", 0.5)
 
     def add_sound(self, name, file, volume=1.0):
         if not pygame.mixer.get_init():
