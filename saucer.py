@@ -140,6 +140,7 @@ class Saucer:
         return attacker.scores_for_hitting_saucer()[self.size - 1]
 
     def tick(self, delta_time, fleet, fleets):
+        player.play("saucer_big", self._location, False)
         saucer_missiles = fleets.saucer_missiles
         ships = fleets.ships
         self.fire_if_possible(delta_time, saucer_missiles, ships)
