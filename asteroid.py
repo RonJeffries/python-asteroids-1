@@ -72,7 +72,7 @@ class Asteroid(Flyer):
 
     def explode(self):
         sound = ["bang_small", "bang_medium", "bang_large"][self.size]
-        player.play(sound, self._location, 3)
+        player.play(sound, self._location)
 
     def tick(self, delta_time, fleet, _fleets):
         self.move(delta_time, fleet)

@@ -122,7 +122,7 @@ class Ship(Flyer):
         return roll > 44 + asteroid_count
 
     def create_missile(self):
-        player.play("fire", self._location, 4)
+        player.play("fire", self._location)
         return Missile.from_ship(self.missile_start(), self.missile_velocity())
 
     def missile_start(self):
@@ -141,7 +141,7 @@ class Ship(Flyer):
 
     def power_on(self, dt):
         self._accelerating = True
-        player.play("accelerate", self._location)
+        player.play("accelerate", self._location, False)
         accel = dt * self._acceleration.rotate(-self._angle)
         self.accelerate_by(accel)
 
