@@ -75,8 +75,7 @@ class Ship(Flyer):
             self._can_enter_hyperspace = True
 
     def destroyed_by(self, attacker, ships, fleets):
-        if self in ships: ships.remove(self)
-        fleets.explosion_at(self.position)
+        self.explode(ships, fleets)
 
     @staticmethod
     def score_for_hitting(_anyone):
@@ -99,6 +98,7 @@ class Ship(Flyer):
             self.hyperspace_transfer()
 
     def explode(self, ship_fleet, fleets):
+        player.play("bang_large", self._location)
         if self in ship_fleet: ship_fleet.remove(self)
         fleets.explosion_at(self.position)
 
