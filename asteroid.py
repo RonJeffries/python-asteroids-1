@@ -6,6 +6,7 @@ import random
 from SurfaceMaker import SurfaceMaker
 import u
 from movable_location import MovableLocation
+from sounds import player
 
 
 class Flyer():
@@ -62,11 +63,16 @@ class Asteroid(Flyer):
         if self not in asteroids:
             return # already dead
         asteroids.remove(self)
+        self.explode()
         if self.size > 0:
             a1 = Asteroid(self.size - 1, self.position)
             asteroids.append(a1)
             a2 = Asteroid(self.size - 1, self.position)
             asteroids.append(a2)
+
+    def explode(self):
+        sound = ["bang_small", "bang_medium", "bang_large"][self.size]
+        player.play(sound, self._location, 3)
 
     def tick(self, delta_time, fleet, _fleets):
         self.move(delta_time, fleet)
