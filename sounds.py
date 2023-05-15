@@ -22,7 +22,6 @@ class Sounds:
             return
         sound = pygame.mixer.Sound(file)
         sound.set_volume(volume)
-        # sound.fadeout(150)
         # print(name, sound.get_length())
         self.catalog[name] = sound
 
@@ -33,6 +32,8 @@ class Sounds:
             if multi_channel or count == 0:
                 chan = self.catalog[name].play()
                 self.set_volume(chan, location)
+        else:
+            print("missing sound", name)
 
     @staticmethod
     def set_volume(chan, location):
