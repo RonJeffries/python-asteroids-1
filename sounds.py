@@ -26,11 +26,11 @@ class Sounds:
         print(name, sound.get_length())
         self.catalog[name] = sound
 
-    def play(self, name, location=None):
+    def play(self, name, location=None, allowed=1):
         if name in self.catalog:
             sound = self.catalog[name]
             count = sound.get_num_channels()
-            if count == 0:
+            if count < allowed:
                 chan = self.catalog[name].play()
                 self.set_volume(chan, location)
 

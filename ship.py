@@ -122,6 +122,7 @@ class Ship(Flyer):
         return roll > 44 + asteroid_count
 
     def create_missile(self):
+        player.play("fire", self._location, 4)
         return Missile.from_ship(self.missile_start(), self.missile_velocity())
 
     def missile_start(self):
