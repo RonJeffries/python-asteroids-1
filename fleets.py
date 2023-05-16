@@ -1,6 +1,10 @@
 # SpaceObjects
+import pygame.mixer
+
 import u
 from fleet import ShipFleet, SaucerFleet, AsteroidFleet, MissileFleet, ExplosionFleet
+from sounds import player
+from thumper import Thumper
 
 
 class Fleets:
@@ -17,6 +21,7 @@ class Fleets:
             MissileFleet(saucer_missiles, u.SAUCER_MISSILE_LIMIT),
             ShipFleet(ships),
             ExplosionFleet())
+        self.thumper = Thumper(self.beat1, self.beat2)
 
     @property
     def asteroids(self):
@@ -50,6 +55,12 @@ class Fleets:
     def colliding_fleets(self):
         return self.asteroids, self.missiles, self.saucers, self.saucer_missiles, self.ships
 
+    def beat1(self):
+        player.play("beat1")
+
+    def beat2(self):
+        player.play("beat2")
+
     def clear(self):
         for fleet in self.fleets:
             fleet.clear()
@@ -75,5 +86,9 @@ class Fleets:
         return True
 
     def tick(self, delta_time):
+        if self.asteroids and self.ships:
+            self.thumper.tick(delta_time)
+        else:
+            self.thumper.reset()
         for fleet in self.fleets:
             fleet.tick(delta_time, self)
