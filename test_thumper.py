@@ -48,3 +48,14 @@ class TestThumper:
         thumper.tick(128/60)
         assert thumper._interval == 8/60
 
+    def test_thumper_reset(self):
+        thumper = Thumper(beat1, beat2)
+        thumper._interval = 8/60
+        thumper._execute_time = 2/60
+        thumper._decrement_time = 2/60
+        thumper.reset()
+        assert thumper._interval == 30/60
+        assert thumper._execute_time == 0
+        assert thumper._decrement_time == 0
+
+
