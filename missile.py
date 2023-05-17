@@ -7,6 +7,8 @@ from timer import Timer
 
 
 class Missile:
+    Saucer = None
+
     def __init__(self, position, velocity, missile_score_list, saucer_score_list):
         self.score_list = missile_score_list
         self.radius = 2

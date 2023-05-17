@@ -65,6 +65,9 @@ class Fragment:
         end = pair[1].rotate(theta) + position
         pygame.draw.line(screen, "white", start, end, 3)
 
+    def interact_with(self,  _attacker, _fragments, _fleets):
+        pass
+
     def move(self, delta_time):
         position = self.position + self.velocity * delta_time
         position.x = position.x % u.SCREEN_SIZE

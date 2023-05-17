@@ -4,6 +4,7 @@ import u
 from asteroid import Asteroid
 from collider import Collider
 from fleet import MissileFleet
+from fragment import Fragment
 from missile import Missile
 from saucer import Saucer, nearest, nearest_point
 from ship import Ship
@@ -211,6 +212,12 @@ class TestCollisions:
         assert nearest_point(shooter, target, screen_size) == Vector2(100, 400)
         shooter = Vector2(150, 50)
         assert nearest_point(shooter, target, screen_size) == Vector2(100, -100)
+
+    def test_double_dispatch_readiness(self):
+        classes = [Asteroid, Missile, Saucer, Ship, Fragment]
+        for klass in classes:
+            attrs = dir(klass)
+            assert "interact_with" in attrs, f"missing method in class {klass.__name__}"
 
 
 
