@@ -42,6 +42,9 @@ class Missile:
         if self in missiles:
             missiles.remove(self)
 
+    def interact_with_asteroid(self, asteroid, fleets):
+        pass
+
     @staticmethod
     def score_for_hitting(_anyone):
         return 0

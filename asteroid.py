@@ -56,6 +56,9 @@ class Asteroid(Flyer):
     def interact_with(self, attacker, asteroids, fleets):
         self.split_or_die(asteroids)
 
+    def interact_with_asteroid(self, asteroid, fleets):
+        pass
+
     def score_for_hitting(self, attacker):
         return attacker.scores_for_hitting_asteroid()[self.size]
 

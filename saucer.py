@@ -73,6 +73,9 @@ class Saucer:
         player.play("bang_small", self._location)
         if self in saucers: saucers.remove(self)
 
+    def interact_with_asteroid(self, asteroid, fleets):
+        pass
+
     def draw(self, screen):
         top_left_corner = self.position - Saucer.offset
         screen.blit(Saucer.saucer_surface, top_left_corner)

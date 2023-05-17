@@ -77,6 +77,9 @@ class Ship(Flyer):
     def interact_with(self, attacker, ships, fleets):
         self.explode(ships, fleets)
 
+    def interact_with_asteroid(self, asteroid, fleets):
+        pass
+
     @staticmethod
     def score_for_hitting(_anyone):
         return 0

@@ -215,9 +215,13 @@ class TestCollisions:
 
     def test_double_dispatch_readiness(self):
         classes = [Asteroid, Missile, Saucer, Ship, Fragment]
+        errors = []
         for klass in classes:
             attrs = dir(klass)
-            assert "interact_with" in attrs, f"missing method in class {klass.__name__}"
-
+            methods = ["interact_with", "interact_with_asteroid"]
+            for method in methods:
+                if method not in attrs:
+                    errors.append((klass.__name__, method))
+        assert not errors
 
 
