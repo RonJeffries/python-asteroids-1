@@ -68,7 +68,7 @@ class Saucer:
     def zig_zag_action(self):
         self.accelerate_to(self.new_direction())
 
-    def destroyed_by(self, _attacker, saucers, _fleets):
+    def interact_with(self, _attacker, saucers, _fleets):
         player.play("bang_large", self._location)
         player.play("bang_small", self._location)
         if self in saucers: saucers.remove(self)

@@ -13,7 +13,7 @@ class Flyer():
     def __init__(self):
         pass
 
-    def destroyed_by(self, attacker, asteroids, fleets):
+    def interact_with(self, attacker, asteroids, fleets):
         pass
 
 
@@ -53,7 +53,7 @@ class Asteroid(Flyer):
     def move_to(self, vector):
         self._location.move_to(vector)
 
-    def destroyed_by(self, attacker, asteroids, fleets):
+    def interact_with(self, attacker, asteroids, fleets):
         self.split_or_die(asteroids)
 
     def score_for_hitting(self, attacker):

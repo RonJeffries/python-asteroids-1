@@ -74,7 +74,7 @@ class Ship(Flyer):
         else:
             self._can_enter_hyperspace = True
 
-    def destroyed_by(self, attacker, ships, fleets):
+    def interact_with(self, attacker, ships, fleets):
         self.explode(ships, fleets)
 
     @staticmethod

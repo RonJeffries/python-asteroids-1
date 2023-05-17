@@ -22,8 +22,8 @@ class Collider:
         if self.within_range(target, attacker):
             self.score += target.score_for_hitting(attacker)
             self.score += attacker.score_for_hitting(target)
-            attacker.destroyed_by(target, attackers, self.fleets)
-            target.destroyed_by(attacker, targets, self.fleets)
+            attacker.interact_with(target, attackers, self.fleets)
+            target.interact_with(attacker, targets, self.fleets)
             return True
         else:
             return False
