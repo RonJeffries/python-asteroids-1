@@ -40,8 +40,6 @@ class Missile:
 
     def interact_with(self, attacker, _missiles, fleets):
         attacker.interact_with_missile(self, fleets)
-        # if self in missiles:
-        #     missiles.remove(self)
 
     def interact_with_asteroid(self, asteroid, fleets):
         fleets.missiles.remove(self)
