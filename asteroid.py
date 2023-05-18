@@ -54,9 +54,18 @@ class Asteroid(Flyer):
         self._location.move_to(vector)
 
     def interact_with(self, attacker, asteroids, fleets):
-        self.split_or_die(asteroids)
+        attacker.interact_with_asteroid(self, fleets)
 
     def interact_with_asteroid(self, asteroid, fleets):
+        pass
+
+    def interact_with_missile(self, missile, fleets):
+        self.split_or_die(fleets.asteroids)
+
+    def interact_with_saucer(self, saucer, fleets):
+        pass
+
+    def interact_with_ship(self, ship, fleets):
         pass
 
     def score_for_hitting(self, attacker):

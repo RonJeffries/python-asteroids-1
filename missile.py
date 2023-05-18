@@ -38,12 +38,22 @@ class Missile:
     def scores_for_hitting_saucer(self):
         return self._saucer_score_list
 
-    def interact_with(self, _attacker, missiles, _fleets):
-        if self in missiles:
-            missiles.remove(self)
+    def interact_with(self, attacker, _missiles, fleets):
+        attacker.interact_with_missile(self, fleets)
+        # if self in missiles:
+        #     missiles.remove(self)
 
     def interact_with_asteroid(self, asteroid, fleets):
+        fleets.missiles.remove(self)
+
+    def interact_with_missile(self, missile, fleets):
         pass
+
+    def interact_with_saucer(self, saucer, fleets):
+        fleets.missiles.remove(self)
+
+    def interact_with_ship(self, ship, fleets):
+        fleets.missiles.remove(self)
 
     @staticmethod
     def score_for_hitting(_anyone):

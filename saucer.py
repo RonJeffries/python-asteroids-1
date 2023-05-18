@@ -68,13 +68,25 @@ class Saucer:
     def zig_zag_action(self):
         self.accelerate_to(self.new_direction())
 
-    def interact_with(self, _attacker, saucers, _fleets):
+    def interact_with(self, attacker, _saucers, fleets):
+        attacker.interact_with_saucer(self, fleets)
+
+    def explode(self, fleets):
         player.play("bang_large", self._location)
         player.play("bang_small", self._location)
-        if self in saucers: saucers.remove(self)
+        fleets.saucers.remove(self)
 
     def interact_with_asteroid(self, asteroid, fleets):
+        self.explode(fleets)
+
+    def interact_with_missile(self, missile, fleets):
+        self.explode(fleets)
+
+    def interact_with_saucer(self, saucer, fleets):
         pass
+
+    def interact_with_ship(self, ship, fleets):
+        self.explode(fleets)
 
     def draw(self, screen):
         top_left_corner = self.position - Saucer.offset

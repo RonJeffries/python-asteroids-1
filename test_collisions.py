@@ -218,7 +218,11 @@ class TestCollisions:
         errors = []
         for klass in classes:
             attrs = dir(klass)
-            methods = ["interact_with", "interact_with_asteroid"]
+            methods = ["interact_with",
+                       "interact_with_asteroid",
+                       "interact_with_missile",
+                       "interact_with_saucer",
+                       "interact_with_ship"]
             for method in methods:
                 if method not in attrs:
                     errors.append((klass.__name__, method))

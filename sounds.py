@@ -31,7 +31,10 @@ class Sounds:
             count = sound.get_num_channels()
             if multi_channel or count == 0:
                 chan = self.catalog[name].play()
-                self.set_volume(chan, location)
+                if chan:
+                    self.set_volume(chan, location)
+                else:
+                    print("channel came back None")
         else:
             print("missing sound", name)
 

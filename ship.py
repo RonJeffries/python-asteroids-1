@@ -75,9 +75,18 @@ class Ship(Flyer):
             self._can_enter_hyperspace = True
 
     def interact_with(self, attacker, ships, fleets):
-        self.explode(ships, fleets)
+        attacker.interact_with_ship(self, fleets)
 
     def interact_with_asteroid(self, asteroid, fleets):
+        self.explode(fleets.ships, fleets)
+
+    def interact_with_missile(self, missile, fleets):
+        self.explode(fleets.ships, fleets)
+
+    def interact_with_saucer(self, saucer, fleets):
+        self.explode(fleets.ships, fleets)
+
+    def interact_with_ship(self, ship, fleets):
         pass
 
     @staticmethod

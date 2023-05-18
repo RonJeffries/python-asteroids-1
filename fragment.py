@@ -71,6 +71,15 @@ class Fragment:
     def interact_with_asteroid(self, asteroid, fleets):
         pass
 
+    def interact_with_missile(self, missile, fleets):
+        pass
+
+    def interact_with_saucer(self, saucer, fleets):
+        pass
+
+    def interact_with_ship(self, ship, fleets):
+        pass
+
     def move(self, delta_time):
         position = self.position + self.velocity * delta_time
         position.x = position.x % u.SCREEN_SIZE
