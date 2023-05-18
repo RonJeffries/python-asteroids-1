@@ -60,27 +60,27 @@ class Asteroid(Flyer):
         pass
 
     def interact_with_missile(self, missile, fleets):
-        self.split_or_die(fleets.asteroids)
+        self.split_or_die(fleets)
 
     def interact_with_saucer(self, saucer, fleets):
-        self.split_or_die(fleets.asteroids)
+        self.split_or_die(fleets)
 
     def interact_with_ship(self, ship, fleets):
-        self.split_or_die(fleets.asteroids)
+        self.split_or_die(fleets)
 
     def score_for_hitting(self, attacker):
         return attacker.scores_for_hitting_asteroid()[self.size]
 
-    def split_or_die(self, asteroids):
-        if self not in asteroids:
-            return # already dead
-        asteroids.remove(self)
+    def split_or_die(self, fleets):
+        if not fleets.has_asteroid(self):
+            return  # avoid low probability double kill
+        fleets.remove_asteroid(self)
         self.explode()
         if self.size > 0:
             a1 = Asteroid(self.size - 1, self.position)
-            asteroids.append(a1)
+            fleets.add_asteroid(a1)
             a2 = Asteroid(self.size - 1, self.position)
-            asteroids.append(a2)
+            fleets.add_asteroid(a2)
 
     def explode(self):
         sound = ["bang_small", "bang_medium", "bang_large"][self.size]

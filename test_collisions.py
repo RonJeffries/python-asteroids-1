@@ -33,10 +33,11 @@ class TestCollisions:
     def test_dual_kills(self):
         asteroid = Asteroid(2, Vector2(0, 0))
         asteroids = [asteroid]
-        asteroid.split_or_die(asteroids)
+        fleets = Fleets(asteroids)
+        asteroid.split_or_die(fleets)
         assert asteroid not in asteroids
         assert len(asteroids) == 2
-        asteroid.split_or_die(asteroids)
+        asteroid.split_or_die(fleets)
         assert len(asteroids) == 2  # didn't crash, didn't split again
 
     def test_score_list(self):

@@ -55,6 +55,18 @@ class Fleets:
     def colliding_fleets(self):
         return self.asteroids, self.missiles, self.saucers, self.saucer_missiles, self.ships
 
+    def add_asteroid(self, asteroid):
+        self.asteroids.append(asteroid)
+
+    def has_asteroid(self, asteroid):
+        # this code violates the decentralized design
+        # by asking a question of the Fleet.
+        # Fix it up when we fold the fleet instances together.
+        return asteroid in self.asteroids
+
+    def remove_asteroid(self, asteroid):
+        self.asteroids.remove(asteroid)
+
     def beat1(self):
         player.play("beat1")
 
