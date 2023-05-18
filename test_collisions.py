@@ -1,3 +1,5 @@
+import itertools
+
 from pygame import Vector2
 
 import u
@@ -230,5 +232,19 @@ class TestCollisions:
                 if method not in attrs:
                     errors.append((klass.__name__, method))
         assert not errors
+
+    def test_combinations_handles_delete(self):
+        # combinations seems to create a protected tuple
+        numbers = [1, 2, 3]
+        total = 0
+        for a,b in itertools.combinations(numbers, 2):
+            total = total + a + b
+        assert total == 12
+        total = 0
+        for a,b in itertools.combinations(numbers, 2):
+            if a in numbers: numbers.remove(a)
+            if b in numbers: numbers.remove(b)
+            total = total + a + b
+        assert total == 12
 
 
