@@ -67,6 +67,9 @@ class Fleets:
     def remove_asteroid(self, asteroid):
         self.asteroids.remove(asteroid)
 
+    def remove_missile(self, missile):
+        self.missiles.remove(missile)
+
     def beat1(self):
         player.play("beat1")
 

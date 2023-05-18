@@ -54,7 +54,7 @@ class Missile:
         self.die(fleets)
 
     def die(self, fleets):
-        fleets.missiles.remove(self)
+        fleets.remove_missile(self)
 
     @staticmethod
     def score_for_hitting(_anyone):
