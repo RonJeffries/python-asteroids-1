@@ -81,6 +81,7 @@ class TestCollisions:
         collider.mutual_destruction(asteroid, asteroids, ship, ships)
         assert not ships
         assert collider.score == 0
+        assert len(asteroids) == 2
 
     def test_saucer_ship_does_not_score(self):
         pos = Vector2(100, 100)
@@ -105,6 +106,7 @@ class TestCollisions:
         collider.mutual_destruction(asteroid, asteroids, saucer, saucers)
         assert not saucers
         assert collider.score == 0
+        assert len(asteroids) == 2
 
     def test_saucer_ship_missile_scores(self):
         pos = Vector2(100, 100)

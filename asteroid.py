@@ -63,10 +63,10 @@ class Asteroid(Flyer):
         self.split_or_die(fleets.asteroids)
 
     def interact_with_saucer(self, saucer, fleets):
-        pass
+        self.split_or_die(fleets.asteroids)
 
     def interact_with_ship(self, ship, fleets):
-        pass
+        self.split_or_die(fleets.asteroids)
 
     def score_for_hitting(self, attacker):
         return attacker.scores_for_hitting_asteroid()[self.size]
