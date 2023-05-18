@@ -78,13 +78,13 @@ class Ship(Flyer):
         attacker.interact_with_ship(self, fleets)
 
     def interact_with_asteroid(self, asteroid, fleets):
-        self.explode(fleets.ships, fleets)
+        self.explode(fleets)
 
     def interact_with_missile(self, missile, fleets):
-        self.explode(fleets.ships, fleets)
+        self.explode(fleets)
 
     def interact_with_saucer(self, saucer, fleets):
-        self.explode(fleets.ships, fleets)
+        self.explode(fleets)
 
     def interact_with_ship(self, ship, fleets):
         pass
@@ -105,11 +105,11 @@ class Ship(Flyer):
         self._can_enter_hyperspace = False
         roll = random.randrange(0, 63)
         if self.hyperspace_failure(roll, asteroid_count):
-            self.explode(ships_fleet, fleets)
+            self.explode(fleets)
         else:
             self.hyperspace_transfer()
 
-    def explode(self, ship_fleet, fleets):
+    def explode(self, fleets):
         player.play("bang_large", self._location)
         fleets.remove_ship(self)
         fleets.explosion_at(self.position)
