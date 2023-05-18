@@ -111,7 +111,7 @@ class Ship(Flyer):
 
     def explode(self, ship_fleet, fleets):
         player.play("bang_large", self._location)
-        if self in ship_fleet: ship_fleet.remove(self)
+        fleets.remove_ship(self)
         fleets.explosion_at(self.position)
 
     def hyperspace_transfer(self):

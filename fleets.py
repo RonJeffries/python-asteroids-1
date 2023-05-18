@@ -73,6 +73,9 @@ class Fleets:
     def remove_saucer(self, saucer):
         self.saucers.remove(saucer)
 
+    def remove_ship(self, ship):
+        self.ships.remove(ship)
+
     def beat1(self):
         player.play("beat1")
 
