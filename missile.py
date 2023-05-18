@@ -42,15 +42,18 @@ class Missile:
         attacker.interact_with_missile(self, fleets)
 
     def interact_with_asteroid(self, asteroid, fleets):
-        fleets.missiles.remove(self)
+        self.die(fleets)
 
     def interact_with_missile(self, missile, fleets):
         pass
 
     def interact_with_saucer(self, saucer, fleets):
-        fleets.missiles.remove(self)
+        self.die(fleets)
 
     def interact_with_ship(self, ship, fleets):
+        self.die(fleets)
+
+    def die(self, fleets):
         fleets.missiles.remove(self)
 
     @staticmethod
