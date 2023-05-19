@@ -78,13 +78,16 @@ class Ship(Flyer):
         attacker.interact_with_ship(self, fleets)
 
     def interact_with_asteroid(self, asteroid, fleets):
-        self.explode(fleets)
+        if asteroid.are_we_colliding(self.position, self.radius):
+            self.explode(fleets)
 
     def interact_with_missile(self, missile, fleets):
-        self.explode(fleets)
+        if missile.are_we_colliding(self.position, self.radius):
+            self.explode(fleets)
 
     def interact_with_saucer(self, saucer, fleets):
-        self.explode(fleets)
+        if saucer.are_we_colliding(self.position, self.radius):
+            self.explode(fleets)
 
     def interact_with_ship(self, ship, fleets):
         pass
