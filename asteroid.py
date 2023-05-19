@@ -66,10 +66,12 @@ class Asteroid(Flyer):
             self.split_or_die(fleets)
 
     def interact_with_saucer(self, saucer, fleets):
-        self.split_or_die(fleets)
+        if saucer.are_we_colliding(self.position, self.radius):
+            self.split_or_die(fleets)
 
     def interact_with_ship(self, ship, fleets):
-        self.split_or_die(fleets)
+        if ship.are_we_colliding(self.position, self.radius):
+            self.split_or_die(fleets)
 
     def are_we_colliding(self, position, radius):
         kill_range = self.radius + radius
