@@ -2,7 +2,7 @@
 import itertools
 
 
-class Collider:
+class Interactor:
     def __init__(self, fleets):
         self.fleets = fleets
         self.score = 0

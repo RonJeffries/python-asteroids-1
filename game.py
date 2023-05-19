@@ -4,7 +4,7 @@ from pygame import Vector2
 
 import pygame
 
-from collider import Collider
+from interactor import Interactor
 from fleet import ShipFleet
 from ship import Ship
 import u
@@ -59,7 +59,7 @@ class Game:
         self.score_font = pygame.font.SysFont("arial", 48)
 
     def process_collisions(self):
-        collider = Collider(self.fleets)
+        collider = Interactor(self.fleets)
         self.score += collider.perform_interactions()
 
     def control_game(self):
