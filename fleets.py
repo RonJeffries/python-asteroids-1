@@ -22,6 +22,7 @@ class Fleets:
             ShipFleet(ships),
             ExplosionFleet())
         self.thumper = Thumper(self.beat1, self.beat2)
+        self.score = 0
 
     @property
     def asteroids(self):
@@ -59,7 +60,7 @@ class Fleets:
         self.asteroids.append(asteroid)
 
     def add_score(self, score):
-        pass
+        self.score += score.score
 
     def has_asteroid(self, asteroid):
         # this code violates the decentralized design

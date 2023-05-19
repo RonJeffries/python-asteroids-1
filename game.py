@@ -60,7 +60,7 @@ class Game:
 
     def process_interactions(self):
         interactor = Interactor(self.fleets)
-        self.score += interactor.perform_interactions()
+        self.score = interactor.perform_interactions()
 
     def control_game(self):
         keys = pygame.key.get_pressed()

@@ -5,7 +5,10 @@ import itertools
 class Interactor:
     def __init__(self, fleets):
         self.fleets = fleets
-        self.score = 0
+
+    @property
+    def score(self):
+        return self.fleets.score
 
     def perform_interactions(self):
         for pair in itertools.combinations(self.fleets.colliding_fleets, 2):
@@ -21,12 +24,7 @@ class Interactor:
     def interact_one_pair(self, target, targets, attacker, attackers):
         attacker.interact_with(target, attackers, self.fleets)
         target.interact_with(attacker, targets, self.fleets)
-        if self.within_range(target, attacker):
-            self.score += target.score_for_hitting(attacker)
-            self.score += attacker.score_for_hitting(target)
-            return True
-        else:
-            return False
+        return self.within_range(target, attacker)
 
     @staticmethod
     def within_range(target, attacker):
