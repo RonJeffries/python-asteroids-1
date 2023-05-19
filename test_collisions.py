@@ -246,5 +246,6 @@ class TestCollisions:
             if b in numbers: numbers.remove(b)
             total = total + a + b
         assert total == 12
+        assert not numbers
 
 

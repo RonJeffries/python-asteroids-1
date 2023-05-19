@@ -60,7 +60,10 @@ class Asteroid(Flyer):
         pass
 
     def interact_with_missile(self, missile, fleets):
-        self.split_or_die(fleets)
+        kill_range = self.radius + missile.radius
+        dist = self.position.distance_to(missile.position)
+        if dist <= kill_range:
+            self.split_or_die(fleets)
 
     def interact_with_saucer(self, saucer, fleets):
         self.split_or_die(fleets)
