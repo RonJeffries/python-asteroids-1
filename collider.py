@@ -19,11 +19,11 @@ class Collider:
                     break
 
     def mutual_destruction(self, target, targets, attacker, attackers):
+        attacker.interact_with(target, attackers, self.fleets)
+        target.interact_with(attacker, targets, self.fleets)
         if self.within_range(target, attacker):
             self.score += target.score_for_hitting(attacker)
             self.score += attacker.score_for_hitting(target)
-            attacker.interact_with(target, attackers, self.fleets)
-            target.interact_with(attacker, targets, self.fleets)
             return True
         else:
             return False
