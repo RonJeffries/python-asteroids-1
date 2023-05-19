@@ -6,6 +6,7 @@ import random
 from SurfaceMaker import SurfaceMaker
 import u
 from movable_location import MovableLocation
+from score import Score
 from sounds import player
 
 
@@ -61,6 +62,7 @@ class Asteroid(Flyer):
 
     def interact_with_missile(self, missile, fleets):
         if self.in_range(missile):
+            fleets.add_score(Score(self.score_for_hitting(missile)))
             self.split_or_die(fleets)
 
     def in_range(self, missile):

@@ -58,6 +58,9 @@ class Fleets:
     def add_asteroid(self, asteroid):
         self.asteroids.append(asteroid)
 
+    def add_score(self, score):
+        pass
+
     def has_asteroid(self, asteroid):
         # this code violates the decentralized design
         # by asking a question of the Fleet.
