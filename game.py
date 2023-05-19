@@ -58,9 +58,9 @@ class Game:
         self.score = 0
         self.score_font = pygame.font.SysFont("arial", 48)
 
-    def process_collisions(self):
-        collider = Interactor(self.fleets)
-        self.score += collider.perform_interactions()
+    def process_interactions(self):
+        interactor = Interactor(self.fleets)
+        self.score += interactor.perform_interactions()
 
     def control_game(self):
         keys = pygame.key.get_pressed()
@@ -120,7 +120,7 @@ class Game:
     def asteroids_tick(self, delta_time):
         self.fleets.tick(delta_time)
         self.control_game()
-        self.process_collisions()
+        self.process_interactions()
         self.draw_everything()
         if ShipFleet.game_over: self.draw_game_over()
 

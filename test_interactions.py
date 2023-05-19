@@ -185,7 +185,7 @@ class TestInteractions:
         game.fleets.asteroids.append(asteroid)
         missile = Missile.from_ship(Vector2(100, 100), Vector2(3, 3))
         game.fleets.missiles.append(missile)
-        game.process_collisions()
+        game.process_interactions()
         assert game.score == 20
 
     def test_cached_collider_is_safe(self):
