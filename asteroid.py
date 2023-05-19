@@ -61,20 +61,20 @@ class Asteroid(Flyer):
         pass
 
     def interact_with_missile(self, missile, fleets):
-        if self.in_range(missile):
+        if missile.are_we_colliding(self.position, self.radius):
             fleets.add_score(Score(self.score_for_hitting(missile)))
             self.split_or_die(fleets)
-
-    def in_range(self, missile):
-        kill_range = self.radius + missile.radius
-        dist = self.position.distance_to(missile.position)
-        return dist <= kill_range
 
     def interact_with_saucer(self, saucer, fleets):
         self.split_or_die(fleets)
 
     def interact_with_ship(self, ship, fleets):
         self.split_or_die(fleets)
+
+    def are_we_colliding(self, position, radius):
+        kill_range = self.radius + radius
+        dist = self.position.distance_to(position)
+        return dist <= kill_range
 
     def score_for_hitting(self, attacker):
         return attacker.scores_for_hitting_asteroid()[self.size]

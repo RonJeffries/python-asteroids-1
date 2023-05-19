@@ -227,7 +227,8 @@ class TestCollisions:
                        "interact_with_asteroid",
                        "interact_with_missile",
                        "interact_with_saucer",
-                       "interact_with_ship"]
+                       "interact_with_ship",
+                       "are_we_colliding"]
             for method in methods:
                 if method not in attrs:
                     errors.append((klass.__name__, method))

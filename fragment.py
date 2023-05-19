@@ -80,6 +80,9 @@ class Fragment:
     def interact_with_ship(self, ship, fleets):
         pass
 
+    def are_we_colliding(self, position, radius):
+        return False
+
     def move(self, delta_time):
         position = self.position + self.velocity * delta_time
         position.x = position.x % u.SCREEN_SIZE

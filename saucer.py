@@ -88,6 +88,11 @@ class Saucer:
     def interact_with_ship(self, ship, fleets):
         self.explode(fleets)
 
+    def are_we_colliding(self, position, radius):
+        kill_range = self.radius + radius
+        dist = self.position.distance_to(position)
+        return dist <= kill_range
+
     def draw(self, screen):
         top_left_corner = self.position - Saucer.offset
         screen.blit(Saucer.saucer_surface, top_left_corner)

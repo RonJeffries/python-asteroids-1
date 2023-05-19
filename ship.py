@@ -89,6 +89,11 @@ class Ship(Flyer):
     def interact_with_ship(self, ship, fleets):
         pass
 
+    def are_we_colliding(self, position, radius):
+        kill_range = self.radius + radius
+        dist = self.position.distance_to(position)
+        return dist <= kill_range
+
     @staticmethod
     def score_for_hitting(_anyone):
         return 0

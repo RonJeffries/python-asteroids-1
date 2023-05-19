@@ -32,6 +32,11 @@ class Missile:
     def from_saucer(cls, position, velocity):
         return cls(position, velocity, [0, 0, 0], [0, 0])
 
+    def are_we_colliding(self, position, radius):
+        kill_range = self.radius + radius
+        dist = self.position.distance_to(position)
+        return dist <= kill_range
+
     def scores_for_hitting_asteroid(self):
         return self.score_list
 
