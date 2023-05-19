@@ -8,6 +8,7 @@ import u
 from SurfaceMaker import SurfaceMaker
 from missile import Missile
 from movable_location import MovableLocation
+from score import Score
 from sounds import player
 from timer import Timer
 
@@ -82,6 +83,7 @@ class Saucer:
 
     def interact_with_missile(self, missile, fleets):
         if missile.are_we_colliding(self.position, self.radius):
+            fleets.add_score(Score(self.score_for_hitting(missile)))
             self.explode(fleets)
 
     def interact_with_saucer(self, saucer, fleets):
