@@ -54,10 +54,12 @@ class Missile:
         pass
 
     def interact_with_saucer(self, saucer, fleets):
-        self.die(fleets)
+        if saucer.are_we_colliding(self.position, self.radius):
+            self.die(fleets)
 
     def interact_with_ship(self, ship, fleets):
-        self.die(fleets)
+        if ship.are_we_colliding(self.position, self.radius):
+            self.die(fleets)
 
     def die(self, fleets):
         fleets.remove_missile(self)
