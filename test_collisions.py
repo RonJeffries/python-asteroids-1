@@ -57,7 +57,7 @@ class TestCollisions:
         missile = Missile.from_ship(pos, Vector2(0, 0))
         missiles = [missile]
         collider = Collider(Fleets(asteroids, missiles, [], [], []))
-        collider.mutual_destruction(asteroid, asteroids, missile, missiles)
+        collider.interact_one_pair(asteroid, asteroids, missile, missiles)
         assert not missiles
         assert collider.score == 20
         assert len(asteroids) == 2
@@ -69,7 +69,7 @@ class TestCollisions:
         missile = Missile.from_ship(pos, Vector2(0, 0))
         missiles = [missile]
         collider = Collider(Fleets([], missiles, [], [], ships))
-        collider.mutual_destruction(ship, ships, missile, missiles)
+        collider.interact_one_pair(ship, ships, missile, missiles)
         assert not missiles
         assert not ships
         assert collider.score == 0
@@ -81,7 +81,7 @@ class TestCollisions:
         ship = Ship(pos)
         ships = [ship]
         collider = Collider(Fleets(asteroids, [], [], [], ships))
-        collider.mutual_destruction(asteroid, asteroids, ship, ships)
+        collider.interact_one_pair(asteroid, asteroids, ship, ships)
         assert not ships
         assert collider.score == 0
         assert len(asteroids) == 2
@@ -94,7 +94,7 @@ class TestCollisions:
         ship = Ship(pos)
         ships = [ship]
         collider = Collider(Fleets([], [], saucers, [], ships))
-        collider.mutual_destruction(saucer, saucers, ship, ships)
+        collider.interact_one_pair(saucer, saucers, ship, ships)
         assert not ships
         assert collider.score == 0
 
@@ -106,7 +106,7 @@ class TestCollisions:
         saucer.move_to(pos)
         saucers = [saucer]
         collider = Collider(Fleets(asteroids, [], saucers, [], []))
-        collider.mutual_destruction(asteroid, asteroids, saucer, saucers)
+        collider.interact_one_pair(asteroid, asteroids, saucer, saucers)
         assert not saucers
         assert collider.score == 0
         assert len(asteroids) == 2
@@ -119,7 +119,7 @@ class TestCollisions:
         missile = Missile.from_ship(pos, Vector2(0, 0))
         missiles = [missile]
         collider = Collider(Fleets([], missiles, saucers, [], []))
-        collider.mutual_destruction(saucer, saucers, missile, missiles)
+        collider.interact_one_pair(saucer, saucers, missile, missiles)
         assert not missiles
         assert not saucers
         assert collider.score == 200
@@ -132,7 +132,7 @@ class TestCollisions:
         missile = Missile.from_ship(pos, Vector2(0, 0))
         missiles = [missile]
         collider = Collider(Fleets([], missiles, saucers, [], []))
-        collider.mutual_destruction(saucer, saucers, missile, missiles)
+        collider.interact_one_pair(saucer, saucers, missile, missiles)
         assert not missiles
         assert not saucers
         assert collider.score == 1000
@@ -145,7 +145,7 @@ class TestCollisions:
         missile = Missile.from_saucer(pos, Vector2(0, 0))
         missiles = [missile]
         collider = Collider(Fleets([], missiles, saucers, [], []))
-        collider.mutual_destruction(saucer, saucers, missile, missiles)
+        collider.interact_one_pair(saucer, saucers, missile, missiles)
         assert not missiles
         assert not saucers
         assert collider.score == 0
@@ -176,7 +176,7 @@ class TestCollisions:
 
     def test_collider(self):
         collider = Collider(Fleets([], [], [], [], []))
-        score = collider.check_collisions()
+        score = collider.perform_interactions()
         assert score == 0
 
     def test_collider_via_game_with_score(self):
@@ -194,9 +194,9 @@ class TestCollisions:
         asteroids=[asteroid]
         missiles=[missile]
         collider = Collider(Fleets(asteroids, missiles, [], [], []))
-        collider.check_collisions()
+        collider.perform_interactions()
         assert collider.score == 20
-        collider.check_collisions()
+        collider.perform_interactions()
         assert collider.score == 20
 
     def test_can_choose_nearest_scalar_target(self):

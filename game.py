@@ -60,7 +60,7 @@ class Game:
 
     def process_collisions(self):
         collider = Collider(self.fleets)
-        self.score += collider.check_collisions()
+        self.score += collider.perform_interactions()
 
     def control_game(self):
         keys = pygame.key.get_pressed()

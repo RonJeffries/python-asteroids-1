@@ -7,18 +7,18 @@ class Collider:
         self.fleets = fleets
         self.score = 0
 
-    def check_collisions(self):
+    def perform_interactions(self):
         for pair in itertools.combinations(self.fleets.colliding_fleets, 2):
-            self.check_individual_collisions(pair[0], pair[1])
+            self.perform_individual_interactions(pair[0], pair[1])
         return self.score
 
-    def check_individual_collisions(self, attackers, targets):
+    def perform_individual_interactions(self, attackers, targets):
         for target in targets:
             for attacker in attackers:
-                if self.mutual_destruction(target, targets, attacker, attackers):
+                if self.interact_one_pair(target, targets, attacker, attackers):
                     break
 
-    def mutual_destruction(self, target, targets, attacker, attackers):
+    def interact_one_pair(self, target, targets, attacker, attackers):
         attacker.interact_with(target, attackers, self.fleets)
         target.interact_with(attacker, targets, self.fleets)
         if self.within_range(target, attacker):
