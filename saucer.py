@@ -77,16 +77,19 @@ class Saucer:
         fleets.remove_saucer(self)
 
     def interact_with_asteroid(self, asteroid, fleets):
-        self.explode(fleets)
+        if asteroid.are_we_colliding(self.position, self.radius):
+            self.explode(fleets)
 
     def interact_with_missile(self, missile, fleets):
-        self.explode(fleets)
+        if missile.are_we_colliding(self.position, self.radius):
+            self.explode(fleets)
 
     def interact_with_saucer(self, saucer, fleets):
         pass
 
     def interact_with_ship(self, ship, fleets):
-        self.explode(fleets)
+        if ship.are_we_colliding(self.position, self.radius):
+            self.explode(fleets)
 
     def are_we_colliding(self, position, radius):
         kill_range = self.radius + radius
