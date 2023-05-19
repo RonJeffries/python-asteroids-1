@@ -14,7 +14,7 @@ from game import Game
 from fleets import Fleets
 
 
-class TestCollisions:
+class TestInteractions:
     def test_firing_limit(self):
         ship = Ship(u.CENTER)
         count = 0
