@@ -57,7 +57,7 @@ class TestInteractions:
         missile = Missile.from_ship(pos, Vector2(0, 0))
         missiles = [missile]
         interactor = Interactor(Fleets(asteroids, missiles, [], [], []))
-        interactor.interact_one_pair(asteroid, asteroids, missile, missiles)
+        interactor.interact_one_pair(asteroid, missile)
         assert not missiles
         assert interactor.score == 20
         assert len(asteroids) == 2
@@ -69,7 +69,7 @@ class TestInteractions:
         missile = Missile.from_ship(pos, Vector2(0, 0))
         missiles = [missile]
         interactor = Interactor(Fleets([], missiles, [], [], ships))
-        interactor.interact_one_pair(ship, ships, missile, missiles)
+        interactor.interact_one_pair(ship, missile)
         assert not missiles
         assert not ships
         assert interactor.score == 0
@@ -81,7 +81,7 @@ class TestInteractions:
         ship = Ship(pos)
         ships = [ship]
         interactor = Interactor(Fleets(asteroids, [], [], [], ships))
-        interactor.interact_one_pair(asteroid, asteroids, ship, ships)
+        interactor.interact_one_pair(asteroid, ship)
         assert not ships
         assert interactor.score == 0
         assert len(asteroids) == 2
@@ -94,7 +94,7 @@ class TestInteractions:
         ship = Ship(pos)
         interactor = [ship]
         collider = Interactor(Fleets([], [], saucers, [], interactor))
-        collider.interact_one_pair(saucer, saucers, ship, interactor)
+        collider.interact_one_pair(saucer, ship)
         assert not interactor
         assert collider.score == 0
 
@@ -106,7 +106,7 @@ class TestInteractions:
         saucer.move_to(pos)
         saucers = [saucer]
         interactor = Interactor(Fleets(asteroids, [], saucers, [], []))
-        interactor.interact_one_pair(asteroid, asteroids, saucer, saucers)
+        interactor.interact_one_pair(asteroid, saucer)
         assert not saucers
         assert interactor.score == 0
         assert len(asteroids) == 2
@@ -119,7 +119,7 @@ class TestInteractions:
         missile = Missile.from_ship(pos, Vector2(0, 0))
         missiles = [missile]
         interactor = Interactor(Fleets([], missiles, saucers, [], []))
-        interactor.interact_one_pair(saucer, saucers, missile, missiles)
+        interactor.interact_one_pair(saucer, missile)
         assert not missiles
         assert not saucers
         assert interactor.score == 200
@@ -132,7 +132,7 @@ class TestInteractions:
         missile = Missile.from_ship(pos, Vector2(0, 0))
         missiles = [missile]
         interactor = Interactor(Fleets([], missiles, saucers, [], []))
-        interactor.interact_one_pair(saucer, saucers, missile, missiles)
+        interactor.interact_one_pair(saucer, missile)
         assert not missiles
         assert not saucers
         assert interactor.score == 1000
@@ -145,7 +145,7 @@ class TestInteractions:
         missile = Missile.from_saucer(pos, Vector2(0, 0))
         missiles = [missile]
         interactor = Interactor(Fleets([], missiles, saucers, [], []))
-        interactor.interact_one_pair(saucer, saucers, missile, missiles)
+        interactor.interact_one_pair(saucer, missile)
         assert not missiles
         assert not saucers
         assert interactor.score == 0
