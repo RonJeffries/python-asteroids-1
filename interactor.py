@@ -13,7 +13,7 @@ class Interactor:
     def perform_interactions(self):
         for target, attacker in itertools.combinations(self.fleets.all_objects, 2):
             self.interact_one_pair(target, attacker)
-        return self.fleets.score
+        return self.score
 
     def interact_one_pair(self, target, attacker):
         attacker.interact_with(target, self.fleets)
