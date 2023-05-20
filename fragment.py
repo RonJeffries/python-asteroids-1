@@ -65,7 +65,7 @@ class Fragment:
         end = pair[1].rotate(theta) + position
         pygame.draw.line(screen, "white", start, end, 3)
 
-    def interact_with(self,  _attacker, _fragments, _fleets):
+    def interact_with(self, attacker, fleets):
         pass
 
     def interact_with_asteroid(self, asteroid, fleets):

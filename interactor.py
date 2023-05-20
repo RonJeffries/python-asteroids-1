@@ -22,8 +22,8 @@ class Interactor:
                     break
 
     def interact_one_pair(self, target, targets, attacker, attackers):
-        attacker.interact_with(target, attackers, self.fleets)
-        target.interact_with(attacker, targets, self.fleets)
+        attacker.interact_with(target, self.fleets)
+        target.interact_with(attacker, self.fleets)
         return self.within_range(target, attacker)
 
     @staticmethod

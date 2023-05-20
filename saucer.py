@@ -69,7 +69,7 @@ class Saucer:
     def zig_zag_action(self):
         self.accelerate_to(self.new_direction())
 
-    def interact_with(self, attacker, _saucers, fleets):
+    def interact_with(self, attacker, fleets):
         attacker.interact_with_saucer(self, fleets)
 
     def explode(self, fleets):

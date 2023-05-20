@@ -5,17 +5,15 @@ from pygame import Vector2
 import random
 from SurfaceMaker import SurfaceMaker
 import u
-from asteroid import Flyer
 from missile import Missile
 from movable_location import MovableLocation
 from sounds import player
 
 
-class Ship(Flyer):
+class Ship:
     thrust_sound = None
 
     def __init__(self, position):
-        super().__init__()
         self.radius = 25
         self._location = MovableLocation(position, Vector2(0, 0))
         self._can_enter_hyperspace = True
@@ -74,7 +72,7 @@ class Ship(Flyer):
         else:
             self._can_enter_hyperspace = True
 
-    def interact_with(self, attacker, ships, fleets):
+    def interact_with(self, attacker, fleets):
         attacker.interact_with_ship(self, fleets)
 
     def interact_with_asteroid(self, asteroid, fleets):

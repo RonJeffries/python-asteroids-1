@@ -43,7 +43,7 @@ class Missile:
     def scores_for_hitting_saucer(self):
         return self._saucer_score_list
 
-    def interact_with(self, attacker, _missiles, fleets):
+    def interact_with(self, attacker, fleets):
         attacker.interact_with_missile(self, fleets)
 
     def interact_with_asteroid(self, asteroid, fleets):

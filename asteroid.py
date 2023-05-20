@@ -10,17 +10,8 @@ from score import Score
 from sounds import player
 
 
-class Flyer():
-    def __init__(self):
-        pass
-
-    def interact_with(self, attacker, asteroids, fleets):
-        pass
-
-
-class Asteroid(Flyer):
+class Asteroid:
     def __init__(self, size=2, position=None):
-        super().__init__()
         self.size = size
         if self.size not in [0, 1, 2]:
             self.size = 2
@@ -54,7 +45,7 @@ class Asteroid(Flyer):
     def move_to(self, vector):
         self._location.move_to(vector)
 
-    def interact_with(self, attacker, asteroids, fleets):
+    def interact_with(self, attacker, fleets):
         attacker.interact_with_asteroid(self, fleets)
 
     def interact_with_asteroid(self, asteroid, fleets):
