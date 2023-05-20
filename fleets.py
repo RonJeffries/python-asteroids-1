@@ -1,4 +1,6 @@
 # SpaceObjects
+from itertools import chain
+
 import pygame.mixer
 
 import u
@@ -23,6 +25,10 @@ class Fleets:
             ExplosionFleet())
         self.thumper = Thumper(self.beat1, self.beat2)
         self.score = 0
+
+    @property
+    def all_objects(self):
+        return list(chain(*self.fleets))
 
     @property
     def asteroids(self):
