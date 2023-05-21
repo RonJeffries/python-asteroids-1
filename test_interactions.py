@@ -13,7 +13,7 @@ from score import Score
 from ship import Ship
 from game import Game
 from fleets import Fleets
-from test_score import ScoreKeeper
+from scorekeeper import ScoreKeeper
 
 
 class TestInteractions:
