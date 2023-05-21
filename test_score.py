@@ -10,6 +10,9 @@ class ScoreKeeper:
     def are_we_colliding(self, position, radius):
         return False
 
+    def draw(self, screen):
+        pass
+
     def interact_with(self, other, fleets):
         other.interact_with_scorekeeper(self, fleets)
 
@@ -29,6 +32,9 @@ class ScoreKeeper:
         pass
 
     def interact_with_ship(self, ship, fleets):
+        pass
+
+    def tick(self, delta_time, _fleet, _fleets):
         pass
 
 
