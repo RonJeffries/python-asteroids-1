@@ -220,7 +220,7 @@ class TestInteractions:
         shooter = Vector2(150, 50)
         assert nearest_point(shooter, target, screen_size) == Vector2(100, -100)
 
-    def test_double_dispatch_readiness(self):
+    def test_flyer_protocol(self):
         classes = [Asteroid, Missile, Saucer, Ship, Fragment, Score, ScoreKeeper]
         errors = []
         for klass in classes:
