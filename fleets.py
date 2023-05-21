@@ -4,7 +4,7 @@ from itertools import chain
 import pygame.mixer
 
 import u
-from fleet import ShipFleet, SaucerFleet, AsteroidFleet, MissileFleet, ExplosionFleet
+from fleet import ShipFleet, SaucerFleet, AsteroidFleet, MissileFleet, ExplosionFleet, Fleet
 from sounds import player
 from thumper import Thumper
 
@@ -22,7 +22,8 @@ class Fleets:
             SaucerFleet(saucers),
             MissileFleet(saucer_missiles, u.SAUCER_MISSILE_LIMIT),
             ShipFleet(ships),
-            ExplosionFleet())
+            ExplosionFleet(),
+            Fleet([]))
         self.thumper = Thumper(self.beat1, self.beat2)
         self.score = 0
 
@@ -59,14 +60,18 @@ class Fleets:
         return self.fleets[5]
 
     @property
-    def colliding_fleets(self):
-        return self.asteroids, self.missiles, self.saucers, self.saucer_missiles, self.ships
+    def others(self):
+        return self.fleets[6]
 
     def add_asteroid(self, asteroid):
         self.asteroids.append(asteroid)
 
     def add_score(self, score):
+        self.others.append(score)
         self.score += score.score
+
+    def add_scorekeeper(self, scorekeeper):
+        self.others.append(scorekeeper)
 
     def has_asteroid(self, asteroid):
         # this code violates the decentralized design
@@ -82,6 +87,9 @@ class Fleets:
 
     def remove_saucer(self, saucer):
         self.saucers.remove(saucer)
+
+    def remove_score(self, score):
+        self.others.remove(score)
 
     def remove_ship(self, ship):
         self.ships.remove(ship)

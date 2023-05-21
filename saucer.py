@@ -89,6 +89,12 @@ class Saucer:
     def interact_with_saucer(self, saucer, fleets):
         pass
 
+    def interact_with_score(self, score, fleets):
+        pass
+
+    def interact_with_scorekeeper(self, scorekeeper, fleets):
+        pass
+
     def interact_with_ship(self, ship, fleets):
         if ship.are_we_colliding(self.position, self.radius):
             self.explode(fleets)

@@ -9,9 +9,11 @@ from fleet import MissileFleet
 from fragment import Fragment
 from missile import Missile
 from saucer import Saucer, nearest, nearest_point
+from score import Score
 from ship import Ship
 from game import Game
 from fleets import Fleets
+from test_score import ScoreKeeper
 
 
 class TestInteractions:
@@ -219,7 +221,7 @@ class TestInteractions:
         assert nearest_point(shooter, target, screen_size) == Vector2(100, -100)
 
     def test_double_dispatch_readiness(self):
-        classes = [Asteroid, Missile, Saucer, Ship, Fragment]
+        classes = [Asteroid, Missile, Saucer, Ship, Fragment, Score, ScoreKeeper]
         errors = []
         for klass in classes:
             attrs = dir(klass)
@@ -228,6 +230,8 @@ class TestInteractions:
                        "interact_with_missile",
                        "interact_with_saucer",
                        "interact_with_ship",
+                       "interact_with_score",
+                       "interact_with_scorekeeper",
                        "are_we_colliding"]
             for method in methods:
                 if method not in attrs:
