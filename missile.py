@@ -51,18 +51,9 @@ class Missile(Flyer):
         if asteroid.are_we_colliding(self.position, self.radius):
             self.die(fleets)
 
-    def interact_with_missile(self, missile, fleets):
-        pass
-
     def interact_with_saucer(self, saucer, fleets):
         if saucer.are_we_colliding(self.position, self.radius):
             self.die(fleets)
-
-    def interact_with_score(self, score, fleets):
-        pass
-
-    def interact_with_scorekeeper(self, scorekeeper, fleets):
-        pass
 
     def interact_with_ship(self, ship, fleets):
         if ship.are_we_colliding(self.position, self.radius):
