@@ -9,6 +9,10 @@ class Flyer(ABC):
         pass
 
     @abstractmethod
+    def draw(self, screen):
+        pass
+
+    @abstractmethod
     def tick(self, delta_time, fleet, fleets):
         pass
 
