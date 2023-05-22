@@ -88,15 +88,6 @@ class Ship(Flyer):
         if saucer.are_we_colliding(self.position, self.radius):
             self.explode(fleets)
 
-    def interact_with_score(self, score, fleets):
-        pass
-
-    def interact_with_scorekeeper(self, scorekeeper, fleets):
-        pass
-
-    def interact_with_ship(self, ship, fleets):
-        pass
-
     def are_we_colliding(self, position, radius):
         kill_range = self.radius + radius
         dist = self.position.distance_to(position)
