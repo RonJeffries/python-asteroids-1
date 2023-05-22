@@ -1,6 +1,7 @@
+from flyer import Flyer
 
 
-class Score:
+class Score(Flyer):
     def __init__(self, score):
         self.score = score
 

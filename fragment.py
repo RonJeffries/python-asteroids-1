@@ -4,10 +4,11 @@ import pygame.draw
 from pygame import Vector2
 
 import u
+from flyer import Flyer
 from timer import Timer
 
 
-class Fragment:
+class Fragment(Flyer):
 
     @classmethod
     def simple_fragment(cls, position, angle=None, speed_mul=None):

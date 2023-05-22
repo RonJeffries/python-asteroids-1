@@ -5,12 +5,13 @@ from pygame import Vector2
 import random
 from SurfaceMaker import SurfaceMaker
 import u
+from flyer import Flyer
 from missile import Missile
 from movable_location import MovableLocation
 from sounds import player
 
 
-class Ship:
+class Ship(Flyer):
     thrust_sound = None
 
     def __init__(self, position):

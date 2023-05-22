@@ -1,4 +1,7 @@
-class ScoreKeeper:
+from flyer import Flyer
+
+
+class ScoreKeeper(Flyer):
     def __init__(self):
         self.score = 0
 

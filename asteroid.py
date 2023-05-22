@@ -5,12 +5,13 @@ import random
 
 from SurfaceMaker import SurfaceMaker
 import u
+from flyer import Flyer
 from movable_location import MovableLocation
 from score import Score
 from sounds import player
 
 
-class Asteroid:
+class Asteroid(Flyer):
     def __init__(self, size=2, position=None):
         self.size = size
         if self.size not in [0, 1, 2]:

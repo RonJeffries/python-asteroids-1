@@ -6,6 +6,7 @@ from math import atan2, degrees
 from pygame import Vector2
 import u
 from SurfaceMaker import SurfaceMaker
+from flyer import Flyer
 from missile import Missile
 from movable_location import MovableLocation
 from score import Score
@@ -13,7 +14,7 @@ from sounds import player
 from timer import Timer
 
 
-class Saucer:
+class Saucer(Flyer):
     direction = -1
     saucer_surface = None
     offset = None

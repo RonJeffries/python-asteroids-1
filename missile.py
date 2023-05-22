@@ -2,11 +2,12 @@
 
 import pygame
 import u
+from flyer import Flyer
 from movable_location import MovableLocation
 from timer import Timer
 
 
-class Missile:
+class Missile(Flyer):
     Saucer = None
 
     def __init__(self, position, velocity, missile_score_list, saucer_score_list):
