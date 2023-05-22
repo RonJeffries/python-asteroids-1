@@ -6,6 +6,7 @@ import pygame
 
 from interactor import Interactor
 from fleet import ShipFleet
+from scorekeeper import ScoreKeeper
 from ship import Ship
 import u
 from fleets import Fleets
@@ -20,8 +21,9 @@ class Game:
     def __init__(self, testing=False):
         self.delta_time = 0
         self.score = 0
-        self.fleets = Fleets()
         self.init_pygame_and_display(testing)
+        self.fleets = Fleets()
+        self.fleets.add_scorekeeper(ScoreKeeper(testing))
         self.running = not testing
 
     # noinspection PyAttributeOutsideInit
@@ -34,7 +36,6 @@ class Game:
         self.clock = pygame.time.Clock()
         self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
         self.init_game_over()
-        self.init_score()
 
     # noinspection PyAttributeOutsideInit
     def init_game_over(self):
@@ -52,11 +53,6 @@ class Game:
             text_rect = text.get_rect(topleft=(pos_left, pos_top))
             pair = (text, text_rect)
             self.help_lines.append(pair)
-
-    # noinspection PyAttributeOutsideInit
-    def init_score(self):
-        self.score = 0
-        self.score_font = pygame.font.SysFont("arial", 48)
 
     def process_interactions(self):
         interactor = Interactor(self.fleets)
@@ -92,14 +88,7 @@ class Game:
             screen.blit(text, pos)
 
     def draw_score(self):
-        score_surface, score_rect = self.render_score()
-        self.screen.blit(score_surface, score_rect)
-
-    def render_score(self):
-        score_text = f"0000{self.score}"[-5:]
-        score_surface = self.score_font.render(score_text, True, "green")
-        score_rect = score_surface.get_rect(topleft=(10, 10))
-        return score_surface, score_rect
+        pass
 
     # noinspection PyAttributeOutsideInit
     def main_loop(self):
