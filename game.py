@@ -11,6 +11,7 @@ from ship import Ship
 import u
 from fleets import Fleets
 from sounds import player
+from wavemaker import WaveMaker
 
 
 class Game:
@@ -24,6 +25,7 @@ class Game:
         self.init_pygame_and_display(testing)
         self.fleets = Fleets()
         self.fleets.add_scorekeeper(ScoreKeeper(testing))
+        self.fleets.add_wavemaker(WaveMaker())
         self.running = not testing
 
     # noinspection PyAttributeOutsideInit

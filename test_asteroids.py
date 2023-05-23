@@ -4,7 +4,7 @@ import pytest
 from pygame.math import clamp, Vector2
 
 import u
-from fleet import AsteroidFleet, MissileFleet
+from fleet import MissileFleet
 from ship import Ship
 
 
@@ -124,15 +124,6 @@ class TestAsteroids:
     def check_fail(self, ship, roll, asteroids):
         assert ship.hyperspace_failure(roll, asteroids)
 
-    def test_wave_sizes(self):
-        fleet = AsteroidFleet([])
-        fleet.asteroids_in_this_wave = 2
-        assert fleet.next_wave_size() == 4
-        assert fleet.next_wave_size() == 6
-        assert fleet.next_wave_size() == 8
-        assert fleet.next_wave_size() == 10
-        assert fleet.next_wave_size() == 11
-        assert fleet.next_wave_size() == 11
 
 
 

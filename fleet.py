@@ -47,28 +47,6 @@ class Fleet:
             flyer.tick(delta_time, self, fleets)
 
 
-class AsteroidFleet(Fleet):
-    def __init__(self, asteroids):
-        super().__init__(asteroids)
-        self.timer = Timer(u.ASTEROID_DELAY, self.create_wave)
-        self.asteroids_in_this_wave = 2
-
-    def create_wave(self):
-        self.extend([Asteroid() for _ in range(0, self.next_wave_size())])
-
-    def next_wave_size(self):
-        self.asteroids_in_this_wave += 2
-        if self.asteroids_in_this_wave > 10:
-            self.asteroids_in_this_wave = 11
-        return self.asteroids_in_this_wave
-
-    def tick(self, delta_time, fleets):
-        super().tick(delta_time, fleets)
-        if not self.flyers:
-            self.timer.tick(delta_time)
-        return True
-
-
 class ExplosionFleet(Fleet):
     def __init__(self):
         super().__init__([])

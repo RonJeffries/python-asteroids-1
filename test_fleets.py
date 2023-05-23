@@ -3,7 +3,7 @@ from pygame import Vector2
 import u
 from asteroid import Asteroid
 from fleets import Fleets
-from fleet import Fleet, AsteroidFleet, ShipFleet, MissileFleet, ExplosionFleet
+from fleet import Fleet, ShipFleet, MissileFleet, ExplosionFleet
 from missile import Missile
 
 
@@ -69,35 +69,6 @@ class TestFleets:
         s_m_fleet.extend([1, 20, 300])
         assert len(s_m_fleet) == 3
         assert s_m_fleet[1] == 20
-
-    def test_asteroid_fleet_exists(self):
-        asteroids = []
-        _fleet = AsteroidFleet(asteroids)
-
-    def test_asteroid_wave(self):
-        asteroids = []
-        fleets = Fleets(asteroids, [], [], [], [])
-        asteroid_fleet = fleets.asteroids
-        assert isinstance(asteroid_fleet, AsteroidFleet)
-        asteroid_fleet.tick(0.1, fleets)
-        assert not asteroids
-        asteroid_fleet.tick(u.ASTEROID_DELAY, fleets)
-        assert len(asteroids) == 4
-        asteroid_fleet.clear()
-        asteroid_fleet.tick(u.ASTEROID_DELAY, fleets)
-        assert len(asteroids) == 6
-        asteroid_fleet.clear()
-        asteroid_fleet.tick(u.ASTEROID_DELAY, fleets)
-        assert len(asteroids) == 8
-        asteroid_fleet.clear()
-        asteroid_fleet.tick(u.ASTEROID_DELAY, fleets)
-        assert len(asteroids) == 10
-        asteroid_fleet.clear()
-        asteroid_fleet.tick(u.ASTEROID_DELAY, fleets)
-        assert len(asteroids) == 11
-        asteroid_fleet.clear()
-        asteroid_fleet.tick(u.ASTEROID_DELAY, fleets)
-        assert len(asteroids) == 11
 
     def test_ship_rez(self):
         ShipFleet.rez_from_fleet = True

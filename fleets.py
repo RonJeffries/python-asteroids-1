@@ -4,7 +4,7 @@ from itertools import chain
 import pygame.mixer
 
 import u
-from fleet import ShipFleet, SaucerFleet, AsteroidFleet, MissileFleet, ExplosionFleet, Fleet
+from fleet import ShipFleet, SaucerFleet, MissileFleet, ExplosionFleet, Fleet
 from sounds import player
 from thumper import Thumper
 
@@ -17,7 +17,7 @@ class Fleets:
         saucer_missiles = saucer_missiles if saucer_missiles is not None else []
         ships = ships if ships is not None else []
         self.fleets = (
-            AsteroidFleet(asteroids),
+            Fleet(asteroids),
             MissileFleet(missiles, u.MISSILE_LIMIT),
             SaucerFleet(saucers),
             MissileFleet(saucer_missiles, u.SAUCER_MISSILE_LIMIT),
@@ -139,3 +139,6 @@ class Fleets:
     def end_interactions(self):
         for flyer in self.all_objects:
             flyer.end_interactions(self)
+
+    def add_wavemaker(self, wavemaker):
+        self.others.append(wavemaker)
