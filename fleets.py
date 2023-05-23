@@ -4,7 +4,7 @@ from itertools import chain
 import pygame.mixer
 
 import u
-from fleet import ShipFleet, SaucerFleet, MissileFleet, ExplosionFleet, Fleet
+from fleet import ShipFleet, SaucerFleet, MissileFleet, Fleet
 from sounds import player
 from thumper import Thumper
 
@@ -22,7 +22,7 @@ class Fleets:
             SaucerFleet(saucers),
             MissileFleet(saucer_missiles, u.SAUCER_MISSILE_LIMIT),
             ShipFleet(ships),
-            ExplosionFleet(),
+            Fleet([]), # explosions not used
             Fleet([]))
         self.thumper = Thumper(self.beat1, self.beat2)
         self.score = 0

@@ -3,7 +3,7 @@ from pygame import Vector2
 import u
 from asteroid import Asteroid
 from fleets import Fleets
-from fleet import Fleet, ShipFleet, MissileFleet, ExplosionFleet
+from fleet import Fleet, ShipFleet, MissileFleet
 from missile import Missile
 
 

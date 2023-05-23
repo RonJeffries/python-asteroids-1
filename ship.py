@@ -5,6 +5,7 @@ from pygame import Vector2
 import random
 from SurfaceMaker import SurfaceMaker
 import u
+from explosion import Explosion
 from flyer import Flyer
 from missile import Missile
 from movable_location import MovableLocation
@@ -116,7 +117,7 @@ class Ship(Flyer):
     def explode(self, fleets):
         player.play("bang_large", self._location)
         fleets.remove_ship(self)
-        fleets.explosion_at(self.position)
+        fleets.add_flyer(Explosion(self.position))
 
     def hyperspace_transfer(self):
         x = random.randrange(u.SCREEN_SIZE)

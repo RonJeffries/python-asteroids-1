@@ -47,28 +47,6 @@ class Fleet:
             flyer.tick(delta_time, self, fleets)
 
 
-class ExplosionFleet(Fleet):
-    def __init__(self):
-        super().__init__([])
-
-    def explosion_at(self, position):
-        simple = Fragment.simple_fragment
-        vee = Fragment.v_fragment
-        guy = Fragment.astronaut_fragment
-        fragment_factory_methods = [vee, guy, simple, simple, simple, simple, simple]
-        random.shuffle(fragment_factory_methods)
-        how_many = len(fragment_factory_methods)
-        for i in range(how_many):
-            factory_method = fragment_factory_methods[i]
-            base_direction = 360 * i / how_many
-            self.make_fragment(factory_method, position, base_direction)
-
-    def make_fragment(self, factory_method, position, base_direction):
-        twiddle = random.randrange(-20, 20)
-        fragment = factory_method(position=position, angle=base_direction+twiddle)
-        self.flyers.append(fragment)
-
-
 class MissileFleet(Fleet):
     def __init__(self, flyers, maximum_number_of_missiles):
         self.maximum_number_of_missiles = maximum_number_of_missiles
