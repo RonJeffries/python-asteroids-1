@@ -66,6 +66,12 @@ class Fleets:
     def add_asteroid(self, asteroid):
         self.asteroids.append(asteroid)
 
+    def add_flyer(self, flyer):
+        self.others.append(flyer)
+
+    def remove_flyer(self, flyer):
+        self.others.remove(flyer)
+
     def add_score(self, score):
         self.others.append(score)
         self.score += score.score
