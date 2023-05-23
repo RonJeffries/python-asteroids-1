@@ -23,12 +23,12 @@ class WaveMaker(Flyer):
     def interact_with_asteroid(self, asteroid, fleets):
         self.saw_asteroids = True
 
+    def tick(self, delta_time, fleet, fleets):
+        if not self.saw_asteroids:
+            self.timer.tick(delta_time, fleets)
+
     def interact_with(self, other, fleets):
         pass
 
     def draw(self, screen):
         pass
-
-    def tick(self, delta_time, fleet, fleets):
-        if not self.saw_asteroids:
-            self.timer.tick(delta_time, fleets)
