@@ -20,10 +20,3 @@ class Interactor:
     def interact_one_pair(self, target, attacker):
         attacker.interact_with(target, self.fleets)
         target.interact_with(attacker, self.fleets)
-
-
-    
-
-
-
-
