@@ -22,11 +22,29 @@ class TestWaveMaker:
         assert not fleets.asteroid_count
         maker.tick(u.ASTEROID_DELAY, None, fleets)
         assert fleets.asteroid_count == 4
+
+        self.clear_and_tick(fleets, maker)
+        assert fleets.asteroid_count == 6
+
+        self.clear_and_tick(fleets, maker)
+        assert fleets.asteroid_count == 8
+
+        self.clear_and_tick(fleets, maker)
+        assert fleets.asteroid_count == 10
+
+        self.clear_and_tick(fleets, maker)
+        assert fleets.asteroid_count == 11
+
+        self.clear_and_tick(fleets, maker)
+        assert fleets.asteroid_count == 11
+
+    @staticmethod
+    def clear_and_tick(fleets, maker):
         for asteroid in fleets.asteroids:
             fleets.remove_asteroid(asteroid)
         maker.begin_interactions(fleets)
         maker.tick(0.1, None, fleets)
         assert not fleets.asteroid_count
         maker.tick(u.ASTEROID_DELAY, None, fleets)
-        assert fleets.asteroid_count == 6
+
 
