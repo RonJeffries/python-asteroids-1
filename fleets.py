@@ -131,3 +131,11 @@ class Fleets:
             self.thumper.reset()
         for fleet in self.fleets:
             fleet.tick(delta_time, self)
+
+    def begin_interactions(self):
+        for flyer in self.all_objects:
+            flyer.begin_interactions(self)
+
+    def end_interactions(self):
+        for flyer in self.all_objects:
+            flyer.end_interactions(self)

@@ -19,6 +19,12 @@ class Flyer(ABC):
     # concrete methods, inheritable
     # so sue me
 
+    def begin_interactions(self, fleets):
+        pass
+
+    def end_interactions(self, fleets):
+        pass
+
     def interact_with_asteroid(self, asteroid, fleets):
         pass
 

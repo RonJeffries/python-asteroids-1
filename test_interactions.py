@@ -17,6 +17,40 @@ from fleets import Fleets
 from scorekeeper import ScoreKeeper
 
 
+class BeginChecker(Flyer):
+    def __init__(self):
+        self.triggered = False
+
+    def tick(self, delta_time, fleet, fleets):
+        pass
+
+    def draw(self, screen):
+        pass
+
+    def interact_with(self, other, fleets):
+        pass
+
+    def begin_interactions(self, fleets):
+        self.triggered = True
+
+
+class EndChecker(Flyer):
+    def __init__(self):
+        self.triggered = False
+
+    def tick(self, delta_time, fleet, fleets):
+        pass
+
+    def draw(self, screen):
+        pass
+
+    def interact_with(self, other, fleets):
+        pass
+
+    def end_interactions(self, fleets):
+        self.triggered = True
+
+
 class TestInteractions:
     def test_firing_limit(self):
         ship = Ship(u.CENTER)
@@ -182,6 +216,17 @@ class TestInteractions:
         score = interactor.perform_interactions()
         assert score == 0
 
+    def test_begin_end(self):
+        begin = BeginChecker()
+        end = EndChecker()
+        assert begin.triggered == False
+        assert end.triggered == False
+        asteroids = [begin, end]
+        interactor = Interactor(Fleets(asteroids))
+        interactor.perform_interactions()
+        assert begin.triggered == True
+        assert end.triggered == True
+
     def test_collider_via_game_with_score(self):
         game = Game(True)
         asteroid = Asteroid(2, Vector2(100, 100))
@@ -194,8 +239,8 @@ class TestInteractions:
     def test_cached_collider_is_safe(self):
         asteroid = Asteroid(2, Vector2(100, 100))
         missile = Missile.from_ship(Vector2(100, 100), Vector2(3, 3))
-        asteroids=[asteroid]
-        missiles=[missile]
+        asteroids = [asteroid]
+        missiles = [missile]
         interactor = Interactor(Fleets(asteroids, missiles, [], [], []))
         interactor.perform_interactions()
         assert interactor.score == 20
