@@ -15,7 +15,7 @@ class Missile(Flyer):
         if missile_score_list[0] == 0:
             self.is_ship_missile = False
             self.is_saucer_missile = True
-        else
+        else:
             self.is_ship_missile = True
             self.is_saucer_missile = False
         self.radius = 2
