@@ -50,8 +50,7 @@ class Fleets:
 
     @property
     def testing_only_score(self):
-        keeper = next((k for k in self.others if isinstance(k, ScoreKeeper)))
-        print("returning", keeper.score)
+        keeper = next((k for k in self.others if isinstance(k, ScoreKeeper)), ScoreKeeper())
         return keeper.score
 
     @property
