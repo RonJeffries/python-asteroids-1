@@ -23,6 +23,7 @@ class Ship(Flyer):
         self._angle = 0
         self._acceleration = u.SHIP_ACCELERATION
         self._accelerating = False
+        self._missile_tally = 0
         ship_scale = 4
         ship_size = Vector2(14, 8)*ship_scale
         self._ship_surface, self._ship_accelerating_surface = SurfaceMaker.ship_surfaces(ship_size)
@@ -77,11 +78,16 @@ class Ship(Flyer):
     def interact_with(self, attacker, fleets):
         attacker.interact_with_ship(self, fleets)
 
+    def begin_interactions(self, fleets):
+        self._missile_tally = 0
+
     def interact_with_asteroid(self, asteroid, fleets):
         if asteroid.are_we_colliding(self.position, self.radius):
             self.explode(fleets)
 
     def interact_with_missile(self, missile, fleets):
+        if missile.is_ship_missile:
+            self._missile_tally += 1
         if missile.are_we_colliding(self.position, self.radius):
             self.explode(fleets)
 

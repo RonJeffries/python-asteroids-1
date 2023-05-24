@@ -301,3 +301,13 @@ class TestInteractions:
             total = total + a + b
         assert total == 12
         assert not numbers
+
+    def test_ship_counts_missiles(self):
+        fleets = Fleets()
+        ship = Ship(u.CENTER)
+        ship.begin_interactions(fleets)
+        m_ship = Missile.from_ship(Vector2(0, 0), Vector2(0, 0))
+        m_saucer = Missile.from_saucer(Vector2(0, 0), Vector2(0, 0))
+        ship.interact_with_missile(m_ship, fleets)
+        ship.interact_with_missile(m_saucer, fleets)
+        assert ship._missile_tally == 1
