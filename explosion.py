@@ -18,7 +18,7 @@ class Explosion(Flyer):
         fleets.remove_flyer(self)
         self.explosion_at(self.position, fleets)
 
-    def explosion_at(self, position, fleets):
+    def explosion_at(self, _position, fleets):
         simple = Fragment.simple_fragment
         vee = Fragment.v_fragment
         guy = Fragment.astronaut_fragment

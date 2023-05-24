@@ -1,4 +1,3 @@
-
 import pygame
 import pytest
 from pygame.math import clamp, Vector2
@@ -56,7 +55,8 @@ class TestAsteroids:
 
     def test_args(self):
         def local_function(a, b):
-            return 10*a + b
+            return 10 * a + b
+
         result = local_function(b=5, a=6)
         assert result == 65
 
@@ -74,8 +74,8 @@ class TestAsteroids:
         ship = Ship(Vector2(100, 100))
         ship._angle = 45
         pos = ship.missile_start()
-        assert pos.x == pytest.approx(100+25, 0.5)
-        assert pos.y == pytest.approx(100-25, 0.5)
+        assert pos.x == pytest.approx(100 + 25, 0.5)
+        assert pos.y == pytest.approx(100 - 25, 0.5)
 
     def test_missile_velocity(self):
         ship = Ship(Vector2(100, 100))
@@ -87,7 +87,7 @@ class TestAsteroids:
         assert velocity == total_velocity
 
     def test_missile_timeout(self):
-        ship = Ship(Vector2(100,100))
+        ship = Ship(Vector2(100, 100))
         missiles = MissileFleet([], 4)
         ship.fire_if_possible(missiles)
         assert len(missiles) == 1
@@ -106,7 +106,7 @@ class TestAsteroids:
         position = ship.position
         angle = ship._angle
         assert position != impossible and angle != impossible_angle
-        assert ship._location.velocity != Vector2(0,0)
+        assert ship._location.velocity != Vector2(0, 0)
         ship.enter_hyperspace_if_possible([], 99, [])  # cannot fail
         assert ship.position == position and ship._angle == angle
 
@@ -125,11 +125,3 @@ class TestAsteroids:
     @staticmethod
     def check_fail(ship, roll, asteroids):
         assert ship.hyperspace_failure(roll, asteroids)
-
-
-
-
-
-
-
-

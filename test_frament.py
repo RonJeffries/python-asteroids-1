@@ -7,17 +7,17 @@ from fragment import Fragment
 
 class TestFragments:
     def test_frag(self):
-        frag = Fragment(position = u.CENTER, fragments=["ignored"])
+        frag = Fragment(position=u.CENTER, fragments=["ignored"])
         assert frag
 
     def test_frag_random_angle(self):
         angle = 180
-        frag = Fragment(position = u.CENTER, angle=angle, speed_mul=1, fragments=["ignored"])
+        frag = Fragment(position=u.CENTER, angle=angle, speed_mul=1, fragments=["ignored"])
         assert frag.velocity == Vector2(u.FRAGMENT_SPEED, 0).rotate(angle)
         assert frag.velocity.x == -u.FRAGMENT_SPEED
 
     def test_frag_timeout(self):
-        frag = Fragment(position = u.CENTER, fragments=["ignored"])
+        frag = Fragment(position=u.CENTER, fragments=["ignored"])
         fleets = Fleets()
         frags = fleets.explosions
         frags.append(frag)
@@ -30,5 +30,4 @@ class TestFragments:
         frag = Fragment(position=u.CENTER, angle=0, speed_mul=1, fragments=["ignored"])
         assert frag.velocity == Vector2(u.FRAGMENT_SPEED, 0)
         frag.move(0.1)
-        assert frag.position == u.CENTER + Vector2(u.FRAGMENT_SPEED*0.1, 0)
-
+        assert frag.position == u.CENTER + Vector2(u.FRAGMENT_SPEED * 0.1, 0)

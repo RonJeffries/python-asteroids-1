@@ -104,7 +104,7 @@ class Ship(Flyer):
         half = pygame.Vector2(rotated.get_size()) / 2
         screen.blit(rotated, self.position - half)
 
-    def enter_hyperspace_if_possible(self, ships_fleet, asteroid_count, fleets):
+    def enter_hyperspace_if_possible(self, _ships_fleet, asteroid_count, fleets):
         if not self._can_enter_hyperspace:
             return
         self._can_enter_hyperspace = False

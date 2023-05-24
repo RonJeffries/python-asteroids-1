@@ -7,7 +7,7 @@ class TestMovablePosition:
     def test_creation(self):
         position = Vector2(0, 0)
         velocity = Vector2(100, 200)
-        mp = MovableLocation(position, velocity)
+        MovableLocation(position, velocity)
 
     def test_motion(self):
         position = Vector2(0, 0)

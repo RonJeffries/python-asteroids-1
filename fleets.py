@@ -1,8 +1,5 @@
 # SpaceObjects
 from itertools import chain
-
-import pygame.mixer
-
 import u
 from fleet import ShipFleet, SaucerFleet, MissileFleet, Fleet
 from sounds import player
@@ -115,9 +112,6 @@ class Fleets:
     def draw(self, screen):
         for fleet in self.fleets:
             fleet.draw(screen)
-
-    def explosion_at(self, position):
-        self.explosions.explosion_at(position)
 
     def safe_to_emerge(self):
         if self.missiles:

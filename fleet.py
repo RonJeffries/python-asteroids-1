@@ -1,9 +1,6 @@
 # Fleet
-import random
 
 import u
-from asteroid import Asteroid
-from fragment import Fragment
 from saucer import Saucer
 from ship import Ship
 from timer import Timer
