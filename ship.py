@@ -137,7 +137,7 @@ class Ship(Flyer):
         self._can_enter_hyperspace = False
 
     def fire_if_possible(self, fleets):
-        if self._can_fire and self._missile_tally < 4:
+        if self._can_fire and self._missile_tally < u.MISSILE_LIMIT:
             fleets.add_flyer(self.create_missile())
             self._can_fire = False
 
