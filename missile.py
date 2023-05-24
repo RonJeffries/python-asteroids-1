@@ -12,6 +12,12 @@ class Missile(Flyer):
 
     def __init__(self, position, velocity, missile_score_list, saucer_score_list):
         self.score_list = missile_score_list
+        if missile_score_list[0] == 0:
+            self.is_ship_missile = False
+            self.is_saucer_missile = True
+        else
+            self.is_ship_missile = True
+            self.is_saucer_missile = False
         self.radius = 2
         self._timer = Timer(u.MISSILE_LIFETIME, self.timeout)
         self._saucer_score_list = saucer_score_list
