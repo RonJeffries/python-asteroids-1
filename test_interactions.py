@@ -151,10 +151,11 @@ class TestInteractions:
     def test_saucer_ship_missile_scores(self):
         pos = Vector2(100, 100)
         saucer = Saucer()
-        interactor = self.destroy_each_other(pos, saucer)
+        interactor = self.interact_with_missile(pos, saucer)
         assert interactor.score == 200
 
-    def destroy_each_other(self, pos, saucer):
+    @staticmethod
+    def interact_with_missile(pos, saucer):
         saucer.move_to(pos)
         saucers = [saucer]
         missile = Missile.from_ship(pos, Vector2(0, 0))
@@ -168,7 +169,7 @@ class TestInteractions:
     def test_small_saucer_ship_missile_scores(self):
         pos = Vector2(100, 100)
         saucer = Saucer(pos, 1)
-        interactor = self.destroy_each_other(pos, saucer)
+        interactor = self.interact_with_missile(pos, saucer)
         assert interactor.score == 1000
 
     def test_saucer_vs_saucer_missile_does_not_score(self):
