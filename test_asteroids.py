@@ -4,6 +4,7 @@ from pygame.math import clamp, Vector2
 
 import u
 from fleet import MissileFleet
+from fleets import Fleets
 from ship import Ship
 
 
@@ -87,15 +88,18 @@ class TestAsteroids:
         assert velocity == total_velocity
 
     def test_missile_timeout(self):
+        # invasive but works for now.
+        # expect to revise when Fleets goes to just one collection.
         ship = Ship(Vector2(100, 100))
-        missiles = MissileFleet([], 4)
-        ship.fire_if_possible(missiles)
-        assert len(missiles) == 1
-        missile = missiles[0]
-        missile.tick_timer(0.5, missiles)
-        assert len(missiles) == 1
-        missile.tick_timer(3.0, missiles)
-        assert len(missiles) == 0
+        fleets = Fleets()
+        others = fleets.others
+        ship.fire_if_possible(fleets)
+        assert len(others) == 1
+        missile = others[0]
+        missile.tick_timer(0.5, others)
+        assert len(others) == 1
+        missile.tick_timer(3.0, others)
+        assert len(others) == 0
 
     def test_hyperspace(self):
         impossible = Vector2(-5, -5)

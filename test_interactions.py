@@ -55,16 +55,23 @@ class TestInteractions:
     def test_firing_limit(self):
         ship = Ship(u.CENTER)
         count = 0
-        missiles = MissileFleet([], u.MISSILE_LIMIT)
-        while len(missiles) < u.MISSILE_LIMIT:
-            ship._can_fire = True
-            ship.fire_if_possible(missiles)
-            count += 1
-            assert len(missiles) == count
-        assert len(missiles) == u.MISSILE_LIMIT
+        missile_count = 0
+        fleets = Fleets()
+        for i in range(5):
+            missile_count = self.attempt_fire(fleets, missile_count, ship)
+        assert missile_count == u.MISSILE_LIMIT
+        missile_count = self.attempt_fire(fleets, missile_count, ship)
+        assert missile_count == u.MISSILE_LIMIT
+
+    @staticmethod
+    def attempt_fire(fleets, missile_count, ship):
         ship._can_fire = True
-        ship.fire_if_possible(missiles)
-        assert len(missiles) == u.MISSILE_LIMIT
+        ship._missile_tally = 0
+        for flyer in fleets.all_objects:
+            flyer.interact_with(ship, fleets)
+        ship.fire_if_possible(fleets)
+        missile_count = len([m for m in fleets.all_objects])
+        return missile_count
 
     # it's barely possible for two missiles to kill the
     # same asteroid. This used to cause a crash, trying

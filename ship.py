@@ -67,7 +67,7 @@ class Ship(Flyer):
         else:
             self.power_off()
         if keys[pygame.K_k]:
-            self.fire_if_possible(fleets.missiles)
+            self.fire_if_possible(fleets)
         else:
             self._can_fire = True
         if keys[pygame.K_SPACE]:
@@ -136,8 +136,9 @@ class Ship(Flyer):
         self._angle = a
         self._can_enter_hyperspace = False
 
-    def fire_if_possible(self, missiles):
-        if self._can_fire and missiles.fire(self.create_missile):
+    def fire_if_possible(self, fleets):
+        if self._can_fire and self._missile_tally < 4:
+            fleets.add_flyer(self.create_missile())
             self._can_fire = False
 
     @staticmethod
