@@ -2,6 +2,7 @@
 from itertools import chain
 import u
 from fleet import ShipFleet, SaucerFleet, MissileFleet, Fleet
+from scorekeeper import ScoreKeeper
 from sounds import player
 from thumper import Thumper
 
@@ -22,7 +23,6 @@ class Fleets:
             Fleet([]),  # explosions not used
             Fleet([]))
         self.thumper = Thumper(self.beat1, self.beat2)
-        self.score = 0
 
     @property
     def all_objects(self):
@@ -49,6 +49,12 @@ class Fleets:
         return self.fleets[3]
 
     @property
+    def testing_only_score(self):
+        keeper = next((k for k in self.others if isinstance(k, ScoreKeeper)))
+        print("returning", keeper.score)
+        return keeper.score
+
+    @property
     def ships(self):
         return self.fleets[4]
 
@@ -71,7 +77,6 @@ class Fleets:
 
     def add_score(self, score):
         self.others.append(score)
-        self.score += score.score
 
     def add_scorekeeper(self, scorekeeper):
         self.others.append(scorekeeper)

@@ -21,7 +21,6 @@ class Game:
 
     def __init__(self, testing=False):
         self.delta_time = 0
-        self.score = 0
         self.init_pygame_and_display(testing)
         self.fleets = Fleets()
         self.fleets.add_scorekeeper(ScoreKeeper(testing))
@@ -59,7 +58,7 @@ class Game:
 
     def process_interactions(self):
         interactor = Interactor(self.fleets)
-        self.score = interactor.perform_interactions()
+        interactor.perform_interactions()
 
     def control_game(self):
         keys = pygame.key.get_pressed()

@@ -100,10 +100,13 @@ class TestInteractions:
         asteroids = [asteroid]
         missile = Missile.from_ship(pos, Vector2(0, 0))
         missiles = [missile]
-        interactor = Interactor(Fleets(asteroids, missiles, [], [], []))
-        interactor.interact_one_pair(asteroid, missile)
+        fleets = Fleets(asteroids, missiles, [], [], [])
+        fleets.add_scorekeeper(ScoreKeeper())
+        interactor = Interactor(fleets)
+        interactor.perform_interactions()
+        interactor.perform_interactions()
         assert not missiles
-        assert interactor.score == 20
+        assert interactor.testing_only_score == 20
         assert len(asteroids) == 2
 
     def test_missile_ship_does_not_score(self):
@@ -112,11 +115,14 @@ class TestInteractions:
         ships = [ship]
         missile = Missile.from_ship(pos, Vector2(0, 0))
         missiles = [missile]
-        interactor = Interactor(Fleets([], missiles, [], [], ships))
-        interactor.interact_one_pair(ship, missile)
+        fleets = Fleets([], missiles, [], [], ships)
+        fleets.add_scorekeeper(ScoreKeeper())
+        interactor = Interactor(fleets)
+        interactor.perform_interactions()
+        interactor.perform_interactions()
         assert not missiles
         assert not ships
-        assert interactor.score == 0
+        assert interactor.testing_only_score == 0
 
     def test_asteroid_ship_does_not_score(self):
         pos = Vector2(100, 100)
@@ -124,10 +130,13 @@ class TestInteractions:
         asteroids = [asteroid]
         ship = Ship(pos)
         ships = [ship]
-        interactor = Interactor(Fleets(asteroids, [], [], [], ships))
-        interactor.interact_one_pair(asteroid, ship)
+        fleets = Fleets(asteroids, [], [], [], ships)
+        fleets.add_scorekeeper(ScoreKeeper())
+        interactor = Interactor(fleets)
+        interactor.perform_interactions()
+        interactor.perform_interactions()
         assert not ships
-        assert interactor.score == 0
+        assert interactor.testing_only_score == 0
         assert len(asteroids) == 2
 
     def test_saucer_ship_does_not_score(self):
@@ -136,11 +145,14 @@ class TestInteractions:
         saucer.move_to(pos)
         saucers = [saucer]
         ship = Ship(pos)
-        interactor = [ship]
-        collider = Interactor(Fleets([], [], saucers, [], interactor))
-        collider.interact_one_pair(saucer, ship)
-        assert not interactor
-        assert collider.score == 0
+        ships = [ship]
+        fleets = Fleets([], [], saucers, [], ships)
+        fleets.add_scorekeeper(ScoreKeeper())
+        interactor = Interactor(fleets)
+        interactor.perform_interactions()
+        interactor.perform_interactions()
+        assert not ships
+        assert interactor.testing_only_score == 0
 
     def test_asteroid_saucer_does_not_score(self):
         pos = Vector2(100, 100)
@@ -149,17 +161,20 @@ class TestInteractions:
         saucer = Saucer()
         saucer.move_to(pos)
         saucers = [saucer]
-        interactor = Interactor(Fleets(asteroids, [], saucers, [], []))
-        interactor.interact_one_pair(asteroid, saucer)
+        fleets = Fleets(asteroids, [], saucers, [], [])
+        fleets.add_scorekeeper(ScoreKeeper())
+        interactor = Interactor(fleets)
+        interactor.perform_interactions()
+        interactor.perform_interactions()
         assert not saucers
-        assert interactor.score == 0
+        assert interactor.testing_only_score == 0
         assert len(asteroids) == 2
 
     def test_saucer_ship_missile_scores(self):
         pos = Vector2(100, 100)
         saucer = Saucer()
         interactor = self.interact_with_missile(pos, saucer)
-        assert interactor.score == 200
+        assert interactor.testing_only_score == 200
 
     @staticmethod
     def interact_with_missile(pos, saucer):
@@ -167,8 +182,11 @@ class TestInteractions:
         saucers = [saucer]
         missile = Missile.from_ship(pos, Vector2(0, 0))
         missiles = [missile]
-        interactor = Interactor(Fleets([], missiles, saucers, [], []))
-        interactor.interact_one_pair(saucer, missile)
+        fleets = Fleets([], missiles, saucers, [], [])
+        fleets.add_scorekeeper(ScoreKeeper())
+        interactor = Interactor(fleets)
+        interactor.perform_interactions()
+        interactor.perform_interactions()
         assert not missiles
         assert not saucers
         return interactor
@@ -177,7 +195,7 @@ class TestInteractions:
         pos = Vector2(100, 100)
         saucer = Saucer(pos, 1)
         interactor = self.interact_with_missile(pos, saucer)
-        assert interactor.score == 1000
+        assert interactor.testing_only_score == 1000
 
     def test_saucer_vs_saucer_missile_does_not_score(self):
         pos = Vector2(100, 100)
@@ -186,11 +204,14 @@ class TestInteractions:
         saucers = [saucer]
         missile = Missile.from_saucer(pos, Vector2(0, 0))
         missiles = [missile]
-        interactor = Interactor(Fleets([], missiles, saucers, [], []))
-        interactor.interact_one_pair(saucer, missile)
+        fleets = Fleets([], missiles, saucers, [], [])
+        fleets.add_scorekeeper(ScoreKeeper())
+        interactor = Interactor(fleets)
+        interactor.perform_interactions()
+        interactor.perform_interactions()
         assert not missiles
         assert not saucers
-        assert interactor.score == 0
+        assert interactor.testing_only_score == 0
 
     def test_everyone_supports_asteroid_score_lists(self):
         asteroid = Asteroid()
@@ -217,9 +238,11 @@ class TestInteractions:
         assert asteroid.position == Vector2(0, 0)
 
     def test_collider(self):
-        interactor = Interactor(Fleets([], [], [], [], []))
-        score = interactor.perform_interactions()
-        assert score == 0
+        fleets = Fleets([], [], [], [], [])
+        fleets.add_scorekeeper(ScoreKeeper())
+        interactor = Interactor(fleets)
+        interactor.perform_interactions()
+        assert interactor.testing_only_score == 0
 
     def test_begin_end(self):
         begin = BeginChecker()
@@ -236,21 +259,26 @@ class TestInteractions:
         game = Game(True)
         asteroid = Asteroid(2, Vector2(100, 100))
         game.fleets.asteroids.append(asteroid)
+        game.fleets.add_scorekeeper(ScoreKeeper())
         missile = Missile.from_ship(Vector2(100, 100), Vector2(3, 3))
         game.fleets.missiles.append(missile)
         game.process_interactions()
-        assert game.score == 20
+        game.process_interactions()
+        assert game.fleets.testing_only_score == 20
 
     def test_cached_collider_is_safe(self):
         asteroid = Asteroid(2, Vector2(100, 100))
         missile = Missile.from_ship(Vector2(100, 100), Vector2(3, 3))
         asteroids = [asteroid]
         missiles = [missile]
-        interactor = Interactor(Fleets(asteroids, missiles, [], [], []))
+        fleets = Fleets(asteroids, missiles, [], [], [])
+        fleets.add_scorekeeper(ScoreKeeper())
+        interactor = Interactor(fleets)
         interactor.perform_interactions()
-        assert interactor.score == 20
         interactor.perform_interactions()
-        assert interactor.score == 20
+        assert interactor.testing_only_score == 20
+        interactor.perform_interactions()
+        assert interactor.testing_only_score == 20
 
     def test_can_choose_nearest_scalar_target(self):
         target = 100
