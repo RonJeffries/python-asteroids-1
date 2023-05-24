@@ -15,7 +15,7 @@ class Fleets:
         ships = ships if ships is not None else []
         self.fleets = (
             Fleet(asteroids),
-            MissileFleet(missiles, u.MISSILE_LIMIT),
+            Fleet(missiles),
             SaucerFleet(saucers),
             MissileFleet(saucer_missiles, u.SAUCER_MISSILE_LIMIT),
             ShipFleet(ships),
