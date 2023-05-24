@@ -82,18 +82,22 @@ class Ship(Flyer):
         self._missile_tally = 0
 
     def interact_with_asteroid(self, asteroid, fleets):
-        if asteroid.are_we_colliding(self.position, self.radius):
-            self.explode(fleets)
+        self.explode_if_hit(fleets, asteroid)
 
     def interact_with_missile(self, missile, fleets):
-        if missile.is_ship_missile:
-            self._missile_tally += 1
-        if missile.are_we_colliding(self.position, self.radius):
+        self.tally_ship_missiles(missile)
+        self.explode_if_hit(fleets, missile)
+
+    def explode_if_hit(self, fleets, attacker):
+        if attacker.are_we_colliding(self.position, self.radius):
             self.explode(fleets)
 
+    def tally_ship_missiles(self, missile):
+        if missile.is_ship_missile:
+            self._missile_tally += 1
+
     def interact_with_saucer(self, saucer, fleets):
-        if saucer.are_we_colliding(self.position, self.radius):
-            self.explode(fleets)
+        self.explode_if_hit(fleets, saucer)
 
     def are_we_colliding(self, position, radius):
         kill_range = self.radius + radius
