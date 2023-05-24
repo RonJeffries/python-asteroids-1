@@ -30,7 +30,8 @@ class Game:
 
     # noinspection PyAttributeOutsideInit
     def init_pygame_and_display(self, testing):
-        if testing: return
+        if testing:
+            return
         pygame.init()
         pygame.mixer.init()
         player.init_sounds()
@@ -113,5 +114,6 @@ class Game:
         self.control_game()
         self.process_interactions()
         self.draw_everything()
-        if ShipFleet.game_over: self.draw_game_over()
+        if ShipFleet.game_over:
+            self.draw_game_over()
 

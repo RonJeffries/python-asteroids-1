@@ -46,7 +46,8 @@ class Fragment(Flyer):
         self.timer = Timer(u.FRAGMENT_LIFETIME, self.timeout)
         self.fragments = fragments
 
-    def are_we_colliding(self, position, radius):
+    @staticmethod
+    def are_we_colliding(position, radius):
         return False
 
     def draw(self, screen):
@@ -64,7 +65,8 @@ class Fragment(Flyer):
         head_off = position.rotate(self.theta)
         pygame.draw.circle(screen, "white", self.position + head_off, radius, width)
 
-    def draw_one_line(self, screen, position, theta, pair):
+    @staticmethod
+    def draw_one_line(screen, position, theta, pair):
         start = pair[0].rotate(theta) + position
         end = pair[1].rotate(theta) + position
         pygame.draw.line(screen, "white", start, end, 3)

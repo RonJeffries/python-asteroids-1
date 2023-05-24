@@ -15,7 +15,7 @@ class Thumper:
         self._decrement_time = 0
         self._execute_time = 0
 
-
+    # noinspection PyAttributeOutsideInit
     def tick(self, delta_time):
         self._execute_time += delta_time
         if self._execute_time >= self._interval:

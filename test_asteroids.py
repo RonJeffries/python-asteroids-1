@@ -10,7 +10,7 @@ from ship import Ship
 
 class TestAsteroids:
     def test_something(self):
-        assert True == True
+        assert True
 
     def test_map_lambda(self):
         points = [Vector2(-3.0, -2.0), Vector2(-3.0, 2.0), Vector2(-5.0, 4.0),
@@ -67,7 +67,7 @@ class TestAsteroids:
         assert three == 3
 
     def test_list_pop(self):
-        things = [1,2,3,4]
+        things = [1, 2, 3, 4]
         assert things.pop() == 4
 
     def test_missile_start(self):
@@ -107,7 +107,7 @@ class TestAsteroids:
         angle = ship._angle
         assert position != impossible and angle != impossible_angle
         assert ship._location.velocity != Vector2(0,0)
-        ship.enter_hyperspace_if_possible([], 99, []) # cannot fail
+        ship.enter_hyperspace_if_possible([], 99, [])  # cannot fail
         assert ship.position == position and ship._angle == angle
 
     def test_hyperspace_failure(self):
@@ -118,10 +118,12 @@ class TestAsteroids:
         self.check_fail(ship, 62, 17)
         self.check_no_fail(ship, 62, 18)
 
-    def check_no_fail(self, ship, roll, asteroids):
+    @staticmethod
+    def check_no_fail(ship, roll, asteroids):
         assert not ship.hyperspace_failure(roll, asteroids)
 
-    def check_fail(self, ship, roll, asteroids):
+    @staticmethod
+    def check_fail(ship, roll, asteroids):
         assert ship.hyperspace_failure(roll, asteroids)
 
 

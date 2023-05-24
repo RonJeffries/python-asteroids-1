@@ -22,7 +22,7 @@ class Fleets:
             SaucerFleet(saucers),
             MissileFleet(saucer_missiles, u.SAUCER_MISSILE_LIMIT),
             ShipFleet(ships),
-            Fleet([]), # explosions not used
+            Fleet([]),  # explosions not used
             Fleet([]))
         self.thumper = Thumper(self.beat1, self.beat2)
         self.score = 0
@@ -100,10 +100,12 @@ class Fleets:
     def remove_ship(self, ship):
         self.ships.remove(ship)
 
-    def beat1(self):
+    @staticmethod
+    def beat1():
         player.play("beat1")
 
-    def beat2(self):
+    @staticmethod
+    def beat2():
         player.play("beat2")
 
     def clear(self):

@@ -24,6 +24,7 @@ class FakeFlyer:
     def tick(_delta_time, _fleet, _fleets):
         pass
 
+
 class TestFleets:
     def test_creation(self):
         asteroids = ["asteroid"]
@@ -84,7 +85,7 @@ class TestFleets:
     def test_unsafe_because_missile(self):
         ShipFleet.rez_from_fleet = True
         ships = []
-        missile = Missile(u.CENTER, Vector2(0,0), [0,0,0], [0,0,0])
+        missile = Missile(u.CENTER, Vector2(0, 0), [0, 0, 0], [0, 0, 0])
         missiles = [missile]
         fleets = Fleets([], missiles, [], [], ships)
         ship_fleet = fleets.ships
@@ -97,7 +98,7 @@ class TestFleets:
 
     def test_unsafe_because_saucer_missile(self):
         ships = []
-        missile = Missile(u.CENTER, Vector2(0,0), [0,0,0], [0,0,0])
+        missile = Missile(u.CENTER, Vector2(0, 0), [0, 0, 0], [0, 0, 0])
         saucer_missiles = [missile]
         fleets = Fleets([], [], [], saucer_missiles, ships)
         ship_fleet = fleets.ships
@@ -145,29 +146,29 @@ class TestFleets:
     def test_missile_fleet(self):
         missiles = []
         fleet = MissileFleet(missiles, 3)
-        fired = fleet.fire(lambda:  666 )
+        fired = fleet.fire(lambda: 666)
         assert fired
         assert len(missiles) == 1
         assert missiles[-1] == 666
 
-        fired = fleet.fire(lambda:  777 )
+        fired = fleet.fire(lambda: 777)
         assert fired
         assert len(missiles) == 2
         assert missiles[-1] == 777
 
-        fired = fleet.fire(lambda:  888 )
+        fired = fleet.fire(lambda: 888)
         assert fired
         assert len(missiles) == 3
         assert missiles[-1] == 888
 
-        fired = fleet.fire(lambda:  999 )
+        fired = fleet.fire(lambda: 999)
         assert not fired
         assert len(missiles) == 3
 
     def test_missile_fleet_parameter(self):
         missiles = []
         fleet = MissileFleet(missiles, 2)
-        fired = fleet.fire(lambda m: m*2, 333)
+        fired = fleet.fire(lambda m: m * 2, 333)
         assert fired
         assert len(missiles) == 1
         assert missiles[-1] == 666
@@ -178,11 +179,3 @@ class TestFleets:
         all_objects = fleets.all_objects
         assert len(all_objects) == 6
         assert sum(all_objects) == 21
-
-
-
-
-
-
-
-

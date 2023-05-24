@@ -9,7 +9,8 @@ class ScoreKeeper(Flyer):
         if not testing:
             self.score_font = pygame.font.SysFont("arial", 48)
 
-    def are_we_colliding(self, position, radius):
+    @staticmethod
+    def are_we_colliding(_position, _radius):
         return False
 
     def draw(self, screen):

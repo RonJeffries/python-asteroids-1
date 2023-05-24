@@ -5,7 +5,8 @@ class Score(Flyer):
     def __init__(self, score):
         self.score = score
 
-    def are_we_colliding(self, position, radius):
+    @staticmethod
+    def are_we_colliding(position, radius):
         return False
 
     def draw(self, screen):
