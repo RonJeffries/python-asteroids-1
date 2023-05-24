@@ -219,13 +219,13 @@ class TestInteractions:
     def test_begin_end(self):
         begin = BeginChecker()
         end = EndChecker()
-        assert begin.triggered == False
-        assert end.triggered == False
+        assert not begin.triggered
+        assert not end.triggered
         asteroids = [begin, end]
         interactor = Interactor(Fleets(asteroids))
         interactor.perform_interactions()
-        assert begin.triggered == True
-        assert end.triggered == True
+        assert begin.triggered
+        assert end.triggered
 
     def test_collider_via_game_with_score(self):
         game = Game(True)
@@ -291,15 +291,15 @@ class TestInteractions:
         # combinations seems to create a protected tuple
         numbers = [1, 2, 3]
         total = 0
-        for a,b in itertools.combinations(numbers, 2):
+        for a, b in itertools.combinations(numbers, 2):
             total = total + a + b
         assert total == 12
         total = 0
-        for a,b in itertools.combinations(numbers, 2):
-            if a in numbers: numbers.remove(a)
-            if b in numbers: numbers.remove(b)
+        for a, b in itertools.combinations(numbers, 2):
+            if a in numbers:
+                numbers.remove(a)
+            if b in numbers:
+                numbers.remove(b)
             total = total + a + b
         assert total == 12
         assert not numbers
-
-

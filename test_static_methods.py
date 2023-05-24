@@ -20,6 +20,7 @@ class TestStaticMethods:
 
 class AllStatic:
     direction = -1
+
     @staticmethod
     def static_one(x, y):
         return 100 * x + y

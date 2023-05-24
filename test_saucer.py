@@ -30,9 +30,9 @@ class TestSaucer:
         saucer = Saucer()
         saucer.ready()
         saucer.move(delta_time=0.1, saucers=[])
-        assert saucer.position.x == u.SAUCER_VELOCITY.x*0.1
+        assert saucer.position.x == u.SAUCER_VELOCITY.x * 0.1
         saucer.move(delta_time=0.1, saucers=[])
-        assert saucer.position.x == 2*u.SAUCER_VELOCITY.x*0.1
+        assert saucer.position.x == 2 * u.SAUCER_VELOCITY.x * 0.1
 
     def test_vanish_at_edge(self):
         Saucer.init_for_new_game()
@@ -98,7 +98,7 @@ class TestSaucer:
         saucer = Saucer()
         saucer.move_to(Vector2(123, 456))
         missile = saucer.missile_at_angle(90, saucer.velocity_testing_only)
-        expected_offset = Vector2(2*saucer.radius, 0).rotate(90)
+        expected_offset = Vector2(2 * saucer.radius, 0).rotate(90)
         assert missile.position == saucer.position + expected_offset
 
     def test_vectors_mutate(self):
@@ -114,9 +114,9 @@ class TestSaucer:
     def test_missile_scoring(self):
         p = Vector2(12, 34)
         v = Vector2(56, 78)
-        ship_missile = Missile.from_ship(p,v)
+        ship_missile = Missile.from_ship(p, v)
         assert ship_missile.score_list == u.MISSILE_SCORE_LIST
-        saucer_missile = Missile.from_saucer(p,v)
+        saucer_missile = Missile.from_saucer(p, v)
         assert saucer_missile.score_list == [0, 0, 0]
 
     def test_missile_spec_targeted(self):
@@ -160,7 +160,3 @@ class TestSaucer:
         for m in methods:
             print(m)
         assert True
-
-
-
-
