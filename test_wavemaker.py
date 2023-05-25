@@ -1,4 +1,5 @@
 import u
+from asteroid import Asteroid
 from fleets import Fleets
 from wavemaker import WaveMaker
 
@@ -17,34 +18,37 @@ class TestWaveMaker:
         maker = WaveMaker()
         maker.begin_interactions(fleets)
         assert not maker.saw_asteroids
-        assert not fleets.asteroid_count
+        assert not self.count_asteroids(fleets)
         maker.tick(0.1, None, fleets)
-        assert not fleets.asteroid_count
+        assert not self.count_asteroids(fleets)
         maker.tick(u.ASTEROID_DELAY, None, fleets)
-        assert fleets.asteroid_count == 4
+        assert self.count_asteroids(fleets) == 4
 
         self.clear_and_tick(fleets, maker)
-        assert fleets.asteroid_count == 6
+        assert self.count_asteroids(fleets) == 6
 
         self.clear_and_tick(fleets, maker)
-        assert fleets.asteroid_count == 8
+        assert self.count_asteroids(fleets) == 8
 
         self.clear_and_tick(fleets, maker)
-        assert fleets.asteroid_count == 10
+        assert self.count_asteroids(fleets) == 10
 
         self.clear_and_tick(fleets, maker)
-        assert fleets.asteroid_count == 11
+        assert self.count_asteroids(fleets) == 11
 
         self.clear_and_tick(fleets, maker)
-        assert fleets.asteroid_count == 11
+        assert self.count_asteroids(fleets) == 11
 
-    @staticmethod
-    def clear_and_tick(fleets, maker):
+    def count_asteroids(self, fleets):
+        asteroids = [a for a in fleets.asteroids if isinstance(a, Asteroid)]
+        return len(asteroids)
+
+    def clear_and_tick(self, fleets, maker):
         for asteroid in fleets.asteroids:
             fleets.remove_asteroid(asteroid)
         maker.begin_interactions(fleets)
         maker.tick(0.1, None, fleets)
-        assert not fleets.asteroid_count
+        assert not self.count_asteroids(fleets)
         maker.tick(u.ASTEROID_DELAY, None, fleets)
 
 
