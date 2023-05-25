@@ -33,6 +33,10 @@ class FleetsInspector:
     def missiles(self):
         return [m for m in self.all if isinstance(m, Missile)]
 
+    @property
+    def saucers(self):
+        return [s for s in self.all if isinstance(s, Saucer)]
+
 
 FI = FleetsInspector
 

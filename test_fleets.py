@@ -5,6 +5,7 @@ from asteroid import Asteroid
 from fleets import Fleets
 from fleet import Fleet, ShipFleet, MissileFleet
 from missile import Missile
+from test_interactions import FI
 
 
 class FakeFlyer:
@@ -55,13 +56,11 @@ class TestFleets:
         assert fleet
 
     def test_saucer_spawn(self):
-        saucers = []
-        fleets = Fleets([], [], saucers, [], [])
-        saucer_fleet = fleets.saucers
-        saucer_fleet.tick(0.1, fleets)
-        assert not saucers
-        saucer_fleet.tick(u.SAUCER_EMERGENCE_TIME, fleets)
-        assert saucers
+        fleets = Fleets()
+        fleets.tick(0.1)
+        assert not FI(fleets).saucers
+        fleets.tick(u.SAUCER_EMERGENCE_TIME)
+        assert FI(fleets).saucers
 
     def test_len_etc(self):
         saucer_missiles = []
