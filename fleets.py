@@ -100,6 +100,12 @@ class Fleets:
     def remove_saucer(self, saucer):
         self.saucers.remove(saucer)
 
+    def add_saucer_missile(self, missile):
+        self.saucer_missiles.append(missile)
+
+    def remove_saucer_missile(self, missile):
+        self.saucer_missiles.remove(missile)
+
     # no add ship
     def remove_ship(self, ship):
         self.ships.remove(ship)
@@ -121,10 +127,12 @@ class Fleets:
             fleet.draw(screen)
 
     def safe_to_emerge(self):
+        print(self.saucer_missiles, self.saucer_missiles.flyers)
         if self.missiles:
             return False
         if self.saucer_missiles:
             return False
+        print("passed saucer_missiles?")
         return self.all_asteroids_are_away_from_center()
 
     def all_asteroids_are_away_from_center(self):

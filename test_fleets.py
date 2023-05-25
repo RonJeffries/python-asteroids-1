@@ -97,17 +97,16 @@ class TestFleets:
         assert ships
 
     def test_unsafe_because_saucer_missile(self):
-        ships = []
+        fleets = Fleets()
         missile = Missile(u.CENTER, Vector2(0, 0), [0, 0, 0], [0, 0, 0])
-        saucer_missiles = [missile]
-        fleets = Fleets([], [], [], saucer_missiles, ships)
-        ship_fleet = fleets.ships
-        assert not ships
-        ship_fleet.tick(u.SHIP_EMERGENCE_TIME, fleets)
-        assert not ships
-        saucer_missiles.clear()
-        ship_fleet.tick(0.001, fleets)
-        assert ships
+        assert not FI(fleets).ships
+        fleets.tick(u.SHIP_EMERGENCE_TIME - 1)
+        fleets.add_saucer_missile(missile)
+        fleets.tick(1)
+        assert not FI(fleets).ships
+        FI(fleets).clear_saucer_missiles()
+        fleets.tick(0.001)
+        assert FI(fleets).ships
 
     def test_unsafe_because_asteroid(self):
         ShipFleet.rez_from_fleet = True

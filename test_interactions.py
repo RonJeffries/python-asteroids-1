@@ -37,6 +37,18 @@ class FleetsInspector:
     def saucers(self):
         return [s for s in self.all if isinstance(s, Saucer)]
 
+    @property
+    def saucer_missiles(self):
+        return [m for m in self.all if isinstance(m, Missile) and m.is_saucer_missile]
+
+
+    @property
+    def ships(self):
+        return [s for s in self.all if isinstance(s, Ship)]
+
+    def clear_saucer_missiles(self):
+        for m in self.fleets.saucer_missiles:
+            self.fleets.remove_saucer_missile(m)
 
 FI = FleetsInspector
 
