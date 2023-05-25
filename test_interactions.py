@@ -17,6 +17,26 @@ from fleets import Fleets
 from scorekeeper import ScoreKeeper
 
 
+class FleetsInspector:
+    def __init__(self, fleets):
+        self.fleets = fleets
+
+    @property
+    def all(self):
+        return self.fleets.all_objects
+
+    @property
+    def asteroids(self):
+        return [a for a in self.all if isinstance(a, Asteroid)]
+
+    @property
+    def missiles(self):
+        return [m for m in self.all if isinstance(m, Missile)]
+
+
+FI = FleetsInspector
+
+
 class BeginChecker(Flyer):
     def __init__(self):
         self.triggered = False
@@ -94,6 +114,23 @@ class TestInteractions:
         interactor.perform_interactions()
         assert not missiles
         assert interactor.testing_only_score == 20
+        assert len(asteroids) == 2
+
+    def test_missile_asteroid_scores_with_missiles_in_others(self):
+        fleets = Fleets()
+        pos = Vector2(100, 100)
+        asteroid = Asteroid(2, pos)
+        fleets.add_asteroid(asteroid)
+        missile = Missile.from_ship(pos, Vector2(0, 0))
+        fleets.add_flyer(missile)
+        fleets.add_scorekeeper(ScoreKeeper())
+        interactor = Interactor(fleets)
+        interactor.perform_interactions()
+        interactor.perform_interactions()
+        missiles = FI(fleets).missiles
+        assert not missiles
+        assert interactor.testing_only_score == 20
+        asteroids = FI(fleets).asteroids
         assert len(asteroids) == 2
 
     def test_missile_ship_does_not_score(self):
