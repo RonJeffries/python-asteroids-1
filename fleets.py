@@ -29,12 +29,12 @@ class Fleets:
         return list(chain(*self.fleets))
 
     @property
-    def asteroids(self):
+    def _asteroids(self):
         return self.fleets[0]
 
     @property
     def asteroid_count(self):
-        return len(self.asteroids)
+        return len(self._asteroids)
 
     @property
     def missiles(self):
@@ -66,7 +66,7 @@ class Fleets:
         return self.fleets[6]
 
     def add_asteroid(self, asteroid):
-        self.asteroids.append(asteroid)
+        self._asteroids.append(asteroid)
 
     def add_flyer(self, flyer):
         self.others.append(flyer)
@@ -80,14 +80,8 @@ class Fleets:
     def add_scorekeeper(self, scorekeeper):
         self.others.append(scorekeeper)
 
-    def has_asteroid(self, asteroid):
-        # this code violates the decentralized design
-        # by asking a question of the Fleet.
-        # Fix it up when we fold the fleet instances together.
-        return asteroid in self.asteroids
-
     def remove_asteroid(self, asteroid):
-        self.asteroids.remove(asteroid)
+        self._asteroids.remove(asteroid)
 
     def remove_missile(self, missile):
         self.missiles.remove(missile)
@@ -125,13 +119,13 @@ class Fleets:
         return self.all_asteroids_are_away_from_center()
 
     def all_asteroids_are_away_from_center(self):
-        for asteroid in self.asteroids:
+        for asteroid in self._asteroids:
             if asteroid.position.distance_to(u.CENTER) < u.SAFE_EMERGENCE_DISTANCE:
                 return False
         return True
 
     def tick(self, delta_time):
-        if self.asteroids and self.ships:
+        if self._asteroids and self.ships:
             self.thumper.tick(delta_time)
         else:
             self.thumper.reset()

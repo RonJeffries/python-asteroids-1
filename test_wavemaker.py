@@ -40,12 +40,15 @@ class TestWaveMaker:
         assert self.count_asteroids(fleets) == 11
 
     @staticmethod
-    def count_asteroids(fleets):
-        asteroids = [a for a in fleets.asteroids if isinstance(a, Asteroid)]
+    def find_asteroids(fleets):
+        return [a for a in fleets.all_objects if isinstance(a, Asteroid)]
+
+    def count_asteroids(self, fleets):
+        asteroids = self.find_asteroids(fleets)
         return len(asteroids)
 
     def clear_and_tick(self, fleets, maker):
-        for asteroid in fleets.asteroids:
+        for asteroid in self.find_asteroids(fleets):
             fleets.remove_asteroid(asteroid)
         maker.begin_interactions(fleets)
         maker.tick(0.1, None, fleets)

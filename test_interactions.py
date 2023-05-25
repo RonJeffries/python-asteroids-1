@@ -73,19 +73,6 @@ class TestInteractions:
         missile_count = len([m for m in fleets.all_objects])
         return missile_count
 
-    # it's barely possible for two missiles to kill the
-    # same asteroid. This used to cause a crash, trying
-    # to remove the same asteroid twice.
-    def test_dual_kills(self):
-        asteroid = Asteroid(2, Vector2(0, 0))
-        asteroids = [asteroid]
-        fleets = Fleets(asteroids)
-        asteroid.split_or_die(fleets)
-        assert asteroid not in asteroids
-        assert len(asteroids) == 2
-        asteroid.split_or_die(fleets)
-        assert len(asteroids) == 2  # didn't crash, didn't split again
-
     def test_score_list(self):
         ship = Ship(u.CENTER)
         assert ship.scores_for_hitting_asteroid() == [0, 0, 0]

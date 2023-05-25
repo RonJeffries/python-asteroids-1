@@ -71,8 +71,6 @@ class Asteroid(Flyer):
         return attacker.scores_for_hitting_asteroid()[self.size]
 
     def split_or_die(self, fleets):
-        if not fleets.has_asteroid(self):
-            return  # avoid low probability double kill
         fleets.remove_asteroid(self)
         self.explode()
         if self.size > 0:

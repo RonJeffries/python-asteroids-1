@@ -42,7 +42,8 @@ class TestFleets:
         saucer_missiles = ["saucer_missile"]
         ships = ["ship"]
         fleets = Fleets(asteroids, missiles, saucers, saucer_missiles, ships)
-        assert fleets.asteroids.flyers == asteroids
+        # removing accessors as part of decentralization
+        # assert fleets.asteroids.flyers == asteroids
         assert fleets.missiles.flyers == missiles
         assert fleets.saucers.flyers == saucers
         assert fleets.saucer_missiles.flyers == saucer_missiles
