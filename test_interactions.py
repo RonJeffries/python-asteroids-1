@@ -258,7 +258,7 @@ class TestInteractions:
     def test_collider_via_game_with_score(self):
         game = Game(True)
         asteroid = Asteroid(2, Vector2(100, 100))
-        game.fleets.asteroids.append(asteroid)
+        game.fleets.add_asteroid(asteroid)
         game.fleets.add_scorekeeper(ScoreKeeper())
         missile = Missile.from_ship(Vector2(100, 100), Vector2(3, 3))
         game.fleets.missiles.append(missile)
