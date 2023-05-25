@@ -65,8 +65,13 @@ class Fleets:
     def others(self):
         return self.fleets[6]
 
+    # adds and removes
+
     def add_asteroid(self, asteroid):
         self._asteroids.append(asteroid)
+
+    def remove_asteroid(self, asteroid):
+        self._asteroids.remove(asteroid)
 
     def add_flyer(self, flyer):
         self.others.append(flyer)
@@ -74,25 +79,28 @@ class Fleets:
     def remove_flyer(self, flyer):
         self.others.remove(flyer)
 
-    def add_score(self, score):
-        self.others.append(score)
-
-    def add_scorekeeper(self, scorekeeper):
-        self.others.append(scorekeeper)
-
-    def remove_asteroid(self, asteroid):
-        self._asteroids.remove(asteroid)
+    def add_missile(self, missile):
+        self.add_flyer(missile)
 
     def remove_missile(self, missile):
         self.missiles.remove(missile)
         self.others.remove(missile)
 
-    def remove_saucer(self, saucer):
-        self.saucers.remove(saucer)
+    def add_score(self, score):
+        self.others.append(score)
 
     def remove_score(self, score):
         self.others.remove(score)
 
+    def add_scorekeeper(self, scorekeeper):
+        self.others.append(scorekeeper)
+    # no remove
+
+    # no add_saucer
+    def remove_saucer(self, saucer):
+        self.saucers.remove(saucer)
+
+    # no add ship
     def remove_ship(self, ship):
         self.ships.remove(ship)
 
