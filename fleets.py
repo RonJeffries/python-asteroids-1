@@ -85,6 +85,7 @@ class Fleets:
 
     def remove_missile(self, missile):
         self.missiles.remove(missile)
+        self.others.remove(missile)
 
     def remove_saucer(self, saucer):
         self.saucers.remove(saucer)
