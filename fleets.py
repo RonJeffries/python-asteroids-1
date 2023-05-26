@@ -122,6 +122,9 @@ class Fleets:
         for fleet in self.fleets:
             fleet.clear()
 
+    def count(self, condition):
+        return len(self.select(condition))
+
     def draw(self, screen):
         for fleet in self.fleets:
             fleet.draw(screen)
