@@ -22,33 +22,33 @@ class FleetsInspector:
     def __init__(self, fleets):
         self.fleets = fleets
 
-    @property
-    def all(self):
-        return self.fleets.all_objects
+    def select(self, condition):
+        return self.fleets.select(condition)
 
     @property
     def asteroids(self):
-        return [a for a in self.all if isinstance(a, Asteroid)]
+        return self.select(lambda a: isinstance(a, Asteroid))
 
     @property
     def missiles(self):
-        return [m for m in self.all if isinstance(m, Missile)]
+        return self.select(lambda m: isinstance(m, Missile))
 
     @property
     def saucers(self):
-        return [s for s in self.all if isinstance(s, Saucer)]
+        return self.select(lambda s: isinstance(s, Saucer))
 
     @property
     def saucer_missiles(self):
-        return [m for m in self.all if isinstance(m, Missile) and m.is_saucer_missile]
+        return self.select(lambda m: isinstance(m, Missile) and m.is_saucer_missile)
 
     @property
     def ships(self):
-        return [s for s in self.all if isinstance(s, Ship)]
+        return self.select(lambda s: isinstance(s, Ship))
 
     def clear_saucer_missiles(self):
-        for m in self.fleets.saucer_missiles:
+        for m in self.saucer_missiles:
             self.fleets.remove_saucer_missile(m)
+
 
 FI = FleetsInspector
 
