@@ -43,12 +43,13 @@ class TestFleets:
         saucer_missiles = ["saucer_missile"]
         ships = ["ship"]
         fleets = Fleets(asteroids, missiles, saucers, saucer_missiles, ships)
+        fi = FI(fleets)
         # removing accessors as part of decentralization
         # assert fleets.asteroids.flyers == asteroids
-        assert fleets.missiles.flyers == missiles
-        assert fleets.saucers.flyers == saucers
-        assert fleets.saucer_missiles.flyers == saucer_missiles
-        assert fleets.ships.flyers == ships
+        # assert fi.missiles.flyers == missiles
+        # assert fi.saucers.flyers == saucers
+        # assert fi.saucer_missiles.flyers == saucer_missiles
+        # assert fi.ships.flyers == ships
 
     def test_fleet_creation(self):
         asteroids = ["asteroid"]
@@ -73,28 +74,31 @@ class TestFleets:
 
     def test_ship_rez(self):
         ShipFleet.rez_from_fleet = True
-        ships = []
-        fleets = Fleets([], [], [], [], ships)
-        ship_fleet = fleets.ships
-        assert not ships
-        ship_fleet.tick(0.1, fleets)
-        assert not ships
-        ship_fleet.tick(u.SHIP_EMERGENCE_TIME, fleets)
-        assert ships
+        fleets = Fleets()
+        fi = FI(fleets)
+        assert not fi.ships
+        fleets.tick(0.1)
+        assert not fi.ships
+        fleets.tick(u.SHIP_EMERGENCE_TIME)
+        assert fi.ships
 
     def test_unsafe_because_missile(self):
         ShipFleet.rez_from_fleet = True
         ships = []
         missile = Missile(u.CENTER, Vector2(0, 0), [0, 0, 0], [0, 0, 0])
-        missiles = [missile]
-        fleets = Fleets([], missiles, [], [], ships)
-        ship_fleet = fleets.ships
-        assert not ships
-        ship_fleet.tick(u.SHIP_EMERGENCE_TIME, fleets)
-        assert not ships
-        missiles.clear()
-        ship_fleet.tick(0.001, fleets)
-        assert ships
+        fleets = Fleets()
+        fi = FI(fleets)
+        assert not fi.ships
+        fleets.tick(u.SHIP_EMERGENCE_TIME - 1)
+        assert not fi.ships
+        fleets.add_missile(missile)
+        fleets.tick(1)
+        assert not fi.ships
+        for missile in fi.missiles:
+            print("removing")
+            fleets.remove_missile(missile)
+        fleets.tick(0.001)
+        assert fi.ships
 
     def test_unsafe_because_saucer_missile(self):
         fleets = Fleets()
@@ -109,38 +113,40 @@ class TestFleets:
         assert FI(fleets).ships
 
     def test_unsafe_because_asteroid(self):
+        fleets = Fleets()
         ShipFleet.rez_from_fleet = True
-        ships = []
         asteroid = Asteroid()
         asteroid.move_to(u.CENTER + Vector2(u.SAFE_EMERGENCE_DISTANCE - 0.1, 0))
-        asteroids = [asteroid]
-        fleets = Fleets(asteroids, [], [], [], ships)
-        ship_fleet = fleets.ships
-        assert not ships
-        ship_fleet.tick(u.SHIP_EMERGENCE_TIME, fleets)
-        assert not ships
-        asteroids.clear()
-        ship_fleet.tick(0.001, fleets)
-        assert ships
+        asteroid._location.velocity = Vector2(0, 0)
+        fleets.add_asteroid(asteroid)
+        fi = FI(fleets)
+        assert not fi.ships
+        fleets.tick(u.SHIP_EMERGENCE_TIME)
+        assert not fi.ships
+        for asteroid in fi.asteroids:
+            fleets.remove_asteroid(asteroid)
+        fleets.tick(0.001)
+        assert fi.ships
 
     def test_can_run_out_of_ships(self):
         ShipFleet.rez_from_fleet = True
-        ships = []
-        fleets = Fleets([], [], [], [], ships)
-        ship_fleet = fleets.ships
+        fleets = Fleets()
+        fi = FI(fleets)
         ShipFleet.ships_remaining = 2
-        ship_fleet.tick(u.SHIP_EMERGENCE_TIME, fleets)
-        assert ships
-        assert ship_fleet.ships_remaining == 1
-        ships.clear()
-        ship_fleet.tick(u.SHIP_EMERGENCE_TIME, fleets)
-        assert ships
-        assert ship_fleet.ships_remaining == 0
-        assert not ship_fleet.game_over
-        ships.clear()
-        ship_fleet.tick(u.SHIP_EMERGENCE_TIME, fleets)
-        assert not ships
-        assert ship_fleet.game_over
+        fleets.tick(u.SHIP_EMERGENCE_TIME)
+        assert fi.ships
+        assert fleets.ships.ships_remaining == 1
+        for ship in fi.ships:
+            fleets.remove_ship(ship)
+        fleets.tick(u.SHIP_EMERGENCE_TIME)
+        assert fi.ships
+        assert fleets.ships.ships_remaining == 0
+        assert not fleets.ships.game_over
+        for ship in fi.ships:
+            fleets.remove_ship(ship)
+        fleets.tick(u.SHIP_EMERGENCE_TIME)
+        assert not fi.ships
+        assert fleets.ships.game_over
 
     def test_missile_fleet(self):
         missiles = []

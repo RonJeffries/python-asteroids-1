@@ -2,26 +2,32 @@
 from itertools import chain
 import u
 from fleet import ShipFleet, SaucerFleet, MissileFleet, Fleet
+from missile import Missile
 from scorekeeper import ScoreKeeper
 from sounds import player
 from thumper import Thumper
 
 
 class Fleets:
-    def __init__(self, asteroids=None, missiles=None, saucers=None, saucer_missiles=None, ships=None):
-        asteroids = asteroids if asteroids is not None else []
-        missiles = missiles if missiles is not None else []
-        saucers = saucers if saucers is not None else []
-        saucer_missiles = saucer_missiles if saucer_missiles is not None else []
-        ships = ships if ships is not None else []
+    def __init__(self, asteroids=(), missiles=(), saucers=(), saucer_missiles=(), ships=()):
         self.fleets = (
-            Fleet(asteroids),
-            Fleet(missiles),
-            SaucerFleet(saucers),
-            MissileFleet(saucer_missiles, u.SAUCER_MISSILE_LIMIT),
-            ShipFleet(ships),
+            Fleet([]),
+            Fleet([]),
+            SaucerFleet([]),
+            MissileFleet([], u.SAUCER_MISSILE_LIMIT),
+            ShipFleet([]),
             Fleet([]),  # explosions not used
             Fleet([]))
+        for asteroid in asteroids:
+            self.add_asteroid(asteroid)
+        for missile in missiles:
+            self.add_missile(missile)
+        for saucer in saucers:
+            self.add_saucer(saucer)
+        for saucer_missile in saucer_missiles:
+            self.add_saucer_missile(saucer_missile)
+        for ship in ships:
+            self.add_ship(ship)
         self.thumper = Thumper(self.beat1, self.beat2)
 
     @property
@@ -38,7 +44,7 @@ class Fleets:
 
     @property
     def missiles(self):
-        return self.fleets[1]
+        return self.select(lambda m: isinstance(m, Missile))
 
     @property
     def saucers(self):
@@ -86,17 +92,10 @@ class Fleets:
         self.missiles.remove(missile)
         self.others.remove(missile)
 
-    def add_score(self, score):
-        self.others.append(score)
-
-    def remove_score(self, score):
-        self.others.remove(score)
-
-    def add_scorekeeper(self, scorekeeper):
-        self.others.append(scorekeeper)
+    def add_saucer(self, saucer):
+        self.saucers.append(saucer)
     # no remove
 
-    # no add_saucer
     def remove_saucer(self, saucer):
         self.saucers.remove(saucer)
 
@@ -106,7 +105,18 @@ class Fleets:
     def remove_saucer_missile(self, missile):
         self.saucer_missiles.remove(missile)
 
-    # no add ship
+    def add_score(self, score):
+        self.others.append(score)
+
+    def remove_score(self, score):
+        self.others.remove(score)
+
+    def add_scorekeeper(self, scorekeeper):
+        self.others.append(scorekeeper)
+
+    def add_ship(self, ship):
+        self.ships.append(ship)
+
     def remove_ship(self, ship):
         self.ships.remove(ship)
 
@@ -130,12 +140,10 @@ class Fleets:
             fleet.draw(screen)
 
     def safe_to_emerge(self):
-        print(self.saucer_missiles, self.saucer_missiles.flyers)
         if self.missiles:
             return False
         if self.saucer_missiles:
             return False
-        print("passed saucer_missiles?")
         return self.all_asteroids_are_away_from_center()
 
     def select(self, condition):
