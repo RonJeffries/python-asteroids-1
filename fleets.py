@@ -135,6 +135,9 @@ class Fleets:
         print("passed saucer_missiles?")
         return self.all_asteroids_are_away_from_center()
 
+    def select(self, condition):
+        return [flyer for flyer in self.all_objects if condition(flyer)]
+
     def all_asteroids_are_away_from_center(self):
         for asteroid in self._asteroids:
             if asteroid.position.distance_to(u.CENTER) < u.SAFE_EMERGENCE_DISTANCE:

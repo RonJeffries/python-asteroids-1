@@ -15,6 +15,7 @@ from ship import Ship
 from game import Game
 from fleets import Fleets
 from scorekeeper import ScoreKeeper
+from wavemaker import WaveMaker
 
 
 class FleetsInspector:
@@ -40,7 +41,6 @@ class FleetsInspector:
     @property
     def saucer_missiles(self):
         return [m for m in self.all if isinstance(m, Missile) and m.is_saucer_missile]
-
 
     @property
     def ships(self):
@@ -386,3 +386,15 @@ class TestInteractions:
         ship.interact_with_missile(m_ship, fleets)
         ship.interact_with_missile(m_saucer, fleets)
         assert ship._missile_tally == 1
+
+    def test_fleets_select(self):
+        fleets = Fleets()
+        fleets.add_asteroid(Asteroid(2))
+        fleets.add_asteroid(Asteroid(1))
+        fleets.add_wavemaker(WaveMaker())
+        wm = fleets.select(lambda x: isinstance(x, WaveMaker))
+        assert len(wm) == 1
+        as2 = fleets.select(lambda x: isinstance(x, Asteroid))
+        assert len(as2) == 2
+        as1 = fleets.select(lambda x: isinstance(x, Asteroid) and x.size == 2)
+        assert len(as1) == 1
