@@ -10,14 +10,14 @@ from thumper import Thumper
 
 class Fleets:
     def __init__(self, asteroids=(), missiles=(), saucers=(), saucer_missiles=(), ships=()):
-        self.fleets = (
-            Fleet([]),
-            Fleet([]),
-            SaucerFleet([]),
-            Fleet([]),
-            ShipFleet([]),
-            Fleet([]),  # explosions not used
-            Fleet([]))
+        self.fleets = dict(
+            asteroids=Fleet([]),
+            missiles=Fleet([]),
+            saucers=SaucerFleet([]),
+            saucer_missiles=Fleet([]),
+            ships=ShipFleet([]),
+            explosions=Fleet([]),  # explosions not used
+            flyers=Fleet([]))
         for asteroid in asteroids:
             self.add_asteroid(asteroid)
         for missile in missiles:
@@ -32,11 +32,11 @@ class Fleets:
 
     @property
     def all_objects(self):
-        return list(chain(*self.fleets))
+        return list(chain(*self.fleets.values()))
 
     @property
     def _asteroids(self):
-        return self.fleets[0]
+        return self.fleets["asteroids"]
 
     @property
     def asteroid_count(self):
@@ -48,11 +48,11 @@ class Fleets:
 
     @property
     def saucers(self):
-        return self.fleets[2]
+        return self.fleets["saucers"]
 
     @property
     def saucer_missiles(self):
-        return self.fleets[3]
+        return self.fleets["missiles"]
 
     @property
     def testing_only_score(self):
@@ -61,15 +61,15 @@ class Fleets:
 
     @property
     def ships(self):
-        return self.fleets[4]
+        return self.fleets["ships"]
 
     @property
     def explosions(self):
-        return self.fleets[5]
+        return self.fleets["explosions"]
 
     @property
     def flyers(self):
-        return self.fleets[6]
+        return self.fleets["flyers"]
 
     # adds and removes
 
@@ -129,14 +129,14 @@ class Fleets:
         player.play("beat2")
 
     def clear(self):
-        for fleet in self.fleets:
+        for fleet in self.fleets.values():
             fleet.clear()
 
     def count(self, condition):
         return len(self.select(condition))
 
     def draw(self, screen):
-        for fleet in self.fleets:
+        for fleet in self.fleets.values():
             fleet.draw(screen)
 
     def safe_to_emerge(self):
@@ -160,7 +160,7 @@ class Fleets:
             self.thumper.tick(delta_time)
         else:
             self.thumper.reset()
-        for fleet in self.fleets:
+        for fleet in self.fleets.values():
             fleet.tick(delta_time, self)
 
     def begin_interactions(self):
