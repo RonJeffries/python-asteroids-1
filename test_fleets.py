@@ -35,14 +35,14 @@ class TestFleets:
         assert FI(fleets).saucers
 
     def test_len_etc(self):
-        # doesn't test as much as it looks like
         saucer_missiles = []
         fleets = Fleets([], [], [], saucer_missiles, [])
-        s_m_fleet = fleets.saucer_missiles
-        assert len(s_m_fleet) == 0
-        s_m_fleet.extend([1, 20, 300])
-        assert len(s_m_fleet) == 3
-        assert s_m_fleet[1] == 20
+        fi = FI(fleets)
+        assert len(fi.saucer_missiles) == 0
+        fleets.add_saucer_missile(Missile.from_saucer(Vector2(0, 0), Vector2(0, 0)))
+        fleets.add_saucer_missile(Missile.from_saucer(Vector2(0, 0), Vector2(20, 20)))
+        fleets.add_saucer_missile(Missile.from_saucer(Vector2(0, 0), Vector2(30, 30)))
+        assert len(fi.saucer_missiles) == 3
 
     def test_ship_rez(self):
         ShipFleet.rez_from_fleet = True
