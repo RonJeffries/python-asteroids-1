@@ -5,9 +5,11 @@ from pygame import Vector2
 
 import u
 from fleet import MissileFleet
+from fleets import Fleets
 from missile import Missile
 from saucer import Saucer
 from ship import Ship
+from test_interactions import FI
 
 
 class TestSaucer:
@@ -69,16 +71,25 @@ class TestSaucer:
         assert saucer.position.y < 50
 
     def test_can_only_fire_two(self):
+        fleets = Fleets()
+        fi = FI(fleets)
         saucer = Saucer()
-        saucer_missiles = MissileFleet([], u.SAUCER_MISSILE_LIMIT)
-        saucer.fire_if_possible(delta_time=0.1, saucer_missiles=saucer_missiles, ships=[])
-        assert not saucer_missiles
-        saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, saucer_missiles=saucer_missiles, ships=[])
-        assert len(saucer_missiles) == 1
-        saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, saucer_missiles=saucer_missiles, ships=[])
-        assert len(saucer_missiles) == 2
-        saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, saucer_missiles=saucer_missiles, ships=[])
-        assert len(saucer_missiles) == 2
+        saucer.fire_if_possible(delta_time=0.1, saucer_missiles=fleets.saucer_missiles, ships=[])
+        assert not fi.saucer_missiles
+        saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, saucer_missiles=fleets.saucer_missiles, ships=[])
+        assert len(fi.saucer_missiles) == 1
+        saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, saucer_missiles=fleets.saucer_missiles, ships=[])
+        assert len(fi.saucer_missiles) == 2
+        saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, saucer_missiles=fleets.saucer_missiles, ships=[])
+        assert len(fi.saucer_missiles) == 2
+
+    def test_counts_saucer_missiles(self):
+        fleets = Fleets()
+        saucer = Saucer()
+        assert saucer._missile_tally == 0
+        saucer._missile_tally = 5
+        saucer.begin_interactions(fleets)
+        assert saucer._missile_tally == 0
 
     def test_random_missile_velocity_0(self):
         saucer = Saucer()

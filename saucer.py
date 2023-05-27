@@ -32,6 +32,7 @@ class Saucer(Flyer):
         velocity = Saucer.direction * u.SAUCER_VELOCITY
         self._location = MovableLocation(position, velocity)
         self._directions = (velocity.rotate(45), velocity, velocity, velocity.rotate(-45))
+        self._missile_tally = 0
         self.create_surface_class_members()
         self.set_firing_timer()
         self.set_zig_timer()
@@ -50,6 +51,9 @@ class Saucer(Flyer):
 
     def accelerate_to(self, velocity):
         self._location.accelerate_to(velocity)
+
+    def begin_interactions(self, fleets):
+        self._missile_tally = 0
 
     def create_surface_class_members(self):
         if not Saucer.saucer_surface:
