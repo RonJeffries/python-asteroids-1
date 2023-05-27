@@ -43,6 +43,7 @@ class TestFleets:
         fleets.add_saucer_missile(Missile.from_saucer(Vector2(0, 0), Vector2(20, 20)))
         fleets.add_saucer_missile(Missile.from_saucer(Vector2(0, 0), Vector2(30, 30)))
         assert len(fi.saucer_missiles) == 3
+        assert fi.saucer_missiles[1]._location.velocity.x == 20
 
     def test_ship_rez(self):
         ShipFleet.rez_from_fleet = True
