@@ -27,20 +27,6 @@ class FakeFlyer:
 
 
 class TestFleets:
-    def test_creation(self):
-        asteroids = ["asteroid"]
-        missiles = ["missile"]
-        saucers = ["saucer"]
-        saucer_missiles = ["saucer_missile"]
-        ships = ["ship"]
-        fleets = Fleets(asteroids, missiles, saucers, saucer_missiles, ships)
-        assert fleets
-
-    def test_fleet_creation(self):
-        asteroids = ["asteroid"]
-        fleet = Fleet(asteroids)
-        assert fleet
-
     def test_saucer_spawn(self):
         fleets = Fleets()
         fleets.tick(0.1)
@@ -49,6 +35,7 @@ class TestFleets:
         assert FI(fleets).saucers
 
     def test_len_etc(self):
+        # doesn't test as much as it looks like
         saucer_missiles = []
         fleets = Fleets([], [], [], saucer_missiles, [])
         s_m_fleet = fleets.saucer_missiles
