@@ -12,11 +12,8 @@ class Fleets:
     def __init__(self, asteroids=(), missiles=(), saucers=(), saucer_missiles=(), ships=()):
         self.fleets = dict(
             asteroids=Fleet([]),
-            # missiles=Fleet([]),
             saucers=SaucerFleet([]),
-            # saucer_missiles=Fleet([]),
             ships=ShipFleet([]),
-            explosions=Fleet([]),  # explosions not used
             flyers=Fleet([]))
         for asteroid in asteroids:
             self.add_asteroid(asteroid)
@@ -62,10 +59,6 @@ class Fleets:
     @property
     def ships(self):
         return self.fleets["ships"]
-
-    @property
-    def explosions(self):
-        return self.fleets["explosions"]
 
     @property
     def flyers(self):

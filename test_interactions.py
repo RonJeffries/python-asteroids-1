@@ -29,6 +29,11 @@ class FleetsInspector:
         return self.select(lambda a: isinstance(a, Asteroid))
 
     @property
+    def fragments(self):
+        return self.select(lambda f: isinstance(f, Fragment))
+
+
+    @property
     def missiles(self):
         return self.select(lambda m: isinstance(m, Missile))
 

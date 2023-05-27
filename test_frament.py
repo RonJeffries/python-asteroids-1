@@ -3,6 +3,7 @@ from pygame import Vector2
 import u
 from fleets import Fleets
 from fragment import Fragment
+from test_interactions import FI
 
 
 class TestFragments:
@@ -19,12 +20,12 @@ class TestFragments:
     def test_frag_timeout(self):
         frag = Fragment(position=u.CENTER, fragments=["ignored"])
         fleets = Fleets()
-        frags = fleets.explosions
-        frags.append(frag)
-        frags.tick(0.1, fleets)
-        assert frags
-        frags.tick(u.FRAGMENT_LIFETIME, fleets)
-        assert not frags
+        fi = FI(fleets)
+        fleets.add_flyer(frag)
+        fleets.tick(0.1)
+        assert fi.fragments
+        fleets.tick(u.FRAGMENT_LIFETIME)
+        assert not fi.fragments
 
     def test_fragment_move(self):
         frag = Fragment(position=u.CENTER, angle=0, speed_mul=1, fragments=["ignored"])

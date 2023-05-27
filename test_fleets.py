@@ -148,9 +148,3 @@ class TestFleets:
         assert not fi.ships
         assert fleets.ships.game_over
 
-    def test_all_objects(self):
-        fleets = Fleets([1], [2], [3], [4], [5])
-        fleets.explosions.append(6)
-        all_objects = fleets.all_objects
-        assert len(all_objects) == 6
-        assert sum(all_objects) == 21
