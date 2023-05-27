@@ -1,7 +1,7 @@
 # SpaceObjects
 from itertools import chain
 import u
-from fleet import ShipFleet, SaucerFleet, MissileFleet, Fleet
+from fleet import ShipFleet, SaucerFleet, Fleet
 from missile import Missile
 from scorekeeper import ScoreKeeper
 from sounds import player
@@ -14,7 +14,7 @@ class Fleets:
             Fleet([]),
             Fleet([]),
             SaucerFleet([]),
-            MissileFleet([], u.SAUCER_MISSILE_LIMIT),
+            Fleet([]),
             ShipFleet([]),
             Fleet([]),  # explosions not used
             Fleet([]))
@@ -56,7 +56,7 @@ class Fleets:
 
     @property
     def testing_only_score(self):
-        keeper = next((k for k in self.others if isinstance(k, ScoreKeeper)), ScoreKeeper())
+        keeper = next((k for k in self.flyers if isinstance(k, ScoreKeeper)), ScoreKeeper())
         return keeper.score
 
     @property
@@ -68,7 +68,7 @@ class Fleets:
         return self.fleets[5]
 
     @property
-    def others(self):
+    def flyers(self):
         return self.fleets[6]
 
     # adds and removes
@@ -80,17 +80,17 @@ class Fleets:
         self._asteroids.remove(asteroid)
 
     def add_flyer(self, flyer):
-        self.others.append(flyer)
+        self.flyers.append(flyer)
 
     def remove_flyer(self, flyer):
-        self.others.remove(flyer)
+        self.flyers.remove(flyer)
 
     def add_missile(self, missile):
         self.add_flyer(missile)
 
     def remove_missile(self, missile):
         self.missiles.remove(missile)
-        self.others.remove(missile)
+        self.flyers.remove(missile)
 
     def add_saucer(self, saucer):
         self.saucers.append(saucer)
@@ -106,13 +106,13 @@ class Fleets:
         self.remove_flyer(missile)
 
     def add_score(self, score):
-        self.others.append(score)
+        self.flyers.append(score)
 
     def remove_score(self, score):
-        self.others.remove(score)
+        self.flyers.remove(score)
 
     def add_scorekeeper(self, scorekeeper):
-        self.others.append(scorekeeper)
+        self.flyers.append(scorekeeper)
 
     def add_ship(self, ship):
         self.ships.append(ship)
@@ -172,4 +172,4 @@ class Fleets:
             flyer.end_interactions(self)
 
     def add_wavemaker(self, wavemaker):
-        self.others.append(wavemaker)
+        self.flyers.append(wavemaker)

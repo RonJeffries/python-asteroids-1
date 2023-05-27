@@ -4,7 +4,6 @@ import pytest
 from pygame import Vector2
 
 import u
-from fleet import MissileFleet
 from fleets import Fleets
 from missile import Missile
 from saucer import Saucer

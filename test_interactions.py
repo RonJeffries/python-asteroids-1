@@ -6,7 +6,6 @@ import u
 from asteroid import Asteroid
 from flyer import Flyer
 from interactor import Interactor
-from fleet import MissileFleet
 from fragment import Fragment
 from missile import Missile
 from saucer import Saucer, nearest, nearest_point

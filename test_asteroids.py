@@ -3,7 +3,6 @@ import pytest
 from pygame.math import clamp, Vector2
 
 import u
-from fleet import MissileFleet
 from fleets import Fleets
 from ship import Ship
 
@@ -92,7 +91,7 @@ class TestAsteroids:
         # expect to revise when Fleets goes to just one collection.
         ship = Ship(Vector2(100, 100))
         fleets = Fleets()
-        others = fleets.others
+        others = fleets.flyers
         ship.fire_if_possible(fleets)
         assert len(others) == 1
         missile = others[0]

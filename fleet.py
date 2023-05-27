@@ -44,19 +44,6 @@ class Fleet:
             flyer.tick(delta_time, self, fleets)
 
 
-class MissileFleet(Fleet):
-    def __init__(self, flyers, maximum_number_of_missiles):
-        self.maximum_number_of_missiles = maximum_number_of_missiles
-        super().__init__(flyers)
-
-    def fire(self, callback, *args) -> bool:
-        if len(self) < self.maximum_number_of_missiles:
-            self.append(callback(*args))
-            return True
-        else:
-            return False
-
-
 class SaucerFleet(Fleet):
     def __init__(self, flyers):
         super().__init__(flyers)
