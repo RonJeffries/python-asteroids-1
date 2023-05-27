@@ -36,21 +36,6 @@ class TestFleets:
         fleets = Fleets(asteroids, missiles, saucers, saucer_missiles, ships)
         assert fleets
 
-    def test_access(self):
-        asteroids = ["asteroid"]
-        missiles = ["missile"]
-        saucers = ["saucer"]
-        saucer_missiles = ["saucer_missile"]
-        ships = ["ship"]
-        fleets = Fleets(asteroids, missiles, saucers, saucer_missiles, ships)
-        fi = FI(fleets)
-        # removing accessors as part of decentralization
-        # assert fleets.asteroids.flyers == asteroids
-        # assert fi.missiles.flyers == missiles
-        # assert fi.saucers.flyers == saucers
-        # assert fi.saucer_missiles.flyers == saucer_missiles
-        # assert fi.ships.flyers == ships
-
     def test_fleet_creation(self):
         asteroids = ["asteroid"]
         fleet = Fleet(asteroids)
