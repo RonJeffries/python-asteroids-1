@@ -100,10 +100,10 @@ class Fleets:
         self.saucers.remove(saucer)
 
     def add_saucer_missile(self, missile):
-        self.saucer_missiles.append(missile)
+        self.add_flyer(missile)
 
     def remove_saucer_missile(self, missile):
-        self.saucer_missiles.remove(missile)
+        self.remove_flyer(missile)
 
     def add_score(self, score):
         self.others.append(score)
