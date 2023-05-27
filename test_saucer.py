@@ -90,6 +90,9 @@ class TestSaucer:
         saucer._missile_tally = 5
         saucer.begin_interactions(fleets)
         assert saucer._missile_tally == 0
+        saucer_missile = Missile.from_saucer(saucer.position, Vector2(0, 0))
+        saucer.interact_with_missile(saucer_missile, fleets)
+        assert saucer._missile_tally == 1
 
     def test_random_missile_velocity_0(self):
         saucer = Saucer()
