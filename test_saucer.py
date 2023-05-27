@@ -74,13 +74,19 @@ class TestSaucer:
         fleets = Fleets()
         fi = FI(fleets)
         saucer = Saucer()
-        saucer.fire_if_possible(delta_time=0.1, saucer_missiles=fleets.saucer_missiles, ships=[])
+        saucer.fire_if_possible(delta_time=0.1, fleets=fleets, ships=[])
         assert not fi.saucer_missiles
-        saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, saucer_missiles=fleets.saucer_missiles, ships=[])
+        saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, fleets=fleets, ships=[])
         assert len(fi.saucer_missiles) == 1
-        saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, saucer_missiles=fleets.saucer_missiles, ships=[])
+        saucer.begin_interactions(fleets)
+        for m in fi.saucer_missiles:
+            saucer.interact_with_missile(m, fleets)
+        saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, fleets=fleets, ships=[])
         assert len(fi.saucer_missiles) == 2
-        saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, saucer_missiles=fleets.saucer_missiles, ships=[])
+        saucer.begin_interactions(fleets)
+        for m in fi.saucer_missiles:
+            saucer.interact_with_missile(m, fleets)
+        saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, fleets=fleets, ships=[])
         assert len(fi.saucer_missiles) == 2
 
     def test_counts_saucer_missiles(self):

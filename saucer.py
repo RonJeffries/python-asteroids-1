@@ -121,11 +121,15 @@ class Saucer(Flyer):
     def new_direction(self):
         return random.choice(self._directions)
 
-    def fire_if_possible(self, delta_time, saucer_missiles, ships):
-        self.missile_timer.tick(delta_time, saucer_missiles, ships)
+    def fire_if_possible(self, delta_time, fleets, ships):
+        self.missile_timer.tick(delta_time, fleets, ships)
 
-    def fire_if_missile_available(self, saucer_missiles, ships) -> bool:
-        return saucer_missiles.fire(self.create_missile, ships)
+    def fire_if_missile_available(self, fleets, ships) -> bool:
+        if self._missile_tally >= u.SAUCER_MISSILE_LIMIT:
+            return False
+        missile = self.create_missile(ships)
+        fleets.add_saucer_missile(missile)
+        return True
 
     @staticmethod
     def scores_for_hitting_asteroid():
@@ -170,9 +174,8 @@ class Saucer(Flyer):
 
     def tick(self, delta_time, fleet, fleets):
         player.play("saucer_big", self._location, False)
-        saucer_missiles = fleets.saucer_missiles
         ships = fleets.ships
-        self.fire_if_possible(delta_time, saucer_missiles, ships)
+        self.fire_if_possible(delta_time, fleets, ships)
         self.check_zigzag(delta_time)
         self.move(delta_time, fleet)
 
