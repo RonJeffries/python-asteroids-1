@@ -12,9 +12,9 @@ class Fleets:
     def __init__(self, asteroids=(), missiles=(), saucers=(), saucer_missiles=(), ships=()):
         self.fleets = dict(
             asteroids=Fleet([]),
-            missiles=Fleet([]),
+            # missiles=Fleet([]),
             saucers=SaucerFleet([]),
-            saucer_missiles=Fleet([]),
+            # saucer_missiles=Fleet([]),
             ships=ShipFleet([]),
             explosions=Fleet([]),  # explosions not used
             flyers=Fleet([]))
@@ -52,7 +52,7 @@ class Fleets:
 
     @property
     def saucer_missiles(self):
-        return self.fleets["missiles"]
+        return self.select(lambda m: isinstance(m, Missile) and m.is_saucer_missile)
 
     @property
     def testing_only_score(self):
