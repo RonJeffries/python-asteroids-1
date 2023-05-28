@@ -12,7 +12,7 @@ class Fleets:
     def __init__(self, asteroids=(), missiles=(), saucers=(), saucer_missiles=(), ships=()):
         self.fleets = dict(
             asteroids=Fleet([]),
-            saucers=SaucerFleet([]),
+            saucers=Fleet([]),
             ships=ShipFleet([]),
             flyers=Fleet([]))
         for asteroid in asteroids:

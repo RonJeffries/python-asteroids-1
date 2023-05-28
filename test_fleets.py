@@ -27,13 +27,6 @@ class FakeFlyer:
 
 
 class TestFleets:
-    def test_saucer_spawn(self):
-        fleets = Fleets()
-        fleets.tick(0.1)
-        assert not FI(fleets).saucers
-        fleets.tick(u.SAUCER_EMERGENCE_TIME)
-        assert FI(fleets).saucers
-
     def test_len_etc(self):
         saucer_missiles = []
         fleets = Fleets([], [], [], saucer_missiles, [])

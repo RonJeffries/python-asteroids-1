@@ -6,6 +6,7 @@ import pygame
 
 from interactor import Interactor
 from fleet import ShipFleet
+from saucermaker import SaucerMaker
 from scorekeeper import ScoreKeeper
 from ship import Ship
 import u
@@ -25,6 +26,7 @@ class Game:
         self.fleets = Fleets()
         self.fleets.add_scorekeeper(ScoreKeeper(testing))
         self.fleets.add_wavemaker(WaveMaker())
+        self.fleets.add_flyer(SaucerMaker())
         self.running = not testing
 
     # noinspection PyAttributeOutsideInit
