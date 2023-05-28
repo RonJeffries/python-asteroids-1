@@ -1,7 +1,7 @@
 # SpaceObjects
 from itertools import chain
 import u
-from fleet import ShipFleet, SaucerFleet, Fleet
+from fleet import ShipFleet, Fleet
 from missile import Missile
 from scorekeeper import ScoreKeeper
 from sounds import player

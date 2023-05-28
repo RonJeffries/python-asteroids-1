@@ -44,22 +44,6 @@ class Fleet:
             flyer.tick(delta_time, self, fleets)
 
 
-class SaucerFleet(Fleet):
-    def __init__(self, flyers):
-        super().__init__(flyers)
-        self.timer = Timer(u.SAUCER_EMERGENCE_TIME, self.bring_in_saucer)
-
-    def bring_in_saucer(self, _fleets):
-        self.flyers.append(Saucer())
-        return True
-
-    def tick(self, delta_time, fleets):
-        super().tick(delta_time, fleets)
-        if not self.flyers:
-            self.timer.tick(delta_time, fleets)
-        return True
-
-
 class ShipFleet(Fleet):
     ships_remaining = u.SHIPS_PER_QUARTER
     game_over = False
