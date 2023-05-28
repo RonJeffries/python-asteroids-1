@@ -9,15 +9,15 @@ class TestWaveMaker:
         fleets = Fleets()
         maker = WaveMaker()
         maker.begin_interactions(fleets)
-        assert not maker.saw_asteroids
+        assert maker._need_asteroids
         maker.interact_with_asteroid(None, fleets)
-        assert maker.saw_asteroids
+        assert not maker._need_asteroids
 
     def test_timer(self):
         fleets = Fleets()
         maker = WaveMaker()
         maker.begin_interactions(fleets)
-        assert not maker.saw_asteroids
+        assert maker._need_asteroids
         assert not self.count_asteroids(fleets)
         maker.tick(0.1, None, fleets)
         assert not self.count_asteroids(fleets)

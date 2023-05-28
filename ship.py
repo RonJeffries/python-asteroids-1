@@ -71,7 +71,7 @@ class Ship(Flyer):
         else:
             self._can_fire = True
         if keys[pygame.K_SPACE]:
-            self.enter_hyperspace_if_possible(fleet, fleets.asteroid_count, fleets)
+            self.enter_hyperspace_if_possible(fleet, fleets._number_to_create, fleets)
         else:
             self._can_enter_hyperspace = True
 
