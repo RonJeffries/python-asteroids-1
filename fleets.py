@@ -13,7 +13,7 @@ class Fleets:
         self.fleets = dict(
             asteroids=Fleet([]),
             saucers=Fleet([]),
-            ships=Fleet([]),
+            ships=ShipFleet([]),
             flyers=Fleet([]))
         for asteroid in asteroids:
             self.add_asteroid(asteroid)
