@@ -54,24 +54,6 @@ class SurfaceMaker:
         return (point + center_adjustment) * scale_factor
 
     @staticmethod
-    def game_over_surface():
-        big_font = pygame.font.SysFont("arial", 64)
-        small_font = pygame.font.SysFont("arial", 48)
-        game_over_surface = big_font.render("GAME OVER", True, "white")
-        game_over_pos = game_over_surface.get_rect(centerx=u.CENTER.x, centery=u.CENTER.y / 2)
-        pos_left = u.CENTER.x - 150
-        pos_top = game_over_pos.centery
-        help_lines = []
-        messages = ["d - turn left", "f - turn right", "j - accelerate", "k - fire missile", "q - insert quarter", ]
-        for message in messages:
-            pos_top += 60
-            text = small_font.render(message, True, "white")
-            text_rect = text.get_rect(topleft=(pos_left, pos_top))
-            pair = (text, text_rect)
-            help_lines.append(pair)
-        return game_over_surface
-
-    @staticmethod
     def saucer_surface(saucer_size):
         raw_points_span = Vector2(10, 6)
         raw_points_offset = raw_points_span / 2
