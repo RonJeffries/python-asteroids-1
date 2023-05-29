@@ -5,12 +5,12 @@ from pygame import Vector2
 import pygame
 
 from interactor import Interactor
-from fleet import ShipFleet
 from saucermaker import SaucerMaker
 from scorekeeper import ScoreKeeper
 from ship import Ship
 import u
 from fleets import Fleets
+from shipmaker import ShipMaker
 from sounds import player
 from wavemaker import WaveMaker
 
@@ -27,6 +27,7 @@ class Game:
         self.fleets.add_scorekeeper(ScoreKeeper(testing))
         self.fleets.add_wavemaker(WaveMaker())
         self.fleets.add_flyer(SaucerMaker())
+        self.fleets.add_flyer(ShipMaker())
         self.running = not testing
 
     # noinspection PyAttributeOutsideInit
@@ -77,7 +78,7 @@ class Game:
         self.draw_available_ships()
 
     def draw_available_ships(self):
-        for i in range(0, ShipFleet.ships_remaining):
+        for i in range(0, self.fleets.ships_remaining):
             self.draw_available_ship(self.available_ship, i)
 
     def draw_available_ship(self, ship, i):
@@ -115,6 +116,6 @@ class Game:
         self.control_game()
         self.process_interactions()
         self.draw_everything()
-        if ShipFleet.game_over:
+        if self.fleets.game_over:
             self.draw_game_over()
 

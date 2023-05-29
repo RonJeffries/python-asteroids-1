@@ -1,7 +1,7 @@
 # SpaceObjects
 from itertools import chain
 import u
-from fleet import ShipFleet, Fleet
+from fleet import Fleet
 from missile import Missile
 from scorekeeper import ScoreKeeper
 from sounds import player
@@ -9,12 +9,15 @@ from thumper import Thumper
 
 
 class Fleets:
+    ships_remaining = u.SHIPS_PER_QUARTER
+
     def __init__(self, asteroids=(), missiles=(), saucers=(), saucer_missiles=(), ships=()):
         self.fleets = dict(
             asteroids=Fleet([]),
             saucers=Fleet([]),
-            ships=ShipFleet([]),
+            ships=Fleet([]),
             flyers=Fleet([]))
+        self.game_over = False
         for asteroid in asteroids:
             self.add_asteroid(asteroid)
         for missile in missiles:

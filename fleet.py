@@ -43,30 +43,3 @@ class Fleet:
         for flyer in self:
             flyer.tick(delta_time, self, fleets)
 
-
-class ShipFleet(Fleet):
-    ships_remaining = u.SHIPS_PER_QUARTER
-    game_over = False
-
-    def __init__(self, flyers):
-        super().__init__(flyers)
-        self.ship_timer = Timer(u.SHIP_EMERGENCE_TIME, self.spawn_ship_when_ready)
-        ShipFleet.ships_remaining = u.SHIPS_PER_QUARTER
-        ShipFleet.game_over = False
-
-    def spawn_ship_when_ready(self, fleets):
-        if not self.ships_remaining:
-            ShipFleet.game_over = True
-            return True
-        if fleets.safe_to_emerge():
-            self.append(Ship(u.CENTER))
-            ShipFleet.ships_remaining -= 1
-            return True
-        else:
-            return False
-
-    def tick(self, delta_time, fleets):
-        if not fleets.ships:
-            self.ship_timer.tick(delta_time, fleets)
-        super().tick(delta_time, fleets)
-        return True
