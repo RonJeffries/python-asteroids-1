@@ -8,12 +8,24 @@ from timer import Timer
 class ShipMaker(Flyer):
     def __init__(self):
         self._timer = Timer(u.SHIP_EMERGENCE_TIME, self.create_ship)
+        self._game_over = False
         self._need_ship = True
         self._safe_to_emerge = False
 
     def begin_interactions(self, fleets):
+        self._game_over = False
         self._need_ship = True
         self._safe_to_emerge = True
+
+    def interact_with_asteroid(self, asteroid, fleets):
+        if asteroid.position.distance_to(u.CENTER) < u.SAFE_EMERGENCE_DISTANCE:
+            self._safe_to_emerge = False
+
+    def interact_with_game_over(self, game_over, fleets):
+        self._game_over = True
+
+    def interact_with_missile(self, missile, fleets):
+        self._safe_to_emerge = False
 
     def interact_with_saucer(self, saucer, fleets):
         self._safe_to_emerge = False
@@ -21,15 +33,8 @@ class ShipMaker(Flyer):
     def interact_with_ship(self, ship, fleets):
         self._need_ship = False
 
-    def interact_with_missile(self, missile, fleets):
-        self._safe_to_emerge = False
-
-    def interact_with_asteroid(self, asteroid, fleets):
-        if asteroid.position.distance_to(u.CENTER) < u.SAFE_EMERGENCE_DISTANCE:
-            self._safe_to_emerge = False
-
     def tick(self, delta_time, fleet, fleets):
-        if self._need_ship:
+        if self._need_ship and not self._game_over:
             self._timer.tick(delta_time, fleets)
 
     def create_ship(self, fleets):

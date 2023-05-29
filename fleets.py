@@ -84,7 +84,6 @@ class Fleets:
         self.add_flyer(missile)
 
     def remove_missile(self, missile):
-        self.missiles.remove(missile)
         self.flyers.remove(missile)
 
     def add_saucer(self, saucer):
