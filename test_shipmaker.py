@@ -5,6 +5,7 @@ from asteroid import Asteroid
 from fleets import Fleets
 from interactor import Interactor
 from missile import Missile
+from saucer import Saucer
 from shipmaker import ShipMaker
 from test_interactions import FI
 
@@ -38,6 +39,29 @@ class TestShipMaker:
         assert not fi.ships
         for missile in fi.missiles:
             fleets.remove_missile(missile)
+        interactor.perform_interactions()
+        fleets.tick(0.001)
+        assert fi.ships
+
+    def test_unsafe_because_saucer(self):
+        fleets = Fleets()
+        fleets.add_flyer(ShipMaker())
+        interactor = Interactor(fleets)
+        fi = FI(fleets)
+        interactor.perform_interactions()
+        fleets.tick(u.SHIP_EMERGENCE_TIME - 1)
+        assert not fi.ships
+        fleets.add_saucer(Saucer())
+        interactor.perform_interactions()
+        fleets.tick(1)
+        assert not fi.ships
+        for missile in fi.missiles:
+            fleets.remove_missile(missile)
+        interactor.perform_interactions()
+        fleets.tick(0.001)
+        assert not fi.ships
+        for saucer in fi.saucers:
+            fleets.remove_saucer(saucer)
         interactor.perform_interactions()
         fleets.tick(0.001)
         assert fi.ships

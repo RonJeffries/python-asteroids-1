@@ -14,6 +14,9 @@ class ShipMaker(Flyer):
         self._need_ship = True
         self._safe_to_emerge = True
 
+    def interact_with_saucer(self, saucer, fleets):
+        self._safe_to_emerge = False
+
     def interact_with_ship(self, ship, fleets):
         self._need_ship = False
 
