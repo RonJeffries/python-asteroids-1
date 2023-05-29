@@ -100,10 +100,10 @@ class TestShipMaker:
         fleets.tick(u.SHIP_EMERGENCE_TIME)
         assert fi.ships
         assert fleets.ships_remaining == 0
-        assert not fleets.game_over
+        assert not fi.game_over
         for ship in fi.ships:
             fleets.remove_ship(ship)
         interactor.perform_interactions()
         fleets.tick(u.SHIP_EMERGENCE_TIME)
         assert not fi.ships
-        assert fleets.game_over
+        assert fi.game_over

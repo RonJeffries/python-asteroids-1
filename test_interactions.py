@@ -5,6 +5,7 @@ from pygame import Vector2
 import u
 from asteroid import Asteroid
 from flyer import Flyer
+from game_over import GameOver
 from interactor import Interactor
 from fragment import Fragment
 from missile import Missile
@@ -31,6 +32,10 @@ class FleetsInspector:
     @property
     def fragments(self):
         return self.select(lambda f: isinstance(f, Fragment))
+
+    @property
+    def game_over(self):
+        return self.select(lambda game_over: isinstance(game_over, GameOver))
 
 
     @property

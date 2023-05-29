@@ -17,7 +17,6 @@ class Fleets:
             saucers=Fleet([]),
             ships=Fleet([]),
             flyers=Fleet([]))
-        self.game_over = False
         for asteroid in asteroids:
             self.add_asteroid(asteroid)
         for missile in missiles:

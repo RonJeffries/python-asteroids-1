@@ -1,5 +1,6 @@
 import u
 from flyer import Flyer
+from game_over import GameOver
 from ship import Ship
 from timer import Timer
 
@@ -38,7 +39,7 @@ class ShipMaker(Flyer):
             fleets.ships_remaining -= 1
             fleets.add_ship(Ship(u.CENTER))
         else:
-            fleets.game_over = True
+            fleets.add_flyer(GameOver())
         return True
 
     def interact_with(self, other, fleets):
