@@ -39,7 +39,7 @@ class ShipMaker(Flyer):
             return False
         if fleets.ships_remaining > 0:
             fleets.ships_remaining -= 1
-            fleets.add_ship(Ship(u.CENTER))
+            fleets.add_flyer(Ship(u.CENTER))
         else:
             fleets.add_flyer(GameOver())
             self._game_over = True
