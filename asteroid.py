@@ -71,7 +71,7 @@ class Asteroid(Flyer):
         return attacker.scores_for_hitting_asteroid()[self.size]
 
     def split_or_die(self, fleets):
-        fleets.remove_asteroid(self)
+        fleets.remove_flyer(self)
         self.explode()
         if self.size > 0:
             a1 = Asteroid(self.size - 1, self.position)

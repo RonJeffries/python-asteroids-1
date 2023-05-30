@@ -51,8 +51,6 @@ class Fleets:
         return self.fleets["flyers"]
 
     # adds and removes
-    def remove_asteroid(self, asteroid):
-        self.remove_flyer(asteroid)
 
     def add_flyer(self, flyer):
         self.flyers.append(flyer)
