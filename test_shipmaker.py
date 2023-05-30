@@ -38,7 +38,7 @@ class TestShipMaker:
         fleets.tick(1)
         assert not fi.ships
         for missile in fi.missiles:
-            fleets.remove_missile(missile)
+            fleets.remove_flyer(missile)
         interactor.perform_interactions()
         fleets.tick(0.001)
         assert fi.ships
@@ -56,7 +56,7 @@ class TestShipMaker:
         fleets.tick(1)
         assert not fi.ships
         for missile in fi.missiles:
-            fleets.remove_missile(missile)
+            fleets.remove_flyer(missile)
         interactor.perform_interactions()
         fleets.tick(0.001)
         assert not fi.ships
