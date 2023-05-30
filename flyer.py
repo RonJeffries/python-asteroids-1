@@ -28,7 +28,7 @@ class Flyer(ABC):
     def interact_with_asteroid(self, asteroid, fleets):
         pass
 
-    def interact_with_game_over(self, game_over, fleets):
+    def interact_with_gameover(self, game_over, fleets):
         pass
 
     def interact_with_missile(self, missile, fleets):
