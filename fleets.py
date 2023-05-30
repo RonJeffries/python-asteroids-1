@@ -3,8 +3,6 @@ from itertools import chain
 import u
 from asteroid import Asteroid
 from fleet import Fleet
-from missile import Missile
-from saucer import Saucer
 from scorekeeper import ScoreKeeper
 from ship import Ship
 from sounds import player
@@ -35,11 +33,6 @@ class Fleets:
     @property
     def _asteroids(self):
         return self.select(lambda a: isinstance(a, Asteroid))
-
-    @property
-    def testing_only_score(self):
-        keeper = next((k for k in self.flyers if isinstance(k, ScoreKeeper)), ScoreKeeper())
-        return keeper.score
 
     @property
     def ships(self):
