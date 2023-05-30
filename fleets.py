@@ -58,9 +58,6 @@ class Fleets:
     def remove_flyer(self, flyer):
         self.flyers.remove(flyer)
 
-    def remove_score(self, score):
-        self.flyers.remove(score)
-
     def remove_ship(self, ship):
         self.flyers.remove(ship)
 
