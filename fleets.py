@@ -38,10 +38,6 @@ class Fleets:
         return self.fleets["asteroids"]
 
     @property
-    def asteroid_count(self):
-        return len(self._asteroids)
-
-    @property
     def missiles(self):
         return self.select(lambda m: isinstance(m, Missile))
 
@@ -114,6 +110,9 @@ class Fleets:
     def remove_ship(self, ship):
         self.ships.remove(ship)
 
+    def add_wavemaker(self, wavemaker):
+        self.flyers.append(wavemaker)
+
     @staticmethod
     def beat1():
         player.play("beat1")
@@ -133,21 +132,8 @@ class Fleets:
         for fleet in self.fleets.values():
             fleet.draw(screen)
 
-    def safe_to_emerge(self):
-        if self.missiles:
-            return False
-        if self.saucer_missiles:
-            return False
-        return self.all_asteroids_are_away_from_center()
-
     def select(self, condition):
         return [flyer for flyer in self.all_objects if condition(flyer)]
-
-    def all_asteroids_are_away_from_center(self):
-        for asteroid in self._asteroids:
-            if asteroid.position.distance_to(u.CENTER) < u.SAFE_EMERGENCE_DISTANCE:
-                return False
-        return True
 
     def tick(self, delta_time):
         if self._asteroids and self.ships:
@@ -164,6 +150,3 @@ class Fleets:
     def end_interactions(self):
         for flyer in self.all_objects:
             flyer.end_interactions(self)
-
-    def add_wavemaker(self, wavemaker):
-        self.flyers.append(wavemaker)
