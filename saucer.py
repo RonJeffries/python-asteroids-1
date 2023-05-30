@@ -33,9 +33,9 @@ class Saucer(Flyer):
         self._location = MovableLocation(position, velocity)
         self._directions = (velocity.rotate(45), velocity, velocity, velocity.rotate(-45))
         self._missile_tally = 0
-        self.create_surface_class_members()
-        self.set_firing_timer()
-        self.set_zig_timer()
+        self._create_surface_class_members()
+        self._set_firing_timer()
+        self._set_zig_timer()
 
     @property
     def position(self):
@@ -55,7 +55,7 @@ class Saucer(Flyer):
     def begin_interactions(self, fleets):
         self._missile_tally = 0
 
-    def create_surface_class_members(self):
+    def _create_surface_class_members(self):
         if not Saucer.saucer_surface:
             raw_dimensions = Vector2(10, 6)
             saucer_scale = 4 * self.size
@@ -64,10 +64,10 @@ class Saucer(Flyer):
             Saucer.saucer_surface = SurfaceMaker.saucer_surface(saucer_size)
 
     # noinspection PyAttributeOutsideInit
-    def set_firing_timer(self):
+    def _set_firing_timer(self):
         self.missile_timer = Timer(u.SAUCER_MISSILE_DELAY, self.fire_if_missile_available)
 
-    def set_zig_timer(self):
+    def _set_zig_timer(self):
         # noinspection PyAttributeOutsideInit
         self.zig_timer = Timer(u.SAUCER_ZIG_TIME, self.zig_zag_action)
 
