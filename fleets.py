@@ -14,7 +14,6 @@ class Fleets:
 
     def __init__(self, asteroids=(), missiles=(), saucers=(), saucer_missiles=(), ships=()):
         self.fleets = dict(
-            asteroids=Fleet([]),
             saucers=Fleet([]),
             ships=Fleet([]),
             flyers=Fleet([]))
