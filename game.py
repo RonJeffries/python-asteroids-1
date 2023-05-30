@@ -25,7 +25,7 @@ class Game:
         self.init_pygame_and_display(testing)
         self.fleets = Fleets()
         self.fleets.add_flyer(ScoreKeeper(testing))
-        self.fleets.add_wavemaker(WaveMaker())
+        self.fleets.add_flyer(WaveMaker())
         self.fleets.add_flyer(SaucerMaker())
         self.fleets.add_flyer(ShipMaker())
         self.running = not testing

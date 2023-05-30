@@ -64,9 +64,6 @@ class Fleets:
     def remove_ship(self, ship):
         self.flyers.remove(ship)
 
-    def add_wavemaker(self, wavemaker):
-        self.flyers.append(wavemaker)
-
     @staticmethod
     def beat1():
         player.play("beat1")
