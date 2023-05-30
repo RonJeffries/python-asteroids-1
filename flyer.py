@@ -28,6 +28,12 @@ class Flyer(ABC):
     def interact_with_asteroid(self, asteroid, fleets):
         pass
 
+    def interact_with_explosion(self, explosion, fleets):
+        pass
+
+    def interact_with_fragment(self, fragment, fleets):
+        pass
+
     def interact_with_gameover(self, game_over, fleets):
         pass
 
@@ -43,6 +49,16 @@ class Flyer(ABC):
     def interact_with_saucer(self, saucer, fleets):
         pass
 
+    def interact_with_saucermaker(self, saucermaker, fleets):
+        pass
+
     def interact_with_ship(self, ship, fleets):
         pass
+
+    def interact_with_shipmaker(self, shipmaker, fleets):
+        pass
+
+    def interact_with_wavemaker(self, wavemaker, fleets):
+        pass
+
 

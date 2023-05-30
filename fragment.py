@@ -72,7 +72,7 @@ class Fragment(Flyer):
         pygame.draw.line(screen, "white", start, end, 3)
 
     def interact_with(self, attacker, fleets):
-        pass
+        attacker.interact_with_fragment(self, fleets)
 
     def move(self, delta_time):
         position = self.position + self.velocity * delta_time

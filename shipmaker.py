@@ -46,7 +46,7 @@ class ShipMaker(Flyer):
         return True
 
     def interact_with(self, other, fleets):
-        pass
+        other.interact_with_shipmaker(self, fleets)
 
     def draw(self, screen):
         pass

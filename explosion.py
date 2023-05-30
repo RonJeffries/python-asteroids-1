@@ -9,7 +9,7 @@ class Explosion(Flyer):
         self.position = position
 
     def interact_with(self, other, fleets):
-        pass
+        other.interact_with_explosion(self, fleets)
 
     def draw(self, screen):
         pass

@@ -19,7 +19,7 @@ class SaucerMaker(Flyer):
         self._saucer_gone = False
 
     def interact_with(self, other, fleets):
-        pass
+        other.interact_with_saucermaker(self, fleets)
 
     def draw(self, screen):
         pass
