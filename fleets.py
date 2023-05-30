@@ -24,7 +24,7 @@ class Fleets:
         for saucer in saucers:
             self.add_flyer(saucer)
         for saucer_missile in saucer_missiles:
-            self.add_saucer_missile(saucer_missile)
+            self.add_flyer(saucer_missile)
         for ship in ships:
             self.add_ship(ship)
         self.thumper = Thumper(self.beat1, self.beat2)
@@ -57,9 +57,6 @@ class Fleets:
 
     def remove_flyer(self, flyer):
         self.flyers.remove(flyer)
-
-    def add_saucer_missile(self, missile):
-        self.add_flyer(missile)
 
     def remove_saucer_missile(self, missile):
         self.remove_flyer(missile)

@@ -128,7 +128,7 @@ class Saucer(Flyer):
         if self._missile_tally >= u.SAUCER_MISSILE_LIMIT:
             return False
         missile = self.create_missile(ships)
-        fleets.add_saucer_missile(missile)
+        fleets.add_flyer(missile)
         return True
 
     @staticmethod
