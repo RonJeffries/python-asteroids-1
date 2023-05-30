@@ -31,12 +31,12 @@ class Saucer(Flyer):
         position = Vector2(x, random.randrange(0, u.SCREEN_SIZE))
         velocity = Saucer.direction * u.SAUCER_VELOCITY
         self._missile_tally = 0
-        self.ship = None
         self._location = MovableLocation(position, velocity)
         self._directions = (velocity.rotate(45), velocity, velocity, velocity.rotate(-45))
         self._create_surface_class_members()
         self._set_firing_timer()
         self._set_zig_timer()
+        self.ship = None
 
     @property
     def position(self):
