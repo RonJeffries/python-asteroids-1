@@ -38,10 +38,6 @@ class Fleets:
         return self.select(lambda a: isinstance(a, Asteroid))
 
     @property
-    def missiles(self):
-        return self.select(lambda m: isinstance(m, Missile))
-
-    @property
     def saucers(self):
         return self.select(lambda s: isinstance(s, Saucer))
 
