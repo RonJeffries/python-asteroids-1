@@ -31,6 +31,7 @@ class Saucer(Flyer):
         position = Vector2(x, random.randrange(0, u.SCREEN_SIZE))
         velocity = Saucer.direction * u.SAUCER_VELOCITY
         self._missile_tally = 0
+        self.ship = None
         self._location = MovableLocation(position, velocity)
         self._directions = (velocity.rotate(45), velocity, velocity, velocity.rotate(-45))
         self._create_surface_class_members()
@@ -53,6 +54,7 @@ class Saucer(Flyer):
         self._location.accelerate_to(velocity)
 
     def begin_interactions(self, fleets):
+        self.ship = None
         self._missile_tally = 0
 
     def _create_surface_class_members(self):
@@ -94,6 +96,7 @@ class Saucer(Flyer):
             self.explode(fleets)
 
     def interact_with_ship(self, ship, fleets):
+        self.ship = ship
         if ship.are_we_colliding(self.position, self.radius):
             self.explode(fleets)
 
