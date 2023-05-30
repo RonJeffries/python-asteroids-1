@@ -38,10 +38,6 @@ class Fleets:
         return self.select(lambda a: isinstance(a, Asteroid))
 
     @property
-    def saucer_missiles(self):
-        return self.select(lambda m: isinstance(m, Missile) and m.is_saucer_missile)
-
-    @property
     def testing_only_score(self):
         keeper = next((k for k in self.flyers if isinstance(k, ScoreKeeper)), ScoreKeeper())
         return keeper.score
