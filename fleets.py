@@ -22,7 +22,7 @@ class Fleets:
         for missile in missiles:
             self.add_flyer(missile)
         for saucer in saucers:
-            self.add_saucer(saucer)
+            self.add_flyer(saucer)
         for saucer_missile in saucer_missiles:
             self.add_saucer_missile(saucer_missile)
         for ship in ships:
@@ -57,10 +57,6 @@ class Fleets:
 
     def remove_flyer(self, flyer):
         self.flyers.remove(flyer)
-
-    def add_saucer(self, saucer):
-        self.flyers.append(saucer)
-    # no remove
 
     def remove_saucer(self, saucer):
         self.flyers.remove(saucer)

@@ -51,7 +51,7 @@ class TestShipMaker:
         interactor.perform_interactions()
         fleets.tick(u.SHIP_EMERGENCE_TIME - 1)
         assert not fi.ships
-        fleets.add_saucer(Saucer())
+        fleets.add_flyer(Saucer())
         interactor.perform_interactions()
         fleets.tick(1)
         assert not fi.ships

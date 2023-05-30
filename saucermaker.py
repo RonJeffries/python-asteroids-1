@@ -10,7 +10,7 @@ class SaucerMaker(Flyer):
         self._saucer_gone = True
 
     def create_saucer(self, fleets):
-        fleets.add_saucer(Saucer())
+        fleets.add_flyer(Saucer())
 
     def begin_interactions(self, fleets):
         self._saucer_gone = True
