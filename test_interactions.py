@@ -134,7 +134,7 @@ class TestInteractions:
         missiles = [missile]
         fleets = Fleets(asteroids, missiles, [], [], [])
         fi = FI(fleets)
-        fleets.add_scorekeeper(ScoreKeeper())
+        fleets.add_flyer(ScoreKeeper())
         interactor = Interactor(fleets)
         interactor.perform_interactions()
         interactor.perform_interactions()
@@ -149,7 +149,7 @@ class TestInteractions:
         fleets.add_flyer(asteroid)
         missile = Missile.from_ship(pos, Vector2(0, 0))
         fleets.add_flyer(missile)
-        fleets.add_scorekeeper(ScoreKeeper())
+        fleets.add_flyer(ScoreKeeper())
         interactor = Interactor(fleets)
         interactor.perform_interactions()
         interactor.perform_interactions()
@@ -167,7 +167,7 @@ class TestInteractions:
         missiles = [missile]
         fleets = Fleets([], missiles, [], [], ships)
         fi = FI(fleets)
-        fleets.add_scorekeeper(ScoreKeeper())
+        fleets.add_flyer(ScoreKeeper())
         interactor = Interactor(fleets)
         interactor.perform_interactions()
         interactor.perform_interactions()
@@ -183,7 +183,7 @@ class TestInteractions:
         ships = [ship]
         fleets = Fleets(asteroids, [], [], [], ships)
         fi = FI(fleets)
-        fleets.add_scorekeeper(ScoreKeeper())
+        fleets.add_flyer(ScoreKeeper())
         interactor = Interactor(fleets)
         interactor.perform_interactions()
         interactor.perform_interactions()
@@ -200,7 +200,7 @@ class TestInteractions:
         ships = [ship]
         fleets = Fleets([], [], saucers, [], ships)
         fi = FI(fleets)
-        fleets.add_scorekeeper(ScoreKeeper())
+        fleets.add_flyer(ScoreKeeper())
         interactor = Interactor(fleets)
         interactor.perform_interactions()
         interactor.perform_interactions()
@@ -216,7 +216,7 @@ class TestInteractions:
         saucers = [saucer]
         fleets = Fleets(asteroids, [], saucers, [], [])
         fi = FI(fleets)
-        fleets.add_scorekeeper(ScoreKeeper())
+        fleets.add_flyer(ScoreKeeper())
         interactor = Interactor(fleets)
         interactor.perform_interactions()
         interactor.perform_interactions()
@@ -238,7 +238,7 @@ class TestInteractions:
         missiles = [missile]
         fleets = Fleets([], missiles, saucers, [], [])
         fi = FI(fleets)
-        fleets.add_scorekeeper(ScoreKeeper())
+        fleets.add_flyer(ScoreKeeper())
         interactor = Interactor(fleets)
         interactor.perform_interactions()
         interactor.perform_interactions()
@@ -261,7 +261,7 @@ class TestInteractions:
         missiles = [missile]
         fleets = Fleets([], missiles, saucers, [], [])
         fi = FI(fleets)
-        fleets.add_scorekeeper(ScoreKeeper())
+        fleets.add_flyer(ScoreKeeper())
         interactor = Interactor(fleets)
         interactor.perform_interactions()
         interactor.perform_interactions()
@@ -295,7 +295,7 @@ class TestInteractions:
 
     def test_collider(self):
         fleets = Fleets([], [], [], [], [])
-        fleets.add_scorekeeper(ScoreKeeper())
+        fleets.add_flyer(ScoreKeeper())
         interactor = Interactor(fleets)
         interactor.perform_interactions()
         assert interactor.testing_only_score == 0
@@ -315,7 +315,7 @@ class TestInteractions:
         game = Game(True)
         asteroid = Asteroid(2, Vector2(100, 100))
         game.fleets.add_flyer(asteroid)
-        game.fleets.add_scorekeeper(ScoreKeeper())
+        game.fleets.add_flyer(ScoreKeeper())
         missile = Missile.from_ship(Vector2(100, 100), Vector2(3, 3))
         game.fleets.add_flyer(missile)
         game.process_interactions()
@@ -328,7 +328,7 @@ class TestInteractions:
         asteroids = [asteroid]
         missiles = [missile]
         fleets = Fleets(asteroids, missiles, [], [], [])
-        fleets.add_scorekeeper(ScoreKeeper())
+        fleets.add_flyer(ScoreKeeper())
         interactor = Interactor(fleets)
         interactor.perform_interactions()
         interactor.perform_interactions()

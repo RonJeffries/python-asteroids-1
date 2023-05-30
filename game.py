@@ -24,7 +24,7 @@ class Game:
         self.delta_time = 0
         self.init_pygame_and_display(testing)
         self.fleets = Fleets()
-        self.fleets.add_scorekeeper(ScoreKeeper(testing))
+        self.fleets.add_flyer(ScoreKeeper(testing))
         self.fleets.add_wavemaker(WaveMaker())
         self.fleets.add_flyer(SaucerMaker())
         self.fleets.add_flyer(ShipMaker())

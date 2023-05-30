@@ -26,7 +26,7 @@ class TestScore:
     def test_score_removed_on_interaction(self):
         fleets = Fleets()
         keeper = ScoreKeeper()
-        fleets.add_scorekeeper(keeper)
+        fleets.add_flyer(keeper)
         score = Score(20)
         fleets.add_score(score)
         interactor = Interactor(fleets)

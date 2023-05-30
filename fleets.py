@@ -64,9 +64,6 @@ class Fleets:
     def remove_score(self, score):
         self.flyers.remove(score)
 
-    def add_scorekeeper(self, scorekeeper):
-        self.flyers.append(scorekeeper)
-
     def add_ship(self, ship):
         self.flyers.append(ship)
 
