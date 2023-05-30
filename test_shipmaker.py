@@ -61,7 +61,7 @@ class TestShipMaker:
         fleets.tick(0.001)
         assert not fi.ships
         for saucer in fi.saucers:
-            fleets.remove_saucer(saucer)
+            fleets.remove_flyer(saucer)
         interactor.perform_interactions()
         fleets.tick(0.001)
         assert fi.ships

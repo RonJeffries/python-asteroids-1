@@ -80,7 +80,7 @@ class Saucer(Flyer):
     def explode(self, fleets):
         player.play("bang_large", self._location)
         player.play("bang_small", self._location)
-        fleets.remove_saucer(self)
+        fleets.remove_flyer(self)
 
     def interact_with_asteroid(self, asteroid, fleets):
         if asteroid.are_we_colliding(self.position, self.radius):
