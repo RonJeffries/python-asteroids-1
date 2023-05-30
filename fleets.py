@@ -4,6 +4,7 @@ import u
 from asteroid import Asteroid
 from fleet import Fleet
 from missile import Missile
+from saucer import Saucer
 from scorekeeper import ScoreKeeper
 from sounds import player
 from thumper import Thumper
@@ -14,7 +15,6 @@ class Fleets:
 
     def __init__(self, asteroids=(), missiles=(), saucers=(), saucer_missiles=(), ships=()):
         self.fleets = dict(
-            saucers=Fleet([]),
             ships=Fleet([]),
             flyers=Fleet([]))
         for asteroid in asteroids:
@@ -43,7 +43,7 @@ class Fleets:
 
     @property
     def saucers(self):
-        return self.fleets["saucers"]
+        return self.select(lambda s: isinstance(s, Saucer))
 
     @property
     def saucer_missiles(self):
@@ -83,11 +83,11 @@ class Fleets:
         self.flyers.remove(missile)
 
     def add_saucer(self, saucer):
-        self.saucers.append(saucer)
+        self.flyers.append(saucer)
     # no remove
 
     def remove_saucer(self, saucer):
-        self.saucers.remove(saucer)
+        self.flyers.remove(saucer)
 
     def add_saucer_missile(self, missile):
         self.add_flyer(missile)
