@@ -148,7 +148,7 @@ class TestInteractions:
         asteroid = Asteroid(2, pos)
         fleets.add_asteroid(asteroid)
         missile = Missile.from_ship(pos, Vector2(0, 0))
-        fleets.add_missile(missile)
+        fleets.add_flyer(missile)
         fleets.add_scorekeeper(ScoreKeeper())
         interactor = Interactor(fleets)
         interactor.perform_interactions()
@@ -317,7 +317,7 @@ class TestInteractions:
         game.fleets.add_asteroid(asteroid)
         game.fleets.add_scorekeeper(ScoreKeeper())
         missile = Missile.from_ship(Vector2(100, 100), Vector2(3, 3))
-        game.fleets.add_missile(missile)
+        game.fleets.add_flyer(missile)
         game.process_interactions()
         game.process_interactions()
         assert game.fleets.testing_only_score == 20
