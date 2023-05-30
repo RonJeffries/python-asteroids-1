@@ -21,9 +21,6 @@ class ShipMaker(Flyer):
         if asteroid.position.distance_to(u.CENTER) < u.SAFE_EMERGENCE_DISTANCE:
             self._safe_to_emerge = False
 
-    def interact_with_game_over(self, game_over, fleets):
-        self._game_over = True
-
     def interact_with_missile(self, missile, fleets):
         self._safe_to_emerge = False
 
@@ -45,6 +42,7 @@ class ShipMaker(Flyer):
             fleets.add_ship(Ship(u.CENTER))
         else:
             fleets.add_flyer(GameOver())
+            self._game_over = True
         return True
 
     def interact_with(self, other, fleets):
