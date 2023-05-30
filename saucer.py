@@ -90,7 +90,7 @@ class Saucer(Flyer):
         if missile.is_saucer_missile:
             self._missile_tally += 1
         if missile.are_we_colliding(self.position, self.radius):
-            fleets.add_score(Score(self.score_for_hitting(missile)))
+            fleets.add_flyer(Score(self.score_for_hitting(missile)))
             self.explode(fleets)
 
     def interact_with_ship(self, ship, fleets):

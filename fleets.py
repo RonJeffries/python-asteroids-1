@@ -58,9 +58,6 @@ class Fleets:
     def remove_flyer(self, flyer):
         self.flyers.remove(flyer)
 
-    def add_score(self, score):
-        self.flyers.append(score)
-
     def remove_score(self, score):
         self.flyers.remove(score)
 

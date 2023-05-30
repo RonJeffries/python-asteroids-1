@@ -20,7 +20,7 @@ class TestScore:
     def test_score_saved_in_fleets(self):
         fleets = Fleets()
         score = Score(20)
-        fleets.add_score(score)
+        fleets.add_flyer(score)
         assert score in fleets.all_objects
 
     def test_score_removed_on_interaction(self):
@@ -28,7 +28,7 @@ class TestScore:
         keeper = ScoreKeeper()
         fleets.add_flyer(keeper)
         score = Score(20)
-        fleets.add_score(score)
+        fleets.add_flyer(score)
         interactor = Interactor(fleets)
         interactor.perform_interactions()
         assert keeper.score == 20
