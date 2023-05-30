@@ -63,8 +63,8 @@ class Saucer(Flyer):
             saucer_size = raw_dimensions * saucer_scale
             Saucer.saucer_surface = SurfaceMaker.saucer_surface(saucer_size)
 
-    # noinspection PyAttributeOutsideInit
     def _set_firing_timer(self):
+        # noinspection PyAttributeOutsideInit
         self.missile_timer = Timer(u.SAUCER_MISSILE_DELAY, self.fire_if_missile_available)
 
     def _set_zig_timer(self):
@@ -147,7 +147,7 @@ class Saucer(Flyer):
 
     def suitable_missile(self, should_target, random_angle, ships):
         if self.cannot_target_ship(ships, should_target):
-            return self.missile_at_angle(random_angle * 360.0, self.velocity_testing_only)
+            return self.missile_at_angle(random_angle * 360.0, self._velocity)
         targeting_angle = self.angle_to(ships[0])
         velocity_adjustment = Vector2(0, 0)
         return self.missile_at_angle(targeting_angle, velocity_adjustment)
