@@ -75,9 +75,9 @@ class Asteroid(Flyer):
         self.explode()
         if self.size > 0:
             a1 = Asteroid(self.size - 1, self.position)
-            fleets.add_asteroid(a1)
+            fleets.add_flyer(a1)
             a2 = Asteroid(self.size - 1, self.position)
-            fleets.add_asteroid(a2)
+            fleets.add_flyer(a2)
 
     def explode(self):
         sound = ["bang_small", "bang_medium", "bang_large"][self.size]

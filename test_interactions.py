@@ -146,7 +146,7 @@ class TestInteractions:
         fleets = Fleets()
         pos = Vector2(100, 100)
         asteroid = Asteroid(2, pos)
-        fleets.add_asteroid(asteroid)
+        fleets.add_flyer(asteroid)
         missile = Missile.from_ship(pos, Vector2(0, 0))
         fleets.add_flyer(missile)
         fleets.add_scorekeeper(ScoreKeeper())
@@ -314,7 +314,7 @@ class TestInteractions:
     def test_collider_via_game_with_score(self):
         game = Game(True)
         asteroid = Asteroid(2, Vector2(100, 100))
-        game.fleets.add_asteroid(asteroid)
+        game.fleets.add_flyer(asteroid)
         game.fleets.add_scorekeeper(ScoreKeeper())
         missile = Missile.from_ship(Vector2(100, 100), Vector2(3, 3))
         game.fleets.add_flyer(missile)
@@ -405,9 +405,9 @@ class TestInteractions:
 
     def test_fleets_select(self):
         fleets = Fleets()
-        fleets.add_asteroid(Asteroid(2))
-        fleets.add_asteroid(Asteroid(1))
-        fleets.add_wavemaker(WaveMaker())
+        fleets.add_flyer(Asteroid(2))
+        fleets.add_flyer(Asteroid(1))
+        fleets.add_flyer(WaveMaker())
         wm = fleets.select(lambda x: isinstance(x, WaveMaker))
         assert len(wm) == 1
         as2 = fleets.select(lambda x: isinstance(x, Asteroid))

@@ -18,7 +18,7 @@ class Fleets:
         self.fleets = dict(
             flyers=Fleet([]))
         for asteroid in asteroids:
-            self.add_asteroid(asteroid)
+            self.add_flyer(asteroid)
         for missile in missiles:
             self.add_flyer(missile)
         for saucer in saucers:
@@ -51,10 +51,6 @@ class Fleets:
         return self.fleets["flyers"]
 
     # adds and removes
-
-    def add_asteroid(self, asteroid):
-        self.add_flyer(asteroid)
-
     def remove_asteroid(self, asteroid):
         self.remove_flyer(asteroid)
 

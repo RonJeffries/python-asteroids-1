@@ -74,7 +74,7 @@ class TestShipMaker:
         asteroid = Asteroid()
         asteroid.move_to(u.CENTER + Vector2(u.SAFE_EMERGENCE_DISTANCE - 0.1, 0))
         asteroid._location.velocity = Vector2(0, 0)
-        fleets.add_asteroid(asteroid)
+        fleets.add_flyer(asteroid)
         assert not fi.ships
         interactor.perform_interactions()
         fleets.tick(u.SHIP_EMERGENCE_TIME)
