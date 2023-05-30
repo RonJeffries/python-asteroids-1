@@ -15,8 +15,7 @@ class Fleets:
     ships_remaining = u.SHIPS_PER_QUARTER
 
     def __init__(self, asteroids=(), missiles=(), saucers=(), saucer_missiles=(), ships=()):
-        self.fleets = dict(
-            flyers=Fleet([]))
+        self.flyers = Fleet([])
         for asteroid in asteroids:
             self.add_flyer(asteroid)
         for missile in missiles:
@@ -31,7 +30,7 @@ class Fleets:
 
     @property
     def all_objects(self):
-        return list(chain(*self.fleets.values()))
+        return self.flyers
 
     @property
     def _asteroids(self):
@@ -45,10 +44,6 @@ class Fleets:
     @property
     def ships(self):
         return self.select(lambda s: isinstance(s, Ship))
-
-    @property
-    def flyers(self):
-        return self.fleets["flyers"]
 
     # adds and removes
 
@@ -67,12 +62,10 @@ class Fleets:
         player.play("beat2")
 
     def clear(self):
-        for fleet in self.fleets.values():
-            fleet.clear()
+        self.flyers.clear()
 
     def draw(self, screen):
-        for fleet in self.fleets.values():
-            fleet.draw(screen)
+        self.flyers.draw(screen)
 
     def select(self, condition):
         return [flyer for flyer in self.all_objects if condition(flyer)]
@@ -82,8 +75,7 @@ class Fleets:
             self.thumper.tick(delta_time)
         else:
             self.thumper.reset()
-        for fleet in self.fleets.values():
-            fleet.tick(delta_time, self)
+        self.flyers.tick(delta_time, self)
 
     def begin_interactions(self):
         for flyer in self.all_objects:
