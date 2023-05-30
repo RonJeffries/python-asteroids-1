@@ -1,6 +1,7 @@
 # SpaceObjects
 from itertools import chain
 import u
+from asteroid import Asteroid
 from fleet import Fleet
 from missile import Missile
 from scorekeeper import ScoreKeeper
@@ -35,7 +36,7 @@ class Fleets:
 
     @property
     def _asteroids(self):
-        return self.fleets["asteroids"]
+        return self.select(lambda a: isinstance(a, Asteroid))
 
     @property
     def missiles(self):
@@ -65,10 +66,10 @@ class Fleets:
     # adds and removes
 
     def add_asteroid(self, asteroid):
-        self._asteroids.append(asteroid)
+        self.add_flyer(asteroid)
 
     def remove_asteroid(self, asteroid):
-        self._asteroids.remove(asteroid)
+        self.remove_flyer(asteroid)
 
     def add_flyer(self, flyer):
         self.flyers.append(flyer)
