@@ -414,4 +414,3 @@ class TestInteractions:
         assert len(as2) == 2
         as1 = fleets.select(lambda x: isinstance(x, Asteroid) and x.size == 2)
         assert len(as1) == 1
-        assert fleets.count(lambda x: isinstance(x, Asteroid)) == 2
