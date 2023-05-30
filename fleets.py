@@ -3,7 +3,6 @@ from itertools import chain
 import u
 from asteroid import Asteroid
 from fleet import Fleet
-from scorekeeper import ScoreKeeper
 from ship import Ship
 from sounds import player
 from thumper import Thumper
