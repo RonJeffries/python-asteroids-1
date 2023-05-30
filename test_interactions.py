@@ -56,7 +56,7 @@ class FleetsInspector:
 
     def clear_saucer_missiles(self):
         for m in self.saucer_missiles:
-            self.fleets.remove_saucer_missile(m)
+            self.fleets.remove_flyer(m)
 
 
 FI = FleetsInspector
