@@ -95,14 +95,14 @@ class TestShipMaker:
         assert fi.ships
         assert fleets.ships_remaining == 1
         for ship in fi.ships:
-            fleets.remove_ship(ship)
+            fleets.remove_flyer(ship)
         interactor.perform_interactions()
         fleets.tick(u.SHIP_EMERGENCE_TIME)
         assert fi.ships
         assert fleets.ships_remaining == 0
         assert not fi.game_over
         for ship in fi.ships:
-            fleets.remove_ship(ship)
+            fleets.remove_flyer(ship)
         interactor.perform_interactions()
         fleets.tick(u.SHIP_EMERGENCE_TIME)
         assert not fi.ships

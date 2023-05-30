@@ -58,9 +58,6 @@ class Fleets:
     def remove_flyer(self, flyer):
         self.flyers.remove(flyer)
 
-    def remove_ship(self, ship):
-        self.flyers.remove(ship)
-
     @staticmethod
     def beat1():
         player.play("beat1")
