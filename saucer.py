@@ -30,9 +30,9 @@ class Saucer(Flyer):
         x = 0 if Saucer.direction > 0 else u.SCREEN_SIZE
         position = Vector2(x, random.randrange(0, u.SCREEN_SIZE))
         velocity = Saucer.direction * u.SAUCER_VELOCITY
+        self._missile_tally = 0
         self._location = MovableLocation(position, velocity)
         self._directions = (velocity.rotate(45), velocity, velocity, velocity.rotate(-45))
-        self._missile_tally = 0
         self._create_surface_class_members()
         self._set_firing_timer()
         self._set_zig_timer()
