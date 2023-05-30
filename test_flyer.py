@@ -1,18 +1,21 @@
 from flyer import Flyer
 
-_RETURN_NONE = (lambda: None).__code__.co_code
+
+def just_pass():
+    pass
 
 
 class TestFlyer:
     def test_all_interact_with_implemented_in_flyer(self):
-        sc = Flyer.__subclasses__()
+        subclasses = Flyer.__subclasses__()
         ignores = ["BeginChecker", "EndChecker"]
-        sc = [klass for klass in sc if klass.__name__ not in ignores]
-        attrs = dir(Flyer)
-        for klass in sc:
+        subclasses = [klass for klass in subclasses if klass.__name__ not in ignores]
+        attributes = dir(Flyer)
+        pass_code = just_pass.__code__.co_code
+        for klass in subclasses:
             name = klass.__name__.lower()
-            method = "interact_with_" + name
-            assert method in attrs
-            iw = klass.interact_with
-            iw_code = iw.__code__.co_code
-            assert iw_code != _RETURN_NONE, name + " has pass in interact_with"
+            required_method = "interact_with_" + name
+            assert required_method in attributes
+            interact_with_method = klass.interact_with
+            interact_with_code = interact_with_method.__code__.co_code
+            assert interact_with_code != pass_code, name + " has pass in interact_with"
