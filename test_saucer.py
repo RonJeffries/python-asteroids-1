@@ -29,7 +29,6 @@ class TestSaucer:
     def test_move(self):
         Saucer.init_for_new_game()
         saucer = Saucer()
-        saucer.ready()
         saucer.move(delta_time=0.1, saucers=[])
         assert saucer.position.x == u.SAUCER_VELOCITY.x * 0.1
         saucer.move(delta_time=0.1, saucers=[])

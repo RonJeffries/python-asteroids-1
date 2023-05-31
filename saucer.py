@@ -169,9 +169,6 @@ class Saucer(Flyer):
         angle_point = aiming_point - self.position
         return degrees(atan2(angle_point.y, angle_point.x))
 
-    def ready(self):
-        pass
-
     def score_for_hitting(self, attacker):
         return attacker.scores_for_hitting_saucer()[self.size - 1]
 
@@ -182,11 +179,11 @@ class Saucer(Flyer):
         self.move(delta_time, fleet)
 
 
-def nearest(shooter, target, size):
+def nearest(shooter, target, wrap_size):
     dist = abs(target - shooter)
-    t_min = target - size
+    t_min = target - wrap_size
     t_min_dist = abs(t_min - shooter)
-    t_max = target + size
+    t_max = target + wrap_size
     t_max_dist = abs(t_max - shooter)
     if t_min_dist < dist:
         return t_min
@@ -196,7 +193,7 @@ def nearest(shooter, target, size):
         return target
 
 
-def nearest_point(shooter, target, size):
-    nearest_x = nearest(shooter.x, target.x, size)
-    nearest_y = nearest(shooter.y, target.y, size)
+def nearest_point(shooter, target, wrap_size):
+    nearest_x = nearest(shooter.x, target.x, wrap_size)
+    nearest_y = nearest(shooter.y, target.y, wrap_size)
     return Vector2(nearest_x, nearest_y)
