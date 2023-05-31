@@ -74,7 +74,7 @@ class Fragment(Flyer):
     def interact_with(self, attacker, fleets):
         attacker.interact_with_fragment(self, fleets)
 
-    def _move(self, delta_time):
+    def move(self, delta_time, _fleets):
         position = self.position + self.velocity * delta_time
         position.x = position.x % u.SCREEN_SIZE
         position.y = position.y % u.SCREEN_SIZE
@@ -83,7 +83,6 @@ class Fragment(Flyer):
 
     def tick(self, delta_time, fragments, _fleets):
         self.timer.tick(delta_time, fragments)
-        self._move(delta_time)
 
     def timeout(self, fragments):
         fragments.remove(self)
