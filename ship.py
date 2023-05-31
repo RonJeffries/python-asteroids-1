@@ -164,7 +164,7 @@ class Ship(Flyer):
     def missile_velocity(self):
         return Vector2(u.MISSILE_SPEED, 0).rotate(-self._angle) + self.velocity_testing_only
 
-    def move(self, delta_time, _ships):
+    def _move(self, delta_time, _ships):
         self._location.move(delta_time)
 
     def move_to(self, vector):
@@ -192,7 +192,7 @@ class Ship(Flyer):
 
     def tick(self, delta_time, fleet, fleets):
         self.control_motion(delta_time, fleet, fleets)
-        self.move(delta_time, fleet)
+        self._move(delta_time, fleet)
 
     def turn_left(self, dt):
         self._angle = self._angle - u.SHIP_ROTATION_STEP * dt

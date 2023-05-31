@@ -30,5 +30,5 @@ class TestFragments:
     def test_fragment_move(self):
         frag = Fragment(position=u.CENTER, angle=0, speed_mul=1, fragments=["ignored"])
         assert frag.velocity == Vector2(u.FRAGMENT_SPEED, 0)
-        frag.move(0.1)
+        frag._move(0.1)
         assert frag.position == u.CENTER + Vector2(u.FRAGMENT_SPEED * 0.1, 0)

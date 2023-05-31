@@ -88,8 +88,8 @@ class Game:
         return self.keep_going
 
     def asteroids_tick(self, delta_time):
-        self.fleets.tick(delta_time)
         self.control_game()
         self.process_interactions()
+        self.fleets.tick(delta_time)
         self.draw_everything()
 

@@ -109,7 +109,7 @@ class Saucer(Flyer):
         top_left_corner = self.position - Saucer.offset
         screen.blit(Saucer.saucer_surface, top_left_corner)
 
-    def move(self, delta_time, saucers):
+    def _move(self, delta_time, saucers):
         off_x, off_y = self._location.move(delta_time)
         if off_x:
             if self in saucers:
@@ -176,7 +176,7 @@ class Saucer(Flyer):
         player.play("saucer_big", self._location, False)
         self.fire_if_possible(delta_time, fleets)
         self.check_zigzag(delta_time)
-        self.move(delta_time, fleet)
+        self._move(delta_time, fleet)
 
 
 def nearest(shooter, target, wrap_size):

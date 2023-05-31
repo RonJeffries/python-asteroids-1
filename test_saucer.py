@@ -29,9 +29,9 @@ class TestSaucer:
     def test_move(self):
         Saucer.init_for_new_game()
         saucer = Saucer()
-        saucer.move(delta_time=0.1, saucers=[])
+        saucer._move(delta_time=0.1, saucers=[])
         assert saucer.position.x == u.SAUCER_VELOCITY.x * 0.1
-        saucer.move(delta_time=0.1, saucers=[])
+        saucer._move(delta_time=0.1, saucers=[])
         assert saucer.position.x == 2 * u.SAUCER_VELOCITY.x * 0.1
 
     def test_vanish_at_edge(self):
@@ -39,13 +39,13 @@ class TestSaucer:
         saucer = Saucer()
         saucers = [saucer]
         assert saucer.position.x == 0
-        saucer.move(1, saucers)
+        saucer._move(1, saucers)
         assert saucers
         time = 0
         delta_time = 0.1
         while time < 10:
             time += delta_time
-            saucer.move(delta_time=delta_time, saucers=saucers)
+            saucer._move(delta_time=delta_time, saucers=saucers)
         assert not saucers
 
     def test_right_to_left(self):
@@ -58,14 +58,14 @@ class TestSaucer:
         saucer = Saucer()
         saucer.move_to(Vector2(100, 3))
         saucer.accelerate_to(Vector2(100, -100))
-        saucer.move(0.1, [])
+        saucer._move(0.1, [])
         assert saucer.position.y > 1000
 
     def test_off_high(self):
         saucer = Saucer()
         saucer.move_to(Vector2(100, 1021))
         saucer.accelerate_to(Vector2(100, 100))
-        saucer.move(0.1, [])
+        saucer._move(0.1, [])
         assert saucer.position.y < 50
 
     def test_can_only_fire_two(self):

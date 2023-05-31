@@ -40,7 +40,7 @@ class Asteroid(Flyer):
         top_left_corner = self.position - self._offset
         screen.blit(self._surface, top_left_corner)
 
-    def move(self, delta_time, _asteroids):
+    def _move(self, delta_time, _asteroids):
         self._location.move(delta_time)
 
     def move_to(self, vector):
@@ -84,4 +84,4 @@ class Asteroid(Flyer):
         player.play(sound, self._location)
 
     def tick(self, delta_time, fleet, _fleets):
-        self.move(delta_time, fleet)
+        self._move(delta_time, fleet)
