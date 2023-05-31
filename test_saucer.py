@@ -29,24 +29,26 @@ class TestSaucer:
     def test_move(self):
         Saucer.init_for_new_game()
         saucer = Saucer()
-        saucer._move(delta_time=0.1, saucers=[])
+        saucer._move(delta_time=0.1, fleets=[])
         assert saucer.position.x == u.SAUCER_VELOCITY.x * 0.1
-        saucer._move(delta_time=0.1, saucers=[])
+        saucer._move(delta_time=0.1, fleets=[])
         assert saucer.position.x == 2 * u.SAUCER_VELOCITY.x * 0.1
 
     def test_vanish_at_edge(self):
         Saucer.init_for_new_game()
+        fleets = Fleets()
+        fi = FI(fleets)
         saucer = Saucer()
-        saucers = [saucer]
+        fleets.add_flyer(saucer)
         assert saucer.position.x == 0
-        saucer._move(1, saucers)
-        assert saucers
+        saucer.move(1, fleets)
+        assert fi.saucers
         time = 0
         delta_time = 0.1
         while time < 10:
             time += delta_time
-            saucer._move(delta_time=delta_time, saucers=saucers)
-        assert not saucers
+            saucer.move(delta_time=delta_time, fleets=fleets)
+        assert not fi.saucers
 
     def test_right_to_left(self):
         Saucer.init_for_new_game()

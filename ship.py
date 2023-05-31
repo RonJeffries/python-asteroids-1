@@ -55,7 +55,7 @@ class Ship(Flyer):
     def accelerate_to(self, accel):
         self._location.accelerate_to(accel)
 
-    def control_motion(self, delta_time, fleet, fleets):
+    def control_motion(self, delta_time, fleets):
         if not pygame.get_init():
             return
         keys = pygame.key.get_pressed()
@@ -72,8 +72,7 @@ class Ship(Flyer):
         else:
             self._can_fire = True
         if keys[pygame.K_SPACE]:
-            print(self._asteroid_tally)
-            self.enter_hyperspace_if_possible(fleet, fleets)
+            self.enter_hyperspace_if_possible(fleets)
         else:
             self._can_enter_hyperspace = True
 
@@ -118,7 +117,7 @@ class Ship(Flyer):
         half = pygame.Vector2(rotated.get_size()) / 2
         screen.blit(rotated, self.position - half)
 
-    def enter_hyperspace_if_possible(self, _ships_fleet, fleets):
+    def enter_hyperspace_if_possible(self, fleets):
         if not self._can_enter_hyperspace:
             return
         self._can_enter_hyperspace = False
@@ -164,9 +163,6 @@ class Ship(Flyer):
     def missile_velocity(self):
         return Vector2(u.MISSILE_SPEED, 0).rotate(-self._angle) + self.velocity_testing_only
 
-    def _move(self, delta_time, _ships):
-        self._location.move(delta_time)
-
     def move_to(self, vector):
         self._location.move_to(vector)
 
@@ -191,8 +187,14 @@ class Ship(Flyer):
             return self._ship_surface
 
     def tick(self, delta_time, fleet, fleets):
-        self.control_motion(delta_time, fleet, fleets)
-        self._move(delta_time, fleet)
+        pass
+
+    def move(self, delta_time,fleets):
+        self.control_motion(delta_time, fleets)
+        self._move(delta_time, fleets)
+
+    def _move(self, delta_time, _fleets):
+        self._location.move(delta_time)
 
     def turn_left(self, dt):
         self._angle = self._angle - u.SHIP_ROTATION_STEP * dt
