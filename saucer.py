@@ -124,13 +124,13 @@ class Saucer(Flyer):
     def new_direction(self):
         return random.choice(self._directions)
 
-    def fire_if_possible(self, delta_time, fleets, ships):
-        self.missile_timer.tick(delta_time, fleets, ships)
+    def fire_if_possible(self, delta_time, fleets):
+        self.missile_timer.tick(delta_time, fleets)
 
-    def fire_if_missile_available(self, fleets, ships) -> bool:
+    def fire_if_missile_available(self, fleets) -> bool:
         if self._missile_tally >= u.SAUCER_MISSILE_LIMIT:
             return False
-        missile = self.create_missile(ships)
+        missile = self.create_missile()
         fleets.add_flyer(missile)
         return True
 
@@ -142,22 +142,22 @@ class Saucer(Flyer):
     def scores_for_hitting_saucer():
         return [0, 0]
 
-    def create_missile(self, ships):
+    def create_missile(self):
         """callback method, called from saucer_missiles.fire"""
         should_target = random.random()
         random_angle = random.random()
-        return self.suitable_missile(should_target, random_angle, ships)
+        return self.suitable_missile(should_target, random_angle)
 
-    def suitable_missile(self, should_target, random_angle, ships):
-        if self.cannot_target_ship(ships, should_target):
+    def suitable_missile(self, should_target, random_angle):
+        if self.cannot_target_ship(should_target):
             return self.missile_at_angle(random_angle * 360.0, self._velocity)
-        targeting_angle = self.angle_to(ships[0])
-        velocity_adjustment = Vector2(0, 0)
-        return self.missile_at_angle(targeting_angle, velocity_adjustment)
+        else:
+            targeting_angle = self.angle_to(self.ship)
+            velocity_adjustment = Vector2(0, 0)
+            return self.missile_at_angle(targeting_angle, velocity_adjustment)
 
-    @staticmethod
-    def cannot_target_ship(ships, should_target):
-        return not ships or should_target > u.SAUCER_TARGETING_FRACTION
+    def cannot_target_ship(self, should_target):
+        return not self.ship or should_target > u.SAUCER_TARGETING_FRACTION
 
     def missile_at_angle(self, desired_angle, velocity_adjustment):
         missile_velocity = Vector2(u.MISSILE_SPEED, 0).rotate(desired_angle) + velocity_adjustment
@@ -177,8 +177,7 @@ class Saucer(Flyer):
 
     def tick(self, delta_time, fleet, fleets):
         player.play("saucer_big", self._location, False)
-        ships = fleets.ships
-        self.fire_if_possible(delta_time, fleets, ships)
+        self.fire_if_possible(delta_time, fleets)
         self.check_zigzag(delta_time)
         self.move(delta_time, fleet)
 

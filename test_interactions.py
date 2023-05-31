@@ -125,7 +125,7 @@ class TestInteractions:
         ship._missile_tally = 0
         for flyer in fleets.all_objects:
             flyer.interact_with(ship, fleets)
-        ship.fire_if_possible(fleets)
+        ship.fire_if_possible(fleets, )
         missile_count = len([m for m in fleets.all_objects])
         return missile_count
 

@@ -73,19 +73,19 @@ class TestSaucer:
         fleets = Fleets()
         fi = FI(fleets)
         saucer = Saucer()
-        saucer.fire_if_possible(delta_time=0.1, fleets=fleets, ships=[])
+        saucer.fire_if_possible(delta_time=0.1, fleets=fleets)
         assert not fi.saucer_missiles
-        saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, fleets=fleets, ships=[])
+        saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, fleets=fleets)
         assert len(fi.saucer_missiles) == 1
         saucer.begin_interactions(fleets)
         for m in fi.saucer_missiles:
             saucer.interact_with_missile(m, fleets)
-        saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, fleets=fleets, ships=[])
+        saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, fleets=fleets)
         assert len(fi.saucer_missiles) == 2
         saucer.begin_interactions(fleets)
         for m in fi.saucer_missiles:
             saucer.interact_with_missile(m, fleets)
-        saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, fleets=fleets, ships=[])
+        saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, fleets=fleets)
         assert len(fi.saucer_missiles) == 2
 
     def test_counts_saucer_missiles(self):
@@ -148,7 +148,8 @@ class TestSaucer:
         ships = [Ship(Vector2(100, 100))]
         should_target = 0.1
         random_angle = None
-        missile = saucer.suitable_missile(should_target, random_angle, ships)
+        saucer.ship = ships[0]
+        missile = saucer.suitable_missile(should_target, random_angle)
         assert missile.velocity_testing_only == Vector2(0, -u.SPEED_OF_LIGHT / 3)
         # assert degrees == -90
 
@@ -158,7 +159,7 @@ class TestSaucer:
         ships = []
         should_target = 0.1
         random_angle = 0.5
-        missile = saucer.suitable_missile(should_target, random_angle, ships)
+        missile = saucer.suitable_missile(should_target, random_angle)
         assert missile.velocity_testing_only.x - saucer.velocity_testing_only.x == pytest.approx(-166.667, 0.01)
 
     def test_missile_spec_no_dice(self):
@@ -167,7 +168,7 @@ class TestSaucer:
         ships = [Ship(Vector2(100, 100))]
         should_target = 0.26
         random_angle = 0.5
-        missile = saucer.suitable_missile(should_target, random_angle, ships)
+        missile = saucer.suitable_missile(should_target, random_angle)
         assert missile.velocity_testing_only.x == pytest.approx(-67.666, 0.01)
         assert missile.velocity_testing_only.y == 77
 
