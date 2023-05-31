@@ -17,8 +17,8 @@ class TestThumper:
     def test_thumper_create(self):
         thumper = Thumper(beat1, beat2)
         assert thumper
-        assert thumper._long_interval == 30/60
-        assert thumper._short_interval == 8/60
+        assert thumper._longest_time_between_beats == 30 / 60
+        assert thumper._shortest_time_between_beats == 8 / 60
 
     def test_thumper_thumps(self):
         """thumper ticks between 30 and 8 60ths"""
@@ -34,28 +34,28 @@ class TestThumper:
     def test_thumper_decrement_interval(self):
         thumper = Thumper(beat1, beat2)
         thumper.tick(128/60)
-        assert thumper._interval == 30/60 - 1/60
+        assert thumper._time_between_beats == 30 / 60 - 1 / 60
         thumper.tick(128/60)
-        assert thumper._interval == 30/60 - 1/60 - 1/60
+        assert thumper._time_between_beats == 30 / 60 - 1 / 60 - 1 / 60
 
     def test_thumper_countdown(self):
         thumper = Thumper(beat1, beat2)
-        thumper._interval = 9/60
+        thumper._time_between_beats = 9 / 60
         thumper.tick(128/60)
-        assert thumper._interval == 9/60 - 1/60
+        assert thumper._time_between_beats == 9 / 60 - 1 / 60
         thumper.tick(128/60)
-        assert thumper._interval == 8/60
+        assert thumper._time_between_beats == 8 / 60
         thumper.tick(128/60)
-        assert thumper._interval == 8/60
+        assert thumper._time_between_beats == 8 / 60
 
     def test_thumper_reset(self):
         thumper = Thumper(beat1, beat2)
-        thumper._interval = 8/60
-        thumper._execute_time = 2/60
-        thumper._decrement_time = 2/60
+        thumper._time_between_beats = 8 / 60
+        thumper._time_since_last_beat = 2 / 60
+        thumper._time_since_last_decrement = 2 / 60
         thumper.reset()
-        assert thumper._interval == 30/60
-        assert thumper._execute_time == 0
-        assert thumper._decrement_time == 0
+        assert thumper._time_between_beats == 30 / 60
+        assert thumper._time_since_last_beat == 0
+        assert thumper._time_since_last_decrement == 0
 
 

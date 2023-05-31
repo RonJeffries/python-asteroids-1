@@ -2,29 +2,43 @@
 
 class Thumper:
     def __init__(self, b1, b2):
-        self._long_interval = 30/60
-        self._short_interval = 8/60
-        self._decrement_interval = 127/60
+        self._longest_time_between_beats = 30 / 60
+        self._shortest_time_between_beats = 8 / 60
+        self._delay_before_shortening_beat_time = 127 / 60
+        self._amount_to_shorten_beat_time = 1 / 60
+        self._time_between_beats = 0
+        self._time_since_last_beat = 0
+        self._time_since_last_decrement = 0
         self.b1 = b1
         self.b2 = b2
         self.reset()
 
-    # noinspection PyAttributeOutsideInit
     def reset(self):
-        self._interval = self._long_interval
-        self._decrement_time = 0
-        self._execute_time = 0
+        self._time_between_beats = self._longest_time_between_beats
+        self._time_since_last_decrement = 0
+        self._time_since_last_beat = 0
 
-    # noinspection PyAttributeOutsideInit
     def tick(self, delta_time):
-        self._execute_time += delta_time
-        if self._execute_time >= self._interval:
-            self._execute_time = 0
-            self.b1()
-            self.b1, self.b2 = self.b2, self.b1
-        self._decrement_time += delta_time
-        if self._decrement_time >= self._decrement_interval:
-            self._decrement_time = 0
-            self._interval = self._interval - 1/60
-            if self._interval < 8/60:
-                self._interval = 8/60
+        if self.it_is_time_to_beat(delta_time):
+            self.play_and_reset_beat()
+        if self.it_is_time_to_speed_up_beats(delta_time):
+            self.speed_up_beats()
+
+    def it_is_time_to_beat(self, delta_time):
+        self._time_since_last_beat += delta_time
+        return self._time_since_last_beat >= self._time_between_beats
+
+    def play_and_reset_beat(self):
+        self._time_since_last_beat = 0
+        self.b1()
+        self.b1, self.b2 = self.b2, self.b1
+
+    def it_is_time_to_speed_up_beats(self, delta_time):
+        self._time_since_last_decrement += delta_time
+        return self._time_since_last_decrement >= self._delay_before_shortening_beat_time
+
+    def speed_up_beats(self):
+        self._time_since_last_decrement = 0
+        self._time_between_beats = max(
+            self._time_between_beats - self._amount_to_shorten_beat_time,
+            self._shortest_time_between_beats)

@@ -41,9 +41,8 @@ class Game:
         self.clock = pygame.time.Clock()
         self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
 
-    def process_interactions(self):
-        interactor = Interactor(self.fleets)
-        interactor.perform_interactions()
+    def perform_interactions(self):
+        Interactor(self.fleets).perform_interactions()
 
     def control_game(self):
         keys = pygame.key.get_pressed()
@@ -90,7 +89,7 @@ class Game:
     def asteroids_tick(self, delta_time):
         self.control_game()
         self.fleets.move(delta_time)
-        self.process_interactions()
+        self.perform_interactions()
         self.fleets.tick(delta_time)
         self.draw_everything()
 
