@@ -23,6 +23,7 @@ class Ship(Flyer):
         self._angle = 0
         self._acceleration = u.SHIP_ACCELERATION
         self._accelerating = False
+        self._asteroid_tally = 0
         self._missile_tally = 0
         ship_scale = 4
         ship_size = Vector2(14, 8)*ship_scale
@@ -71,7 +72,8 @@ class Ship(Flyer):
         else:
             self._can_fire = True
         if keys[pygame.K_SPACE]:
-            self.enter_hyperspace_if_possible(fleet, fleets._number_to_create, fleets)
+            print(self._asteroid_tally)
+            self.enter_hyperspace_if_possible(fleet, fleets)
         else:
             self._can_enter_hyperspace = True
 
@@ -79,9 +81,11 @@ class Ship(Flyer):
         attacker.interact_with_ship(self, fleets)
 
     def begin_interactions(self, fleets):
+        self._asteroid_tally = 0
         self._missile_tally = 0
 
     def interact_with_asteroid(self, asteroid, fleets):
+        self._asteroid_tally += 1
         self.explode_if_hit(fleets, asteroid)
 
     def interact_with_missile(self, missile, fleets):
@@ -114,12 +118,12 @@ class Ship(Flyer):
         half = pygame.Vector2(rotated.get_size()) / 2
         screen.blit(rotated, self.position - half)
 
-    def enter_hyperspace_if_possible(self, _ships_fleet, asteroid_count, fleets):
+    def enter_hyperspace_if_possible(self, _ships_fleet, fleets):
         if not self._can_enter_hyperspace:
             return
         self._can_enter_hyperspace = False
         roll = random.randrange(0, 63)
-        if self.hyperspace_failure(roll, asteroid_count):
+        if self.hyperspace_failure(roll):
             self.explode(fleets)
         else:
             self.hyperspace_transfer()
@@ -145,9 +149,8 @@ class Ship(Flyer):
             fleets.add_flyer(self.create_missile())
             self._can_fire = False
 
-    @staticmethod
-    def hyperspace_failure(roll, asteroid_count):
-        return roll > 44 + asteroid_count
+    def hyperspace_failure(self, roll):
+        return roll > 44 + self._asteroid_tally
 
     def create_missile(self):
         player.play("fire", self._location)
