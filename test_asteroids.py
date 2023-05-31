@@ -34,7 +34,8 @@ class TestAsteroids:
     def test_ship_move(self):
         ship = Ship(Vector2(50, 60))
         ship.velocity_testing_only = Vector2(10, 16)
-        ship._move(0.5, [ship])
+        fleets = [ship]
+        ship._location.move(0.5)
         assert ship.position == Vector2(55, 68)
 
     def test_ship_acceleration(self):

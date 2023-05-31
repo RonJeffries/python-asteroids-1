@@ -191,9 +191,6 @@ class Ship(Flyer):
 
     def move(self, delta_time,fleets):
         self.control_motion(delta_time, fleets)
-        self._move(delta_time, fleets)
-
-    def _move(self, delta_time, _fleets):
         self._location.move(delta_time)
 
     def turn_left(self, dt):
