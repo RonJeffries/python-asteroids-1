@@ -34,7 +34,7 @@ class Fleets:
         return self.select(lambda a: isinstance(a, Asteroid))
 
     @property
-    def ships(self):
+    def _ships(self):
         return self.select(lambda s: isinstance(s, Ship))
 
     # adds and removes
@@ -63,7 +63,7 @@ class Fleets:
         return [flyer for flyer in self.all_objects if condition(flyer)]
 
     def tick(self, delta_time):
-        if self._asteroids and self.ships:
+        if self._asteroids and self._ships:
             self.thumper.tick(delta_time)
         else:
             self.thumper.reset()
