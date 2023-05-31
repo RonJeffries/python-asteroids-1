@@ -58,6 +58,9 @@ class Fleets:
     def draw(self, screen):
         self.flyers.draw(screen)
 
+    def move(self, delta_time):
+        self.flyers.move(delta_time, self)
+
     def select(self, condition):
         return [flyer for flyer in self.all_objects if condition(flyer)]
 

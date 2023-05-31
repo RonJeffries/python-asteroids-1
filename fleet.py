@@ -34,6 +34,10 @@ class Fleet:
         for flyer in self:
             flyer.draw(screen)
 
+    def move(self, delta_time, fleets):
+        for flyer in self:
+            flyer.move(delta_time, fleets)
+
     def tick(self, delta_time, fleets):
         for flyer in self:
             flyer.tick(delta_time, self, fleets)
