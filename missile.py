@@ -75,15 +75,14 @@ class Missile(Flyer):
     def draw(self, screen):
         pygame.draw.circle(screen, "white", self.position, 4)
 
-    def _move(self, delta_time):
+    def move(self, delta_time, _fleets):
         self._location.move(delta_time)
-
-    def tick_timer(self, delta_time, missiles):
-        self._timer.tick(delta_time, missiles)
 
     def tick(self, delta_time, fleet, _fleets):
         self.tick_timer(delta_time, fleet)
-        self._move(delta_time)
+
+    def tick_timer(self, delta_time, missiles):
+        self._timer.tick(delta_time, missiles)
 
     def timeout(self, missiles):
         missiles.remove(self)

@@ -40,7 +40,7 @@ class Asteroid(Flyer):
         top_left_corner = self.position - self._offset
         screen.blit(self._surface, top_left_corner)
 
-    def move(self, delta_time, _asteroids):
+    def move(self, delta_time, _fleets):
         self._location.move(delta_time)
 
     def move_to(self, vector):
