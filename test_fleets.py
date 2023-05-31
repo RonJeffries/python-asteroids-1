@@ -1,11 +1,7 @@
 from pygame import Vector2
 
-import u
-from asteroid import Asteroid
 from fleets import Fleets
-from fleet import Fleet
 from missile import Missile
-from shipmaker import ShipMaker
 from test_interactions import FI
 
 

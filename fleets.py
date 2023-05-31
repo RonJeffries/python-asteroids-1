@@ -1,5 +1,4 @@
 # SpaceObjects
-from itertools import chain
 import u
 from asteroid import Asteroid
 from fleet import Fleet

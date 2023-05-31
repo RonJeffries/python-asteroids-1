@@ -155,7 +155,6 @@ class TestSaucer:
     def test_missile_spec_no_ship(self):
         saucer = Saucer(Vector2(100, 110))
         saucer.accelerate_to(Vector2(99, 77))
-        ships = []
         should_target = 0.1
         random_angle = 0.5
         missile = saucer.suitable_missile(should_target, random_angle)
@@ -164,7 +163,6 @@ class TestSaucer:
     def test_missile_spec_no_dice(self):
         saucer = Saucer(Vector2(100, 110))
         saucer.accelerate_to(Vector2(99, 77))
-        ships = [Ship(Vector2(100, 100))]
         should_target = 0.26
         random_angle = 0.5
         missile = saucer.suitable_missile(should_target, random_angle)

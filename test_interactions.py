@@ -110,7 +110,6 @@ class EndChecker(Flyer):
 class TestInteractions:
     def test_firing_limit(self):
         ship = Ship(u.CENTER)
-        count = 0
         missile_count = 0
         fleets = Fleets()
         for i in range(5):
@@ -238,7 +237,7 @@ class TestInteractions:
     def test_saucer_ship_missile_scores(self):
         pos = Vector2(100, 100)
         saucer = Saucer()
-        interactor = self.interact_with_missile(pos, saucer, 200)
+        self.interact_with_missile(pos, saucer, 200)
 
     @staticmethod
     def interact_with_missile(pos, saucer, expected_score):
@@ -260,7 +259,7 @@ class TestInteractions:
     def test_small_saucer_ship_missile_scores(self):
         pos = Vector2(100, 100)
         saucer = Saucer(pos, 1)
-        interactor = self.interact_with_missile(pos, saucer, 1000)
+        self.interact_with_missile(pos, saucer, 1000)
 
     def test_saucer_vs_saucer_missile_does_not_score(self):
         pos = Vector2(100, 100)

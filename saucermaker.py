@@ -9,7 +9,8 @@ class SaucerMaker(Flyer):
         self._timer = Timer(u.SAUCER_EMERGENCE_TIME, self.create_saucer)
         self._saucer_gone = True
 
-    def create_saucer(self, fleets):
+    @staticmethod
+    def create_saucer(fleets):
         fleets.add_flyer(Saucer())
 
     def begin_interactions(self, fleets):

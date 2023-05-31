@@ -1,10 +1,5 @@
 # Fleet
 
-import u
-from saucer import Saucer
-from ship import Ship
-from timer import Timer
-
 
 class Fleet:
     def __init__(self, flyers):
