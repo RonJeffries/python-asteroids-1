@@ -109,11 +109,10 @@ class Saucer(Flyer):
         top_left_corner = self.position - Saucer.offset
         screen.blit(Saucer.saucer_surface, top_left_corner)
 
-    def _move(self, delta_time, saucers):
+    def _move(self, delta_time, fleets):
         off_x, off_y = self._location.move(delta_time)
         if off_x:
-            if self in saucers:
-                saucers.remove(self)
+            fleets.remove_flyer(self)
 
     def move_to(self, vector):
         self._location.move_to(vector)
@@ -172,11 +171,14 @@ class Saucer(Flyer):
     def score_for_hitting(self, attacker):
         return attacker.scores_for_hitting_saucer()[self.size - 1]
 
-    def tick(self, delta_time, fleet, fleets):
+    def move(self, delta_time,fleets):
         player.play("saucer_big", self._location, False)
         self.fire_if_possible(delta_time, fleets)
         self.check_zigzag(delta_time)
-        self._move(delta_time, fleet)
+        self._move(delta_time, fleets)
+
+    def tick(self, delta_time, fleet, fleets):
+        pass
 
 
 def nearest(shooter, target, wrap_size):
