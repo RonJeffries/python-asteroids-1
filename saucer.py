@@ -180,15 +180,15 @@ class Saucer(Flyer):
 
 
 def nearest(shooter, target, wrap_size):
-    dist = abs(target - shooter)
-    t_min = target - wrap_size
-    t_min_dist = abs(t_min - shooter)
-    t_max = target + wrap_size
-    t_max_dist = abs(t_max - shooter)
-    if t_min_dist < dist:
-        return t_min
-    elif t_max_dist < dist:
-        return t_max
+    direct_distance = abs(target - shooter)
+    target_wrap_left = target - wrap_size
+    wrap_left_distance = abs(target_wrap_left - shooter)
+    target_wrap_right = target + wrap_size
+    wrap_right_distance = abs(target_wrap_right - shooter)
+    if wrap_left_distance < direct_distance:
+        return target_wrap_left
+    elif wrap_right_distance < direct_distance:
+        return target_wrap_right
     else:
         return target
 
