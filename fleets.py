@@ -22,7 +22,7 @@ class Fleets:
             self.add_flyer(saucer_missile)
         for ship in ships:
             self.add_flyer(ship)
-        self.thumper = Thumper(self.beat1, self.beat2)
+        self.thumper = Thumper()
 
     @property
     def all_objects(self):

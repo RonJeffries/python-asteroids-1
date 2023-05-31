@@ -1,7 +1,8 @@
+from sounds import player
 
 
 class Thumper:
-    def __init__(self, b1, b2):
+    def __init__(self, b1=None, b2=None):
         self._longest_time_between_beats = 30 / 60
         self._shortest_time_between_beats = 8 / 60
         self._delay_before_shortening_beat_time = 127 / 60
@@ -9,9 +10,17 @@ class Thumper:
         self._time_between_beats = 0
         self._time_since_last_beat = 0
         self._time_since_last_decrement = 0
-        self.b1 = b1
-        self.b2 = b2
+        self.b1 = b1 if b1 else self.beat1
+        self.b2 = b2 if b2 else self.beat2
         self.reset()
+
+    @staticmethod
+    def beat1():
+        player.play("beat1")
+
+    @staticmethod
+    def beat2():
+        player.play("beat2")
 
     def reset(self):
         self._time_between_beats = self._longest_time_between_beats
