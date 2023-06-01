@@ -2,7 +2,7 @@ from sounds import player
 
 
 class Thumper:
-    def __init__(self, b1=None, b2=None):
+    def __init__(self, first_action=None, second_action=None):
         self._longest_time_between_beats = 30 / 60
         self._shortest_time_between_beats = 8 / 60
         self._delay_before_shortening_beat_time = 127 / 60
@@ -10,16 +10,16 @@ class Thumper:
         self._time_between_beats = 0
         self._time_since_last_beat = 0
         self._time_since_last_decrement = 0
-        self.b1 = b1 if b1 else self.beat1
-        self.b2 = b2 if b2 else self.beat2
+        self.current_action = first_action if first_action else self.play_beat_1
+        self.next_action = second_action if second_action else self.play_beat_2
         self.reset()
 
     @staticmethod
-    def beat1():
+    def play_beat_1():
         player.play("beat1")
 
     @staticmethod
-    def beat2():
+    def play_beat_2():
         player.play("beat2")
 
     def reset(self):
@@ -39,8 +39,8 @@ class Thumper:
 
     def play_and_reset_beat(self):
         self._time_since_last_beat = 0
-        self.b1()
-        self.b1, self.b2 = self.b2, self.b1
+        self.current_action()
+        self.current_action, self.next_action = self.next_action, self.current_action
 
     def it_is_time_to_speed_up_beats(self, delta_time):
         self._time_since_last_decrement += delta_time
