@@ -12,6 +12,7 @@ import u
 from fleets import Fleets
 from shipmaker import ShipMaker
 from sounds import player
+from thumper import Thumper
 from wavemaker import WaveMaker
 
 
@@ -28,6 +29,7 @@ class Game:
         self.fleets.add_flyer(WaveMaker())
         self.fleets.add_flyer(SaucerMaker())
         self.fleets.add_flyer(ShipMaker())
+        self.fleets.add_flyer(Thumper())
         self.running = not testing
 
     # noinspection PyAttributeOutsideInit

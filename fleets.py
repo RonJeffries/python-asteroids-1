@@ -22,7 +22,7 @@ class Fleets:
             self.add_flyer(saucer_missile)
         for ship in ships:
             self.add_flyer(ship)
-        self.thumper = Thumper()
+        # self.thumper = Thumper()
 
     @property
     def all_objects(self):
@@ -65,10 +65,10 @@ class Fleets:
         return [flyer for flyer in self.all_objects if condition(flyer)]
 
     def tick(self, delta_time):
-        if self._asteroids and self._ships:
-            self.thumper.tick(delta_time)
-        else:
-            self.thumper.reset()
+        # if self._asteroids and self._ships:
+        #     self.thumper.tick(delta_time)
+        # else:
+        #     self.thumper.reset()
         self.flyers.tick(delta_time, self)
 
     def begin_interactions(self):
