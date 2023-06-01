@@ -8,9 +8,15 @@ class Interactor:
 
     def perform_interactions(self):
         self.fleets.begin_interactions()
-        for target, attacker in itertools.combinations(self.fleets.all_objects, 2):
-            self.interact_one_pair(target, attacker)
+        self.interact_all_pairs()
         self.fleets.end_interactions()
+
+    def interact_all_pairs(self):
+        for target, attacker in self.all_pairs():
+            self.interact_one_pair(target, attacker)
+
+    def all_pairs(self):
+        return itertools.combinations(self.fleets.all_objects, 2)
 
     def interact_one_pair(self, target, attacker):
         attacker.interact_with(target, self.fleets)
