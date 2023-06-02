@@ -19,7 +19,7 @@ class Missile(Flyer):
             self.is_ship_missile = True
             self.is_saucer_missile = False
         self.radius = 2
-        self._timer = Timer(u.MISSILE_LIFETIME, self.timeout)
+        self._timer = Timer(u.MISSILE_LIFETIME)
         self._saucer_score_list = saucer_score_list
         self._location = MovableLocation(position, velocity)
 
@@ -82,7 +82,7 @@ class Missile(Flyer):
         self.tick_timer(delta_time, fleet)
 
     def tick_timer(self, delta_time, missiles):
-        self._timer.tick(delta_time, missiles)
+        self._timer.tick(delta_time, self.timeout, missiles)
 
     def timeout(self, missiles):
         missiles.remove(self)
