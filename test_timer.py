@@ -58,38 +58,76 @@ class TestTimer:
         timer.tick(1.5)
         assert happened
 
-    def test_timer_with_args(self):
-        saucer = Saucer()
-        saucers = []
-
-        def start_saucer(a_saucer, the_saucers):
-            the_saucers.append(a_saucer)
-            return True
-
-        delay = 1
-        timer = Timer(delay, start_saucer, saucer, saucers)
-        timer.tick(1.1)
-        assert saucers
+    # def test_timer_with_args(self):
+    #     saucer = Saucer()
+    #     saucers = []
+    #
+    #     def start_saucer(a_saucer, the_saucers):
+    #         the_saucers.append(a_saucer)
+    #         return True
+    #
+    #     delay = 1
+    #     timer = Timer(delay, start_saucer, saucer, saucers)
+    #     timer.tick(1.1)
+    #     assert saucers
 
     def test_with_method(self):
         checker = Checker(19)
         another = Checker(9)
         some_value = 31
-        timer = Timer(1, checker.set, some_value)
-        timer2 = Timer(1, another.set, 21)
-        timer.tick(1.1)
+        timer = Timer(1, checker.set)
+        timer2 = Timer(1, another.set)
+        timer.tick(1.1, 31)
         assert checker.happened == 31 + 19
-        timer2.tick(1.1)
+        timer2.tick(1.1, 21)
         assert another.happened == 21 + 9
 
     def test_tick_args(self):
         result = ""
 
-        def action(action_arg, tick_arg):
+        def action(tick_arg):
             nonlocal result
-            result = action_arg + " " + tick_arg
+            result = tick_arg
             return True
 
-        timer = Timer(1, action, "action arg")
+        timer = Timer(1, action)
         timer.tick(1.1, "tick arg")
-        assert result == "action arg tick arg"
+        assert result == "tick arg"
+
+    def test_tick_with_function(self):
+        result = ""
+
+        def action(arg):
+            nonlocal result
+            result = arg
+
+        timer = Timer(1)
+        timer.tick(1.1, action, "hello")
+        assert result == "hello"
+
+    # def test_tick_with_function_and_timer_args(self):
+    #     result = ""
+    #
+    #     def action(timer_arg, call_arg):
+    #         nonlocal result
+    #         result = timer_arg + call_arg
+    #
+    #     timer = Timer(1, None, "howdy and ")
+    #     timer.tick(1.1, action, "hello")
+    #     assert result == "howdy and hello"
+
+    def test_slicing(self):
+        args = ("a", "b", "c")
+        args_len = len(args)
+        parms = ("F", "d", "e")
+        all = args + parms
+        assert all == ("a", "b", "c", "F", "d", "e")
+        func = all[args_len]
+        assert func == "F"
+        first_args = all[:args_len]
+        assert first_args == args
+        last_args = all[args_len+1:]
+        assert last_args == ("d", "e")
+
+
+
