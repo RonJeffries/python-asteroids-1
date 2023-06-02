@@ -11,7 +11,10 @@ class Timer:
         self.elapsed += delta_time
         if self.elapsed >= self.delay:
             action_complete = action(*args)
-            if action_complete is None or action_complete:
-                self.elapsed = 0
+            self.reset_unless_explicitly_false(action_complete)
+
+    def reset_unless_explicitly_false(self, action_complete):
+        if action_complete is not False:
+            self.elapsed = 0
 
 
