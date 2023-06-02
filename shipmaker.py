@@ -7,7 +7,7 @@ from timer import Timer
 
 class ShipMaker(Flyer):
     def __init__(self):
-        self._timer = Timer(u.SHIP_EMERGENCE_TIME, self.create_ship)
+        self._timer = Timer(u.SHIP_EMERGENCE_TIME)
         self._game_over = False
         self._need_ship = True
         self._safe_to_emerge = False
@@ -32,7 +32,7 @@ class ShipMaker(Flyer):
 
     def tick(self, delta_time, fleet, fleets):
         if self._need_ship and not self._game_over:
-            self._timer.tick(delta_time, fleets)
+            self._timer.tick(delta_time, self.create_ship, fleets)
 
     def create_ship(self, fleets):
         if not self._safe_to_emerge:

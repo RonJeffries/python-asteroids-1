@@ -7,7 +7,7 @@ from timer import Timer
 class WaveMaker(Flyer):
     def __init__(self):
         self._need_asteroids = None
-        self._timer = Timer(u.ASTEROID_DELAY, self.create_asteroids)
+        self._timer = Timer(u.ASTEROID_DELAY)
         self._number_to_create = 2
 
     def create_asteroids(self, fleets):
@@ -25,7 +25,7 @@ class WaveMaker(Flyer):
 
     def tick(self, delta_time, fleet, fleets):
         if self._need_asteroids:
-            self._timer.tick(delta_time, fleets)
+            self._timer.tick(delta_time, self.create_asteroids, fleets)
 
     def interact_with(self, other, fleets):
         other.interact_with_wavemaker(self, fleets)
