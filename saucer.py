@@ -71,7 +71,7 @@ class Saucer(Flyer):
 
     def _set_zig_timer(self):
         # noinspection PyAttributeOutsideInit
-        self.zig_timer = Timer(u.SAUCER_ZIG_TIME, self.zig_zag_action)
+        self.zig_timer = Timer(u.SAUCER_ZIG_TIME)
 
     def zig_zag_action(self):
         self.accelerate_to(self.new_direction())
@@ -118,7 +118,7 @@ class Saucer(Flyer):
         self._location.move_to(vector)
 
     def check_zigzag(self, delta_time):
-        self.zig_timer.tick(delta_time)
+        self.zig_timer.tick(delta_time, self.zig_zag_action)
 
     def new_direction(self):
         return random.choice(self._directions)
