@@ -3,10 +3,10 @@ from typing import Callable, Union
 
 
 class Timer:
-    def __init__(self, delay, action: Callable[[...], Union[None, bool]] = None):
+    def __init__(self, delay):
         """action is callable returning None or bool"""
         self.delay = delay
-        self.action = action if action else self.call_back
+        self.action = self.call_back
         self.elapsed = 0
 
     def tick(self, delta_time, *tick_args):
