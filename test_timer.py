@@ -58,19 +58,6 @@ class TestTimer:
         timer.tick(1.5)
         assert happened
 
-    # def test_timer_with_args(self):
-    #     saucer = Saucer()
-    #     saucers = []
-    #
-    #     def start_saucer(a_saucer, the_saucers):
-    #         the_saucers.append(a_saucer)
-    #         return True
-    #
-    #     delay = 1
-    #     timer = Timer(delay, start_saucer, saucer, saucers)
-    #     timer.tick(1.1)
-    #     assert saucers
-
     def test_with_method(self):
         checker = Checker(19)
         another = Checker(9)
@@ -104,17 +91,6 @@ class TestTimer:
         timer = Timer(1)
         timer.tick(1.1, action, "hello")
         assert result == "hello"
-
-    # def test_tick_with_function_and_timer_args(self):
-    #     result = ""
-    #
-    #     def action(timer_arg, call_arg):
-    #         nonlocal result
-    #         result = timer_arg + call_arg
-    #
-    #     timer = Timer(1, None, "howdy and ")
-    #     timer.tick(1.1, action, "hello")
-    #     assert result == "howdy and hello"
 
     def test_slicing(self):
         args = ("a", "b", "c")
