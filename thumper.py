@@ -3,12 +3,6 @@ from sounds import player
 
 
 class Thumper(Flyer):
-    def interact_with(self, other, fleets):
-        other.interact_with_thumper(self, fleets)
-
-    def draw(self, screen):
-        pass
-
     def __init__(self, first_action=None, second_action=None):
         self._longest_time_between_beats = 30 / 60
         self._shortest_time_between_beats = 8 / 60
@@ -34,6 +28,12 @@ class Thumper(Flyer):
     def begin_interactions(self, fleets):
         self._saw_ship = False
         self._saw_asteroids = False
+
+    def draw(self, screen):
+        pass
+
+    def interact_with(self, other, fleets):
+        other.interact_with_thumper(self, fleets)
 
     def interact_with_asteroid(self, asteroid, fleets):
         self._saw_asteroids = True
