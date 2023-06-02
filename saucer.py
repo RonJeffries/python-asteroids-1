@@ -67,7 +67,7 @@ class Saucer(Flyer):
 
     def _set_firing_timer(self):
         # noinspection PyAttributeOutsideInit
-        self.missile_timer = Timer(u.SAUCER_MISSILE_DELAY, self.fire_if_missile_available)
+        self.missile_timer = Timer(u.SAUCER_MISSILE_DELAY)
 
     def _set_zig_timer(self):
         # noinspection PyAttributeOutsideInit
@@ -124,7 +124,7 @@ class Saucer(Flyer):
         return random.choice(self._directions)
 
     def fire_if_possible(self, delta_time, fleets):
-        self.missile_timer.tick(delta_time, fleets)
+        self.missile_timer.tick(delta_time, self.fire_if_missile_available, fleets)
 
     def fire_if_missile_available(self, fleets) -> bool:
         if self._missile_tally >= u.SAUCER_MISSILE_LIMIT:
