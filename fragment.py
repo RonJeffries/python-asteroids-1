@@ -43,7 +43,7 @@ class Fragment(Flyer):
         self.velocity = speed_mul*Vector2(u.FRAGMENT_SPEED, 0).rotate(angle)
         self.theta = random.randrange(0, 360)
         self.delta_theta = random.uniform(180, 360)*random.choice((1, -1))
-        self.timer = Timer(u.FRAGMENT_LIFETIME, self.timeout)
+        self.timer = Timer(u.FRAGMENT_LIFETIME)
         self.fragments = fragments
 
     @staticmethod
@@ -82,7 +82,7 @@ class Fragment(Flyer):
         self.theta += self.delta_theta*delta_time
 
     def tick(self, delta_time, fragments, _fleets):
-        self.timer.tick(delta_time, fragments)
+        self.timer.tick(delta_time, self.timeout, fragments)
 
     def timeout(self, fragments):
         fragments.remove(self)
