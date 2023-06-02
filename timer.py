@@ -16,7 +16,8 @@ class Timer:
             if action_complete is None or action_complete:
                 self.elapsed = 0
 
-    def call_back(self, *args):
-        return args[0](*args[1:])
+    @staticmethod
+    def call_back(action: Callable[[...], Union[None, bool]], *args):
+        return action(*args)
 
 
