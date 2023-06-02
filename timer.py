@@ -12,7 +12,7 @@ class Timer:
     def tick(self, delta_time, *tick_args):
         self.elapsed += delta_time
         if self.elapsed >= self.delay:
-            action_complete = self.action( *tick_args)
+            action_complete = self.call_back(*tick_args)
             if action_complete is None or action_complete:
                 self.elapsed = 0
 
