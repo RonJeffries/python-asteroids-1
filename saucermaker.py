@@ -6,7 +6,7 @@ from timer import Timer
 
 class SaucerMaker(Flyer):
     def __init__(self):
-        self._timer = Timer(u.SAUCER_EMERGENCE_TIME, self.create_saucer)
+        self._timer = Timer(u.SAUCER_EMERGENCE_TIME)
         self._saucer_gone = True
 
     @staticmethod
@@ -27,4 +27,4 @@ class SaucerMaker(Flyer):
 
     def tick(self, delta_time, fleet, fleets):
         if self._saucer_gone:
-            self._timer.tick(delta_time, fleets)
+            self._timer.tick(delta_time, self.create_saucer, fleets)
