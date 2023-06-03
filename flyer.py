@@ -40,6 +40,9 @@ class Flyer(ABC):
     def interact_with_missile(self, missile, fleets):
         pass
 
+    def interact_with_quarter(self, missile, fleets):
+        pass
+
     def interact_with_score(self, score, fleets):
         pass
 

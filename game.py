@@ -6,6 +6,7 @@ import pygame
 
 from game_over import GameOver
 from interactor import Interactor
+from quarter import Quarter
 from saucermaker import SaucerMaker
 from scorekeeper import ScoreKeeper
 from ship import Ship
@@ -47,11 +48,7 @@ class Game:
         keys = pygame.key.get_pressed()
         if keys[pygame.K_q]:
             self.fleets = Fleets()
-            self.fleets.add_flyer(ScoreKeeper(False))
-            self.fleets.add_flyer(WaveMaker())
-            self.fleets.add_flyer(SaucerMaker())
-            self.fleets.add_flyer(ShipMaker())
-            self.fleets.add_flyer(Thumper())
+            self.fleets.add_flyer(Quarter())
 
     def draw_everything(self):
         screen = self.screen
