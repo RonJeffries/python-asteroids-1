@@ -46,7 +46,6 @@ class Game:
     def control_game(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_q]:
-            self.fleets = Fleets()
             self.fleets.add_flyer(Quarter())
 
     def draw_everything(self):

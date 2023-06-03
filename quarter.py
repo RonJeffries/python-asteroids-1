@@ -14,7 +14,7 @@ class Quarter(Flyer):
         pass
 
     def tick(self, delta_time, fleet, fleets):
-        fleets.remove_flyer(self)
+        fleets.clear()
         fleets.add_flyer(SaucerMaker())
         fleets.add_flyer(ScoreKeeper(False))
         fleets.add_flyer(ShipMaker())
