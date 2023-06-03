@@ -28,7 +28,6 @@ class Game:
         self.init_pygame_and_display(testing)
         self.fleets = Fleets()
         self.fleets.add_flyer(GameOver())
-        self.running = not testing
 
     # noinspection PyAttributeOutsideInit
     def init_pygame_and_display(self, testing):
@@ -69,21 +68,18 @@ class Game:
     def draw_score(self):
         pass
 
-    # noinspection PyAttributeOutsideInit
     def main_loop(self):
-        self.keep_going = False
-        while self.running:
+        running = True
+        while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    self.running = False
-                    self.keep_going = False
+                    running = False
 
             self.asteroids_tick(self.delta_time)
 
             pygame.display.flip()
             self.delta_time = self.clock.tick(60) / 1000
         pygame.quit()
-        return self.keep_going
 
     def asteroids_tick(self, delta_time):
         self.control_game()
