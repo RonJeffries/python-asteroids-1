@@ -4,7 +4,6 @@ from asteroid import Asteroid
 from fleet import Fleet
 from ship import Ship
 from sounds import player
-from thumper import Thumper
 
 
 class Fleets:
