@@ -1,6 +1,5 @@
 # test timer object
 
-from saucer import Saucer
 from timer import Timer
 
 
