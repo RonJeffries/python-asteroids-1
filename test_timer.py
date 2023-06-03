@@ -63,8 +63,8 @@ class TestTimer:
         some_value = 31
         timer = Timer(1)
         timer2 = Timer(1)
-        timer.tick(1.1, checker.set, 31)
-        assert checker.happened == 31 + 19
+        timer.tick(1.1, checker.set, some_value)
+        assert checker.happened == some_value + 19
         timer2.tick(1.1, another.set, 21)
         assert another.happened == 21 + 9
 
@@ -103,6 +103,4 @@ class TestTimer:
         assert first_args == args
         last_args = both[args_len+1:]
         assert last_args == ("d", "e")
-
-
 

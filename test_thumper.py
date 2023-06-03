@@ -27,11 +27,11 @@ class TestThumper:
         thumper.interact_with_asteroid(None, None)
         assert not thump
         time = 31/60
-        thumper.tick(31/60, None, None)
+        thumper.tick(time, None, None)
         assert thump == 1
-        thumper.tick(31/60, None, None)
+        thumper.tick(time, None, None)
         assert thump == 2
-        thumper.tick(31/60, None, None)
+        thumper.tick(time, None, None)
         assert thump == 1
 
     def test_thumper_decrement_interval(self):
