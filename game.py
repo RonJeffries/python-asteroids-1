@@ -1,21 +1,14 @@
 # Game
 
-from pygame import Vector2
-
-import pygame
-
+from fleets import Fleets
 from game_over import GameOver
 from interactor import Interactor
+from pygame import Vector2
 from quarter import Quarter
-from saucermaker import SaucerMaker
-from scorekeeper import ScoreKeeper
 from ship import Ship
-import u
-from fleets import Fleets
-from shipmaker import ShipMaker
 from sounds import player
-from thumper import Thumper
-from wavemaker import WaveMaker
+import pygame
+import u
 
 
 class Game:
