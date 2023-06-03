@@ -113,13 +113,13 @@ class TestInteractions:
         missile_count = 0
         fleets = Fleets()
         for i in range(5):
-            missile_count = self.attempt_fire(fleets, missile_count, ship)
+            missile_count = self.attempt_fire(fleets, ship)
         assert missile_count == u.MISSILE_LIMIT
-        missile_count = self.attempt_fire(fleets, missile_count, ship)
+        missile_count = self.attempt_fire(fleets, ship)
         assert missile_count == u.MISSILE_LIMIT
 
     @staticmethod
-    def attempt_fire(fleets, missile_count, ship):
+    def attempt_fire(fleets, ship):
         ship._can_fire = True
         ship._missile_tally = 0
         for flyer in fleets.all_objects:
