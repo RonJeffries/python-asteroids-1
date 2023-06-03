@@ -4,6 +4,7 @@ from pygame import Vector2
 
 import pygame
 
+from game_over import GameOver
 from interactor import Interactor
 from saucermaker import SaucerMaker
 from scorekeeper import ScoreKeeper
@@ -25,11 +26,7 @@ class Game:
         self.delta_time = 0
         self.init_pygame_and_display(testing)
         self.fleets = Fleets()
-        self.fleets.add_flyer(ScoreKeeper(testing))
-        self.fleets.add_flyer(WaveMaker())
-        self.fleets.add_flyer(SaucerMaker())
-        self.fleets.add_flyer(ShipMaker())
-        self.fleets.add_flyer(Thumper())
+        self.fleets.add_flyer(GameOver())
         self.running = not testing
 
     # noinspection PyAttributeOutsideInit
@@ -49,9 +46,12 @@ class Game:
     def control_game(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_q]:
-            # noinspection PyAttributeOutsideInit
-            self.keep_going = True
-            self.running = False
+            self.fleets = Fleets()
+            self.fleets.add_flyer(ScoreKeeper(False))
+            self.fleets.add_flyer(WaveMaker())
+            self.fleets.add_flyer(SaucerMaker())
+            self.fleets.add_flyer(ShipMaker())
+            self.fleets.add_flyer(Thumper())
 
     def draw_everything(self):
         screen = self.screen
