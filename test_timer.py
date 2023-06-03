@@ -95,14 +95,14 @@ class TestTimer:
     def test_slicing(self):
         args = ("a", "b", "c")
         args_len = len(args)
-        parms = ("F", "d", "e")
-        all = args + parms
-        assert all == ("a", "b", "c", "F", "d", "e")
-        func = all[args_len]
+        parameters = ("F", "d", "e")
+        both = args + parameters
+        assert both == ("a", "b", "c", "F", "d", "e")
+        func = both[args_len]
         assert func == "F"
-        first_args = all[:args_len]
+        first_args = both[:args_len]
         assert first_args == args
-        last_args = all[args_len+1:]
+        last_args = both[args_len+1:]
         assert last_args == ("d", "e")
 
 

@@ -189,7 +189,7 @@ class Ship(Flyer):
     def tick(self, delta_time, fleet, fleets):
         pass
 
-    def move(self, delta_time,fleets):
+    def move(self, delta_time, fleets):
         self.control_motion(delta_time, fleets)
         self._location.move(delta_time)
 
