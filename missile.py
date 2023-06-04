@@ -78,11 +78,11 @@ class Missile(Flyer):
     def move(self, delta_time, _fleets):
         self._location.move(delta_time)
 
-    def tick(self, delta_time, fleet, _fleets):
-        self.tick_timer(delta_time, fleet)
+    def tick(self, delta_time, _fleet, fleets):
+        self.tick_timer(delta_time, fleets)
 
-    def tick_timer(self, delta_time, missiles):
-        self._timer.tick(delta_time, self.timeout, missiles)
+    def tick_timer(self, delta_time, fleets):
+        self._timer.tick(delta_time, self.timeout, fleets)
 
-    def timeout(self, missiles):
-        missiles.remove(self)
+    def timeout(self, fleets):
+        fleets.remove_flyer(self)

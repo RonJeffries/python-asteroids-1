@@ -95,9 +95,9 @@ class TestAsteroids:
         ship.fire_if_possible(fleets)
         assert len(others) == 1
         missile = others[0]
-        missile.tick_timer(0.5, others)
+        missile.tick_timer(0.5, fleets)
         assert len(others) == 1
-        missile.tick_timer(3.0, others)
+        missile.tick_timer(3.0, fleets)
         assert len(others) == 0
 
     def test_hyperspace(self):
