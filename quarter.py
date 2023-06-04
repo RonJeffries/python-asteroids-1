@@ -13,7 +13,7 @@ class Quarter(Flyer):
     def draw(self, screen):
         pass
 
-    def tick(self, delta_time, fleet, fleets):
+    def tick(self, delta_time, _fleet, fleets):
         fleets.clear()
         fleets.add_flyer(SaucerMaker())
         fleets.add_flyer(ScoreKeeper())
