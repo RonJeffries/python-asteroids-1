@@ -186,7 +186,7 @@ class Ship(Flyer):
         else:
             return self._ship_surface
 
-    def tick(self, delta_time, fleet, fleets):
+    def tick(self, delta_time, _fleet, _fleets):
         pass
 
     def move(self, delta_time, fleets):
