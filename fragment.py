@@ -81,9 +81,9 @@ class Fragment(Flyer):
         self.position = position
         self.theta += self.delta_theta*delta_time
 
-    def tick(self, delta_time, fragments, _fleets):
-        self.timer.tick(delta_time, self.timeout, fragments)
+    def tick(self, delta_time, _fragments, fleets):
+        self.timer.tick(delta_time, self.timeout, fleets)
 
-    def timeout(self, fragments):
-        fragments.remove(self)
+    def timeout(self, fleets):
+        fleets.remove_flyer(self)
 

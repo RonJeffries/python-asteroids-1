@@ -83,5 +83,5 @@ class Asteroid(Flyer):
         sound = ["bang_small", "bang_medium", "bang_large"][self.size]
         player.play(sound, self._location)
 
-    def tick(self, delta_time, fleet, _fleets):
+    def tick(self, delta_time, _fleet, _fleets):
         pass
