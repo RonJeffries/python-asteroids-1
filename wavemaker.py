@@ -23,7 +23,7 @@ class WaveMaker(Flyer):
     def interact_with_asteroid(self, asteroid, fleets):
         self._need_asteroids = False
 
-    def tick(self, delta_time, fleet, fleets):
+    def tick(self, delta_time, _fleet, fleets):
         if self._need_asteroids:
             self._timer.tick(delta_time, self.create_asteroids, fleets)
 

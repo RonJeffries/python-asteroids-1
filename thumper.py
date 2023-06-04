@@ -46,7 +46,7 @@ class Thumper(Flyer):
         self._time_since_last_decrement = 0
         self._time_since_last_beat = 0
 
-    def tick(self, delta_time, fleet, fleets):
+    def tick(self, delta_time, _fleet, _fleets):
         if self._saw_ship and self._saw_asteroids:
             if self.it_is_time_to_beat(delta_time):
                 self.play_and_reset_beat()
