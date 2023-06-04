@@ -130,7 +130,7 @@ class Ship(Flyer):
     def explode(self, fleets):
         player.play("bang_large", self._location)
         fleets.remove_flyer(self)
-        fleets.add_flyer(Explosion(self.position))
+        fleets.add_flyer(Explosion.from_ship(self.position))
 
     def hyperspace_transfer(self):
         x = random.randrange(u.SCREEN_SIZE)

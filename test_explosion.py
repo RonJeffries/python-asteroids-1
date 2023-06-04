@@ -7,7 +7,7 @@ from fragment import Fragment
 class TestExplosion:
     def test_explosion(self):
         fleets = Fleets()
-        explosion = Explosion(u.CENTER)
+        explosion = Explosion.from_ship(u.CENTER)
         fleets.add_flyer(explosion)
         explosion.tick(0.1, [], fleets)
         mix = fleets.all_objects

@@ -6,6 +6,7 @@ from math import atan2, degrees
 from pygame import Vector2
 import u
 from SurfaceMaker import SurfaceMaker
+from explosion import Explosion
 from flyer import Flyer
 from missile import Missile
 from movable_location import MovableLocation
@@ -83,6 +84,7 @@ class Saucer(Flyer):
         player.play("bang_large", self._location)
         player.play("bang_small", self._location)
         fleets.remove_flyer(self)
+        fleets.add_flyer(Explosion.from_saucer(self.position))
 
     def interact_with_asteroid(self, asteroid, fleets):
         if asteroid.are_we_colliding(self.position, self.radius):
