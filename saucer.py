@@ -179,7 +179,7 @@ class Saucer(Flyer):
         self.check_zigzag(delta_time)
         self._move(delta_time, fleets)
 
-    def tick(self, delta_time, _fleet, _fleets):
+    def tick(self, delta_time, fleets):
         pass
 
 

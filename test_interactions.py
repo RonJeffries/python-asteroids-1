@@ -77,7 +77,7 @@ class BeginChecker(Flyer):
     def __init__(self):
         self.triggered = False
 
-    def tick(self, delta_time, fleet, fleets):
+    def tick(self, delta_time, fleets):
         pass
 
     def draw(self, screen):
@@ -94,7 +94,7 @@ class EndChecker(Flyer):
     def __init__(self):
         self.triggered = False
 
-    def tick(self, delta_time, fleet, fleets):
+    def tick(self, delta_time, fleets):
         pass
 
     def draw(self, screen):

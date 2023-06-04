@@ -27,20 +27,20 @@ class TestThumper:
         thumper.interact_with_asteroid(None, None)
         assert not thump
         time = 31/60
-        thumper.tick(time, None, None)
+        thumper.tick(time, None)
         assert thump == 1
-        thumper.tick(time, None, None)
+        thumper.tick(time, None)
         assert thump == 2
-        thumper.tick(time, None, None)
+        thumper.tick(time, None)
         assert thump == 1
 
     def test_thumper_decrement_interval(self):
         thumper = Thumper(beat1, beat2)
         thumper.interact_with_ship(None, None)
         thumper.interact_with_asteroid(None, None)
-        thumper.tick(128/60, None, None)
+        thumper.tick(128 / 60, None)
         assert thumper._time_between_beats == 30 / 60 - 1 / 60
-        thumper.tick(128/60, None, None)
+        thumper.tick(128 / 60, None)
         assert thumper._time_between_beats == 30 / 60 - 1 / 60 - 1 / 60
 
     def test_thumper_countdown(self):
@@ -48,11 +48,11 @@ class TestThumper:
         thumper.interact_with_ship(None, None)
         thumper.interact_with_asteroid(None, None)
         thumper._time_between_beats = 9 / 60
-        thumper.tick(128/60, None, None)
+        thumper.tick(128 / 60, None)
         assert thumper._time_between_beats == 9 / 60 - 1 / 60
-        thumper.tick(128/60, None, None)
+        thumper.tick(128 / 60, None)
         assert thumper._time_between_beats == 8 / 60
-        thumper.tick(128/60, None, None)
+        thumper.tick(128 / 60, None)
         assert thumper._time_between_beats == 8 / 60
 
     def test_thumper_reset(self):

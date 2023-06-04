@@ -28,7 +28,7 @@ class Explosion(Flyer):
     def draw(self, screen):
         pass
 
-    def tick(self, delta_time, _fleet, fleets):
+    def tick(self, delta_time, fleets):
         fleets.remove_flyer(self)
         self.explosion_at(self.position, fleets)
 

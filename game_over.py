@@ -35,5 +35,5 @@ class GameOver(Flyer):
     def interact_with(self, other, fleets):
         other.interact_with_gameover(self, fleets)
 
-    def tick(self, delta_time, _fleet, _fleets):
+    def tick(self, delta_time, fleets):
         pass

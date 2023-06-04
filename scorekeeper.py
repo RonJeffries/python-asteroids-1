@@ -29,5 +29,5 @@ class ScoreKeeper(Flyer):
     def interact_with_score(self, score, fleets):
         self.score += score.score
 
-    def tick(self, delta_time, _fleet, _fleets):
+    def tick(self, delta_time, fleets):
         pass

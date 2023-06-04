@@ -13,7 +13,7 @@ class Flyer(ABC):
         pass
 
     @abstractmethod
-    def tick(self, delta_time, fleet, fleets):
+    def tick(self, delta_time, fleets):
         pass
 
     # concrete methods, inheritable

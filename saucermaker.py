@@ -25,6 +25,6 @@ class SaucerMaker(Flyer):
     def draw(self, screen):
         pass
 
-    def tick(self, delta_time, _fleet, fleets):
+    def tick(self, delta_time, fleets):
         if self._saucer_gone:
             self._timer.tick(delta_time, self.create_saucer, fleets)

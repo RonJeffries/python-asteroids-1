@@ -40,5 +40,5 @@ class Fleet:
 
     def tick(self, delta_time, fleets):
         for flyer in self:
-            flyer.tick(delta_time, self, fleets)
+            flyer.tick(delta_time, fleets)
 
