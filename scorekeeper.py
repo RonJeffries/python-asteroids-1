@@ -4,9 +4,9 @@ from flyer import Flyer
 
 
 class ScoreKeeper(Flyer):
-    def __init__(self, testing=True):
+    def __init__(self):
         self.score = 0
-        if not testing:
+        if pygame.get_init():
             self.score_font = pygame.font.SysFont("arial", 48)
 
     @staticmethod
