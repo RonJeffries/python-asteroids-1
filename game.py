@@ -20,7 +20,7 @@ class Game:
         self.delta_time = 0
         self.init_pygame_and_display(testing)
         self.fleets = Fleets()
-        self.fleets.add_flyer(GameOver())
+        self.fleets.add_flyer(Quarter(0))
 
     # noinspection PyAttributeOutsideInit
     def init_pygame_and_display(self, testing):
