@@ -46,7 +46,7 @@ class Game:
         screen.fill("midnightblue")
         self.fleets.draw(screen)
         self.draw_score()
-        self.draw_available_ships()
+        # self.draw_available_ships()
 
     def draw_available_ships(self):
         for i in range(0, self.fleets.ships_remaining):

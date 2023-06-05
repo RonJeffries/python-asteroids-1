@@ -7,6 +7,7 @@ from timer import Timer
 
 class ShipMaker(Flyer):
     def __init__(self):
+        self.ships_remaining = u.SHIPS_PER_QUARTER
         self._timer = Timer(u.SHIP_EMERGENCE_TIME)
         self._game_over = False
         self._need_ship = True
@@ -37,8 +38,8 @@ class ShipMaker(Flyer):
     def create_ship(self, fleets):
         if not self._safe_to_emerge:
             return False
-        if fleets.ships_remaining > 0:
-            fleets.ships_remaining -= 1
+        if self.ships_remaining > 0:
+            self.ships_remaining -= 1
             fleets.add_flyer(Ship(u.CENTER))
         else:
             fleets.add_flyer(GameOver())

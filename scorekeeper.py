@@ -1,11 +1,22 @@
 import pygame
-
+from pygame import Vector2
+from dataclasses import dataclass
 from flyer import Flyer
+from ship import Ship
+
+@dataclass
+class NoShips:
+    ships_remaining:int = 0
 
 
 class ScoreKeeper(Flyer):
+
+    available_ship = Ship(Vector2(0, 0))
+    available_ship._angle = 90
+
     def __init__(self):
         self.score = 0
+        self._ship_maker = NoShips()
         if pygame.get_init():
             self.score_font = pygame.font.SysFont("arial", 48)
 
@@ -13,9 +24,22 @@ class ScoreKeeper(Flyer):
     def are_we_colliding(_position, _radius):
         return False
 
+    def interact_with_shipmaker(self, shipmaker, fleets):
+        self._ship_maker = shipmaker
+
     def draw(self, screen):
         score_surface, score_rect = self.render_score()
         screen.blit(score_surface, score_rect)
+        self.draw_available_ships(screen)
+
+    def draw_available_ships(self, screen):
+        for i in range(0, self._ship_maker.ships_remaining):
+            self.draw_available_ship(self.available_ship, i, screen)
+
+    def draw_available_ship(self, ship, i, screen):
+        position = i * Vector2(35, 0)
+        ship.move_to(Vector2(55, 100) + position)
+        ship.draw(screen)
 
     def render_score(self):
         score_text = f"0000{self.score}"[-5:]
