@@ -1,11 +1,8 @@
 # Game
 
-from fleets import Fleets
-from game_over import GameOver
-from interactor import Interactor
-from pygame import Vector2
 from coin import Coin
-from ship import Ship
+from fleets import Fleets
+from interactor import Interactor
 from sounds import player
 import pygame
 import u
