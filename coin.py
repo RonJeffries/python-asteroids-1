@@ -6,12 +6,20 @@ from thumper import Thumper
 from wavemaker import WaveMaker
 
 
-class Quarter(Flyer):
+class Coin(Flyer):
+    @classmethod
+    def quarter(cls):
+        return cls(25)
+
+    @classmethod
+    def slug(cls):
+        return cls(0)
+
     def __init__(self, amount=25):
         self.amount = amount
 
     def interact_with(self, other, fleets):
-        other.interact_with_quarter(self, fleets)
+        other.interact_with_coin(self, fleets)
 
     def draw(self, screen):
         pass

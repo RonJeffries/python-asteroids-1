@@ -4,7 +4,7 @@ from fleets import Fleets
 from game_over import GameOver
 from interactor import Interactor
 from pygame import Vector2
-from quarter import Quarter
+from coin import Coin
 from ship import Ship
 from sounds import player
 import pygame
@@ -20,7 +20,7 @@ class Game:
         self.delta_time = 0
         self.init_pygame_and_display(testing)
         self.fleets = Fleets()
-        self.fleets.add_flyer(Quarter(0))
+        self.fleets.add_flyer(Coin.slug())
 
     # noinspection PyAttributeOutsideInit
     def init_pygame_and_display(self, testing):
@@ -39,7 +39,7 @@ class Game:
     def control_game(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_q]:
-            self.fleets.add_flyer(Quarter())
+            self.fleets.add_flyer(Coin.quarter())
 
     def draw_everything(self):
         screen = self.screen
