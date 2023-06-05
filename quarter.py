@@ -7,6 +7,9 @@ from wavemaker import WaveMaker
 
 
 class Quarter(Flyer):
+    def __init__(self, amount=25):
+        self.amount = amount
+
     def interact_with(self, other, fleets):
         other.interact_with_quarter(self, fleets)
 
@@ -17,6 +20,7 @@ class Quarter(Flyer):
         fleets.clear()
         fleets.add_flyer(SaucerMaker())
         fleets.add_flyer(ScoreKeeper())
-        fleets.add_flyer(ShipMaker())
         fleets.add_flyer(Thumper())
         fleets.add_flyer(WaveMaker())
+        if self.amount:
+            fleets.add_flyer(ShipMaker())
