@@ -1,4 +1,5 @@
 from flyer import Flyer
+from game_over import GameOver
 from saucermaker import SaucerMaker
 from scorekeeper import ScoreKeeper
 from shipmaker import ShipMaker
@@ -32,3 +33,5 @@ class Coin(Flyer):
         fleets.add_flyer(WaveMaker())
         if self.amount:
             fleets.add_flyer(ShipMaker())
+        else:
+            fleets.add_flyer(GameOver())
