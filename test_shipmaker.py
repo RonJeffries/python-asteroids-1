@@ -86,23 +86,16 @@ class TestShipMaker:
 
     def test_can_run_out_of_ships(self):
         fleets = Fleets()
-        fleets.ships_remaining = 2
         fleets.add_flyer(ShipMaker())
         interactor = Interactor(fleets)
         fi = FI(fleets)
-        interactor.perform_interactions()
-        fleets.tick(u.SHIP_EMERGENCE_TIME)
-        assert fi.ships
-        assert fleets.ships_remaining == 1
-        for ship in fi.ships:
-            fleets.remove_flyer(ship)
-        interactor.perform_interactions()
-        fleets.tick(u.SHIP_EMERGENCE_TIME)
-        assert fi.ships
-        assert fleets.ships_remaining == 0
-        assert not fi.game_over
-        for ship in fi.ships:
-            fleets.remove_flyer(ship)
+        for _ in range(4):
+            interactor.perform_interactions()
+            fleets.tick(u.SHIP_EMERGENCE_TIME)
+            assert fi.ships
+            assert not fi.game_over
+            for ship in fi.ships:
+                fleets.remove_flyer(ship)
         interactor.perform_interactions()
         fleets.tick(u.SHIP_EMERGENCE_TIME)
         assert not fi.ships
