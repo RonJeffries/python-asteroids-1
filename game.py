@@ -12,10 +12,6 @@ import u
 
 
 class Game:
-
-    available_ship = Ship(Vector2(0, 0))
-    available_ship._angle = 90
-
     def __init__(self, testing=False):
         self.delta_time = 0
         self.init_pygame_and_display(testing)
@@ -46,16 +42,6 @@ class Game:
         screen.fill("midnightblue")
         self.fleets.draw(screen)
         self.draw_score()
-        # self.draw_available_ships()
-
-    def draw_available_ships(self):
-        for i in range(0, self.fleets.ships_remaining):
-            self.draw_available_ship(self.available_ship, i)
-
-    def draw_available_ship(self, ship, i):
-        position = i*Vector2(35, 0)
-        ship.move_to(Vector2(55, 100) + position)
-        ship.draw(self.screen)
 
     def draw_score(self):
         pass

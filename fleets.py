@@ -7,8 +7,6 @@ from sounds import player
 
 
 class Fleets:
-    ships_remaining = u.SHIPS_PER_QUARTER
-
     def __init__(self, asteroids=(), missiles=(), saucers=(), saucer_missiles=(), ships=()):
         self.flyers = Fleet([])
         for asteroid in asteroids:
