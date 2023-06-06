@@ -135,12 +135,11 @@ class Ship(Flyer):
     def hyperspace_transfer(self):
         x = random.randrange(u.SCREEN_SIZE)
         y = random.randrange(u.SCREEN_SIZE)
-        a = random.randrange(360)
         self.move_to(Vector2(x, y))
+        self._angle = random.randrange(360)
         dx = random.randrange(u.SHIP_HYPERSPACE_MAX_VELOCITY)
         dy = random.randrange(u.SHIP_HYPERSPACE_MAX_VELOCITY)
         self.accelerate_to(Vector2(dx, dy))
-        self._angle = a
         self._can_enter_hyperspace = False
 
     def fire_if_possible(self, fleets):
