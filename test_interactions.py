@@ -136,6 +136,20 @@ class TestInteractions:
         saucer = Saucer()
         assert saucer.scores_for_hitting_asteroid() == [0, 0, 0]
 
+    def test_missile_v_missile(self):
+        pos = Vector2(100, 100)
+        zero_vel = Vector2(0, 0)
+        m1 = Missile.from_ship(pos, zero_vel)
+        m2 = Missile.from_saucer(pos, zero_vel)
+        fleets = Fleets()
+        fi = FI(fleets)
+        fleets.add_flyer(m1)
+        fleets.add_flyer(m2)
+        interactor = Interactor(fleets)
+        interactor.perform_interactions()
+        assert not fi.missiles
+        assert not fi.saucer_missiles
+
     def test_missile_asteroid_scores(self):
         pos = Vector2(100, 100)
         asteroid = Asteroid(2, pos)
