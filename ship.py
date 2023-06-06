@@ -121,14 +121,13 @@ class Ship(Flyer):
         screen.blit(rotated, self.position - half)
 
     def enter_hyperspace_if_possible(self, fleets):
-        if not self._hyperspace_key_ready or not self._hyperspace_recharged:
-            return
-        self._hyperspace_key_ready = False
-        roll = random.randrange(0, 63)
-        if self.hyperspace_failure(roll):
-            self.explode(fleets)
-        else:
-            self.hyperspace_transfer()
+        if self._hyperspace_key_ready and self._hyperspace_recharged:
+            self._hyperspace_key_ready = False
+            roll = random.randrange(0, 63)
+            if self.hyperspace_failure(roll):
+                self.explode(fleets)
+            else:
+                self.hyperspace_transfer()
 
     def explode(self, fleets):
         player.play("bang_large", self._location)
