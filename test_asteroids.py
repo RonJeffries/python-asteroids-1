@@ -114,6 +114,27 @@ class TestAsteroids:
         ship.enter_hyperspace_if_possible([])  # cannot fail
         assert ship.position == position and ship._angle == angle
 
+    def test_hyperspace_recharge(self):
+        impossible = Vector2(-5, -5)
+        ship = Ship(impossible)
+        assert ship._hyperspace_key_ready
+        assert ship._hyperspace_recharged
+        ship._asteroid_tally = 99
+        ship.enter_hyperspace_if_possible([])
+        assert ship.position != impossible
+        assert not ship._hyperspace_key_ready
+        assert not ship._hyperspace_recharged
+        ship.move_to(impossible)
+        ship._hyperspace_key_ready = True
+        ship.tick(0.1, [])
+        ship.enter_hyperspace_if_possible([])
+        assert not ship._hyperspace_recharged
+        assert ship.position == impossible
+        ship.tick(u.SHIP_HYPERSPACE_RECHARGE_TIME, [])
+        assert ship._hyperspace_recharged
+        ship.enter_hyperspace_if_possible([])
+        assert ship.position != impossible
+
     def test_hyperspace_failure(self):
         """hyperspace fails when random(0 through 62) > asteroid count plus 44"""
         ship = Ship(u.CENTER)

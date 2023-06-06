@@ -10,6 +10,7 @@ from flyer import Flyer
 from missile import Missile
 from movable_location import MovableLocation
 from sounds import player
+from timer import Timer
 
 
 class Ship(Flyer):
@@ -18,7 +19,9 @@ class Ship(Flyer):
     def __init__(self, position):
         self.radius = 25
         self._location = MovableLocation(position, Vector2(0, 0))
-        self._can_enter_hyperspace = True
+        self._hyperspace_key_ready = True
+        self._hyperspace_recharged = True
+        self._hyperspace_timer = Timer(u.SHIP_HYPERSPACE_RECHARGE_TIME)
         self._can_fire = True
         self._angle = 0
         self._acceleration = u.SHIP_ACCELERATION
@@ -74,7 +77,7 @@ class Ship(Flyer):
         if keys[pygame.K_SPACE]:
             self.enter_hyperspace_if_possible(fleets)
         else:
-            self._can_enter_hyperspace = True
+            self._hyperspace_key_ready = True
 
     def interact_with(self, attacker, fleets):
         attacker.interact_with_ship(self, fleets)
@@ -118,9 +121,9 @@ class Ship(Flyer):
         screen.blit(rotated, self.position - half)
 
     def enter_hyperspace_if_possible(self, fleets):
-        if not self._can_enter_hyperspace:
+        if not self._hyperspace_key_ready or not self._hyperspace_recharged:
             return
-        self._can_enter_hyperspace = False
+        self._hyperspace_key_ready = False
         roll = random.randrange(0, 63)
         if self.hyperspace_failure(roll):
             self.explode(fleets)
@@ -140,7 +143,8 @@ class Ship(Flyer):
         dx = random.randrange(u.SHIP_HYPERSPACE_MAX_VELOCITY)
         dy = random.randrange(u.SHIP_HYPERSPACE_MAX_VELOCITY)
         self.accelerate_to(Vector2(dx, dy))
-        self._can_enter_hyperspace = False
+        self._hyperspace_key_ready = False
+        self._hyperspace_recharged = False
 
     def fire_if_possible(self, fleets):
         if self._can_fire and self._missile_tally < u.MISSILE_LIMIT:
@@ -186,7 +190,11 @@ class Ship(Flyer):
             return self._ship_surface
 
     def tick(self, delta_time, fleets):
-        pass
+        if not self._hyperspace_recharged:
+            self._hyperspace_timer.tick(delta_time, self.recharge)
+
+    def recharge(self):
+        self._hyperspace_recharged = True
 
     def move(self, delta_time, fleets):
         self.control_motion(delta_time, fleets)
