@@ -7,6 +7,7 @@ from SurfaceMaker import SurfaceMaker
 import u
 from explosion import Explosion
 from flyer import Flyer
+from hyperspace_generator import HyperspaceGenerator
 from missile import Missile
 from movable_location import MovableLocation
 from sounds import player
@@ -19,6 +20,7 @@ class Ship(Flyer):
     def __init__(self, position):
         self.radius = 25
         self._location = MovableLocation(position, Vector2(0, 0))
+        self.hyperspace_generator = HyperspaceGenerator(self)
         self._hyperspace_key_ready = True
         self._hyperspace_recharged = True
         self._hyperspace_timer = Timer(u.SHIP_HYPERSPACE_RECHARGE_TIME)

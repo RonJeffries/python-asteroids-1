@@ -1,10 +1,7 @@
 
 import random
-
 from pygame import Vector2
-
 import u
-from fleets import Fleets
 from timer import Timer
 
 
@@ -17,7 +14,6 @@ class HyperspaceGenerator:
         self._timer = Timer(u.SHIP_HYPERSPACE_RECHARGE_TIME)
 
     def press_button(self, asteroid_tally, dice_roll=0, fleets=None):
-        fleets = fleets if fleets else Fleets()
         self._asteroid_tally = asteroid_tally
         if self._charged and not self._button_down:
             self.jump_or_explode(asteroid_tally, dice_roll, fleets)
