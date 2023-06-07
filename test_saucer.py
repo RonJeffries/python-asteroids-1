@@ -1,4 +1,5 @@
 # test_saucer
+from math import degrees
 
 import pytest
 from pygame import Vector2
@@ -190,3 +191,15 @@ class TestSaucer:
         saucer_missile = Missile.from_saucer(u.CENTER, Vector2(0, 0))
         assert not saucer_missile.is_ship_missile
         assert saucer_missile.is_saucer_missile
+
+    def test_angle_to(self):
+        ship_position = Vector2(550, 550)
+        ship = Ship(ship_position)
+        saucer_position = Vector2(500, 500)
+        saucer = Saucer()
+        saucer.move_to(saucer_position)
+        angle = saucer.angle_to(ship)
+        # assert angle == 90
+        vector_angle = Vector2(0, 0).angle_to(ship_position - saucer_position)
+        assert vector_angle == angle
+
