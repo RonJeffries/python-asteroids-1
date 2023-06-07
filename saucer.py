@@ -117,13 +117,6 @@ class Saucer(Flyer):
     def fire_if_possible(self, delta_time, fleets):
         self._missile_timer.tick(delta_time, self.fire_if_missile_available, fleets)
 
-    def fire_if_missile_available(self, fleets) -> bool:
-        if self._missile_tally >= u.SAUCER_MISSILE_LIMIT:
-            return False
-        missile = self.create_missile()
-        fleets.add_flyer(missile)
-        return True
-
     @staticmethod
     def scores_for_hitting_asteroid():
         return [0, 0, 0]
@@ -131,6 +124,30 @@ class Saucer(Flyer):
     @staticmethod
     def scores_for_hitting_saucer():
         return [0, 0]
+
+    def score_for_hitting(self, attacker):
+        return attacker.scores_for_hitting_saucer()[self._size - 1]
+
+    def tick(self, delta_time, fleets):
+        pass
+
+    def update(self, delta_time, fleets):
+        player.play("saucer_big", self._location, False)
+        self.fire_if_possible(delta_time, fleets)
+        self.check_zigzag(delta_time)
+        self._move(delta_time, fleets)
+
+    def zig_zag_action(self):
+        self.accelerate_to(self.new_direction())
+
+# TargetingComputer
+
+    def fire_if_missile_available(self, fleets) -> bool:
+        if self._missile_tally >= u.SAUCER_MISSILE_LIMIT:
+            return False
+        missile = self.create_missile()
+        fleets.add_flyer(missile)
+        return True
 
     def angle_to(self, ship):
         aiming_point = nearest_point(self.position, ship.position, u.SCREEN_SIZE)
@@ -158,21 +175,6 @@ class Saucer(Flyer):
         missile_velocity = Vector2(u.MISSILE_SPEED, 0).rotate(desired_angle) + velocity_adjustment
         offset = Vector2(2 * self._radius, 0).rotate(desired_angle)
         return Missile.from_saucer(self.position + offset, missile_velocity)
-
-    def score_for_hitting(self, attacker):
-        return attacker.scores_for_hitting_saucer()[self._size - 1]
-
-    def tick(self, delta_time, fleets):
-        pass
-
-    def update(self, delta_time, fleets):
-        player.play("saucer_big", self._location, False)
-        self.fire_if_possible(delta_time, fleets)
-        self.check_zigzag(delta_time)
-        self._move(delta_time, fleets)
-
-    def zig_zag_action(self):
-        self.accelerate_to(self.new_direction())
 
 
 def nearest_point(shooter, target, wrap_size):
