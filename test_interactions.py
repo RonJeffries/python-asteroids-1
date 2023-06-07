@@ -4,6 +4,7 @@ from pygame import Vector2
 
 import u
 from asteroid import Asteroid
+from explosion import Explosion
 from flyer import Flyer
 from game_over import GameOver
 from interactor import Interactor
@@ -28,6 +29,11 @@ class FleetsInspector:
     @property
     def asteroids(self):
         return self.select(lambda a: isinstance(a, Asteroid))
+
+    @property
+    def explosions(self):
+        return self.select(lambda a: isinstance(a, Explosion))
+
 
     @property
     def fragments(self):

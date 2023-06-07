@@ -1,7 +1,9 @@
 from pygame import Vector2
 
+from fleets import Fleets
 from hyperspace_generator import HyperspaceGenerator
 from ship import Ship
+from test_interactions import FI
 
 
 class TestHyperspaceGenerator:
@@ -46,3 +48,26 @@ class TestHyperspaceGenerator:
         hg.lift_button()
         hg.press_button(99)
         assert self.did_enter_hyperspace(impossible, ship)
+
+    def test_failure(self):
+        fleets = Fleets()
+        impossible = Vector2(-5, -9)
+        ship = Ship(impossible)
+        fi = FI(fleets)
+        fleets.add_flyer(ship)
+        hg = HyperspaceGenerator(ship)
+        hg.recharge()
+        hg.press_button(0, 45, fleets)  # fail = roll > 44 + tally
+        assert fi.explosions
+
+    def test_success(self):
+        fleets = Fleets()
+        impossible = Vector2(-5, -9)
+        ship = Ship(impossible)
+        fi = FI(fleets)
+        fleets.add_flyer(ship)
+        hg = HyperspaceGenerator(ship)
+        hg.recharge()
+        hg.press_button(0, 44, fleets)  # fail = roll > 44 + tally
+        assert not fi.explosions
+
