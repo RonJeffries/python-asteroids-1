@@ -1,5 +1,6 @@
 from pygame import Vector2
 
+import u
 from fleets import Fleets
 from hyperspace_generator import HyperspaceGenerator
 from ship import Ship
@@ -70,4 +71,20 @@ class TestHyperspaceGenerator:
         hg.recharge()
         hg.press_button(0, 44, fleets)  # fail = roll > 44 + tally
         assert not fi.explosions
+
+    def test_recharge_timer(self):
+        fleets = Fleets()
+        impossible = Vector2(-5, -9)
+        ship = Ship(impossible)
+        fi = FI(fleets)
+        fleets.add_flyer(ship)
+        hg = HyperspaceGenerator(ship)
+        hg.press_button(0, 44, fleets)  # fail = roll > 44 + tally
+        assert self.did_not_enter_hyperspace(impossible, ship)
+        hg.tick(u.SHIP_HYPERSPACE_RECHARGE_TIME)
+        hg.lift_button()
+        hg.press_button(0, 44, fleets)  # fail = roll > 44 + tally
+        assert self.did_enter_hyperspace(impossible, ship)
+
+
 
