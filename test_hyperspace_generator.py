@@ -20,16 +20,29 @@ class TestHyperspaceGenerator:
         hg = HyperspaceGenerator(ship)
         hg.recharge()
         hg.press_button()
-        assert ship.position != impossible
+        assert self.did_enter_hyperspace(impossible, ship)
 
-    def test_next_entry_requires_recharge(self):
+    @staticmethod
+    def did_enter_hyperspace(impossible, ship):
+        return ship.position != impossible
+
+    @staticmethod
+    def did_not_enter_hyperspace(impossible, ship):
+        return ship.position == impossible
+
+    def test_next_entry_requires_recharge_and_lift_button(self):
         impossible = Vector2(-5, -9)
         ship = Ship(impossible)
         hg = HyperspaceGenerator(ship)
-        hg.press_button()
-        ship.move_to(impossible)
-        hg.press_button()
-        assert ship.position == impossible
         hg.recharge()
         hg.press_button()
-        assert ship.position != impossible
+        assert self.did_enter_hyperspace(impossible, ship)
+        ship.move_to(impossible)
+        hg.press_button()
+        assert self.did_not_enter_hyperspace(impossible, ship)
+        hg.recharge()
+        hg.press_button()
+        assert self.did_not_enter_hyperspace(impossible, ship)
+        hg.lift_button()
+        hg.press_button()
+        assert self.did_enter_hyperspace(impossible, ship)

@@ -9,11 +9,13 @@ import u
 class HyperspaceGenerator:
     def __init__(self, ship):
         self._charged = False
+        self._button_down = False
         self._ship = ship
 
     def press_button(self):
-        if self._charged:
+        if self._charged and not self._button_down:
             self.hyperspace_jump()
+        self._button_down = True
 
     def hyperspace_jump(self):
         self._charged = False
@@ -27,3 +29,6 @@ class HyperspaceGenerator:
 
     def recharge(self):
         self._charged = True
+
+    def lift_button(self):
+        self._button_down = False
