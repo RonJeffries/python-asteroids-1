@@ -33,8 +33,8 @@ class Sounds:
                 chan = self.catalog[name].play()
                 if chan:
                     self.set_volume(chan, location)
-                else:
-                    print("channel came back None")
+                # else:
+                    # print("channel came back None")
         else:
             print("missing sound", name)
 

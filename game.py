@@ -21,6 +21,7 @@ class Game:
             return
         pygame.init()
         pygame.mixer.init()
+        pygame.mixer.set_num_channels(16)
         player.init_sounds()
         pygame.display.set_caption("Asteroids")
         self.clock = pygame.time.Clock()
