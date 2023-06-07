@@ -173,7 +173,7 @@ class Saucer(Flyer):
     def score_for_hitting(self, attacker):
         return attacker.scores_for_hitting_saucer()[self.size - 1]
 
-    def move(self, delta_time, fleets):
+    def update(self, delta_time, fleets):
         player.play("saucer_big", self._location, False)
         self.fire_if_possible(delta_time, fleets)
         self.check_zigzag(delta_time)

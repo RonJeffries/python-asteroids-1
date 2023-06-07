@@ -67,7 +67,7 @@ class Flyer(ABC):
     def interact_with_wavemaker(self, wavemaker, fleets):
         pass
 
-    def move(self, delta_time, fleets):
+    def update(self, delta_time, fleets):
         pass
 
 

@@ -168,7 +168,7 @@ class Ship(Flyer):
     def tick(self, delta_time, fleets):
         self._hyperspace_generator.tick(delta_time)
 
-    def move(self, delta_time, fleets):
+    def update(self, delta_time, fleets):
         self.control_motion(delta_time, fleets)
         self._location.move(delta_time)
 

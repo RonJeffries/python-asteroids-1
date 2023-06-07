@@ -36,7 +36,7 @@ class Fleet:
 
     def move(self, delta_time, fleets):
         for flyer in self:
-            flyer.move(delta_time, fleets)
+            flyer.update(delta_time, fleets)
 
     def tick(self, delta_time, fleets):
         for flyer in self:

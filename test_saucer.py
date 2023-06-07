@@ -41,13 +41,13 @@ class TestSaucer:
         saucer = Saucer()
         fleets.add_flyer(saucer)
         assert saucer.position.x == 0
-        saucer.move(1, fleets)
+        saucer.update(1, fleets)
         assert fi.saucers
         time = 0
         delta_time = 0.1
         while time < 10:
             time += delta_time
-            saucer.move(delta_time=delta_time, fleets=fleets)
+            saucer.update(delta_time=delta_time, fleets=fleets)
         assert not fi.saucers
 
     def test_right_to_left(self):

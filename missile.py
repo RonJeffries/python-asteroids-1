@@ -79,7 +79,7 @@ class Missile(Flyer):
     def draw(self, screen):
         pygame.draw.circle(screen, "white", self.position, 4)
 
-    def move(self, delta_time, _fleets):
+    def update(self, delta_time, _fleets):
         self._location.move(delta_time)
 
     def tick(self, delta_time, fleets):

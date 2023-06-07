@@ -74,7 +74,7 @@ class Fragment(Flyer):
     def interact_with(self, attacker, fleets):
         attacker.interact_with_fragment(self, fleets)
 
-    def move(self, delta_time, _fleets):
+    def update(self, delta_time, _fleets):
         position = self.position + self.velocity * delta_time
         position.x = position.x % u.SCREEN_SIZE
         position.y = position.y % u.SCREEN_SIZE
