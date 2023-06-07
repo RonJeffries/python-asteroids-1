@@ -11,8 +11,10 @@ class HyperspaceGenerator:
         self._charged = False
         self._button_down = False
         self._ship = ship
+        self._asteroid_tally = 0
 
-    def press_button(self):
+    def press_button(self, asteroid_tally):
+        self._asteroid_tally = asteroid_tally
         if self._charged and not self._button_down:
             self.hyperspace_jump()
         self._button_down = True
