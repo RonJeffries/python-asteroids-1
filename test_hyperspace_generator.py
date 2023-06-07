@@ -86,5 +86,21 @@ class TestHyperspaceGenerator:
         hg.press_button(0, 44, fleets)  # fail = roll > 44 + tally
         assert self.did_enter_hyperspace(impossible, ship)
 
+    def test_hyperspace_failure(self):
+        """hyperspace fails when random(0 through 62) > asteroid count plus 44"""
+        hg = HyperspaceGenerator(None)
+        self.check_no_fail(hg, 0, 0)
+        self.check_fail(hg, 45, 0)  # 45 > 44 you lose
+        self.check_fail(hg, 62, 17)  # 62 > 44+ 17 you lose
+        self.check_no_fail(hg, 62, 18)  # 62 !> 44+18 = 62
+
+    @staticmethod
+    def check_no_fail(hg, roll, asteroids):
+        assert not hg.hyperspace_failed(asteroids, roll)
+
+    @staticmethod
+    def check_fail(hg, roll, asteroids):
+        assert hg.hyperspace_failed(asteroids, roll)
+
 
 

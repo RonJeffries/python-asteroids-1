@@ -20,9 +20,7 @@ class Ship(Flyer):
     def __init__(self, position):
         self.radius = 25
         self._location = MovableLocation(position, Vector2(0, 0))
-        self.hyperspace_generator = HyperspaceGenerator(self)
-        self._hyperspace_key_ready = True
-        self._hyperspace_recharged = True
+        self._hyperspace_generator = HyperspaceGenerator(self)
         self._hyperspace_timer = Timer(u.SHIP_HYPERSPACE_RECHARGE_TIME)
         self._can_fire = True
         self._angle = 0
@@ -77,9 +75,10 @@ class Ship(Flyer):
         else:
             self._can_fire = True
         if keys[pygame.K_SPACE]:
-            self.enter_hyperspace_if_possible(fleets)
+            roll = random.randrange(0, 63)
+            self._hyperspace_generator.press_button(self._asteroid_tally, roll, fleets)
         else:
-            self._hyperspace_key_ready = True
+            self._hyperspace_generator.lift_button()
 
     def interact_with(self, attacker, fleets):
         attacker.interact_with_ship(self, fleets)
@@ -122,38 +121,15 @@ class Ship(Flyer):
         half = pygame.Vector2(rotated.get_size()) / 2
         screen.blit(rotated, self.position - half)
 
-    def enter_hyperspace_if_possible(self, fleets):
-        if self._hyperspace_key_ready and self._hyperspace_recharged:
-            self._hyperspace_key_ready = False
-            roll = random.randrange(0, 63)
-            if self.hyperspace_failure(roll):
-                self.explode(fleets)
-            else:
-                self.hyperspace_transfer()
-
     def explode(self, fleets):
         player.play("bang_large", self._location)
         fleets.remove_flyer(self)
         fleets.add_flyer(Explosion.from_ship(self.position))
 
-    def hyperspace_transfer(self):
-        x = random.randrange(u.SCREEN_SIZE)
-        y = random.randrange(u.SCREEN_SIZE)
-        self.move_to(Vector2(x, y))
-        self._angle = random.randrange(360)
-        dx = random.randrange(u.SHIP_HYPERSPACE_MAX_VELOCITY)
-        dy = random.randrange(u.SHIP_HYPERSPACE_MAX_VELOCITY)
-        self.accelerate_to(Vector2(dx, dy))
-        self._hyperspace_key_ready = False
-        self._hyperspace_recharged = False
-
     def fire_if_possible(self, fleets):
         if self._can_fire and self._missile_tally < u.MISSILE_LIMIT:
             fleets.add_flyer(self.create_missile())
             self._can_fire = False
-
-    def hyperspace_failure(self, roll):
-        return roll > 44 + self._asteroid_tally
 
     def create_missile(self):
         player.play("fire", self._location)
@@ -191,11 +167,7 @@ class Ship(Flyer):
             return self._ship_surface
 
     def tick(self, delta_time, fleets):
-        if not self._hyperspace_recharged:
-            self._hyperspace_timer.tick(delta_time, self.recharge)
-
-    def recharge(self):
-        self._hyperspace_recharged = True
+        self._hyperspace_generator.tick(delta_time)
 
     def move(self, delta_time, fleets):
         self.control_motion(delta_time, fleets)
