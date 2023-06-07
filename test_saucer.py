@@ -17,14 +17,14 @@ class TestSaucer:
         saucer = Saucer()
         assert saucer.position.x == 0
         assert saucer.velocity_testing_only == u.SAUCER_VELOCITY
-        assert saucer.missile_timer.elapsed == 0
-        saucer.missile_timer.elapsed = 0.5
+        assert saucer._missile_timer.elapsed == 0
+        saucer._missile_timer.elapsed = 0.5
         saucer = Saucer()
         assert saucer.position.x == u.SCREEN_SIZE
         assert saucer.velocity_testing_only == -u.SAUCER_VELOCITY
-        assert saucer.zig_timer.delay == u.SAUCER_ZIG_TIME
-        assert saucer.zig_timer.elapsed == 0
-        assert saucer.missile_timer.elapsed == 0
+        assert saucer._zig_timer.delay == u.SAUCER_ZIG_TIME
+        assert saucer._zig_timer.elapsed == 0
+        assert saucer._missile_timer.elapsed == 0
 
     def test_move(self):
         Saucer.init_for_new_game()
@@ -121,7 +121,7 @@ class TestSaucer:
         saucer = Saucer()
         saucer.move_to(Vector2(123, 456))
         missile = saucer.missile_at_angle(90, saucer.velocity_testing_only)
-        expected_offset = Vector2(2 * saucer.radius, 0).rotate(90)
+        expected_offset = Vector2(2 * saucer._radius, 0).rotate(90)
         assert missile.position == saucer.position + expected_offset
 
     def test_vectors_mutate(self):
@@ -149,7 +149,7 @@ class TestSaucer:
         ships = [Ship(Vector2(100, 100))]
         should_target = 0.1
         random_angle = None
-        saucer.ship = ships[0]
+        saucer._ship = ships[0]
         missile = saucer.suitable_missile(should_target, random_angle)
         assert missile.velocity_testing_only == Vector2(0, -u.SPEED_OF_LIGHT / 3)
         # assert degrees == -90
