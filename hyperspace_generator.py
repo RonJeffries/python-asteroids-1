@@ -21,10 +21,8 @@ class HyperspaceGenerator:
 
     def jump_or_explode(self, asteroid_tally, dice_roll, fleets):
         if self.hyperspace_failed(asteroid_tally, dice_roll):
-            print("exploding", dice_roll, "<",  asteroid_tally)
             self._ship.explode(fleets)
         else:
-            print("jumping")
             self.hyperspace_jump()
 
     @staticmethod
@@ -41,11 +39,11 @@ class HyperspaceGenerator:
         dy = random.randrange(u.SHIP_HYPERSPACE_MAX_VELOCITY)
         self._ship.accelerate_to(Vector2(dx, dy))
 
-    def recharge(self):
-        self._charged = True
-
     def lift_button(self):
         self._button_down = False
+
+    def recharge(self):
+        self._charged = True
 
     def tick(self, delta_time):
         if not self._charged:
