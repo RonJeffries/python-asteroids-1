@@ -175,6 +175,12 @@ class Saucer(Flyer):
         self.accelerate_to(self.new_direction())
 
 
+def nearest_point(shooter, target, wrap_size):
+    nearest_x = nearest(shooter.x, target.x, wrap_size)
+    nearest_y = nearest(shooter.y, target.y, wrap_size)
+    return Vector2(nearest_x, nearest_y)
+
+
 def nearest(shooter, target, wrap_size):
     direct_distance = abs(target - shooter)
     target_wrap_left = target - wrap_size
@@ -187,9 +193,3 @@ def nearest(shooter, target, wrap_size):
         return target_wrap_right
     else:
         return target
-
-
-def nearest_point(shooter, target, wrap_size):
-    nearest_x = nearest(shooter.x, target.x, wrap_size)
-    nearest_y = nearest(shooter.y, target.y, wrap_size)
-    return Vector2(nearest_x, nearest_y)
