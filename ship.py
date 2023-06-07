@@ -75,8 +75,7 @@ class Ship(Flyer):
         else:
             self._can_fire = True
         if keys[pygame.K_SPACE]:
-            roll = random.randrange(0, 63)
-            self._hyperspace_generator.press_button(self._asteroid_tally, roll, fleets)
+            self._hyperspace_generator.press_button(self._asteroid_tally, fleets)
         else:
             self._hyperspace_generator.lift_button()
 

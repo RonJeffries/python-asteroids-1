@@ -58,7 +58,7 @@ class TestHyperspaceGenerator:
         fleets.add_flyer(ship)
         hg = HyperspaceGenerator(ship)
         hg.recharge()
-        hg.press_button(0, 45, fleets)  # fail = roll > 44 + tally
+        hg.press_button(0, fleets, 45)  # fail = roll > 44 + tally
         assert fi.explosions
 
     def test_success(self):
@@ -69,7 +69,7 @@ class TestHyperspaceGenerator:
         fleets.add_flyer(ship)
         hg = HyperspaceGenerator(ship)
         hg.recharge()
-        hg.press_button(0, 44, fleets)  # fail = roll > 44 + tally
+        hg.press_button(0, fleets, 44)  # fail = roll > 44 + tally
         assert not fi.explosions
 
     def test_recharge_timer(self):
@@ -79,11 +79,11 @@ class TestHyperspaceGenerator:
         fi = FI(fleets)
         fleets.add_flyer(ship)
         hg = HyperspaceGenerator(ship)
-        hg.press_button(0, 44, fleets)  # fail = roll > 44 + tally
+        hg.press_button(0, fleets, 44)  # fail = roll > 44 + tally
         assert self.did_not_enter_hyperspace(impossible, ship)
         hg.tick(u.SHIP_HYPERSPACE_RECHARGE_TIME)
         hg.lift_button()
-        hg.press_button(0, 44, fleets)  # fail = roll > 44 + tally
+        hg.press_button(0, fleets, 44)  # fail = roll > 44 + tally
         assert self.did_enter_hyperspace(impossible, ship)
 
     def test_hyperspace_failure(self):

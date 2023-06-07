@@ -13,7 +13,8 @@ class HyperspaceGenerator:
         self._ship = ship
         self._timer = Timer(u.SHIP_HYPERSPACE_RECHARGE_TIME)
 
-    def press_button(self, asteroid_tally, dice_roll=0, fleets=None):
+    def press_button(self, asteroid_tally, fleets=None, dice_roll=None):
+        dice_roll = dice_roll if dice_roll else random.randrange(0, 63)
         self._asteroid_tally = asteroid_tally
         if self._charged and not self._button_down:
             self.jump_or_explode(asteroid_tally, dice_roll, fleets)
