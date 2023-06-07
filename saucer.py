@@ -66,17 +66,8 @@ class Saucer(Flyer):
             saucer_size = raw_dimensions * saucer_scale
             Saucer.saucer_surface = SurfaceMaker.saucer_surface(saucer_size)
 
-    def zig_zag_action(self):
-        self.accelerate_to(self.new_direction())
-
     def interact_with(self, attacker, fleets):
         attacker.interact_with_saucer(self, fleets)
-
-    def explode(self, fleets):
-        player.play("bang_large", self._location)
-        player.play("bang_small", self._location)
-        fleets.remove_flyer(self)
-        fleets.add_flyer(Explosion.from_saucer(self.position))
 
     def interact_with_asteroid(self, asteroid, fleets):
         if asteroid.are_we_colliding(self.position, self._radius):
@@ -102,6 +93,12 @@ class Saucer(Flyer):
     def draw(self, screen):
         top_left_corner = self.position - Saucer.offset
         screen.blit(Saucer.saucer_surface, top_left_corner)
+
+    def explode(self, fleets):
+        player.play("bang_large", self._location)
+        player.play("bang_small", self._location)
+        fleets.remove_flyer(self)
+        fleets.add_flyer(Explosion.from_saucer(self.position))
 
     def _move(self, delta_time, fleets):
         off_x, off_y = self._location.move(delta_time)
@@ -135,6 +132,11 @@ class Saucer(Flyer):
     def scores_for_hitting_saucer():
         return [0, 0]
 
+    def angle_to(self, ship):
+        aiming_point = nearest_point(self.position, ship.position, u.SCREEN_SIZE)
+        angle_point = aiming_point - self.position
+        return degrees(atan2(angle_point.y, angle_point.x))
+
     def create_missile(self):
         """callback method, called from saucer_missiles.fire"""
         should_target = random.random()
@@ -157,13 +159,11 @@ class Saucer(Flyer):
         offset = Vector2(2 * self._radius, 0).rotate(desired_angle)
         return Missile.from_saucer(self.position + offset, missile_velocity)
 
-    def angle_to(self, ship):
-        aiming_point = nearest_point(self.position, ship.position, u.SCREEN_SIZE)
-        angle_point = aiming_point - self.position
-        return degrees(atan2(angle_point.y, angle_point.x))
-
     def score_for_hitting(self, attacker):
         return attacker.scores_for_hitting_saucer()[self._size - 1]
+
+    def tick(self, delta_time, fleets):
+        pass
 
     def update(self, delta_time, fleets):
         player.play("saucer_big", self._location, False)
@@ -171,8 +171,8 @@ class Saucer(Flyer):
         self.check_zigzag(delta_time)
         self._move(delta_time, fleets)
 
-    def tick(self, delta_time, fleets):
-        pass
+    def zig_zag_action(self):
+        self.accelerate_to(self.new_direction())
 
 
 def nearest(shooter, target, wrap_size):
