@@ -10,14 +10,14 @@ from wavemaker import WaveMaker
 class Coin(Flyer):
     @classmethod
     def quarter(cls):
-        return cls(25)
+        return cls(True)
 
     @classmethod
     def slug(cls):
-        return cls(0)
+        return cls(False)
 
-    def __init__(self, amount=25):
-        self.amount = amount
+    def __init__(self, is_quarter=True):
+        self.is_quarter = is_quarter
 
     def interact_with(self, other, fleets):
         other.interact_with_coin(self, fleets)
@@ -31,7 +31,4 @@ class Coin(Flyer):
         fleets.add_flyer(ScoreKeeper())
         fleets.add_flyer(Thumper())
         fleets.add_flyer(WaveMaker())
-        if self.amount:
-            fleets.add_flyer(ShipMaker())
-        else:
-            fleets.add_flyer(GameOver())
+        fleets.add_flyer(ShipMaker() if self.is_quarter else GameOver())
