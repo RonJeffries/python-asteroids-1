@@ -139,7 +139,7 @@ class Ship(Flyer):
         return Missile.from_ship(self.missile_start(), self.missile_velocity())
 
     def missile_start(self):
-        radius = self.radius + 11
+        radius = self.radius + Missile.radius + 1
         offset = Vector2(radius, 0).rotate(-self._angle)
         return self.position + offset
 

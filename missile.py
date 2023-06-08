@@ -9,6 +9,7 @@ from timer import Timer
 
 class Missile(Flyer):
     Saucer = None
+    radius = 2
 
     def __init__(self, position, velocity, missile_score_list, saucer_score_list):
         self.score_list = missile_score_list
@@ -18,7 +19,6 @@ class Missile(Flyer):
         else:
             self.is_ship_missile = True
             self.is_saucer_missile = False
-        self.radius = 2
         self._timer = Timer(u.MISSILE_LIFETIME)
         self._saucer_score_list = saucer_score_list
         self._location = MovableLocation(position, velocity)
