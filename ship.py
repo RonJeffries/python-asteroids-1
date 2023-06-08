@@ -169,8 +169,8 @@ class Ship(Flyer):
         self._hyperspace_generator.tick(delta_time)
 
     def update(self, delta_time, fleets):
-        self.control_motion(delta_time, fleets)
         self._location.move(delta_time)
+        self.control_motion(delta_time, fleets)
 
     def turn_left(self, dt):
         self._angle = self._angle - u.SHIP_ROTATION_STEP * dt
