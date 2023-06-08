@@ -1,3 +1,5 @@
+from pygame import Vector2
+
 import u
 
 
@@ -14,13 +16,12 @@ class MovableLocation:
         self.velocity = velocity
 
     def move(self, delta_time):
-        position = self.position + self.velocity*delta_time
-        old_x = position.x
-        old_y = position.y
-        position.x = position.x % self.size
-        position.y = position.y % self.size
-        self.position = position
-        return position.x != old_x, position.y != old_y
+        raw_position = self.position + self.velocity*delta_time
+        self.position = self.wrap_around(raw_position)
+        return raw_position.x != self.position.x, raw_position.y != self.position.y
+
+    def wrap_around(self, raw_position):
+        return Vector2(raw_position.x % self.size, raw_position.y % self.size)
 
     def move_to(self, vector):
         self.position = vector
