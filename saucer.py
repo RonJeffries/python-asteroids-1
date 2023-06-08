@@ -151,8 +151,7 @@ class Saucer(Flyer):
 
     def angle_to(self, ship):
         aiming_point = nearest_point(self.position, ship.position, u.SCREEN_SIZE)
-        angle_point = aiming_point - self.position
-        return degrees(atan2(angle_point.y, angle_point.x))
+        return Vector2(0, 0).angle_to(aiming_point - self.position)
 
     def create_missile(self):
         """callback method, called from saucer_missiles.fire"""
