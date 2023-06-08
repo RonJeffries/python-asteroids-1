@@ -32,8 +32,9 @@ class TestGunner:
         fleets = Fleets()
         fi = FI(fleets)
         position = Vector2(500, 500)
-        Gunner().create_missile(no_target, angle, position, Vector2(0, 0), None, fleets)
+        Gunner().create_missile(no_target, angle, position, Vector2(12, 34), None, fleets)
         assert fi.saucer_missiles
         missile = fi.saucer_missiles[0]
         assert missile.position == position + Vector2(40, 0)
+        assert missile.velocity_testing_only == Vector2(u.MISSILE_SPEED + 12, 34)
 
