@@ -154,7 +154,6 @@ class Saucer(Flyer):
         return Vector2(0, 0).angle_to(aiming_point - self.position)
 
     def create_missile(self):
-        """callback method, called from saucer_missiles.fire"""
         should_target = random.random()
         random_angle = random.random()
         return self.suitable_missile(should_target, random_angle)
