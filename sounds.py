@@ -1,5 +1,7 @@
 import pygame.mixer
 
+from movable_location import MovableLocation
+
 
 class Sounds:
     def __init__(self):
@@ -39,7 +41,7 @@ class Sounds:
             print("missing sound", name)
 
     @staticmethod
-    def set_volume(chan, location):
+    def set_volume(chan, location: MovableLocation):
         if location is None:
             return
         frac_right = location.stereo_right() if location else 0.5
