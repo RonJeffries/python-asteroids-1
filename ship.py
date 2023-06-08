@@ -70,14 +70,18 @@ class Ship(Flyer):
             self.power_on(delta_time)
         else:
             self.power_off()
-        if keys[pygame.K_k]:
-            self.fire_if_possible(fleets)
-        else:
-            self._can_fire = True
         if keys[pygame.K_SPACE]:
             self._hyperspace_generator.press_button(self._asteroid_tally, fleets)
         else:
             self._hyperspace_generator.lift_button()
+
+    def control_firing(self, fleets):
+        if not pygame.get_init():
+            return
+        if pygame.key.get_pressed()[pygame.K_k]:
+            self.fire_if_possible(fleets)
+        else:
+            self._can_fire = True
 
     def interact_with(self, attacker, fleets):
         attacker.interact_with_ship(self, fleets)
@@ -169,8 +173,9 @@ class Ship(Flyer):
         self._hyperspace_generator.tick(delta_time)
 
     def update(self, delta_time, fleets):
-        self._location.move(delta_time)
         self.control_motion(delta_time, fleets)
+        self._location.move(delta_time)
+        self.control_firing(fleets)
 
     def turn_left(self, dt):
         self._angle = self._angle - u.SHIP_ROTATION_STEP * dt
