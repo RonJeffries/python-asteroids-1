@@ -15,7 +15,7 @@ class TestGunner:
         saucer_position = Vector2(0, 0 )
         ship_position = Vector2(1, 1)
         fleets = Fleets()
-        Gunner().fire(delta_time, saucer_position, Vector2(0, 0), ship_position, fleets)
+        Gunner().fire(delta_time, 0, saucer_position, Vector2(0, 0), ship_position, fleets)
         assert not FI(fleets).saucer_missiles
 
     def test_fire_on_time(self):
@@ -23,7 +23,7 @@ class TestGunner:
         saucer_position = Vector2(0, 0 )
         ship_position = Vector2(1, 1)
         fleets = Fleets()
-        Gunner().fire(delta_time, saucer_position, Vector2(0, 0), ship_position, fleets)
+        Gunner().fire(delta_time, 0, saucer_position, Vector2(0, 0), ship_position, fleets)
         assert FI(fleets).saucer_missiles
 
     def test_random_missile(self):
@@ -37,4 +37,17 @@ class TestGunner:
         missile = fi.saucer_missiles[0]
         assert missile.position == position + Vector2(40, 0)
         assert missile.velocity_testing_only == Vector2(u.MISSILE_SPEED + 12, 34)
+
+    def test_can_only_fire_limited_number(self):
+        no_target = 0.5
+        angle = 0.0
+        fleets = Fleets()
+        fi = FI(fleets)
+        saucer_position = Vector2(500, 500)
+        velocity = Vector2(0, 0)
+        ship_position = Vector2(0, 0)
+        count = u.SAUCER_MISSILE_LIMIT
+        Gunner().fire_missile(count, saucer_position, velocity, ship_position, fleets)
+        assert not fi.saucer_missiles
+
 
