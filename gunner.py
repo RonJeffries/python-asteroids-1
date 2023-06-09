@@ -23,7 +23,7 @@ class Gunner:
         self.create_missile(should_target, random_angle, saucer_position, saucer_velocity, ship_position, fleets)
 
     def create_missile(self, should_target, random_angle, saucer_position, saucer_velocity, ship_position, fleets):
-        if should_target <= u.SAUCER_TARGETING_FRACTION:
+        if ship_position and should_target <= u.SAUCER_TARGETING_FRACTION:
             self.create_targeted_missile(saucer_position, ship_position, fleets)
         else:
             self.create_random_missile(random_angle, saucer_position, saucer_velocity, fleets)

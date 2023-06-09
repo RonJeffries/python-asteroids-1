@@ -71,6 +71,18 @@ class TestGunner:
         assert missile.velocity_testing_only.x == pytest.approx(missile.velocity_testing_only.y)
         assert missile.velocity_testing_only.y == pytest.approx(u.MISSILE_SPEED*0.707, 0.1)
 
+    def test_handle_ship_position_none(self):
+        do_target = 0.1
+        angle = 0.0
+        fleets = Fleets()
+        fi = FI(fleets)
+        saucer_position = Vector2(500, 500)
+        velocity = Vector2(0, 0)
+        ship_position = Vector2(0, 0)
+        count = u.SAUCER_MISSILE_LIMIT
+        Gunner().create_missile(do_target, 0.0, saucer_position, velocity, None, fleets)
+        assert fi.saucer_missiles
+
     def test_no_ship_overrides_targeting(self):
         pass
 
