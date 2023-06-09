@@ -38,6 +38,27 @@ class Gunner:
         return Missile.from_saucer(position + offset, missile_velocity)
 
     def create_targeted_missile(self, saucer_position, ship_position, fleets):
-        missile = Missile.from_saucer(Vector2(-5, -5), Vector2(0, 0))
+        aiming_point = nearest_point(saucer_position, ship_position, u.SCREEN_SIZE)
+        angle = Vector2(0, 0).angle_to(aiming_point - saucer_position)
+        missile = self.missile_at_angle(saucer_position, angle, Vector2(0, 0))
         fleets.add_flyer(missile)
 
+
+def nearest_point(shooter, target, wrap_size):
+    nearest_x = nearest(shooter.x, target.x, wrap_size)
+    nearest_y = nearest(shooter.y, target.y, wrap_size)
+    return Vector2(nearest_x, nearest_y)
+
+
+def nearest(shooter, target, wrap_size):
+    direct_distance = abs(target - shooter)
+    target_wrap_left = target - wrap_size
+    wrap_left_distance = abs(target_wrap_left - shooter)
+    target_wrap_right = target + wrap_size
+    wrap_right_distance = abs(target_wrap_right - shooter)
+    if wrap_left_distance < direct_distance:
+        return target_wrap_left
+    elif wrap_right_distance < direct_distance:
+        return target_wrap_right
+    else:
+        return target

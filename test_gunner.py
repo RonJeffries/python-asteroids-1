@@ -1,3 +1,4 @@
+import pytest
 from pygame import Vector2
 
 import u
@@ -49,5 +50,28 @@ class TestGunner:
         count = u.SAUCER_MISSILE_LIMIT
         Gunner().fire_missile(count, saucer_position, velocity, ship_position, fleets)
         assert not fi.saucer_missiles
+
+    def test_targeted(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        saucer_position = Vector2(500, 500)
+        ship_position = Vector2(500, 550)
+        Gunner().create_targeted_missile(saucer_position, ship_position, fleets)
+        missile = fi.saucer_missiles[0]
+        assert missile.velocity_testing_only.x == 0
+        assert missile.velocity_testing_only.y == u.MISSILE_SPEED
+
+    def test_targeted_harder(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        saucer_position = Vector2(500, 500)
+        ship_position = Vector2(550, 550)
+        Gunner().create_targeted_missile(saucer_position, ship_position, fleets)
+        missile = fi.saucer_missiles[0]
+        assert missile.velocity_testing_only.x == pytest.approx(missile.velocity_testing_only.y)
+        assert missile.velocity_testing_only.y == pytest.approx(u.MISSILE_SPEED*0.707, 0.1)
+
+    def test_no_ship_overrides_targeting(self):
+        pass
 
 
