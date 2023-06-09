@@ -10,7 +10,7 @@ class TestGunner:
     def test_exists(self):
         assert Gunner()
 
-    def test_no_fire(self):
+    def test_no_fire_on_short_time(self):
         delta_time = 0.1
         saucer_position = Vector2(0, 0 )
         ship_position = Vector2(1, 1)
@@ -18,7 +18,7 @@ class TestGunner:
         Gunner().fire(delta_time, saucer_position, Vector2(0, 0), ship_position, fleets)
         assert not FI(fleets).saucer_missiles
 
-    def test_fire(self):
+    def test_fire_on_time(self):
         delta_time = u.SAUCER_MISSILE_DELAY
         saucer_position = Vector2(0, 0 )
         ship_position = Vector2(1, 1)
