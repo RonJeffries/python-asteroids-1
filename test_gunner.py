@@ -33,7 +33,7 @@ class TestGunner:
         fleets = Fleets()
         fi = FI(fleets)
         position = Vector2(500, 500)
-        Gunner().create_missile(no_target, angle, position, Vector2(12, 34), None, fleets)
+        Gunner().create_random_missile(angle, position, Vector2(12, 34), fleets)
         assert fi.saucer_missiles
         missile = fi.saucer_missiles[0]
         assert missile.position == position + Vector2(40, 0)
@@ -80,7 +80,7 @@ class TestGunner:
         velocity = Vector2(0, 0)
         ship_position = Vector2(0, 0)
         count = u.SAUCER_MISSILE_LIMIT
-        Gunner().create_missile(do_target, 0.0, saucer_position, velocity, None, fleets)
+        Gunner().fire_missile(0, saucer_position, velocity, None, fleets)
         assert fi.saucer_missiles
 
     def test_no_ship_overrides_targeting(self):

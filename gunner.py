@@ -12,20 +12,20 @@ class Gunner:
         self._timer = Timer(u.SAUCER_MISSILE_DELAY)
         self._radius = saucer_radius
 
-    def fire(self, delta_time, missile_tally, saucer_position, saucer_velocity, ship_position, fleets):
-        self._timer.tick(delta_time, self.fire_missile, missile_tally, saucer_position, saucer_velocity, ship_position, fleets)
+    def fire(self, delta_time, missile_tally, saucer_position, saucer_velocity, ship_position_or_none, fleets):
+        self._timer.tick(delta_time, self.fire_missile, missile_tally, saucer_position, saucer_velocity, ship_position_or_none, fleets)
 
-    def fire_missile(self, missile_tally, saucer_position, saucer_velocity, ship_position, fleets):
+    def fire_missile(self, missile_tally, saucer_position, saucer_velocity, ship_position_or_none, fleets):
         if missile_tally >= u.SAUCER_MISSILE_LIMIT:
             return
         should_target = random.random()
-        random_angle = random.random()
-        self.create_missile(should_target, random_angle, saucer_position, saucer_velocity, ship_position, fleets)
+        self.select_missile(fleets, saucer_position, saucer_velocity, ship_position_or_none, should_target)
 
-    def create_missile(self, should_target, random_angle, saucer_position, saucer_velocity, ship_position, fleets):
-        if ship_position and should_target <= u.SAUCER_TARGETING_FRACTION:
-            self.create_targeted_missile(saucer_position, ship_position, fleets)
+    def select_missile(self, fleets, saucer_position, saucer_velocity, ship_position_or_none, should_target):
+        if ship_position_or_none and should_target <= u.SAUCER_TARGETING_FRACTION:
+            self.create_targeted_missile(saucer_position, ship_position_or_none, fleets)
         else:
+            random_angle = random.random()
             self.create_random_missile(random_angle, saucer_position, saucer_velocity, fleets)
 
     def create_random_missile(self, random_angle, saucer_position, saucer_velocity, fleets):
