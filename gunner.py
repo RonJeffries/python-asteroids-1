@@ -8,9 +8,9 @@ from timer import Timer
 
 
 class Gunner:
-    def __init__(self):
+    def __init__(self, saucer_radius=20):
         self._timer = Timer(u.SAUCER_MISSILE_DELAY)
-        self._radius = 20
+        self._radius = saucer_radius
 
     def fire(self, delta_time, missile_tally, saucer_position, saucer_velocity, ship_position, fleets):
         self._timer.tick(delta_time, self.fire_missile, missile_tally, saucer_position, saucer_velocity, ship_position, fleets)
