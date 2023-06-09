@@ -10,7 +10,8 @@ from game_over import GameOver
 from interactor import Interactor
 from fragment import Fragment
 from missile import Missile
-from saucer import Saucer, nearest, nearest_point
+from saucer import Saucer
+from gunner import nearest_point, nearest
 from score import Score
 from ship import Ship
 from game import Game
