@@ -11,7 +11,7 @@ from interactor import Interactor
 from fragment import Fragment
 from missile import Missile
 from saucer import Saucer
-from gunner import nearest_point, nearest
+from gunner import Gunner
 from score import Score
 from ship import Ship
 from game import Game
@@ -371,20 +371,22 @@ class TestInteractions:
         target = 100
         screen_size = 500
         shooter = 200
-        assert nearest(shooter, target, screen_size) == 100
+        gunner = Gunner()
+        assert gunner.nearest(shooter, target, screen_size) == 100
         shooter = 400
-        assert nearest(shooter, target, screen_size) == 100 + 500
+        assert gunner.nearest(shooter, target, screen_size) == 100 + 500
         target = 400
         shooter = 100
-        assert nearest(shooter, target, screen_size) == 400 - 500
+        assert gunner.nearest(shooter, target, screen_size) == 400 - 500
 
     def test_can_choose_nearest_point(self):
         target = Vector2(100, 400)
         screen_size = 500
         shooter = Vector2(150, 150)
-        assert nearest_point(shooter, target, screen_size) == Vector2(100, 400)
+        gunner = Gunner()
+        assert gunner.nearest_point(shooter, target, screen_size) == Vector2(100, 400)
         shooter = Vector2(150, 50)
-        assert nearest_point(shooter, target, screen_size) == Vector2(100, -100)
+        assert gunner.nearest_point(shooter, target, screen_size) == Vector2(100, -100)
 
     def test_flyer_protocol(self):
         classes = [Asteroid, Missile, Saucer, Ship, Fragment, Score, ScoreKeeper]

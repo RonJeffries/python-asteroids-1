@@ -39,25 +39,25 @@ class Gunner:
         return Missile.from_saucer(position + offset, missile_velocity)
 
     def create_targeted_missile(self, saucer_position, ship_position, fleets):
-        aiming_point = nearest_point(saucer_position, ship_position, u.SCREEN_SIZE)
+        aiming_point = self.nearest_point(saucer_position, ship_position, u.SCREEN_SIZE)
         angle = Vector2(0, 0).angle_to(aiming_point - saucer_position)
         missile = self.missile_at_angle(saucer_position, angle, Vector2(0, 0))
         fleets.add_flyer(missile)
 
+    def nearest_point(self, shooter, target, wrap_size):
+        nearest_x = self.nearest(shooter.x, target.x, wrap_size)
+        nearest_y = self.nearest(shooter.y, target.y, wrap_size)
+        return Vector2(nearest_x, nearest_y)
 
-def nearest_point(shooter, target, wrap_size):
-    nearest_x = nearest(shooter.x, target.x, wrap_size)
-    nearest_y = nearest(shooter.y, target.y, wrap_size)
-    return Vector2(nearest_x, nearest_y)
+    @staticmethod
+    def nearest(shooter_coord, target_coord, wrap_size):
+        half = wrap_size / 2
+        direct_distance = abs(target_coord - shooter_coord)
+        if direct_distance <= half:
+            return target_coord
+        elif shooter_coord >= half:
+            return target_coord + wrap_size
+        else:
+            return target_coord - wrap_size
 
-
-def nearest(shooter_coord, target_coord, wrap_size):
-    half = wrap_size / 2
-    direct_distance = abs(target_coord - shooter_coord)
-    if direct_distance <= half:
-        return target_coord
-    elif shooter_coord >= half:
-        return target_coord + wrap_size
-    else:
-        return target_coord - wrap_size
 
