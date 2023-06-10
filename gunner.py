@@ -1,3 +1,4 @@
+import math
 import random
 
 from pygame import Vector2
@@ -50,15 +51,13 @@ def nearest_point(shooter, target, wrap_size):
     return Vector2(nearest_x, nearest_y)
 
 
-def nearest(shooter, target, wrap_size):
-    direct_distance = abs(target - shooter)
-    target_wrap_left = target - wrap_size
-    wrap_left_distance = abs(target_wrap_left - shooter)
-    target_wrap_right = target + wrap_size
-    wrap_right_distance = abs(target_wrap_right - shooter)
-    if wrap_left_distance < direct_distance:
-        return target_wrap_left
-    elif wrap_right_distance < direct_distance:
-        return target_wrap_right
+def nearest(shooter_coord, target_coord, wrap_size):
+    half = wrap_size / 2
+    direct_distance = abs(target_coord - shooter_coord)
+    if direct_distance <= half:
+        return target_coord
+    elif shooter_coord >= half:
+        return target_coord + wrap_size
     else:
-        return target
+        return target_coord - wrap_size
+
