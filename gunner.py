@@ -54,14 +54,14 @@ class Gunner:
         return Vector2(nearest_x, nearest_y)
 
     @staticmethod
-    def nearest(shooter_coord, target_coord, wrap_size):
-        half = wrap_size / 2
+    def nearest(shooter_coord, target_coord, screen_size):
+        half = screen_size / 2
         direct_distance = abs(target_coord - shooter_coord)
         if direct_distance <= half:
             return target_coord
         elif shooter_coord >= half:
-            return target_coord + wrap_size
+            return target_coord + screen_size
         else:
-            return target_coord - wrap_size
+            return target_coord - screen_size
 
 
