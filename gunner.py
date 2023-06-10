@@ -33,16 +33,16 @@ class Gunner:
         missile = self.missile_at_angle(saucer_position, random_angle*360.0, saucer_velocity)
         fleets.add_flyer(missile)
 
-    def missile_at_angle(self, position, desired_angle, velocity_adjustment):
-        missile_velocity = Vector2(u.MISSILE_SPEED, 0).rotate(desired_angle) + velocity_adjustment
-        offset = Vector2(2 * self._radius, 0).rotate(desired_angle)
-        return Missile.from_saucer(position + offset, missile_velocity)
-
     def create_targeted_missile(self, saucer_position, ship_position, fleets):
         aiming_point = self.nearest_point(saucer_position, ship_position, u.SCREEN_SIZE)
         angle = Vector2(0, 0).angle_to(aiming_point - saucer_position)
         missile = self.missile_at_angle(saucer_position, angle, Vector2(0, 0))
         fleets.add_flyer(missile)
+
+    def missile_at_angle(self, position, desired_angle, velocity_adjustment):
+        missile_velocity = Vector2(u.MISSILE_SPEED, 0).rotate(desired_angle) + velocity_adjustment
+        offset = Vector2(2 * self._radius, 0).rotate(desired_angle)
+        return Missile.from_saucer(position + offset, missile_velocity)
 
     def nearest_point(self, shooter, target, wrap_size):
         nearest_x = self.nearest(shooter.x, target.x, wrap_size)
