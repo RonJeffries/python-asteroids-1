@@ -5,6 +5,7 @@ from pygame import Vector2
 
 import u
 from missile import Missile
+from ship import Ship
 from timer import Timer
 
 
@@ -13,18 +14,29 @@ class Gunner:
         self._timer = Timer(u.SAUCER_MISSILE_DELAY)
         self._radius = saucer_radius
 
-    def fire(self, delta_time, missile_tally, saucer_position, saucer_velocity, ship_position_or_none, fleets):
-        self._timer.tick(delta_time, self.fire_missile, missile_tally, saucer_position, saucer_velocity, ship_position_or_none, fleets)
+    def fire(self, delta_time, missile_tally, saucer_position, saucer_velocity, ship_or_none: Ship | None, fleets):
+        if ship_or_none:
+            ship_position = ship_or_none.position
+        else:
+            ship_position = self.random_position()
+        self._timer.tick(delta_time, self.fire_missile, missile_tally, saucer_position, saucer_velocity, ship_position, fleets)
 
-    def fire_missile(self, missile_tally, saucer_position, saucer_velocity, ship_position_or_none, fleets):
+    def random_position(self):
+        return Vector2(self.random_coordinate(), self.random_coordinate())
+
+    @staticmethod
+    def random_coordinate():
+        return random.randrange(0, u.SCREEN_SIZE)
+
+    def fire_missile(self, missile_tally, saucer_position, saucer_velocity, ship_position, fleets):
         if missile_tally >= u.SAUCER_MISSILE_LIMIT:
             return
         should_target = random.random()
-        self.select_missile(fleets, saucer_position, saucer_velocity, ship_position_or_none, should_target)
+        self.select_missile(fleets, saucer_position, saucer_velocity, ship_position, should_target)
 
-    def select_missile(self, fleets, saucer_position, saucer_velocity, ship_position_or_none, should_target):
-        if ship_position_or_none and should_target <= u.SAUCER_TARGETING_FRACTION:
-            self.create_targeted_missile(saucer_position, ship_position_or_none, fleets)
+    def select_missile(self, fleets, saucer_position, saucer_velocity, ship_position, should_target):
+        if ship_position and should_target <= u.SAUCER_TARGETING_FRACTION:
+            self.create_targeted_missile(saucer_position, ship_position, fleets)
         else:
             random_angle = random.random()
             self.create_random_missile(random_angle, saucer_position, saucer_velocity, fleets)

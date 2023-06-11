@@ -116,8 +116,7 @@ class Saucer(Flyer):
         return random.choice(self._directions)
 
     def fire_if_possible(self, delta_time, fleets):
-        ship_position = self._ship.position if self._ship else None
-        self._gunner.fire(delta_time, self._missile_tally, self.position, self._velocity, ship_position, fleets)
+        self._gunner.fire(delta_time, self._missile_tally, self.position, self._velocity, self._ship, fleets)
 
     @staticmethod
     def scores_for_hitting_asteroid():

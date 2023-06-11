@@ -4,6 +4,7 @@ from pygame import Vector2
 import u
 from fleets import Fleets
 from gunner import Gunner
+from ship import Ship
 from test_interactions import FI
 
 
@@ -15,16 +16,18 @@ class TestGunner:
         delta_time = 0.1
         saucer_position = Vector2(0, 0 )
         ship_position = Vector2(1, 1)
+        ship = Ship(ship_position)
         fleets = Fleets()
-        Gunner().fire(delta_time, 0, saucer_position, Vector2(0, 0), ship_position, fleets)
+        Gunner().fire(delta_time, 0, saucer_position, Vector2(0, 0), ship, fleets)
         assert not FI(fleets).saucer_missiles
 
     def test_fire_on_time(self):
         delta_time = u.SAUCER_MISSILE_DELAY
         saucer_position = Vector2(0, 0 )
         ship_position = Vector2(1, 1)
+        ship = Ship(ship_position)
         fleets = Fleets()
-        Gunner().fire(delta_time, 0, saucer_position, Vector2(0, 0), ship_position, fleets)
+        Gunner().fire(delta_time, 0, saucer_position, Vector2(0, 0), ship, fleets)
         assert FI(fleets).saucer_missiles
 
     def test_random_missile(self):
@@ -71,19 +74,16 @@ class TestGunner:
         assert missile.velocity_testing_only.x == pytest.approx(missile.velocity_testing_only.y)
         assert missile.velocity_testing_only.y == pytest.approx(u.MISSILE_SPEED*0.707, 0.1)
 
-    def test_handle_ship_position_none(self):
-        do_target = 0.1
-        angle = 0.0
+    def test_handle_ship_none(self):
+        delta_time = 1.0
+        tally = 0
         fleets = Fleets()
         fi = FI(fleets)
         saucer_position = Vector2(500, 500)
-        velocity = Vector2(0, 0)
-        ship_position = Vector2(0, 0)
-        count = u.SAUCER_MISSILE_LIMIT
-        Gunner().fire_missile(0, saucer_position, velocity, None, fleets)
+        saucer_velocity = Vector2(0, 0)
+        ship = None
+        Gunner().fire(delta_time, tally, saucer_position, saucer_velocity, ship, fleets)
         assert fi.saucer_missiles
-
-    def test_no_ship_overrides_targeting(self):
-        pass
+r
 
 
