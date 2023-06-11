@@ -67,12 +67,12 @@ class Gunner:
 
     @staticmethod
     def nearest(shooter_coord, target_coord, screen_size):
-        """ handy diagram          """
-        """______|______|______    """
-        """ T      T---S++T        """
-        """ central T too far away """
-        """ we are to his right so """
-        """ we shoot toward right! """
+        """    Handy Diagram        """
+        """______|______|______     """
+        """ T      T---S++T         """
+        """ Central T too far away. """
+        """ We are to his right so  """
+        """ we shoot toward right!  """
         direct_distance = abs(target_coord - shooter_coord)
         if direct_distance <= screen_size / 2:
             return target_coord
