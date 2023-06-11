@@ -72,7 +72,7 @@ class Gunner:
         """ T      T---S++T        """
         """ central T too far away """
         """ we are to his right so """
-        """ shoot toward right!    """
+        """ we shoot toward right! """
         direct_distance = abs(target_coord - shooter_coord)
         if direct_distance <= screen_size / 2:
             return target_coord
