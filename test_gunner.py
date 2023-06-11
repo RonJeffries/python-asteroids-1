@@ -84,6 +84,6 @@ class TestGunner:
         ship = None
         Gunner().fire(delta_time, tally, saucer_position, saucer_velocity, ship, fleets)
         assert fi.saucer_missiles
-r
+
 
 
