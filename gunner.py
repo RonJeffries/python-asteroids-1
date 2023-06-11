@@ -55,13 +55,10 @@ class Gunner:
 
     @staticmethod
     def nearest(shooter_coord, target_coord, screen_size):
-        half = screen_size / 2
         direct_distance = abs(target_coord - shooter_coord)
-        if direct_distance <= half:
+        if direct_distance <= screen_size / 2:
             return target_coord
-        elif shooter_coord >= half:
+        elif shooter_coord > target_coord:
             return target_coord + screen_size
         else:
             return target_coord - screen_size
-
-
