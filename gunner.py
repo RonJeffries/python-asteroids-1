@@ -29,26 +29,20 @@ class Gunner:
         return random.randrange(0, u.SCREEN_SIZE)
 
     def fire_missile(self, saucer, ship_position, fleets):
-        if saucer.missile_tally >= u.SAUCER_MISSILE_LIMIT:
-            return
-        should_target = random.random()
-        self.select_missile(fleets, saucer, ship_position, should_target)
+        if saucer.missile_tally < u.SAUCER_MISSILE_LIMIT:
+            self.select_missile(fleets, saucer, ship_position)
 
-    def select_missile(self, fleets, saucer, ship_position, should_target):
-        if ship_position and should_target <= u.SAUCER_TARGETING_FRACTION:
-            self.create_targeted_missile(saucer.position, ship_position, fleets)
+    def select_missile(self, fleets, saucer, ship_position):
+        if random.random() <= u.SAUCER_TARGETING_FRACTION:
+            velocity_adjustment = Vector2(0, 0)
         else:
-            random_angle = random.random()
-            self.create_random_missile(random_angle, saucer.position, saucer.velocity, fleets)
+            velocity_adjustment = saucer.velocity
+        self.create_targeted_missile(saucer.position, ship_position, velocity_adjustment, fleets)
 
-    def create_random_missile(self, random_angle, saucer_position, saucer_velocity, fleets):
-        missile = self.missile_at_angle(saucer_position, random_angle*360.0, saucer_velocity)
-        fleets.add_flyer(missile)
-
-    def create_targeted_missile(self, from_position, to_position, fleets):
+    def create_targeted_missile(self, from_position, to_position, velocity_adjustment, fleets):
         best_aiming_point = self.best_aiming_point(from_position, to_position, u.SCREEN_SIZE)
         angle = self.angle_to_hit(best_aiming_point, from_position)
-        missile = self.missile_at_angle(from_position, angle, Vector2(0, 0))
+        missile = self.missile_at_angle(from_position, angle, velocity_adjustment)
         fleets.add_flyer(missile)
 
     def missile_at_angle(self, position, desired_angle, velocity_adjustment):

@@ -29,17 +29,17 @@ class TestGunner:
         Gunner().fire(delta_time, Saucer(), ship, fleets)
         assert FI(fleets).saucer_missiles
 
-    def test_random_missile(self):
-        no_target = 0.5
-        angle = 0.0
-        fleets = Fleets()
-        fi = FI(fleets)
-        position = Vector2(500, 500)
-        Gunner().create_random_missile(angle, position, Vector2(12, 34), fleets)
-        assert fi.saucer_missiles
-        missile = fi.saucer_missiles[0]
-        assert missile.position == position + Vector2(40, 0)
-        assert missile.velocity_testing_only == Vector2(u.MISSILE_SPEED + 12, 34)
+    # def test_random_missile(self):
+    #     no_target = 0.5
+    #     angle = 0.0
+    #     fleets = Fleets()
+    #     fi = FI(fleets)
+    #     position = Vector2(500, 500)
+    #     Gunner().create_random_missile(angle, position, Vector2(12, 34), fleets)
+    #     assert fi.saucer_missiles
+    #     missile = fi.saucer_missiles[0]
+    #     assert missile.position == position + Vector2(40, 0)
+    #     assert missile.velocity_testing_only == Vector2(u.MISSILE_SPEED + 12, 34)
 
     def test_can_only_fire_limited_number(self):
         no_target = 0.5
@@ -61,7 +61,7 @@ class TestGunner:
         fi = FI(fleets)
         saucer_position = Vector2(500, 500)
         ship_position = Vector2(500, 550)
-        Gunner().create_targeted_missile(saucer_position, ship_position, fleets)
+        Gunner().create_targeted_missile(saucer_position, ship_position, Vector2(0, 0), fleets)
         missile = fi.saucer_missiles[0]
         assert missile.velocity_testing_only.x == 0
         assert missile.velocity_testing_only.y == u.MISSILE_SPEED
@@ -71,7 +71,7 @@ class TestGunner:
         fi = FI(fleets)
         saucer_position = Vector2(500, 500)
         ship_position = Vector2(550, 550)
-        Gunner().create_targeted_missile(saucer_position, ship_position, fleets)
+        Gunner().create_targeted_missile(saucer_position, ship_position, Vector2(0, 0), fleets)
         missile = fi.saucer_missiles[0]
         assert missile.velocity_testing_only.x == pytest.approx(missile.velocity_testing_only.y)
         assert missile.velocity_testing_only.y == pytest.approx(u.MISSILE_SPEED*0.707, 0.1)
