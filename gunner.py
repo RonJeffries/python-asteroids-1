@@ -32,14 +32,14 @@ class Gunner:
         if saucer.missile_tally >= u.SAUCER_MISSILE_LIMIT:
             return
         should_target = random.random()
-        self.select_missile(fleets, saucer.position, saucer.velocity, ship_position, should_target)
+        self.select_missile(fleets, saucer, ship_position, should_target)
 
-    def select_missile(self, fleets, saucer_position, saucer_velocity, ship_position, should_target):
+    def select_missile(self, fleets, saucer, ship_position, should_target):
         if ship_position and should_target <= u.SAUCER_TARGETING_FRACTION:
-            self.create_targeted_missile(saucer_position, ship_position, fleets)
+            self.create_targeted_missile(saucer.position, ship_position, fleets)
         else:
             random_angle = random.random()
-            self.create_random_missile(random_angle, saucer_position, saucer_velocity, fleets)
+            self.create_random_missile(random_angle, saucer.position, saucer.velocity, fleets)
 
     def create_random_missile(self, random_angle, saucer_position, saucer_velocity, fleets):
         missile = self.missile_at_angle(saucer_position, random_angle*360.0, saucer_velocity)
