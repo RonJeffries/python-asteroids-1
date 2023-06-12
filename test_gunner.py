@@ -4,6 +4,7 @@ from pygame import Vector2
 import u
 from fleets import Fleets
 from gunner import Gunner
+from saucer import Saucer
 from ship import Ship
 from test_interactions import FI
 
@@ -14,20 +15,18 @@ class TestGunner:
 
     def test_no_fire_on_short_time(self):
         delta_time = 0.1
-        saucer_position = Vector2(0, 0 )
         ship_position = Vector2(1, 1)
         ship = Ship(ship_position)
         fleets = Fleets()
-        Gunner().fire(delta_time, 0, saucer_position, Vector2(0, 0), ship, fleets)
+        Gunner().fire(delta_time, Saucer(), ship, fleets)
         assert not FI(fleets).saucer_missiles
 
     def test_fire_on_time(self):
         delta_time = u.SAUCER_MISSILE_DELAY
-        saucer_position = Vector2(0, 0 )
         ship_position = Vector2(1, 1)
         ship = Ship(ship_position)
         fleets = Fleets()
-        Gunner().fire(delta_time, 0, saucer_position, Vector2(0, 0), ship, fleets)
+        Gunner().fire(delta_time, Saucer(), ship, fleets)
         assert FI(fleets).saucer_missiles
 
     def test_random_missile(self):
@@ -50,8 +49,11 @@ class TestGunner:
         saucer_position = Vector2(500, 500)
         velocity = Vector2(0, 0)
         ship_position = Vector2(0, 0)
-        count = u.SAUCER_MISSILE_LIMIT
-        Gunner().fire_missile(count, saucer_position, velocity, ship_position, fleets)
+        saucer = Saucer()
+        saucer._location.position = saucer_position
+        saucer._location.velocity = velocity
+        saucer.missile_tally = u.SAUCER_MISSILE_LIMIT
+        Gunner().fire_missile(saucer, ship_position, fleets)
         assert not fi.saucer_missiles
 
     def test_targeted(self):
@@ -79,10 +81,8 @@ class TestGunner:
         tally = 0
         fleets = Fleets()
         fi = FI(fleets)
-        saucer_position = Vector2(500, 500)
-        saucer_velocity = Vector2(0, 0)
         ship = None
-        Gunner().fire(delta_time, tally, saucer_position, saucer_velocity, ship, fleets)
+        Gunner().fire(delta_time, Saucer(), ship, fleets)
         assert fi.saucer_missiles
 
 

@@ -90,16 +90,16 @@ class TestSaucer:
     def test_counts_saucer_missiles(self):
         fleets = Fleets()
         saucer = Saucer()
-        assert saucer._missile_tally == 0
-        saucer._missile_tally = 5
+        assert saucer.missile_tally == 0
+        saucer.missile_tally = 5
         saucer.begin_interactions(fleets)
-        assert saucer._missile_tally == 0
+        assert saucer.missile_tally == 0
         saucer_missile = Missile.from_saucer(saucer.position, Vector2(0, 0))
         saucer.interact_with_missile(saucer_missile, fleets)
-        assert saucer._missile_tally == 1
+        assert saucer.missile_tally == 1
         ship_missile = Missile.from_ship(saucer.position, Vector2(0, 0))
         saucer.interact_with_missile(ship_missile, fleets)
-        assert saucer._missile_tally == 1
+        assert saucer.missile_tally == 1
 
     def test_vectors_mutate(self):
         v1 = Vector2(1, 2)

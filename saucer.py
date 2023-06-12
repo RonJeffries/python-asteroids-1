@@ -33,7 +33,7 @@ class Saucer(Flyer):
         self._directions = (velocity.rotate(45), velocity, velocity, velocity.rotate(-45))
         self._gunner = Gunner()
         self._location = MovableLocation(position, velocity)
-        self._missile_tally = 0
+        self.missile_tally = 0
         self._radius = 20
         self._ship = None
         self._size = size
@@ -45,19 +45,19 @@ class Saucer(Flyer):
         return self._location.position
 
     @property
-    def _velocity(self):
+    def velocity(self):
         return self._location.velocity
 
     @property
     def velocity_testing_only(self):
-        return self._velocity
+        return self.velocity
 
     def accelerate_to(self, velocity):
         self._location.accelerate_to(velocity)
 
     def begin_interactions(self, fleets):
         self._ship = None
-        self._missile_tally = 0
+        self.missile_tally = 0
 
     def create_surface_class_members(self):
         if not Saucer.saucer_surface:
@@ -76,7 +76,7 @@ class Saucer(Flyer):
 
     def interact_with_missile(self, missile, fleets):
         if missile.is_saucer_missile:
-            self._missile_tally += 1
+            self.missile_tally += 1
         if missile.are_we_colliding(self.position, self._radius):
             fleets.add_flyer(Score(self.score_for_hitting(missile)))
             self.explode(fleets)
@@ -116,7 +116,7 @@ class Saucer(Flyer):
         return random.choice(self._directions)
 
     def fire_if_possible(self, delta_time, fleets):
-        self._gunner.fire(delta_time, self._missile_tally, self.position, self._velocity, self._ship, fleets)
+        self._gunner.fire(delta_time, self, self._ship, fleets)
 
     @staticmethod
     def scores_for_hitting_asteroid():
