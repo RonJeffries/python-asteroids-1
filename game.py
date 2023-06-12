@@ -34,6 +34,8 @@ class Game:
         keys = pygame.key.get_pressed()
         if keys[pygame.K_q]:
             self.fleets.add_flyer(Coin.quarter())
+        elif keys[pygame.K_a]:
+            self.fleets.add_flyer(Coin.no_asteroids())
 
     def draw_everything(self):
         screen = self.screen
