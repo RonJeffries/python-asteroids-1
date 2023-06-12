@@ -51,14 +51,14 @@ class Gunner:
         missile = self.missile_at_angle(from_position, angle, Vector2(0, 0))
         fleets.add_flyer(missile)
 
-    @staticmethod
-    def angle_to_hit(best_aiming_point, saucer_position):
-        return Vector2(0, 0).angle_to(best_aiming_point - saucer_position)
-
     def missile_at_angle(self, position, desired_angle, velocity_adjustment):
         missile_velocity = Vector2(u.MISSILE_SPEED, 0).rotate(desired_angle) + velocity_adjustment
         offset = Vector2(2 * self._radius, 0).rotate(desired_angle)
         return Missile.from_saucer(position + offset, missile_velocity)
+
+    @staticmethod
+    def angle_to_hit(best_aiming_point, saucer_position):
+        return Vector2(0, 0).angle_to(best_aiming_point - saucer_position)
 
     def best_aiming_point(self, shooter_position, target_position, wrap_size):
         nearest_x = self.nearest(shooter_position.x, target_position.x, wrap_size)
