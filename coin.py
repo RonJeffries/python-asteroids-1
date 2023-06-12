@@ -30,5 +30,5 @@ class Coin(Flyer):
         fleets.add_flyer(SaucerMaker())
         fleets.add_flyer(ScoreKeeper())
         fleets.add_flyer(Thumper())
-        # fleets.add_flyer(WaveMaker())
+        fleets.add_flyer(WaveMaker())
         fleets.add_flyer(ShipMaker() if self.is_quarter else GameOver())
