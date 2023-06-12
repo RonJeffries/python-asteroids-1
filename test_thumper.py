@@ -21,7 +21,7 @@ class TestThumper:
         assert thumper._shortest_time_between_beats == 8 / 60
 
     def test_thumper_thumps(self):
-        """thumper ticks between 30 and 8 60ths"""
+        # thumper ticks between 30 and 8 60ths
         thumper = Thumper(beat1, beat2)
         thumper.interact_with_ship(None, None)
         thumper.interact_with_asteroid(None, None)

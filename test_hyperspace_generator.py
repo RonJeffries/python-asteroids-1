@@ -87,7 +87,7 @@ class TestHyperspaceGenerator:
         assert self.did_enter_hyperspace(impossible, ship)
 
     def test_hyperspace_failure(self):
-        """hyperspace fails when random(0 through 62) > asteroid count plus 44"""
+        # hyperspace fails when random(0 through 62) > asteroid count plus 44
         hg = HyperspaceGenerator(None)
         self.check_no_fail(hg, 0, 0)
         self.check_fail(hg, 45, 0)  # 45 > 44 you lose
