@@ -21,13 +21,6 @@ class Gunner:
             ship_position = self.random_position()
         self._timer.tick(delta_time, self.fire_missile, saucer, ship_position, fleets)
 
-    def random_position(self):
-        return Vector2(self.random_coordinate(), self.random_coordinate())
-
-    @staticmethod
-    def random_coordinate():
-        return random.randrange(0, u.SCREEN_SIZE)
-
     def fire_missile(self, saucer, ship_position, fleets):
         if saucer.missile_tally < u.SAUCER_MISSILE_LIMIT:
             self.select_missile(fleets, saucer, ship_position)
@@ -74,3 +67,10 @@ class Gunner:
             return target_coord + screen_size
         else:
             return target_coord - screen_size
+
+    def random_position(self):
+        return Vector2(self.random_coordinate(), self.random_coordinate())
+
+    @staticmethod
+    def random_coordinate():
+        return random.randrange(0, u.SCREEN_SIZE)

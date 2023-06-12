@@ -48,10 +48,6 @@ class Saucer(Flyer):
     def velocity(self):
         return self._location.velocity
 
-    @property
-    def velocity_testing_only(self):
-        return self.velocity
-
     def accelerate_to(self, velocity):
         self._location.accelerate_to(velocity)
 

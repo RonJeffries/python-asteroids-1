@@ -17,10 +17,10 @@ class TestSaucer:
         Saucer.init_for_new_game()
         saucer = Saucer()
         assert saucer.position.x == 0
-        assert saucer.velocity_testing_only == u.SAUCER_VELOCITY
+        assert saucer.velocity == u.SAUCER_VELOCITY
         saucer = Saucer()
         assert saucer.position.x == u.SCREEN_SIZE
-        assert saucer.velocity_testing_only == -u.SAUCER_VELOCITY
+        assert saucer.velocity == -u.SAUCER_VELOCITY
         assert saucer._zig_timer.delay == u.SAUCER_ZIG_TIME
         assert saucer._zig_timer.elapsed == 0
 
