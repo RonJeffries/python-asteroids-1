@@ -34,7 +34,7 @@ class Saucer(Flyer):
         self._gunner = Gunner()
         self._location = MovableLocation(position, velocity)
         self.missile_tally = 0
-        self._radius = 20
+        self._radius = 10*size  # getting ready for small saucer
         self._ship = None
         self._size = size
         self._zig_timer = Timer(u.SAUCER_ZIG_TIME)
