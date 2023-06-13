@@ -26,6 +26,26 @@ class Game:
         self.clock = pygame.time.Clock()
         self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
 
+    def main_loop(self):
+        running = True
+        while running:
+            running = self.should_we_keep_running()
+
+            self.accept_coins()
+            self.prepare_screen()
+            self.fleets.cycle(self.delta_time, self.screen)
+
+            pygame.display.flip()
+            self.delta_time = self.clock.tick(60) / 1000
+        pygame.quit()
+
+    @staticmethod
+    def should_we_keep_running():
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return False
+        return True
+
     def accept_coins(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_q]:
@@ -37,20 +57,4 @@ class Game:
         screen = self.screen
         screen.fill("midnightblue")
         return screen
-
-    def main_loop(self):
-        running = True
-        while running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-
-            self.accept_coins()
-            self.prepare_screen()
-            self.fleets.cycle(self.delta_time, self.screen)
-
-            pygame.display.flip()
-            self.delta_time = self.clock.tick(60) / 1000
-        pygame.quit()
-
 
