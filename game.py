@@ -40,10 +40,6 @@ class Game:
         screen = self.screen
         screen.fill("midnightblue")
         self.fleets.draw(screen)
-        self.draw_score()
-
-    def draw_score(self):
-        pass
 
     def main_loop(self):
         running = True
