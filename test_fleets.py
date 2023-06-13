@@ -25,8 +25,7 @@ class FakeFlyer:
 
 class TestFleets:
     def test_len_etc(self):
-        saucer_missiles = []
-        fleets = Fleets([], [], [], saucer_missiles, [])
+        fleets = Fleets()
         fi = FI(fleets)
         assert len(fi.saucer_missiles) == 0
         fleets.add_flyer(Missile.from_saucer(Vector2(0, 0), Vector2(0, 0)))

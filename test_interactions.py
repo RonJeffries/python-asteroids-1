@@ -160,10 +160,10 @@ class TestInteractions:
     def test_missile_asteroid_scores(self):
         pos = Vector2(100, 100)
         asteroid = Asteroid(2, pos)
-        asteroids = [asteroid]
         missile = Missile.from_ship(pos, Vector2(0, 0))
-        missiles = [missile]
-        fleets = Fleets(asteroids, missiles, [], [], [])
+        fleets = Fleets()
+        fleets.add_flyer(asteroid)
+        fleets.add_flyer(missile)
         fi = FI(fleets)
         fleets.add_flyer(ScoreKeeper())
         interactor = Interactor(fleets)
@@ -193,11 +193,11 @@ class TestInteractions:
     def test_missile_ship_does_not_score(self):
         pos = Vector2(100, 100)
         ship = Ship(pos)
-        ships = [ship]
         missile = Missile.from_ship(pos, Vector2(0, 0))
-        missiles = [missile]
-        fleets = Fleets([], missiles, [], [], ships)
+        fleets = Fleets()
         fi = FI(fleets)
+        fleets.add_flyer(ship)
+        fleets.add_flyer(missile)
         fleets.add_flyer(ScoreKeeper())
         interactor = Interactor(fleets)
         interactor.perform_interactions()
@@ -209,10 +209,10 @@ class TestInteractions:
     def test_asteroid_ship_does_not_score(self):
         pos = Vector2(100, 100)
         asteroid = Asteroid(2, pos)
-        asteroids = [asteroid]
         ship = Ship(pos)
-        ships = [ship]
-        fleets = Fleets(asteroids, [], [], [], ships)
+        fleets = Fleets()
+        fleets.add_flyer(ship)
+        fleets.add_flyer(asteroid)
         fi = FI(fleets)
         fleets.add_flyer(ScoreKeeper())
         interactor = Interactor(fleets)
@@ -226,11 +226,12 @@ class TestInteractions:
         pos = Vector2(100, 100)
         saucer = Saucer()
         saucer.move_to(pos)
-        saucers = [saucer]
         ship = Ship(pos)
-        ships = [ship]
-        fleets = Fleets([], [], saucers, [], ships)
+        fleets = Fleets()
+        fleets.add_flyer(saucer)
+        fleets.add_flyer(ship)
         fi = FI(fleets)
+        assert fi.ships
         fleets.add_flyer(ScoreKeeper())
         interactor = Interactor(fleets)
         interactor.perform_interactions()
@@ -241,11 +242,11 @@ class TestInteractions:
     def test_asteroid_saucer_does_not_score(self):
         pos = Vector2(100, 100)
         asteroid = Asteroid(2, pos)
-        asteroids = [asteroid]
         saucer = Saucer()
         saucer.move_to(pos)
-        saucers = [saucer]
-        fleets = Fleets(asteroids, [], saucers, [], [])
+        fleets = Fleets()
+        fleets.add_flyer(asteroid)
+        fleets.add_flyer(saucer)
         fi = FI(fleets)
         fleets.add_flyer(ScoreKeeper())
         interactor = Interactor(fleets)
@@ -263,10 +264,10 @@ class TestInteractions:
     @staticmethod
     def interact_with_missile(pos, saucer, expected_score):
         saucer.move_to(pos)
-        saucers = [saucer]
         missile = Missile.from_ship(pos, Vector2(0, 0))
-        missiles = [missile]
-        fleets = Fleets([], missiles, saucers, [], [])
+        fleets = Fleets()
+        fleets.add_flyer(saucer)
+        fleets.add_flyer(missile)
         fi = FI(fleets)
         fleets.add_flyer(ScoreKeeper())
         interactor = Interactor(fleets)
@@ -286,11 +287,13 @@ class TestInteractions:
         pos = Vector2(100, 100)
         saucer = Saucer()
         saucer.move_to(pos)
-        saucers = [saucer]
         missile = Missile.from_saucer(pos, Vector2(0, 0))
-        missiles = [missile]
-        fleets = Fleets([], missiles, saucers, [], [])
+        fleets = Fleets()
+        fleets.add_flyer(saucer)
+        fleets.add_flyer(missile)
         fi = FI(fleets)
+        assert fi.missiles
+        assert fi.saucers
         fleets.add_flyer(ScoreKeeper())
         interactor = Interactor(fleets)
         interactor.perform_interactions()
@@ -324,7 +327,7 @@ class TestInteractions:
         assert asteroid.position == Vector2(0, 0)
 
     def test_collider(self):
-        fleets = Fleets([], [], [], [], [])
+        fleets = Fleets()
         fleets.add_flyer(ScoreKeeper())
         interactor = Interactor(fleets)
         interactor.perform_interactions()
@@ -335,8 +338,10 @@ class TestInteractions:
         end = EndChecker()
         assert not begin.triggered
         assert not end.triggered
-        asteroids = [begin, end]
-        interactor = Interactor(Fleets(asteroids))
+        fleets = Fleets()
+        fleets.add_flyer(begin)
+        fleets.add_flyer(end)
+        interactor = Interactor(fleets)
         interactor.perform_interactions()
         assert begin.triggered
         assert end.triggered
@@ -355,10 +360,10 @@ class TestInteractions:
     def test_cached_collider_is_safe(self):
         asteroid = Asteroid(2, Vector2(100, 100))
         missile = Missile.from_ship(Vector2(100, 100), Vector2(3, 3))
-        asteroids = [asteroid]
-        missiles = [missile]
-        fleets = Fleets(asteroids, missiles, [], [], [])
+        fleets = Fleets()
         fi = FI(fleets)
+        fleets.add_flyer(asteroid)
+        fleets.add_flyer(missile)
         fleets.add_flyer(ScoreKeeper())
         interactor = Interactor(fleets)
         interactor.perform_interactions()

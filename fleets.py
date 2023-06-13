@@ -1,22 +1,13 @@
 # SpaceObjects
-import u
+from itertools import chain
+
 from asteroid import Asteroid
 from ship import Ship
 
 
 class Fleets:
-    def __init__(self, asteroids=(), missiles=(), saucers=(), saucer_missiles=(), ships=()):
-        self.flyers = []
-        for asteroid in asteroids:
-            self.add_flyer(asteroid)
-        for missile in missiles:
-            self.add_flyer(missile)
-        for saucer in saucers:
-            self.add_flyer(saucer)
-        for saucer_missile in saucer_missiles:
-            self.add_flyer(saucer_missile)
-        for ship in ships:
-            self.add_flyer(ship)
+    def __init__(self):
+        self.flyers = list()
 
     @property
     def all_objects(self):
