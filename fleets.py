@@ -13,14 +13,6 @@ class Fleets:
     def all_objects(self):
         return self.flyers.copy()
 
-    @property
-    def _asteroids(self):
-        return self.select(lambda a: isinstance(a, Asteroid))
-
-    @property
-    def _ships(self):
-        return self.select(lambda s: isinstance(s, Ship))
-
     # adds and removes
 
     def add_flyer(self, flyer):
