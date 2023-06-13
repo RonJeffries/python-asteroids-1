@@ -26,7 +26,7 @@ class Game:
         self.clock = pygame.time.Clock()
         self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
 
-    def control_game(self):
+    def accept_coins(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_q]:
             self.fleets.add_flyer(Coin.quarter())
@@ -45,8 +45,8 @@ class Game:
                 if event.type == pygame.QUIT:
                     running = False
 
+            self.accept_coins()
             self.prepare_screen()
-            self.control_game()
             self.fleets.cycle(self.delta_time, self.screen)
 
             pygame.display.flip()
