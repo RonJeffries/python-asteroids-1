@@ -1,9 +1,7 @@
 # SpaceObjects
 import u
 from asteroid import Asteroid
-from fleet import Fleet
 from ship import Ship
-from sounds import player
 
 
 class Fleets:
