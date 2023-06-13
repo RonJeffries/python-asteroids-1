@@ -46,13 +46,13 @@ class Game:
                     running = False
 
             self.prepare_screen()
-            self.asteroids_tick(self.delta_time, self.screen)
+            self.cycle(self.delta_time, self.screen)
 
             pygame.display.flip()
             self.delta_time = self.clock.tick(60) / 1000
         pygame.quit()
 
-    def asteroids_tick(self, delta_time, screen):
+    def cycle(self, delta_time, screen):
         self.control_game()
         self.fleets.cycle(delta_time, screen)
 
