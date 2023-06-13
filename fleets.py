@@ -27,7 +27,7 @@ class Fleets:
         self.flyers.clear()
 
     def cycle(self, delta_time, screen):
-        self.move(delta_time)
+        self.update(delta_time)
         self.perform_interactions()
         self.tick(delta_time)
         self.draw(screen)
@@ -36,7 +36,7 @@ class Fleets:
         for flyer in self.all_objects:
             flyer.draw(screen)
 
-    def move(self, delta_time):
+    def update(self, delta_time):
         for flyer in self.all_objects:
             flyer.update(delta_time, self)
 
