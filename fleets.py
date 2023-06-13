@@ -8,7 +8,7 @@ from sounds import player
 
 class Fleets:
     def __init__(self, asteroids=(), missiles=(), saucers=(), saucer_missiles=(), ships=()):
-        self.flyers = Fleet([])
+        self.flyers = []
         for asteroid in asteroids:
             self.add_flyer(asteroid)
         for missile in missiles:
@@ -22,7 +22,7 @@ class Fleets:
 
     @property
     def all_objects(self):
-        return self.flyers.flyers
+        return self.flyers.copy()
 
     @property
     def _asteroids(self):
@@ -38,7 +38,8 @@ class Fleets:
         self.flyers.append(flyer)
 
     def remove_flyer(self, flyer):
-        self.flyers.remove(flyer)
+        if flyer in self.flyers:
+            self.flyers.remove(flyer)
 
     def clear(self):
         self.flyers.clear()

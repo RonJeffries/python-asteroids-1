@@ -35,4 +35,8 @@ class TestFleets:
         assert len(fi.saucer_missiles) == 3
         assert fi.saucer_missiles[1]._location.velocity.x == 20
 
+    def test_copies_all_objects(self):
+        fleets = Fleets()
+        assert fleets.all_objects is not fleets.flyers
+
 
