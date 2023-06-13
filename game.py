@@ -26,9 +26,6 @@ class Game:
         self.clock = pygame.time.Clock()
         self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
 
-    def perform_interactions(self):
-        self.fleets.perform_interactions()
-
     def control_game(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_q]:
@@ -57,7 +54,7 @@ class Game:
     def asteroids_tick(self, delta_time):
         self.control_game()
         self.fleets.move(delta_time)
-        self.perform_interactions()
+        self.fleets.perform_interactions()
         self.fleets.tick(delta_time)
         self.draw_everything()
 

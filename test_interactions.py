@@ -353,8 +353,8 @@ class TestInteractions:
         game.fleets.add_flyer(ScoreKeeper())
         missile = Missile.from_ship(Vector2(100, 100), Vector2(3, 3))
         game.fleets.add_flyer(missile)
-        game.perform_interactions()
-        game.perform_interactions()
+        game.fleets.perform_interactions()
+        game.fleets.perform_interactions()
         assert FI(game.fleets).score == 20
 
     def test_cached_collider_is_safe(self):
