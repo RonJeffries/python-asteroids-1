@@ -51,8 +51,8 @@ class TestWaveMaker:
         for asteroid in self.find_asteroids(fleets):
             fleets.remove_flyer(asteroid)
         maker.begin_interactions(fleets)
-        maker.tick(0.1, fleets)
+        maker.game_loop(0.1, fleets)
         assert not self.count_asteroids(fleets)
-        maker.tick(u.ASTEROID_DELAY, fleets)
+        maker.game_loop(u.ASTEROID_DELAY, fleets)
 
 

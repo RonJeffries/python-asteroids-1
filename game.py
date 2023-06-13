@@ -54,6 +54,9 @@ class Game:
 
     def asteroids_tick(self, delta_time, screen):
         self.control_game()
+        self.game_loop(delta_time, screen)
+
+    def game_loop(self, delta_time, screen):
         self.fleets.move(delta_time)
         self.fleets.perform_interactions()
         self.fleets.tick(delta_time)

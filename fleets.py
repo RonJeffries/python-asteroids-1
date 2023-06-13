@@ -39,7 +39,7 @@ class Fleets:
 
     def tick(self, delta_time):
         for flyer in self.all_objects:
-            flyer.tick(delta_time, self)
+            flyer.game_loop(delta_time, self)
 
     def perform_interactions(self):
         Interactor(self).perform_interactions()
