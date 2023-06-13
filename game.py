@@ -33,10 +33,6 @@ class Game:
         elif keys[pygame.K_a]:
             self.fleets.add_flyer(Coin.no_asteroids())
 
-    def draw_everything(self):
-        screen = self.prepare_screen()
-        self.fleets.draw(screen)
-
     def prepare_screen(self):
         screen = self.screen
         screen.fill("midnightblue")
@@ -61,5 +57,5 @@ class Game:
         self.fleets.move(delta_time)
         self.fleets.perform_interactions()
         self.fleets.tick(delta_time)
-        self.draw_everything()
+        self.fleets.draw(screen)
 
