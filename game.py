@@ -49,13 +49,13 @@ class Game:
                 if event.type == pygame.QUIT:
                     running = False
 
-            self.asteroids_tick(self.delta_time)
+            self.asteroids_tick(self.delta_time, self.screen)
 
             pygame.display.flip()
             self.delta_time = self.clock.tick(60) / 1000
         pygame.quit()
 
-    def asteroids_tick(self, delta_time):
+    def asteroids_tick(self, delta_time, screen):
         self.control_game()
         self.fleets.move(delta_time)
         self.fleets.perform_interactions()
