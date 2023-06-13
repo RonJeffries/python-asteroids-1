@@ -46,14 +46,11 @@ class Game:
                     running = False
 
             self.prepare_screen()
-            self.cycle(self.delta_time, self.screen)
+            self.control_game()
+            self.fleets.cycle(self.delta_time, self.screen)
 
             pygame.display.flip()
             self.delta_time = self.clock.tick(60) / 1000
         pygame.quit()
-
-    def cycle(self, delta_time, screen):
-        self.control_game()
-        self.fleets.cycle(delta_time, screen)
 
 
