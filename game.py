@@ -34,9 +34,13 @@ class Game:
             self.fleets.add_flyer(Coin.no_asteroids())
 
     def draw_everything(self):
+        screen = self.prepare_screen()
+        self.fleets.draw(screen)
+
+    def prepare_screen(self):
         screen = self.screen
         screen.fill("midnightblue")
-        self.fleets.draw(screen)
+        return screen
 
     def main_loop(self):
         running = True
