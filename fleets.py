@@ -22,7 +22,7 @@ class Fleets:
 
     @property
     def all_objects(self):
-        return self.flyers
+        return self.flyers.flyers
 
     @property
     def _asteroids(self):
@@ -44,16 +44,19 @@ class Fleets:
         self.flyers.clear()
 
     def draw(self, screen):
-        self.flyers.draw(screen)
+        for flyer in self.all_objects:
+            flyer.draw(screen)
 
     def move(self, delta_time):
-        self.flyers.move(delta_time, self)
+        for flyer in self.all_objects:
+            flyer.update(delta_time, self)
 
     def select(self, condition):
         return [flyer for flyer in self.all_objects if condition(flyer)]
 
     def tick(self, delta_time):
-        self.flyers.tick(delta_time, self)
+        for flyer in self.all_objects:
+            flyer.tick(delta_time, self)
 
     def begin_interactions(self):
         for flyer in self.all_objects:

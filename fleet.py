@@ -30,15 +30,4 @@ class Fleet:
         if flyer in self.flyers:
             self.flyers.remove(flyer)
 
-    def draw(self, screen):
-        for flyer in self:
-            flyer.draw(screen)
-
-    def move(self, delta_time, fleets):
-        for flyer in self:
-            flyer.update(delta_time, fleets)
-
-    def tick(self, delta_time, fleets):
-        for flyer in self:
-            flyer.tick(delta_time, fleets)
 
