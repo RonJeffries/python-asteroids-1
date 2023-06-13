@@ -2,7 +2,6 @@
 
 from coin import Coin
 from fleets import Fleets
-from interactor import Interactor
 from sounds import player
 import pygame
 import u
@@ -28,7 +27,7 @@ class Game:
         self.screen = pygame.display.set_mode((u.SCREEN_SIZE, u.SCREEN_SIZE))
 
     def perform_interactions(self):
-        Interactor(self.fleets).perform_interactions()
+        self.fleets.perform_interactions()
 
     def control_game(self):
         keys = pygame.key.get_pressed()

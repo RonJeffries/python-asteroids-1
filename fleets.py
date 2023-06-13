@@ -2,6 +2,7 @@
 from itertools import chain
 
 from asteroid import Asteroid
+from interactor import Interactor
 from ship import Ship
 
 
@@ -39,6 +40,9 @@ class Fleets:
     def tick(self, delta_time):
         for flyer in self.all_objects:
             flyer.tick(delta_time, self)
+
+    def perform_interactions(self):
+        Interactor(self).perform_interactions()
 
     def begin_interactions(self):
         for flyer in self.all_objects:
