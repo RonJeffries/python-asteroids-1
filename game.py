@@ -49,6 +49,7 @@ class Game:
                 if event.type == pygame.QUIT:
                     running = False
 
+            self.prepare_screen()
             self.asteroids_tick(self.delta_time, self.screen)
 
             pygame.display.flip()
