@@ -26,6 +26,12 @@ class Fleets:
     def clear(self):
         self.flyers.clear()
 
+    def cycle(self, delta_time, screen):
+        self.move(delta_time)
+        self.perform_interactions()
+        self.tick(delta_time)
+        self.draw(screen)
+
     def draw(self, screen):
         for flyer in self.all_objects:
             flyer.draw(screen)
@@ -39,7 +45,7 @@ class Fleets:
 
     def tick(self, delta_time):
         for flyer in self.all_objects:
-            flyer.game_loop(delta_time, self)
+            flyer.tick(delta_time, self)
 
     def perform_interactions(self):
         Interactor(self).perform_interactions()

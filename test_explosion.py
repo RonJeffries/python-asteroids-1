@@ -9,7 +9,7 @@ class TestExplosion:
         fleets = Fleets()
         explosion = Explosion.from_ship(u.CENTER)
         fleets.add_flyer(explosion)
-        explosion.game_loop(0.1, fleets)
+        explosion.tick(0.1, fleets)
         mix = fleets.all_objects
         for o in mix:
             print(o, o is Fragment)
