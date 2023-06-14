@@ -98,6 +98,9 @@ class Ship(Flyer):
         self.tally_ship_missiles(missile)
         self.explode_if_hit(fleets, missile)
 
+    def interact_with_saucermissile(self, missile, fleets):
+        self.explode_if_hit(fleets, missile)
+
     def explode_if_hit(self, fleets, attacker):
         if attacker.are_we_colliding(self.position, self.radius):
             self.explode(fleets)
