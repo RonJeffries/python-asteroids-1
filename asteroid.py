@@ -50,6 +50,12 @@ class Asteroid(Flyer):
         attacker.interact_with_asteroid(self, fleets)
 
     def interact_with_missile(self, missile, fleets):
+        self.split_or_die_on_collision(fleets, missile)
+
+    def interact_with_saucermissile(self, missile, fleets):
+        self.split_or_die_on_collision(fleets, missile)
+
+    def split_or_die_on_collision(self, fleets, missile):
         if missile.are_we_colliding(self.position, self.radius):
             fleets.add_flyer(Score(self.score_for_hitting(missile)))
             self.split_or_die(fleets)
