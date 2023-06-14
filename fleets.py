@@ -20,8 +20,11 @@ class Fleets:
         self.flyers.append(flyer)
 
     def remove_flyer(self, flyer):
-        if flyer in self.flyers:
+        # more pythonic?
+        try:
             self.flyers.remove(flyer)
+        except ValueError:
+            pass
 
     def clear(self):
         self.flyers.clear()
