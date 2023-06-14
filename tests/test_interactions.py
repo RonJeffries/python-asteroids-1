@@ -278,6 +278,21 @@ class TestInteractions:
         assert fi.score == expected_score
         return interactor
 
+    def test_saucer_missile_kills_ship(self):
+        pos = Vector2(100, 100)
+        ship = Ship(pos)
+        missile = SaucerMissile.from_saucer(pos, Vector2(0, 0))
+        fleets = Fleets()
+        fleets.add_flyer(ship)
+        fleets.add_flyer(missile)
+        fi = FI(fleets)
+        assert fi.saucer_missiles
+        assert fi.ships
+        fleets.perform_interactions()
+        assert not fi.saucer_missiles
+        assert not fi.ships
+        assert fi.explosions
+
     def test_small_saucer_ship_missile_scores(self):
         pos = Vector2(100, 100)
         saucer = Saucer(pos, 1)
@@ -403,6 +418,7 @@ class TestInteractions:
                        "interact_with_asteroid",
                        "interact_with_missile",
                        "interact_with_saucer",
+                       "interact_with_saucermissile",
                        "interact_with_ship",
                        "interact_with_score",
                        "interact_with_scorekeeper",
@@ -436,7 +452,7 @@ class TestInteractions:
         ship = Ship(u.CENTER)
         ship.begin_interactions(fleets)
         m_ship = Missile.from_ship(Vector2(0, 0), Vector2(0, 0))
-        m_saucer = Missile.from_saucer(Vector2(0, 0), Vector2(0, 0))
+        m_saucer = SaucerMissile.from_saucer(Vector2(0, 0), Vector2(0, 0))
         ship.interact_with_missile(m_ship, fleets)
         ship.interact_with_missile(m_saucer, fleets)
         assert ship._missile_tally == 1
