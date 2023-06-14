@@ -95,7 +95,7 @@ class Ship(Flyer):
         self.explode_if_hit(fleets, asteroid)
 
     def interact_with_missile(self, missile, fleets):
-        self.tally_ship_missiles(missile)
+        self._missile_tally += 1
         self.explode_if_hit(fleets, missile)
 
     def interact_with_saucermissile(self, missile, fleets):
@@ -104,10 +104,6 @@ class Ship(Flyer):
     def explode_if_hit(self, fleets, attacker):
         if attacker.are_we_colliding(self.position, self.radius):
             self.explode(fleets)
-
-    def tally_ship_missiles(self, missile):
-        if missile.is_ship_missile:
-            self._missile_tally += 1
 
     def interact_with_saucer(self, saucer, fleets):
         self.explode_if_hit(fleets, saucer)
