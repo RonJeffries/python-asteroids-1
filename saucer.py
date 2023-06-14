@@ -71,8 +71,6 @@ class Saucer(Flyer):
             self.explode(fleets)
 
     def interact_with_missile(self, missile, fleets):
-        if missile.is_saucer_missile:
-            assert False
         if missile.are_we_colliding(self.position, self._radius):
             fleets.add_flyer(Score(self.score_for_hitting(missile)))
             self.explode(fleets)
