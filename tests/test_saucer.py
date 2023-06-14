@@ -78,12 +78,12 @@ class TestSaucer:
         assert len(fi.saucer_missiles) == 1
         saucer.begin_interactions(fleets)
         for m in fi.saucer_missiles:
-            saucer.interact_with_saucer_missile(m, fleets)
+            saucer.interact_with_saucermissile(m, fleets)
         saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, fleets=fleets)
         assert len(fi.saucer_missiles) == 2
         saucer.begin_interactions(fleets)
         for m in fi.saucer_missiles:
-            saucer.interact_with_saucer_missile(m, fleets)
+            saucer.interact_with_saucermissile(m, fleets)
         saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, fleets=fleets)
         assert len(fi.saucer_missiles) == 2
 
@@ -95,7 +95,7 @@ class TestSaucer:
         saucer.begin_interactions(fleets)
         assert saucer.missile_tally == 0
         saucer_missile = SaucerMissile.from_saucer(saucer.position, Vector2(0, 0))
-        saucer.interact_with_saucer_missile(saucer_missile, fleets)
+        saucer.interact_with_saucermissile(saucer_missile, fleets)
         assert saucer.missile_tally == 1
         ship_missile = Missile.from_ship(saucer.position, Vector2(0, 0))
         saucer.interact_with_missile(ship_missile, fleets)
