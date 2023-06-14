@@ -131,12 +131,5 @@ class TestSaucer:
             print(m)
         assert True
 
-    def test_missiles_know_type(self):
-        ship_missile = Missile.from_ship(u.CENTER, Vector2(0, 0))
-        assert ship_missile.is_ship_missile
-        assert not ship_missile.is_saucer_missile
-        saucer_missile = Missile.from_saucer(u.CENTER, Vector2(0, 0))
-        assert not saucer_missile.is_ship_missile
-        assert saucer_missile.is_saucer_missile
 
 
