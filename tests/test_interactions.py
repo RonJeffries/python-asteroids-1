@@ -147,7 +147,7 @@ class TestInteractions:
         pos = Vector2(100, 100)
         zero_vel = Vector2(0, 0)
         m1 = Missile.from_ship(pos, zero_vel)
-        m2 = Missile.from_saucer(pos, zero_vel)
+        m2 = SaucerMissile.from_saucer(pos, zero_vel)
         fleets = Fleets()
         fi = FI(fleets)
         fleets.add_flyer(m1)

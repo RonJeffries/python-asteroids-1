@@ -29,10 +29,6 @@ class Missile(Flyer):
     def from_ship(cls, position, velocity):
         return cls(position, velocity, u.MISSILE_SCORE_LIST, u.SAUCER_SCORE_LIST)
 
-    @classmethod
-    def from_saucer(cls, position, velocity):
-        return cls(position, velocity, [0, 0, 0], [0, 0])
-
     def are_we_colliding(self, position, radius):
         kill_range = self.radius + radius
         dist = self.position.distance_to(position)
@@ -52,6 +48,10 @@ class Missile(Flyer):
             self.die(fleets)
 
     def interact_with_missile(self, missile, fleets):
+        if missile.are_we_colliding(self.position, self.radius):
+            self.die(fleets)
+
+    def interact_with_saucermissile(self, missile, fleets):
         if missile.are_we_colliding(self.position, self.radius):
             self.die(fleets)
 
@@ -87,6 +87,10 @@ class Missile(Flyer):
 
 
 class SaucerMissile(Missile):
+    @classmethod
+    def from_saucer(cls, position, velocity):
+        return cls(position, velocity, [0, 0, 0], [0, 0])
+
     def __init__(self, position, velocity, missile_score_list, saucer_score_list, _position=None, size=2):
         super().__init__(position, velocity, missile_score_list, saucer_score_list)
 

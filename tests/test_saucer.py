@@ -116,7 +116,7 @@ class TestSaucer:
         v = Vector2(56, 78)
         ship_missile = Missile.from_ship(p, v)
         assert ship_missile.score_list == u.MISSILE_SCORE_LIST
-        saucer_missile = Missile.from_saucer(p, v)
+        saucer_missile = SaucerMissile.from_saucer(p, v)
         assert saucer_missile.score_list == [0, 0, 0]
 
     def test_empty_string(self):
