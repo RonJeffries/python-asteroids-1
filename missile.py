@@ -90,3 +90,11 @@ class Missile(Flyer):
 
     def timeout(self, fleets):
         fleets.remove_flyer(self)
+
+
+class SaucerMissile(Missile):
+    def __init__(self, position, velocity, missile_score_list, saucer_score_list, _position=None, size=2):
+        super().__init__(position, velocity, missile_score_list, saucer_score_list)
+
+    def interact_with(self, attacker, fleets):
+        attacker.interact_with_saucer_missile(self, fleets)

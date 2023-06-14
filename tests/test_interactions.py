@@ -9,7 +9,7 @@ from flyer import Flyer
 from game_over import GameOver
 from interactor import Interactor
 from fragment import Fragment
-from missile import Missile
+from missile import Missile, SaucerMissile
 from saucer import Saucer
 from gunner import Gunner
 from score import Score
@@ -54,7 +54,7 @@ class FleetsInspector:
 
     @property
     def saucer_missiles(self):
-        return self.select(lambda m: isinstance(m, Missile) and m.is_saucer_missile)
+        return self.select(lambda m: isinstance(m, SaucerMissile))
 
     @property
     def scorekeeper(self):
@@ -287,7 +287,7 @@ class TestInteractions:
         pos = Vector2(100, 100)
         saucer = Saucer()
         saucer.move_to(pos)
-        missile = Missile.from_saucer(pos, Vector2(0, 0))
+        missile = SaucerMissile.from_saucer(pos, Vector2(0, 0))
         fleets = Fleets()
         fleets.add_flyer(saucer)
         fleets.add_flyer(missile)

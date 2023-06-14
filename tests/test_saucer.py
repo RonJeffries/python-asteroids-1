@@ -6,7 +6,7 @@ from pygame import Vector2
 
 import u
 from fleets import Fleets
-from missile import Missile
+from missile import Missile, SaucerMissile
 from saucer import Saucer
 from ship import Ship
 from test_interactions import FI
@@ -78,24 +78,24 @@ class TestSaucer:
         assert len(fi.saucer_missiles) == 1
         saucer.begin_interactions(fleets)
         for m in fi.saucer_missiles:
-            saucer.interact_with_missile(m, fleets)
+            saucer.interact_with_saucer_missile(m, fleets)
         saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, fleets=fleets)
         assert len(fi.saucer_missiles) == 2
         saucer.begin_interactions(fleets)
         for m in fi.saucer_missiles:
-            saucer.interact_with_missile(m, fleets)
+            saucer.interact_with_saucer_missile(m, fleets)
         saucer.fire_if_possible(u.SAUCER_MISSILE_DELAY, fleets=fleets)
         assert len(fi.saucer_missiles) == 2
 
-    def test_counts_saucer_missiles(self):
+    def test_counts_only_saucer_missiles(self):
         fleets = Fleets()
         saucer = Saucer()
         assert saucer.missile_tally == 0
         saucer.missile_tally = 5
         saucer.begin_interactions(fleets)
         assert saucer.missile_tally == 0
-        saucer_missile = Missile.from_saucer(saucer.position, Vector2(0, 0))
-        saucer.interact_with_missile(saucer_missile, fleets)
+        saucer_missile = SaucerMissile.from_saucer(saucer.position, Vector2(0, 0))
+        saucer.interact_with_saucer_missile(saucer_missile, fleets)
         assert saucer.missile_tally == 1
         ship_missile = Missile.from_ship(saucer.position, Vector2(0, 0))
         saucer.interact_with_missile(ship_missile, fleets)
