@@ -33,7 +33,7 @@ class ShipMaker(Flyer):
         self._safe_to_emerge = False
 
     def interact_with_saucermissile(self, missile, fleets):
-        pass
+        self._safe_to_emerge = False
 
     def interact_with_saucer(self, saucer, fleets):
         self._safe_to_emerge = False
