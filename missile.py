@@ -8,6 +8,7 @@ from timer import Timer
 
 
 class Missile(Flyer):
+
     Saucer = None
     radius = 2
 
@@ -46,6 +47,12 @@ class Missile(Flyer):
     def interact_with_asteroid(self, asteroid, fleets):
         if asteroid.are_we_colliding(self.position, self.radius):
             self.die(fleets)
+
+    def interact_with_explosion(self, explosion, fleets):
+        pass
+
+    def interact_with_fragment(self, fragment, fleets):
+        pass
 
     def interact_with_missile(self, missile, fleets):
         if missile.are_we_colliding(self.position, self.radius):

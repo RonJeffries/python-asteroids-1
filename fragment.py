@@ -74,6 +74,27 @@ class Fragment(Flyer):
     def interact_with(self, attacker, fleets):
         attacker.interact_with_fragment(self, fleets)
 
+    def interact_with_asteroid(self, asteroid, fleets):
+        pass
+
+    def interact_with_explosion(self, explosion, fleets):
+        pass
+
+    def interact_with_fragment(self, fragment, fleets):
+        pass
+
+    def interact_with_missile(self, missile, fleets):
+        pass
+
+    def interact_with_saucermissile(self, missile, fleets):
+        pass
+
+    def interact_with_saucer(self, saucer, fleets):
+        pass
+
+    def interact_with_ship(self, ship, fleets):
+        pass
+
     def update(self, delta_time, _fleets):
         position = self.position + self.velocity * delta_time
         position.x = position.x % u.SCREEN_SIZE

@@ -16,6 +16,34 @@ class Flyer(ABC):
     def tick(self, delta_time, fleets):
         pass
 
+    @abstractmethod
+    def interact_with_asteroid(self, asteroid, fleets):
+        pass
+
+    @abstractmethod
+    def interact_with_explosion(self, explosion, fleets):
+        pass
+
+    @abstractmethod
+    def interact_with_fragment(self, fragment, fleets):
+        pass
+
+    @abstractmethod
+    def interact_with_missile(self, missile, fleets):
+        pass
+
+    @abstractmethod
+    def interact_with_saucermissile(self, missile, fleets):
+        pass
+
+    @abstractmethod
+    def interact_with_saucer(self, saucer, fleets):
+        pass
+
+    @abstractmethod
+    def interact_with_ship(self, ship, fleets):
+        pass
+
     # concrete methods, inheritable
     # so sue me
 
@@ -25,25 +53,10 @@ class Flyer(ABC):
     def end_interactions(self, fleets):
         pass
 
-    def interact_with_asteroid(self, asteroid, fleets):
-        pass
-
     def interact_with_coin(self, missile, fleets):
         pass
 
-    def interact_with_explosion(self, explosion, fleets):
-        pass
-
-    def interact_with_fragment(self, fragment, fleets):
-        pass
-
     def interact_with_gameover(self, game_over, fleets):
-        pass
-
-    def interact_with_missile(self, missile, fleets):
-        pass
-
-    def interact_with_saucermissile(self, missile, fleets):
         pass
 
     def interact_with_score(self, score, fleets):
@@ -52,13 +65,7 @@ class Flyer(ABC):
     def interact_with_scorekeeper(self, scorekeeper, fleets):
         pass
 
-    def interact_with_saucer(self, saucer, fleets):
-        pass
-
     def interact_with_saucermaker(self, saucermaker, fleets):
-        pass
-
-    def interact_with_ship(self, ship, fleets):
         pass
 
     def interact_with_shipmaker(self, shipmaker, fleets):

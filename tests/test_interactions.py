@@ -96,8 +96,50 @@ class BeginChecker(Flyer):
     def begin_interactions(self, fleets):
         self.triggered = True
 
+    def interact_with_asteroid(self, asteroid, fleets):
+        pass
+
+    def interact_with_explosion(self, explosion, fleets):
+        pass
+
+    def interact_with_fragment(self, fragment, fleets):
+        pass
+
+    def interact_with_missile(self, missile, fleets):
+        pass
+
+    def interact_with_saucermissile(self, missile, fleets):
+        pass
+
+    def interact_with_saucer(self, saucer, fleets):
+        pass
+
+    def interact_with_ship(self, ship, fleets):
+        pass
+
 
 class EndChecker(Flyer):
+    def interact_with_asteroid(self, asteroid, fleets):
+        pass
+
+    def interact_with_explosion(self, explosion, fleets):
+        pass
+
+    def interact_with_fragment(self, fragment, fleets):
+        pass
+
+    def interact_with_missile(self, missile, fleets):
+        pass
+
+    def interact_with_saucermissile(self, missile, fleets):
+        pass
+
+    def interact_with_saucer(self, saucer, fleets):
+        pass
+
+    def interact_with_ship(self, ship, fleets):
+        pass
+
     def __init__(self):
         self.triggered = False
 

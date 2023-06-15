@@ -17,6 +17,7 @@ from timer import Timer
 
 
 class Saucer(Flyer):
+
     direction = -1
     saucer_surface = None
     offset = None
@@ -70,6 +71,12 @@ class Saucer(Flyer):
         if asteroid.are_we_colliding(self.position, self._radius):
             self.explode(fleets)
 
+    def interact_with_explosion(self, explosion, fleets):
+        pass
+
+    def interact_with_fragment(self, fragment, fleets):
+        pass
+
     def interact_with_missile(self, missile, fleets):
         if missile.are_we_colliding(self.position, self._radius):
             fleets.add_flyer(Score(self.score_for_hitting(missile)))
@@ -79,6 +86,10 @@ class Saucer(Flyer):
         self.missile_tally += 1
         if missile.are_we_colliding(self.position, self._radius):
             self.explode(fleets)
+        pass
+
+    def interact_with_saucer(self, saucer, fleets):
+        pass
 
     def interact_with_ship(self, ship, fleets):
         self._ship = ship

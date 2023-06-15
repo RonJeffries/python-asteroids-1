@@ -6,6 +6,7 @@ from timer import Timer
 
 
 class ShipMaker(Flyer):
+
     def __init__(self):
         self.ships_remaining = u.SHIPS_PER_QUARTER
         self._timer = Timer(u.SHIP_EMERGENCE_TIME)
@@ -22,8 +23,17 @@ class ShipMaker(Flyer):
         if asteroid.position.distance_to(u.CENTER) < u.SAFE_EMERGENCE_DISTANCE:
             self._safe_to_emerge = False
 
+    def interact_with_explosion(self, explosion, fleets):
+        pass
+
+    def interact_with_fragment(self, fragment, fleets):
+        pass
+
     def interact_with_missile(self, missile, fleets):
         self._safe_to_emerge = False
+
+    def interact_with_saucermissile(self, missile, fleets):
+        pass
 
     def interact_with_saucer(self, saucer, fleets):
         self._safe_to_emerge = False

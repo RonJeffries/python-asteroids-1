@@ -8,6 +8,7 @@ from wavemaker import WaveMaker
 
 
 class Coin(Flyer):
+
     @classmethod
     def quarter(cls):
         return cls(True, True)
@@ -26,6 +27,26 @@ class Coin(Flyer):
 
     def interact_with(self, other, fleets):
         other.interact_with_coin(self, fleets)
+    def interact_with_asteroid(self, asteroid, fleets):
+        pass
+
+    def interact_with_explosion(self, explosion, fleets):
+        pass
+
+    def interact_with_fragment(self, fragment, fleets):
+        pass
+
+    def interact_with_missile(self, missile, fleets):
+        pass
+
+    def interact_with_saucermissile(self, missile, fleets):
+        pass
+
+    def interact_with_saucer(self, saucer, fleets):
+        pass
+
+    def interact_with_ship(self, ship, fleets):
+        pass
 
     def draw(self, screen):
         pass

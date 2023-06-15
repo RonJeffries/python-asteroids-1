@@ -24,6 +24,27 @@ class ScoreKeeper(Flyer):
     def are_we_colliding(_position, _radius):
         return False
 
+    def interact_with_asteroid(self, asteroid, fleets):
+        pass
+
+    def interact_with_explosion(self, explosion, fleets):
+        pass
+
+    def interact_with_fragment(self, fragment, fleets):
+        pass
+
+    def interact_with_missile(self, missile, fleets):
+        pass
+
+    def interact_with_saucermissile(self, missile, fleets):
+        pass
+
+    def interact_with_saucer(self, saucer, fleets):
+        pass
+
+    def interact_with_ship(self, ship, fleets):
+        pass
+
     def interact_with_shipmaker(self, shipmaker, fleets):
         self._ship_maker = shipmaker
 

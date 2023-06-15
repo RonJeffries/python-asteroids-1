@@ -15,6 +15,7 @@ from timer import Timer
 
 
 class Ship(Flyer):
+
     thrust_sound = None
 
     def __init__(self, position):
@@ -94,12 +95,21 @@ class Ship(Flyer):
         self._asteroid_tally += 1
         self.explode_if_hit(fleets, asteroid)
 
+    def interact_with_explosion(self, explosion, fleets):
+        pass
+
+    def interact_with_fragment(self, fragment, fleets):
+        pass
+
     def interact_with_missile(self, missile, fleets):
         self._missile_tally += 1
         self.explode_if_hit(fleets, missile)
 
     def interact_with_saucermissile(self, missile, fleets):
         self.explode_if_hit(fleets, missile)
+
+    def interact_with_ship(self, ship, fleets):
+        pass
 
     def explode_if_hit(self, fleets, attacker):
         if attacker.are_we_colliding(self.position, self.radius):
