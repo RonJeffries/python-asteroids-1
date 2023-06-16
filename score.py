@@ -1,7 +1,11 @@
 from flyer import Flyer
 
-
 class Score(Flyer):
+
+    @classmethod
+    def should_interact_with(cls):
+        from scorekeeper import ScoreKeeper
+        return [ScoreKeeper]
 
     def __init__(self, score):
         self.score = score

@@ -16,7 +16,8 @@ class ScoreKeeper(Flyer):
     available_ship._angle = 90
 
     @classmethod
-    def should_interact_with(self):
+    def should_interact_with(cls):
+        from score import Score
         return [Score]
 
     def __init__(self):
