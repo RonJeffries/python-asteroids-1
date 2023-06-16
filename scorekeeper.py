@@ -12,12 +12,12 @@ class NoShips:
 
 class ScoreKeeper(Flyer):
 
+    available_ship = Ship(Vector2(0, 0))
+    available_ship._angle = 90
+
     @classmethod
     def should_interact_with(self):
         return [Score]
-
-    available_ship = Ship(Vector2(0, 0))
-    available_ship._angle = 90
 
     def __init__(self):
         self.score = 0
