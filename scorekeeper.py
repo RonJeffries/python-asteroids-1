@@ -2,6 +2,7 @@ import pygame
 from pygame import Vector2
 from dataclasses import dataclass
 from flyer import Flyer
+from score import Score
 from ship import Ship
 
 @dataclass
@@ -10,6 +11,10 @@ class NoShips:
 
 
 class ScoreKeeper(Flyer):
+
+    @classmethod
+    def should_interact_with(self):
+        return [Score]
 
     available_ship = Ship(Vector2(0, 0))
     available_ship._angle = 90
@@ -45,9 +50,6 @@ class ScoreKeeper(Flyer):
     def interact_with_ship(self, ship, fleets):
         pass
 
-    def interact_with_shipmaker(self, shipmaker, fleets):
-        self._ship_maker = shipmaker
-
     def draw(self, screen):
         score_surface, score_rect = self.render_score()
         screen.blit(score_surface, score_rect)
@@ -70,6 +72,9 @@ class ScoreKeeper(Flyer):
 
     def interact_with(self, other, fleets):
         other.interact_with_scorekeeper(self, fleets)
+
+    def interact_with_shipmaker(self, shipmaker, fleets):
+        self._ship_maker = shipmaker
 
     def interact_with_score(self, score, fleets):
         self.score += score.score
