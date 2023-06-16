@@ -10,10 +10,6 @@ class Score(Flyer):
     def __init__(self, score):
         self.score = score
 
-    @staticmethod
-    def are_we_colliding(_position, _radius):
-        return False
-
     def draw(self, screen):
         pass
 

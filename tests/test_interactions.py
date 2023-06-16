@@ -490,7 +490,6 @@ class TestInteractions:
                        "interact_with_ship",
                        "interact_with_score",
                        "interact_with_scorekeeper",
-                       "are_we_colliding",
                        "tick",
                        "draw"]
             for method in methods:
