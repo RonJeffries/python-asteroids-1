@@ -69,6 +69,10 @@ class FleetsInspector:
         return self.scorekeeper.score
 
     @property
+    def scores(self):
+        return self.select(lambda s: isinstance(s, Score))
+
+    @property
     def ships(self):
         return self.select(lambda s: isinstance(s, Ship))
 
@@ -240,6 +244,45 @@ class TestInteractions:
         assert not fi.missiles
         assert fi.score == 20
         assert len(fi.asteroids) == 2
+
+    def test_missile_vs_asteroid_scoring(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        pos = Vector2(100, 100)
+        vel = Vector2(0, 0)
+        asteroid = Asteroid(2, pos)
+        missile = Missile.from_ship(pos, vel)
+        asteroid.interact_with_missile(missile, fleets)
+        scores = fi.scores
+        assert scores[0].score == u.MISSILE_SCORE_LIST[asteroid.size]
+        asteroid.size = 1
+        asteroid.interact_with_missile(missile, fleets)
+        scores = fi.scores
+        assert scores[1].score == u.MISSILE_SCORE_LIST[asteroid.size]
+        asteroid.size = 0
+        asteroid.interact_with_missile(missile, fleets)
+        scores = fi.scores
+        assert scores[2].score == u.MISSILE_SCORE_LIST[asteroid.size]
+
+    def test_missile_scores_two_asteroids_at_once(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        pos = Vector2(100, 100)
+        vel = Vector2(0, 0)
+        expected = u.MISSILE_SCORE_LIST[2] + u.MISSILE_SCORE_LIST[1]
+        asteroid1 = Asteroid(2, pos)
+        asteroid2 = Asteroid(1, pos)
+        missile = Missile.from_ship(pos, vel)
+        keeper = ScoreKeeper()
+        fleets.append(asteroid1)
+        fleets.append(asteroid2)
+        fleets.append(missile)
+        fleets.append(keeper)
+        fleets.perform_interactions()
+        assert len(fi.asteroids) == 4
+        assert len(fi.scores) == 2
+        fleets.perform_interactions()
+        assert fi.score == expected
 
     def test_missile_asteroid_scores_with_missiles_in_others(self):
         fleets = Fleets()
