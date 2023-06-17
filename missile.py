@@ -71,7 +71,7 @@ class Missile(Flyer):
             self.die(fleets)
 
     def die(self, fleets):
-        fleets.remove_flyer(self)
+        fleets.remove(self)
 
     @staticmethod
     def score_for_hitting(_anyone):
@@ -90,7 +90,7 @@ class Missile(Flyer):
         self._timer.tick(delta_time, self.timeout, fleets)
 
     def timeout(self, fleets):
-        fleets.remove_flyer(self)
+        fleets.remove(self)
 
 
 class SaucerMissile(Missile):

@@ -79,7 +79,7 @@ class Saucer(Flyer):
 
     def interact_with_missile(self, missile, fleets):
         if missile.are_we_colliding(self.position, self._radius):
-            fleets.add_flyer(Score(self.score_for_hitting(missile)))
+            fleets.append(Score(self.score_for_hitting(missile)))
             self.explode(fleets)
 
     def interact_with_saucermissile(self, missile, fleets):
@@ -108,13 +108,13 @@ class Saucer(Flyer):
     def explode(self, fleets):
         player.play("bang_large", self._location)
         player.play("bang_small", self._location)
-        fleets.remove_flyer(self)
-        fleets.add_flyer(Explosion.from_saucer(self.position))
+        fleets.remove(self)
+        fleets.append(Explosion.from_saucer(self.position))
 
     def _move(self, delta_time, fleets):
         off_x, off_y = self._location.move(delta_time)
         if off_x:
-            fleets.remove_flyer(self)
+            fleets.remove(self)
 
     def move_to(self, vector):
         self._location.move_to(vector)

@@ -16,7 +16,7 @@ class WaveMaker(Flyer):
         if self._number_to_create > 11:
             self._number_to_create = 11
         for i in range(self._number_to_create):
-            fleets.add_flyer(Asteroid())
+            fleets.append(Asteroid())
 
     def begin_interactions(self, fleets):
         self._need_asteroids = True

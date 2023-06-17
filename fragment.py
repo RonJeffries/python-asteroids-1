@@ -106,5 +106,5 @@ class Fragment(Flyer):
         self.timer.tick(delta_time, self.timeout, fleets)
 
     def timeout(self, fleets):
-        fleets.remove_flyer(self)
+        fleets.remove(self)
 

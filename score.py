@@ -38,7 +38,7 @@ class Score(Flyer):
         pass
 
     def interact_with_scorekeeper(self, scorekeeper, fleets):
-        fleets.remove_flyer(self)
+        fleets.remove(self)
 
     def tick(self, delta_time, fleets):
         pass

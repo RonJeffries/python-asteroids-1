@@ -16,10 +16,10 @@ class Fleets:
 
     # adds and removes
 
-    def add_flyer(self, flyer):
+    def append(self, flyer):
         self.flyers.append(flyer)
 
-    def remove_flyer(self, flyer):
+    def remove(self, flyer):
         # more pythonic?
         try:
             self.flyers.remove(flyer)

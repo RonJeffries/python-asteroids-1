@@ -51,7 +51,7 @@ class Explosion(Flyer):
         pass
 
     def tick(self, delta_time, fleets):
-        fleets.remove_flyer(self)
+        fleets.remove(self)
         self.explosion_at(self.position, fleets)
 
     def explosion_at(self, _position, fleets):
@@ -65,4 +65,4 @@ class Explosion(Flyer):
     def make_fragment(self, factory_method, base_direction, fleets):
         twiddle = random.randrange(-20, 20)
         fragment = factory_method(position=self.position, angle=base_direction+twiddle)
-        fleets.add_flyer(fragment)
+        fleets.append(fragment)

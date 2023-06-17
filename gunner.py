@@ -36,7 +36,7 @@ class Gunner:
         best_aiming_point = self.best_aiming_point(from_position, to_position, u.SCREEN_SIZE)
         angle = self.angle_to_hit(best_aiming_point, from_position)
         missile = self.missile_at_angle(from_position, angle, velocity_adjustment)
-        fleets.add_flyer(missile)
+        fleets.append(missile)
 
     def missile_at_angle(self, position, desired_angle, velocity_adjustment):
         missile_velocity = Vector2(u.MISSILE_SPEED, 0).rotate(desired_angle) + velocity_adjustment

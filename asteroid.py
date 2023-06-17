@@ -74,7 +74,7 @@ class Asteroid(Flyer):
 
     def split_or_die_on_collision(self, fleets, missile):
         if missile.are_we_colliding(self.position, self.radius):
-            fleets.add_flyer(Score(self.score_for_hitting(missile)))
+            fleets.append(Score(self.score_for_hitting(missile)))
             self.split_or_die(fleets)
 
     def are_we_colliding(self, position, radius):
@@ -86,13 +86,13 @@ class Asteroid(Flyer):
         return attacker.scores_for_hitting_asteroid()[self.size]
 
     def split_or_die(self, fleets):
-        fleets.remove_flyer(self)
+        fleets.remove(self)
         self.explode()
         if self.size > 0:
             a1 = Asteroid(self.size - 1, self.position)
-            fleets.add_flyer(a1)
+            fleets.append(a1)
             a2 = Asteroid(self.size - 1, self.position)
-            fleets.add_flyer(a2)
+            fleets.append(a2)
 
     def explode(self):
         sound = ["bang_small", "bang_medium", "bang_large"][self.size]

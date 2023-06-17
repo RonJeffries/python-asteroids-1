@@ -55,7 +55,7 @@ class TestHyperspaceGenerator:
         impossible = Vector2(-5, -9)
         ship = Ship(impossible)
         fi = FI(fleets)
-        fleets.add_flyer(ship)
+        fleets.append(ship)
         hg = HyperspaceGenerator(ship)
         hg.recharge()
         hg.press_button(0, fleets, 45)  # fail = roll > 44 + tally
@@ -66,7 +66,7 @@ class TestHyperspaceGenerator:
         impossible = Vector2(-5, -9)
         ship = Ship(impossible)
         fi = FI(fleets)
-        fleets.add_flyer(ship)
+        fleets.append(ship)
         hg = HyperspaceGenerator(ship)
         hg.recharge()
         hg.press_button(0, fleets, 44)  # fail = roll > 44 + tally
@@ -77,7 +77,7 @@ class TestHyperspaceGenerator:
         impossible = Vector2(-5, -9)
         ship = Ship(impossible)
         fi = FI(fleets)
-        fleets.add_flyer(ship)
+        fleets.append(ship)
         hg = HyperspaceGenerator(ship)
         hg.press_button(0, fleets, 44)  # fail = roll > 44 + tally
         assert self.did_not_enter_hyperspace(impossible, ship)

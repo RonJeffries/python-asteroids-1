@@ -12,7 +12,7 @@ class TestSaucerMaker:
     def test_creates_saucer(self):
         fleets = Fleets()
         fi = FI(fleets)
-        fleets.add_flyer(SaucerMaker())
+        fleets.append(SaucerMaker())
         interactor = Interactor(fleets)
         assert not fi.saucers
         interactor.perform_interactions()
@@ -22,7 +22,7 @@ class TestSaucerMaker:
     def test_does_not_create_too_many(self):
         fleets = Fleets()
         fi = FI(fleets)
-        fleets.add_flyer(SaucerMaker())
+        fleets.append(SaucerMaker())
         interactor = Interactor(fleets)
         assert not fi.saucers
         interactor.perform_interactions()

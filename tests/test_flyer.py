@@ -34,6 +34,10 @@ class TestFlyer:
         # each of which will be checked for implementing
         # interact_with_xyz
         subclasses = get_subclasses(Flyer)
+        # print()
+        # for k in sorted(subclasses, key=lambda klass: klass.__name__):
+        #     print(k.__name__)
+        # assert False
         for klass in subclasses:
             required_method = "interact_with_" + klass.__name__.lower()
             if "should_interact_with" in klass.__dict__:

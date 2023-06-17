@@ -49,7 +49,7 @@ class TestWaveMaker:
 
     def clear_and_tick(self, fleets, maker):
         for asteroid in self.find_asteroids(fleets):
-            fleets.remove_flyer(asteroid)
+            fleets.remove(asteroid)
         maker.begin_interactions(fleets)
         maker.tick(0.1, fleets)
         assert not self.count_asteroids(fleets)

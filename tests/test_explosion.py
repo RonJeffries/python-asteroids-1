@@ -8,7 +8,7 @@ class TestExplosion:
     def test_explosion(self):
         fleets = Fleets()
         explosion = Explosion.from_ship(u.CENTER)
-        fleets.add_flyer(explosion)
+        fleets.append(explosion)
         explosion.tick(0.1, fleets)
         mix = fleets.all_objects
         for o in mix:

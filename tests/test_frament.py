@@ -21,7 +21,7 @@ class TestFragments:
         frag = Fragment(position=u.CENTER, fragments=["ignored"])
         fleets = Fleets()
         fi = FI(fleets)
-        fleets.add_flyer(frag)
+        fleets.append(frag)
         fleets.tick(0.1)
         assert fi.fragments
         fleets.tick(u.FRAGMENT_LIFETIME)

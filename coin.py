@@ -53,9 +53,9 @@ class Coin(Flyer):
 
     def tick(self, delta_time, fleets):
         fleets.clear()
-        fleets.add_flyer(SaucerMaker())
-        fleets.add_flyer(ScoreKeeper())
-        fleets.add_flyer(Thumper())
+        fleets.append(SaucerMaker())
+        fleets.append(ScoreKeeper())
+        fleets.append(Thumper())
         if self.want_asteroids:
-            fleets.add_flyer(WaveMaker())
-        fleets.add_flyer(ShipMaker() if self.is_quarter else GameOver())
+            fleets.append(WaveMaker())
+        fleets.append(ShipMaker() if self.is_quarter else GameOver())

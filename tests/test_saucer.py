@@ -37,7 +37,7 @@ class TestSaucer:
         fleets = Fleets()
         fi = FI(fleets)
         saucer = Saucer()
-        fleets.add_flyer(saucer)
+        fleets.append(saucer)
         assert saucer.position.x == 0
         saucer.update(1, fleets)
         assert fi.saucers

@@ -135,12 +135,12 @@ class Ship(Flyer):
 
     def explode(self, fleets):
         player.play("bang_large", self._location)
-        fleets.remove_flyer(self)
-        fleets.add_flyer(Explosion.from_ship(self.position))
+        fleets.remove(self)
+        fleets.append(Explosion.from_ship(self.position))
 
     def fire_if_possible(self, fleets):
         if self._can_fire and self._missile_tally < u.MISSILE_LIMIT:
-            fleets.add_flyer(self.create_missile())
+            fleets.append(self.create_missile())
             self._can_fire = False
 
     def create_missile(self):
