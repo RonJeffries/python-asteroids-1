@@ -12,7 +12,7 @@ class Game:
         self.delta_time = 0
         self.init_pygame_and_display(testing)
         self.fleets = Fleets()
-        self.fleets.append(Coin.slug())
+        Coin.slug(self.fleets)
 
     # noinspection PyAttributeOutsideInit
     def init_pygame_and_display(self, testing):
@@ -49,9 +49,9 @@ class Game:
     def accept_coins(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_q]:
-            self.fleets.append(Coin.quarter())
+            Coin.quarter(self.fleets)
         elif keys[pygame.K_a]:
-            self.fleets.append(Coin.no_asteroids())
+            Coin.no_asteroids(self.fleets)
 
     def prepare_screen(self):
         screen = self.screen
