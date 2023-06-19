@@ -1,4 +1,3 @@
-from flyer import Flyer
 from game_over import GameOver
 from saucermaker import SaucerMaker
 from scorekeeper import ScoreKeeper
@@ -7,58 +6,34 @@ from thumper import Thumper
 from wavemaker import WaveMaker
 
 
-class Coin(Flyer):
+class Coin:
 
     @classmethod
     def quarter(cls, fleets=None):
         coin = cls(True, True)
         if fleets:
-            coin.tick(0, fleets)
+            coin.populate(fleets)
         return coin
 
     @classmethod
     def slug(cls, fleets=None):
         coin = cls(False, True)
         if fleets:
-            coin.tick(0, fleets)
+            coin.populate(fleets)
         return coin
 
     @classmethod
     def no_asteroids(cls, fleets=None):
         coin = cls(True, False)
         if fleets:
-            coin.tick(0, fleets)
+            coin.populate(fleets)
         return coin
 
     def __init__(self, is_quarter=True, want_asteroids=True):
         self.is_quarter = is_quarter
         self.want_asteroids = want_asteroids
 
-    def interact_with(self, other, fleets):
-        other.interact_with_coin(self, fleets)
-
-    def interact_with_asteroid(self, asteroid, fleets):
-        pass
-
-    def interact_with_explosion(self, explosion, fleets):
-        pass
-
-    def interact_with_fragment(self, fragment, fleets):
-        pass
-
-    def interact_with_missile(self, missile, fleets):
-        pass
-
-    def interact_with_saucer(self, saucer, fleets):
-        pass
-
-    def interact_with_ship(self, ship, fleets):
-        pass
-
-    def draw(self, screen):
-        pass
-
-    def tick(self, delta_time, fleets):
+    def populate(self, fleets):
         fleets.clear()
         fleets.append(SaucerMaker())
         fleets.append(ScoreKeeper())
