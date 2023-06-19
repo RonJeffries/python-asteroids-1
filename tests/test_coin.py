@@ -24,3 +24,14 @@ class TestCoin:
         assert fi.thumpers
         assert fi.wavemakers
         assert fi.shipmakers
+
+    def test_no_asteroids(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        Coin.no_asteroids(fleets)
+        assert fi.saucermakers
+        assert fi.scorekeepers
+        assert fi.thumpers
+        assert not fi.wavemakers
+        assert fi.shipmakers
+

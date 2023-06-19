@@ -24,8 +24,11 @@ class Coin(Flyer):
         return coin
 
     @classmethod
-    def no_asteroids(cls):
-        return cls(True, False)
+    def no_asteroids(cls, fleets=None):
+        coin = cls(True, False)
+        if fleets:
+            coin.tick(0, fleets)
+        return coin
 
     def __init__(self, is_quarter=True, want_asteroids=True):
         self.is_quarter = is_quarter
