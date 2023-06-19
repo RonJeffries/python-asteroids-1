@@ -1,7 +1,7 @@
 from pygame import Vector2
 
 from fleets import Fleets
-from missile import Missile, SaucerMissile
+from missile import Missile
 from test_interactions import FI
 
 
@@ -27,12 +27,12 @@ class TestFleets:
     def test_len_etc(self):
         fleets = Fleets()
         fi = FI(fleets)
-        assert len(fi.saucer_missiles) == 0
-        fleets.append(SaucerMissile.from_saucer(Vector2(0, 0), Vector2(0, 0)))
-        fleets.append(SaucerMissile.from_saucer(Vector2(0, 0), Vector2(20, 20)))
-        fleets.append(SaucerMissile.from_saucer(Vector2(0, 0), Vector2(30, 30)))
-        assert len(fi.saucer_missiles) == 3
-        assert fi.saucer_missiles[1]._location.velocity.x == 20
+        assert len(fi.missiles) == 0
+        fleets.append(Missile.from_saucer(Vector2(0, 0), Vector2(0, 0)))
+        fleets.append(Missile.from_saucer(Vector2(0, 0), Vector2(20, 20)))
+        fleets.append(Missile.from_saucer(Vector2(0, 0), Vector2(30, 30)))
+        assert len(fi.missiles) == 3
+        assert fi.missiles[1]._location.velocity.x == 20
 
     def test_copies_all_objects(self):
         fleets = Fleets()

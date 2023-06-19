@@ -4,7 +4,7 @@ import random
 from pygame import Vector2
 
 import u
-from missile import Missile, SaucerMissile
+from missile import Missile
 from ship import Ship
 from timer import Timer
 
@@ -41,7 +41,7 @@ class Gunner:
     def missile_at_angle(self, position, desired_angle, velocity_adjustment):
         missile_velocity = Vector2(u.MISSILE_SPEED, 0).rotate(desired_angle) + velocity_adjustment
         offset = Vector2(2 * self._radius, 0).rotate(desired_angle)
-        return SaucerMissile.from_saucer(position + offset, missile_velocity)
+        return Missile.from_saucer(position + offset, missile_velocity)
 
     @staticmethod
     def angle_to_hit(best_aiming_point, saucer_position):

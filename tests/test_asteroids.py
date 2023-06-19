@@ -4,7 +4,9 @@ from pygame.math import clamp, Vector2
 
 import u
 from fleets import Fleets
+from missile import Missile
 from ship import Ship
+from tests.test_interactions import FI
 
 
 class TestAsteroids:
@@ -85,6 +87,20 @@ class TestAsteroids:
         own_velocity = Vector2(u.MISSILE_SPEED, 0).rotate(-45)
         total_velocity = own_velocity + Vector2(500, 500)
         assert velocity == total_velocity
+
+    def test_can_fire_four_missiles_even_with_saucer_firing(self):
+        ship = Ship(Vector2(100, 100))
+        fleets = Fleets()
+        fleets.append(ship)
+        fi = FI(fleets)
+        for x in range(2):
+            fleets.append(Missile.from_saucer(Vector2(200 + 10*x, 200), Vector2(0, 0)))
+        for x in range(3):
+            fleets.append(Missile.from_ship(Vector2(300+ 10*x, 200), Vector2(0, 0)))
+        assert len(fi.missiles) == 5
+        fleets.perform_interactions()
+        ship.fire_if_possible(fleets)
+        assert len(fi.missiles) == 6
 
     def test_missile_timeout(self):
         # invasive but works for now.

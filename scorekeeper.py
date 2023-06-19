@@ -42,9 +42,6 @@ class ScoreKeeper(Flyer):
     def interact_with_missile(self, missile, fleets):
         pass
 
-    def interact_with_saucermissile(self, missile, fleets):
-        pass
-
     def interact_with_saucer(self, saucer, fleets):
         pass
 

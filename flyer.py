@@ -33,10 +33,6 @@ class Flyer(ABC):
         pass
 
     @abstractmethod
-    def interact_with_saucermissile(self, missile, fleets):
-        pass
-
-    @abstractmethod
     def interact_with_saucer(self, saucer, fleets):
         pass
 

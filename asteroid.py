@@ -61,9 +61,6 @@ class Asteroid(Flyer):
     def interact_with_missile(self, missile, fleets):
         self.split_or_die_on_collision(fleets, missile)
 
-    def interact_with_saucermissile(self, missile, fleets):
-        self.split_or_die_on_collision(fleets, missile)
-
     def interact_with_saucer(self, saucer, fleets):
         if saucer.are_we_colliding(self.position, self.radius):
             self.split_or_die(fleets)

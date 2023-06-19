@@ -12,7 +12,21 @@ class Missile(Flyer):
     Saucer = None
     radius = 2
 
-    def __init__(self, position, velocity, missile_score_list, saucer_score_list):
+    @classmethod
+    def from_saucer(cls, position, velocity):
+        return cls(position, velocity, [0, 0, 0], [0, 0], False)
+
+    @classmethod
+    def from_ship(cls, position, velocity):
+        return cls(position, velocity, u.MISSILE_SCORE_LIST, u.SAUCER_SCORE_LIST, True)
+
+    def __init__(self, position, velocity, missile_score_list, saucer_score_list, from_ship):
+        if from_ship:
+            self.saucer_tally = 0
+            self.ship_tally = 1
+        else:
+            self.saucer_tally = 1
+            self.ship_tally = 0
         self.score_list = missile_score_list
         self._timer = Timer(u.MISSILE_LIFETIME)
         self._saucer_score_list = saucer_score_list
@@ -25,10 +39,6 @@ class Missile(Flyer):
     @property
     def velocity_testing_only(self):
         return self._location.velocity
-
-    @classmethod
-    def from_ship(cls, position, velocity):
-        return cls(position, velocity, u.MISSILE_SCORE_LIST, u.SAUCER_SCORE_LIST)
 
     def are_we_colliding(self, position, radius):
         kill_range = self.radius + radius
@@ -55,10 +65,6 @@ class Missile(Flyer):
         pass
 
     def interact_with_missile(self, missile, fleets):
-        if missile.are_we_colliding(self.position, self.radius):
-            self.die(fleets)
-
-    def interact_with_saucermissile(self, missile, fleets):
         if missile.are_we_colliding(self.position, self.radius):
             self.die(fleets)
 
@@ -92,14 +98,3 @@ class Missile(Flyer):
     def timeout(self, fleets):
         fleets.remove(self)
 
-
-class SaucerMissile(Missile):
-    @classmethod
-    def from_saucer(cls, position, velocity):
-        return cls(position, velocity, [0, 0, 0], [0, 0])
-
-    def __init__(self, position, velocity, missile_score_list, saucer_score_list, _position=None, size=2):
-        super().__init__(position, velocity, missile_score_list, saucer_score_list)
-
-    def interact_with(self, attacker, fleets):
-        attacker.interact_with_saucermissile(self, fleets)

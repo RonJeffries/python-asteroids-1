@@ -102,10 +102,7 @@ class Ship(Flyer):
         pass
 
     def interact_with_missile(self, missile, fleets):
-        self._missile_tally += 1
-        self.explode_if_hit(fleets, missile)
-
-    def interact_with_saucermissile(self, missile, fleets):
+        self._missile_tally += missile.ship_tally
         self.explode_if_hit(fleets, missile)
 
     def interact_with_ship(self, ship, fleets):

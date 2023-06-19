@@ -14,8 +14,11 @@ class Coin(Flyer):
         return cls(True, True)
 
     @classmethod
-    def slug(cls):
-        return cls(False, True)
+    def slug(cls, fleets=None):
+        coin = cls(False, True)
+        if fleets:
+            coin.tick(0, fleets)
+        return coin
 
     @classmethod
     def no_asteroids(cls):
@@ -27,6 +30,7 @@ class Coin(Flyer):
 
     def interact_with(self, other, fleets):
         other.interact_with_coin(self, fleets)
+
     def interact_with_asteroid(self, asteroid, fleets):
         pass
 
@@ -37,9 +41,6 @@ class Coin(Flyer):
         pass
 
     def interact_with_missile(self, missile, fleets):
-        pass
-
-    def interact_with_saucermissile(self, missile, fleets):
         pass
 
     def interact_with_saucer(self, saucer, fleets):

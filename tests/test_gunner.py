@@ -19,7 +19,7 @@ class TestGunner:
         ship = Ship(ship_position)
         fleets = Fleets()
         Gunner().fire(delta_time, Saucer(), ship, fleets)
-        assert not FI(fleets).saucer_missiles
+        assert not FI(fleets).missiles
 
     def test_fire_on_time(self):
         delta_time = u.SAUCER_MISSILE_DELAY
@@ -27,7 +27,7 @@ class TestGunner:
         ship = Ship(ship_position)
         fleets = Fleets()
         Gunner().fire(delta_time, Saucer(), ship, fleets)
-        assert FI(fleets).saucer_missiles
+        assert FI(fleets).missiles
 
     # def test_random_missile(self):
     #     no_target = 0.5
@@ -54,7 +54,7 @@ class TestGunner:
         saucer._location.velocity = velocity
         saucer.missile_tally = u.SAUCER_MISSILE_LIMIT
         Gunner().fire_missile(saucer, ship_position, fleets)
-        assert not fi.saucer_missiles
+        assert not fi.missiles
 
     def test_targeted(self):
         fleets = Fleets()
@@ -62,7 +62,7 @@ class TestGunner:
         saucer_position = Vector2(500, 500)
         ship_position = Vector2(500, 550)
         Gunner().create_targeted_missile(saucer_position, ship_position, Vector2(0, 0), fleets)
-        missile = fi.saucer_missiles[0]
+        missile = fi.missiles[0]
         assert missile.velocity_testing_only.x == 0
         assert missile.velocity_testing_only.y == u.MISSILE_SPEED
 
@@ -72,7 +72,7 @@ class TestGunner:
         saucer_position = Vector2(500, 500)
         ship_position = Vector2(550, 550)
         Gunner().create_targeted_missile(saucer_position, ship_position, Vector2(0, 0), fleets)
-        missile = fi.saucer_missiles[0]
+        missile = fi.missiles[0]
         assert missile.velocity_testing_only.x == pytest.approx(missile.velocity_testing_only.y)
         assert missile.velocity_testing_only.y == pytest.approx(u.MISSILE_SPEED*0.707, 0.1)
 
@@ -83,7 +83,7 @@ class TestGunner:
         fi = FI(fleets)
         ship = None
         Gunner().fire(delta_time, Saucer(), ship, fleets)
-        assert fi.saucer_missiles
+        assert fi.missiles
 
 
 

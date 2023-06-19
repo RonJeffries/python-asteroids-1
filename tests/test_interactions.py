@@ -9,14 +9,17 @@ from flyer import Flyer
 from game_over import GameOver
 from interactor import Interactor
 from fragment import Fragment
-from missile import Missile, SaucerMissile
+from missile import Missile
 from saucer import Saucer
 from gunner import Gunner
+from saucermaker import SaucerMaker
 from score import Score
 from ship import Ship
 from game import Game
 from fleets import Fleets
 from scorekeeper import ScoreKeeper
+from shipmaker import ShipMaker
+from thumper import Thumper
 from wavemaker import WaveMaker
 
 
@@ -53,12 +56,28 @@ class FleetsInspector:
         return self.select(lambda s: isinstance(s, Saucer))
 
     @property
-    def saucer_missiles(self):
-        return self.select(lambda m: isinstance(m, SaucerMissile))
+    def saucermakers(self):
+        return self.select(lambda s: isinstance(s, SaucerMaker))
+
+    @property
+    def scorekeepers(self):
+        return self.select(lambda s: isinstance(s, ScoreKeeper))
+
+    @property
+    def shipmakers(self):
+        return self.select(lambda s: isinstance(s, ShipMaker))
+
+    @property
+    def thumpers(self):
+        return self.select(lambda s: isinstance(s, Thumper))
+
+    @property
+    def wavemakers(self):
+        return self.select(lambda s: isinstance(s, WaveMaker))
 
     @property
     def scorekeeper(self):
-        keepers = self.select(lambda s: isinstance(s, ScoreKeeper))
+        keepers = self.scorekeepers
         if keepers:
             return keepers[0]
         else:
@@ -112,9 +131,6 @@ class BeginChecker(Flyer):
     def interact_with_missile(self, missile, fleets):
         pass
 
-    def interact_with_saucermissile(self, missile, fleets):
-        pass
-
     def interact_with_saucer(self, saucer, fleets):
         pass
 
@@ -133,9 +149,6 @@ class EndChecker(Flyer):
         pass
 
     def interact_with_missile(self, missile, fleets):
-        pass
-
-    def interact_with_saucermissile(self, missile, fleets):
         pass
 
     def interact_with_saucer(self, saucer, fleets):
@@ -193,7 +206,7 @@ class TestInteractions:
         pos = Vector2(100, 100)
         zero_vel = Vector2(0, 0)
         m1 = Missile.from_ship(pos, zero_vel)
-        m2 = SaucerMissile.from_saucer(pos, zero_vel)
+        m2 = Missile.from_saucer(pos, zero_vel)
         fleets = Fleets()
         fi = FI(fleets)
         fleets.append(m1)
@@ -201,7 +214,6 @@ class TestInteractions:
         interactor = Interactor(fleets)
         interactor.perform_interactions()
         assert not fi.missiles
-        assert not fi.saucer_missiles
 
     def test_missile_v_asteroid(self):
         pos = Vector2(100, 100)
@@ -219,14 +231,14 @@ class TestInteractions:
     def test_saucer_missile_v_asteroid(self):
         pos = Vector2(100, 100)
         zero_vel = Vector2(0, 0)
-        missile = SaucerMissile.from_saucer(pos, zero_vel)
+        missile = Missile.from_saucer(pos, zero_vel)
         asteroid = Asteroid(2, pos)
         fleets = Fleets()
         fi = FI(fleets)
         fleets.append(missile)
         fleets.append(asteroid)
         fleets.perform_interactions()
-        assert not fi.saucer_missiles
+        assert not fi.missiles
         assert len(fi.asteroids) == 2
 
     def test_missile_asteroid_scores(self):
@@ -392,15 +404,15 @@ class TestInteractions:
     def test_saucer_missile_kills_ship(self):
         pos = Vector2(100, 100)
         ship = Ship(pos)
-        missile = SaucerMissile.from_saucer(pos, Vector2(0, 0))
+        missile = Missile.from_saucer(pos, Vector2(0, 0))
         fleets = Fleets()
         fleets.append(ship)
         fleets.append(missile)
         fi = FI(fleets)
-        assert fi.saucer_missiles
+        assert fi.missiles
         assert fi.ships
         fleets.perform_interactions()
-        assert not fi.saucer_missiles
+        assert not fi.missiles
         assert not fi.ships
         assert fi.explosions
 
@@ -413,7 +425,7 @@ class TestInteractions:
         pos = Vector2(100, 100)
         saucer = Saucer()
         saucer.move_to(pos)
-        missile = SaucerMissile.from_saucer(pos, Vector2(0, 0))
+        missile = Missile.from_saucer(pos, Vector2(0, 0))
         fleets = Fleets()
         fleets.append(saucer)
         fleets.append(missile)
@@ -529,7 +541,6 @@ class TestInteractions:
                        "interact_with_asteroid",
                        "interact_with_missile",
                        "interact_with_saucer",
-                       "interact_with_saucermissile",
                        "interact_with_ship",
                        "interact_with_score",
                        "interact_with_scorekeeper",
@@ -562,9 +573,9 @@ class TestInteractions:
         ship = Ship(u.CENTER)
         ship.begin_interactions(fleets)
         m_ship = Missile.from_ship(Vector2(0, 0), Vector2(0, 0))
-        m_saucer = SaucerMissile.from_saucer(Vector2(0, 0), Vector2(0, 0))
+        m_saucer = Missile.from_saucer(Vector2(0, 0), Vector2(0, 0))
         ship.interact_with_missile(m_ship, fleets)
-        ship.interact_with_saucermissile(m_saucer, fleets)
+        ship.interact_with_missile(m_saucer, fleets)
         assert ship._missile_tally == 1
 
     def test_fleets_select(self):
