@@ -93,8 +93,5 @@ class Missile(Flyer):
         self.tick_timer(delta_time, fleets)
 
     def tick_timer(self, delta_time, fleets):
-        self._timer.tick(delta_time, self.timeout, fleets)
-
-    def timeout(self, fleets):
-        self.die(fleets)
+        self._timer.tick(delta_time, self.die, fleets)
 
