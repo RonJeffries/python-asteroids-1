@@ -49,9 +49,6 @@ class Flyer(ABC):
     def end_interactions(self, fleets):
         pass
 
-    def interact_with_coin(self, missile, fleets):
-        pass
-
     def interact_with_gameover(self, game_over, fleets):
         pass
 
