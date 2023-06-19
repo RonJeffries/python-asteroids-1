@@ -14,3 +14,13 @@ class TestCoin:
         assert fi.thumpers
         assert fi.wavemakers
         assert not fi.shipmakers
+
+    def test_quarter(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        Coin.quarter(fleets)
+        assert fi.saucermakers
+        assert fi.scorekeepers
+        assert fi.thumpers
+        assert fi.wavemakers
+        assert fi.shipmakers

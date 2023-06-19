@@ -10,8 +10,11 @@ from wavemaker import WaveMaker
 class Coin(Flyer):
 
     @classmethod
-    def quarter(cls):
-        return cls(True, True)
+    def quarter(cls, fleets=None):
+        coin = cls(True, True)
+        if fleets:
+            coin.tick(0, fleets)
+        return coin
 
     @classmethod
     def slug(cls, fleets=None):
