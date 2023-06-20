@@ -62,16 +62,18 @@ class Asteroid(Flyer):
         self.split_or_die_on_collision(fleets, missile)
 
     def interact_with_saucer(self, saucer, fleets):
-        if saucer.are_we_colliding(self.position, self.radius):
-            self.split_or_die(fleets)
+        self.split_or_die_on_collision(fleets, saucer)
+        # if saucer.are_we_colliding(self.position, self.radius):
+        #     self.split_or_die(fleets)
 
     def interact_with_ship(self, ship, fleets):
-        if ship.are_we_colliding(self.position, self.radius):
-            self.split_or_die(fleets)
+        self.split_or_die_on_collision(fleets, ship)
+        # if ship.are_we_colliding(self.position, self.radius):
+        #     self.split_or_die(fleets)
 
-    def split_or_die_on_collision(self, fleets, missile):
-        if missile.are_we_colliding(self.position, self.radius):
-            fleets.append(Score(self.score_for_hitting(missile)))
+    def split_or_die_on_collision(self, fleets, collider):
+        if collider.are_we_colliding(self.position, self.radius):
+            fleets.append(Score(self.score_for_hitting(collider)))
             self.split_or_die(fleets)
 
     def are_we_colliding(self, position, radius):
