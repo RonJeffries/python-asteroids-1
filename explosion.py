@@ -14,10 +14,14 @@ class Explosion(Flyer):
         return cls(position, [vee, guy, simple, simple, simple, simple, simple])
 
     @classmethod
-    def from_saucer(cls,position):
+    def from_saucer(cls,position, fleets=None):
         simple = Fragment.simple_fragment
         vee = Fragment.v_fragment
-        return cls(position, [vee, vee, simple, vee, simple, vee, simple])
+        explosion = cls(position, [vee, vee, simple, vee, simple, vee, simple])
+        if fleets:
+            explosion.explosion_at(position, fleets)
+            explosion.fragment_factory_methods = []
+        return explosion
 
     def __init__(self, position, fragment_factory_methods):
         self.position = position

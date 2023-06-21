@@ -1,4 +1,7 @@
+from pygame import Vector2
+
 from coin import Coin
+from explosion import Explosion
 from fleets import Fleets
 from tests.test_interactions import FI
 
@@ -34,4 +37,11 @@ class TestCoin:
         assert fi.thumpers
         assert not fi.wavemakers
         assert fi.shipmakers
+
+    def test_saucer_explosion(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        pos = Vector2(100, 100)
+        Explosion.from_saucer(pos, fleets)
+        assert len(fi.fragments) == 7
 

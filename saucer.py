@@ -104,7 +104,7 @@ class Saucer(Flyer):
         player.play("bang_large", self._location)
         player.play("bang_small", self._location)
         fleets.remove(self)
-        fleets.append(Explosion.from_saucer(self.position))
+        Explosion.from_saucer(self.position, fleets)
 
     def _move(self, delta_time, fleets):
         off_x, off_y = self._location.move(delta_time)
