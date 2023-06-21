@@ -7,11 +7,15 @@ from fragment import Fragment
 class Explosion(Flyer):
 
     @classmethod
-    def from_ship(cls,position):
+    def from_ship(cls,position, fleets=None):
         simple = Fragment.simple_fragment
         vee = Fragment.v_fragment
         guy = Fragment.astronaut_fragment
-        return cls(position, [vee, guy, simple, simple, simple, simple, simple])
+        explosion = cls(position, [vee, guy, simple, simple, simple, simple, simple])
+        if fleets:
+            explosion.explosion_at(position, fleets)
+            explosion.fragment_factory_methods = []
+        return explosion
 
     @classmethod
     def from_saucer(cls,position, fleets=None):

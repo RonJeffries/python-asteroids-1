@@ -45,3 +45,10 @@ class TestCoin:
         Explosion.from_saucer(pos, fleets)
         assert len(fi.fragments) == 7
 
+    def test_ship_explosion(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        pos = Vector2(100, 100)
+        Explosion.from_ship(pos, fleets)
+        assert len(fi.fragments) == 7
+
