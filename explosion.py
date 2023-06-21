@@ -5,31 +5,25 @@ from fragment import Fragment
 class Explosion:
 
     @classmethod
-    def from_ship(cls,position, fleets=None):
+    def from_ship(cls,position, fleets):
         simple = Fragment.simple_fragment
         vee = Fragment.v_fragment
         guy = Fragment.astronaut_fragment
         explosion = cls(position, [vee, guy, simple, simple, simple, simple, simple])
-        if fleets:
-            explosion.explosion_at(position, fleets)
-            explosion.fragment_factory_methods = []
-        return explosion
+        explosion.explode(fleets)
 
     @classmethod
-    def from_saucer(cls,position, fleets=None):
+    def from_saucer(cls,position, fleets):
         simple = Fragment.simple_fragment
         vee = Fragment.v_fragment
         explosion = cls(position, [vee, vee, simple, vee, simple, vee, simple])
-        if fleets:
-            explosion.explosion_at(position, fleets)
-            explosion.fragment_factory_methods = []
-        return explosion
+        explosion.explode(fleets)
 
     def __init__(self, position, fragment_factory_methods):
         self.position = position
         self.fragment_factory_methods = fragment_factory_methods
 
-    def explosion_at(self, _position, fleets):
+    def explode(self, fleets):
         random.shuffle(self.fragment_factory_methods)
         how_many = len(self.fragment_factory_methods)
         for i in range(how_many):
