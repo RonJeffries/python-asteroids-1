@@ -21,10 +21,6 @@ class Flyer(ABC):
         pass
 
     @abstractmethod
-    def interact_with_explosion(self, explosion, fleets):
-        pass
-
-    @abstractmethod
     def interact_with_fragment(self, fragment, fleets):
         pass
 

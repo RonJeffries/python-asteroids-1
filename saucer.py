@@ -71,9 +71,6 @@ class Saucer(Flyer):
         if asteroid.are_we_colliding(self.position, self._radius):
             self.explode(fleets)
 
-    def interact_with_explosion(self, explosion, fleets):
-        pass
-
     def interact_with_fragment(self, fragment, fleets):
         pass
 

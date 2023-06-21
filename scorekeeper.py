@@ -40,9 +40,6 @@ class ScoreKeeper(Flyer):
     def interact_with_asteroid(self, asteroid, fleets):
         pass
 
-    def interact_with_explosion(self, explosion, fleets):
-        pass
-
     def interact_with_fragment(self, fragment, fleets):
         pass
 
