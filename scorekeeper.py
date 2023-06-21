@@ -1,13 +1,19 @@
 import pygame
 from pygame import Vector2
 from dataclasses import dataclass
+
+import u
 from flyer import Flyer
 from score import Score
 from ship import Ship
 
+
 @dataclass
 class NoShips:
-    ships_remaining:int = 0
+    ships_remaining: int = 0
+
+    def add_ship(self):
+        pass
 
 
 class ScoreKeeper(Flyer):
@@ -22,6 +28,7 @@ class ScoreKeeper(Flyer):
 
     def __init__(self):
         self.score = 0
+        self._fence = u.FREE_SHIP_SCORE
         self._ship_maker = NoShips()
         if pygame.get_init():
             self.score_font = pygame.font.SysFont("arial", 48)
@@ -76,6 +83,9 @@ class ScoreKeeper(Flyer):
 
     def interact_with_score(self, score, fleets):
         self.score += score.score
+        if self.score >= self._fence:
+            self._ship_maker.add_ship()
+            self._fence += u.FREE_SHIP_SCORE
 
     def tick(self, delta_time, fleets):
         pass

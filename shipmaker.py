@@ -2,6 +2,7 @@ import u
 from flyer import Flyer
 from game_over import GameOver
 from ship import Ship
+from sounds import player
 from timer import Timer
 
 
@@ -13,6 +14,10 @@ class ShipMaker(Flyer):
         self._game_over = False
         self._need_ship = True
         self._safe_to_emerge = False
+
+    def add_ship(self):
+        self.ships_remaining += 1
+        player.play("extra_ship")
 
     def begin_interactions(self, fleets):
         self._game_over = False
