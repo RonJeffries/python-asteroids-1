@@ -59,7 +59,7 @@ class TestHyperspaceGenerator:
         hg = HyperspaceGenerator(ship)
         hg.recharge()
         hg.press_button(0, fleets, 45)  # fail = roll > 44 + tally
-        assert fi.explosions
+        assert fi.fragments
 
     def test_success(self):
         fleets = Fleets()

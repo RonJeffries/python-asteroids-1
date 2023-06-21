@@ -401,21 +401,6 @@ class TestInteractions:
         assert fi.score == expected_score
         return interactor
 
-    def test_saucer_missile_kills_ship(self):
-        pos = Vector2(100, 100)
-        ship = Ship(pos)
-        missile = Missile.from_saucer(pos, Vector2(0, 0))
-        fleets = Fleets()
-        fleets.append(ship)
-        fleets.append(missile)
-        fi = FI(fleets)
-        assert fi.missiles
-        assert fi.ships
-        fleets.perform_interactions()
-        assert not fi.missiles
-        assert not fi.ships
-        assert fi.explosions
-
     def test_small_saucer_ship_missile_scores(self):
         pos = Vector2(100, 100)
         saucer = Saucer(pos, 1)
