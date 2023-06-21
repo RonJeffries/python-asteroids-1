@@ -1,10 +1,8 @@
 import random
-
-from flyer import Flyer
 from fragment import Fragment
 
 
-class Explosion(Flyer):
+class Explosion:
 
     @classmethod
     def from_ship(cls,position, fleets=None):
@@ -30,34 +28,6 @@ class Explosion(Flyer):
     def __init__(self, position, fragment_factory_methods):
         self.position = position
         self.fragment_factory_methods = fragment_factory_methods
-
-    def interact_with(self, other, fleets):
-        other.interact_with_explosion(self, fleets)
-
-    def interact_with_asteroid(self, asteroid, fleets):
-        pass
-
-    def interact_with_explosion(self, explosion, fleets):
-        pass
-
-    def interact_with_fragment(self, fragment, fleets):
-        pass
-
-    def interact_with_missile(self, missile, fleets):
-        pass
-
-    def interact_with_saucer(self, saucer, fleets):
-        pass
-
-    def interact_with_ship(self, ship, fleets):
-        pass
-
-    def draw(self, screen):
-        pass
-
-    def tick(self, delta_time, fleets):
-        fleets.remove(self)
-        self.explosion_at(self.position, fleets)
 
     def explosion_at(self, _position, fleets):
         random.shuffle(self.fragment_factory_methods)
