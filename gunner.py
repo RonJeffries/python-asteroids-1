@@ -23,10 +23,10 @@ class Gunner:
 
     def fire_missile(self, saucer, ship_position, fleets):
         if saucer.missile_tally < u.SAUCER_MISSILE_LIMIT:
-            self.select_missile(fleets, saucer, ship_position)
+            self.select_missile(random.random(), fleets, saucer, ship_position)
 
-    def select_missile(self, fleets, saucer, ship_position):
-        if saucer.always_target or random.random() <= u.SAUCER_TARGETING_FRACTION:
+    def select_missile(self, chance_of_targeting, fleets, saucer, ship_position):
+        if saucer.always_target or chance_of_targeting <= u.SAUCER_TARGETING_FRACTION:
             velocity_adjustment = Vector2(0, 0)
         else:
             velocity_adjustment = saucer.velocity
