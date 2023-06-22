@@ -26,7 +26,7 @@ class Gunner:
             self.select_missile(fleets, saucer, ship_position)
 
     def select_missile(self, fleets, saucer, ship_position):
-        if random.random() <= u.SAUCER_TARGETING_FRACTION:
+        if saucer.always_target or random.random() <= u.SAUCER_TARGETING_FRACTION:
             velocity_adjustment = Vector2(0, 0)
         else:
             velocity_adjustment = saucer.velocity
