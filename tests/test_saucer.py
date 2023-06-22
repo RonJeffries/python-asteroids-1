@@ -8,6 +8,8 @@ import u
 from fleets import Fleets
 from missile import Missile
 from saucer import Saucer
+from saucermaker import SaucerMaker
+from scorekeeper import ScoreKeeper
 from ship import Ship
 from test_interactions import FI
 
@@ -133,6 +135,27 @@ class TestSaucer:
         for m in methods:
             print(m)
         assert True
+
+    def test_saucer_sizing(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        fleets.append(keeper := ScoreKeeper())
+        fleets.append(maker := SaucerMaker())
+        fleets.perform_interactions()
+        keeper.score = 0
+        fleets.tick(u.SAUCER_EMERGENCE_TIME)
+        saucers = fi.saucers
+        assert saucers
+        saucer = saucers[0]
+        assert saucer._size == 2
+        fleets.remove(saucer)
+        keeper.score = u.SAUCER_SCORE_FOR_SMALL
+        fleets.tick(u.SAUCER_EMERGENCE_TIME)
+        saucers = fi.saucers
+        assert saucers
+        saucer = saucers[0]
+        assert saucer._size == 1
+
 
 
 

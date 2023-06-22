@@ -57,12 +57,11 @@ class Saucer(Flyer):
         self.missile_tally = 0
 
     def create_surface_class_members(self):
-        if not Saucer.saucer_surface:
-            raw_dimensions = Vector2(10, 6)
-            saucer_scale = 4 * self._size
-            Saucer.offset = raw_dimensions * saucer_scale / 2
-            saucer_size = raw_dimensions * saucer_scale
-            Saucer.saucer_surface = SurfaceMaker.saucer_surface(saucer_size)
+        raw_dimensions = Vector2(10, 6)
+        saucer_scale = 4 * self._size
+        Saucer.offset = raw_dimensions * saucer_scale / 2
+        saucer_size = raw_dimensions * saucer_scale
+        Saucer.saucer_surface = SurfaceMaker.saucer_surface(saucer_size)
 
     def interact_with(self, attacker, fleets):
         attacker.interact_with_saucer(self, fleets)

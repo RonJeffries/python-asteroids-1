@@ -9,10 +9,14 @@ class SaucerMaker(Flyer):
     def __init__(self):
         self._timer = Timer(u.SAUCER_EMERGENCE_TIME)
         self._saucer_gone = True
+        self._scorekeeper = None
 
-    @staticmethod
-    def create_saucer(fleets):
-        fleets.append(Saucer())
+    def create_saucer(self, fleets):
+        if self._scorekeeper and self._scorekeeper.score >= u.SAUCER_SCORE_FOR_SMALL:
+            size = 1
+        else:
+            size = 2
+        fleets.append(Saucer(size))
 
     def begin_interactions(self, fleets):
         self._saucer_gone = True
@@ -28,6 +32,9 @@ class SaucerMaker(Flyer):
 
     def interact_with_saucer(self, saucer, fleets):
         self._saucer_gone = False
+
+    def interact_with_scorekeeper(self, keeper, fleets):
+        self._scorekeeper = keeper
 
     def interact_with_ship(self, ship, fleets):
         pass
