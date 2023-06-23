@@ -15,11 +15,33 @@ class Gunner:
         self._radius = saucer_radius
 
     def fire(self, delta_time, saucer, ship_or_none: Ship | None, fleets):
-        if ship_or_none:
-            ship_position = ship_or_none.position
-        else:
+        if not ship_or_none:
             ship_position = self.random_position()
+        else:
+            ship_position = self.choose_aiming_point(saucer, ship_or_none)
         self._timer.tick(delta_time, self.fire_missile, saucer, ship_position, fleets)
+
+    def choose_aiming_point(self, saucer, ship):
+        delta_position = ship.position - saucer.position
+        aim_time = self.time_to_target(delta_position, ship.velocity)
+        return ship.position + ship.velocity * aim_time
+
+    def time_to_target(self, delta_position, relative_velocity):
+        # from https://www.gamedeveloper.com/programming/shooting-a-moving-target#close-modal
+        # return time for hit or -1
+        # quadratic
+        a = relative_velocity.dot(relative_velocity) - u.MISSILE_SPEED*u.MISSILE_SPEED
+        b = 2 * relative_velocity.dot(delta_position)
+        c = delta_position.dot(delta_position)
+        disc = b*b - 4*a*c
+        if disc < 0:
+            return 0
+        else:
+            divisor = (math.sqrt(disc) - b)
+            if divisor:
+                return 2*c / divisor
+            else:
+                return 0
 
     def fire_missile(self, saucer, ship_position, fleets):
         if saucer.missile_tally < u.SAUCER_MISSILE_LIMIT:

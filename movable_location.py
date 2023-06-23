@@ -15,6 +15,9 @@ class MovableLocation:
     def accelerate_to(self, velocity):
         self.velocity = velocity
 
+    def distance_to(self, location):
+        return self.position.distance_to(location.position)
+
     def move(self, delta_time):
         raw_position = self.position + self.velocity*delta_time
         self.position = self.wrap_around(raw_position)

@@ -138,7 +138,10 @@ class Saucer(Flyer):
         pass
 
     def update(self, delta_time, fleets):
-        player.play("saucer_big", self._location, False)
+        if self._ship == 2:
+            player.play("saucer_big", self._location, False)
+        else:
+            player.play("saucer_small", self._location, False)
         self.fire_if_possible(delta_time, fleets)
         self.check_zigzag(delta_time)
         self._move(delta_time, fleets)

@@ -97,7 +97,7 @@ class TestGunner:
         assert missiles
         missile = missiles[0]
         velocity = missile.velocity_testing_only
-        assert velocity.x != 0 or velocity.y != pytest.approx(166.666, .001)  # not straight up
+        assert velocity.x != 0 or velocity.y != pytest.approx(u.MISSILE_SPEED, .001)  # not straight up
 
     def test_small_saucer_does_target(self):
         pos = Vector2(100, 100)
@@ -105,14 +105,37 @@ class TestGunner:
         fi = FI(fleets)
         small_saucer = Saucer(1)
         small_saucer._location.position = Vector2(100, 50)
-        large_gunner = small_saucer._gunner
-        large_gunner.select_missile(1, fleets, small_saucer, pos)
+        small_gunner = small_saucer._gunner
+        small_gunner.select_missile(1, fleets, small_saucer, pos)
         missiles = fi.missiles
         assert missiles
         missile = missiles[0]
         velocity = missile.velocity_testing_only
         assert velocity.x == 0
-        assert velocity.y == pytest.approx(166.666, 0.001)  # straight up
+        assert velocity.y == pytest.approx(u.MISSILE_SPEED, 0.001)  # straight up
+
+    def test_time_to_target_1(self):
+        gunner = Gunner(10)
+        time = gunner.time_to_target(Vector2(0, 50), Vector2(0, 0))
+        assert time == 50/u.MISSILE_SPEED
+
+    def test_time_to_target_harder(self):
+        gunner = Gunner(10)
+        time = gunner.time_to_target(Vector2(0, 50), Vector2(0, 10))
+        missile_position = u.MISSILE_SPEED * time
+        ship_distance = 10*time
+        ship_position = 50 + ship_distance
+        assert missile_position == pytest.approx(ship_position)
+
+    def test_time_to_target_impossible(self):
+        gunner = Gunner(10)
+        time = gunner.time_to_target(Vector2(0, 50), Vector2(0, u.MISSILE_SPEED))
+        assert time == 0
+
+    def test_time_to_target_long(self):
+        gunner = Gunner(10)
+        time = gunner.time_to_target(Vector2(0, 50), Vector2(0, u.MISSILE_SPEED - 1))
+        assert time == 50
 
 
 
