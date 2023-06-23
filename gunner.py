@@ -15,8 +15,7 @@ class Gunner:
         self._radius = saucer_radius
 
     def fire(self, delta_time, saucer, ship_or_none: Ship | None, fleets):
-        ship_position = self.select_aiming_point(saucer, ship_or_none)
-        self._timer.tick(delta_time, self.fire_missile, saucer, ship_position, fleets)
+        self._timer.tick(delta_time, self.fire_missile, saucer, ship_or_none, fleets)
 
     def select_aiming_point(self, saucer, ship_or_none):
         if ship_or_none:
@@ -46,7 +45,8 @@ class Gunner:
             else:
                 return 0
 
-    def fire_missile(self, saucer, ship_position, fleets):
+    def fire_missile(self, saucer, ship_or_none, fleets):
+        ship_position = self.select_aiming_point(saucer, ship_or_none)
         if saucer.missile_tally < u.SAUCER_MISSILE_LIMIT:
             self.select_missile(random.random(), fleets, saucer, ship_position)
 

@@ -137,6 +137,27 @@ class TestGunner:
         time = gunner.time_to_target(Vector2(0, 50), Vector2(0, u.MISSILE_SPEED - 1))
         assert time == 50
 
+    def test_hits_target(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        gunner = Gunner(10)
+        ship = Ship(Vector2(100, 100))
+        ship._location.velocity = Vector2(37, 59)
+        saucer = Saucer(1)
+        saucer.move_to(Vector2(19, 43))
+        relative_position = Vector2(100, 100) - Vector2(19, 43)
+        relative_velocity = Vector2(37, 59)
+        time = gunner.time_to_target(relative_position, relative_velocity)
+        assert time
+        gunner.fire_missile(saucer, ship, fleets)
+        assert fi.missiles
+        missile = fi.missiles[0]
+        missile_pos = missile.position + missile.velocity_testing_only*time
+        ship_pos = ship.position + ship.velocity*time
+        assert missile_pos.distance_to(ship_pos) == pytest.approx(2*saucer._radius)
+
+
+
 
 
 
