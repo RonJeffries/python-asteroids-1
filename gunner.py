@@ -15,11 +15,14 @@ class Gunner:
         self._radius = saucer_radius
 
     def fire(self, delta_time, saucer, ship_or_none: Ship | None, fleets):
-        if not ship_or_none:
-            ship_position = self.random_position()
-        else:
-            ship_position = self.choose_aiming_point(saucer, ship_or_none)
+        ship_position = self.select_aiming_point(saucer, ship_or_none)
         self._timer.tick(delta_time, self.fire_missile, saucer, ship_position, fleets)
+
+    def select_aiming_point(self, saucer, ship_or_none):
+        if ship_or_none:
+            return self.choose_aiming_point(saucer, ship_or_none)
+        else:
+            return self.random_position()
 
     def choose_aiming_point(self, saucer, ship):
         delta_position = ship.position - saucer.position
