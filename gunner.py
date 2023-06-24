@@ -46,8 +46,8 @@ class Gunner:
                 return 0
 
     def fire_missile(self, saucer, ship_or_none, fleets):
-        ship_position = self.select_aiming_point(saucer, ship_or_none)
         if saucer.missile_tally < u.SAUCER_MISSILE_LIMIT:
+            ship_position = self.select_aiming_point(saucer, ship_or_none)
             self.select_missile(random.random(), fleets, saucer, ship_position)
 
     def select_missile(self, chance_of_targeting, fleets, saucer, ship_position):
