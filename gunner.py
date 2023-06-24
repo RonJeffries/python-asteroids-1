@@ -33,9 +33,10 @@ class Gunner:
             return self.random_position()
 
     def choose_aiming_point(self, saucer, ship):
-        delta_position = ship.position - saucer.position
+        target_position = ship.position
+        delta_position = target_position - saucer.position
         aim_time = self.time_to_target(delta_position, ship.velocity)
-        return ship.position + ship.velocity * aim_time
+        return target_position + ship.velocity * aim_time
 
     def time_to_target(self, delta_position, relative_velocity):
         # from https://www.gamedeveloper.com/programming/shooting-a-moving-target#close-modal
