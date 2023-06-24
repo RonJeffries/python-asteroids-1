@@ -33,7 +33,7 @@ class Gunner:
             return self.random_position()
 
     def choose_aiming_point(self, saucer, ship):
-        target_position = ship.position
+        target_position = self.best_aiming_point(saucer.position, ship.position, u.SCREEN_SIZE)
         delta_position = target_position - saucer.position
         aim_time = self.time_to_target(delta_position, ship.velocity)
         return target_position + ship.velocity * aim_time
@@ -63,8 +63,7 @@ class Gunner:
         self.create_targeted_missile(saucer.position, ship_position, velocity_adjustment, fleets)
 
     def create_targeted_missile(self, from_position, to_position, velocity_adjustment, fleets):
-        best_aiming_point = self.best_aiming_point(from_position, to_position, u.SCREEN_SIZE)
-        angle = self.angle_to_hit(best_aiming_point, from_position)
+        angle = self.angle_to_hit(to_position, from_position)
         missile = self.missile_at_angle(from_position, angle, velocity_adjustment)
         fleets.append(missile)
 
