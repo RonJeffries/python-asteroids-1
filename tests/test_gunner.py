@@ -104,7 +104,7 @@ class TestGunner:
         large_saucer = Saucer(2)
         large_saucer._location.position = Vector2(100, 50)
         large_gunner = large_saucer._gunner
-        large_gunner.select_missile(1, fleets, large_saucer, pos)
+        large_gunner.select_missile_UNUSED_METHOD(1, fleets, large_saucer, pos)
         missiles = fi.missiles
         assert missiles
         missile = missiles[0]
@@ -118,7 +118,7 @@ class TestGunner:
         small_saucer = Saucer(1)
         small_saucer._location.position = Vector2(100, 50)
         small_gunner = small_saucer._gunner
-        small_gunner.select_missile(1, fleets, small_saucer, pos)
+        small_gunner.select_missile_UNUSED_METHOD(1, fleets, small_saucer, pos)
         missiles = fi.missiles
         assert missiles
         missile = missiles[0]

@@ -506,9 +506,9 @@ class TestInteractions:
         screen_size = 500
         shooter = Vector2(150, 150)
         gunner = Gunner()
-        assert gunner.best_aiming_point(shooter, target, screen_size) == Vector2(100, 400)
+        assert gunner.closest_aiming_point(shooter, target, screen_size) == Vector2(100, 400)
         shooter = Vector2(150, 50)
-        assert gunner.best_aiming_point(shooter, target, screen_size) == Vector2(100, -100)
+        assert gunner.closest_aiming_point(shooter, target, screen_size) == Vector2(100, -100)
 
     def test_flyer_protocol(self):
         classes = [Asteroid, Missile, Saucer, Ship, Fragment, Score, ScoreKeeper]

@@ -19,21 +19,27 @@ class Gunner:
 
     def fire_if_missile_available(self, saucer, ship_or_none, fleets):
         if result := saucer.missile_tally < u.SAUCER_MISSILE_LIMIT:
-            self.fire_available_missile(fleets, saucer, ship_or_none)
+            chance = random.random()
+            self.fire_available_missile(chance, fleets, saucer, ship_or_none)
         return result
 
-    def fire_available_missile(self, fleets, saucer, ship_or_none):
-        ship_position = self.select_aiming_point(saucer, ship_or_none)
-        self.select_missile(random.random(), fleets, saucer, ship_position)
+    def fire_available_missile(self, chance, fleets, saucer, ship_or_none):
+        ship_position = self.select_aiming_point(chance, saucer, ship_or_none)
+        velocity_adjustment = Vector2(0, 0)
+        self.create_targeted_missile(saucer.position, ship_position, velocity_adjustment, fleets)
 
-    def select_aiming_point(self, saucer, ship_or_none):
-        if ship_or_none:
-            return self.choose_aiming_point(saucer, ship_or_none)
+    def select_aiming_point(self, chance, saucer, ship_or_none):
+        if not ship_or_none:
+            return self.random_position()
+        elif saucer.always_target:
+            return self.optimal_aiming_point(saucer, ship_or_none)
+        elif chance < u.SAUCER_TARGETING_FRACTION:
+            return self.optimal_aiming_point(saucer, ship_or_none)
         else:
             return self.random_position()
 
-    def choose_aiming_point(self, saucer, ship):
-        target_position = self.best_aiming_point(saucer.position, ship.position, u.SCREEN_SIZE)
+    def optimal_aiming_point(self, saucer, ship):
+        target_position = self.closest_aiming_point(saucer.position, ship.position, u.SCREEN_SIZE)
         delta_position = target_position - saucer.position
         aim_time = self.time_to_target(delta_position, ship.velocity)
         return target_position + ship.velocity * aim_time
@@ -55,7 +61,7 @@ class Gunner:
             else:
                 return 0
 
-    def select_missile(self, chance_of_targeting, fleets, saucer, ship_position):
+    def select_missile_UNUSED_METHOD(self, chance_of_targeting, fleets, saucer, ship_position):
         if saucer.always_target or chance_of_targeting <= u.SAUCER_TARGETING_FRACTION:
             velocity_adjustment = Vector2(0, 0)
         else:
@@ -76,7 +82,7 @@ class Gunner:
     def angle_to_hit(best_aiming_point, saucer_position):
         return Vector2(0, 0).angle_to(best_aiming_point - saucer_position)
 
-    def best_aiming_point(self, shooter_position, target_position, wrap_size):
+    def closest_aiming_point(self, shooter_position, target_position, wrap_size):
         nearest_x = self.nearest(shooter_position.x, target_position.x, wrap_size)
         nearest_y = self.nearest(shooter_position.y, target_position.y, wrap_size)
         return Vector2(nearest_x, nearest_y)
