@@ -53,7 +53,7 @@ class TestGunner:
         saucer._location.position = saucer_position
         saucer._location.velocity = velocity
         saucer.missile_tally = u.SAUCER_MISSILE_LIMIT
-        Gunner().fire_missile(saucer, ship_position, fleets)
+        Gunner().fire_if_missile_available(saucer, ship_position, fleets)
         assert not fi.missiles
 
     def test_timer_reset(self):
@@ -161,7 +161,7 @@ class TestGunner:
         relative_velocity = Vector2(37, 59)
         time = gunner.time_to_target(relative_position, relative_velocity)
         assert time
-        gunner.fire_missile(saucer, ship, fleets)
+        gunner.fire_if_missile_available(saucer, ship, fleets)
         assert fi.missiles
         missile = fi.missiles[0]
         missile_pos = missile.position + missile.velocity_testing_only*time
