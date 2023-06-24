@@ -18,9 +18,10 @@ class Gunner:
         self._timer.tick(delta_time, self.fire_missile, saucer, ship_or_none, fleets)
 
     def fire_missile(self, saucer, ship_or_none, fleets):
-        if saucer.missile_tally < u.SAUCER_MISSILE_LIMIT:
+        if result := saucer.missile_tally < u.SAUCER_MISSILE_LIMIT:
             ship_position = self.select_aiming_point(saucer, ship_or_none)
             self.select_missile(random.random(), fleets, saucer, ship_position)
+        return result
 
     def select_aiming_point(self, saucer, ship_or_none):
         if ship_or_none:

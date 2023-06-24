@@ -56,6 +56,18 @@ class TestGunner:
         Gunner().fire_missile(saucer, ship_position, fleets)
         assert not fi.missiles
 
+    def test_timer_reset(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        saucer = Saucer()
+        saucer.missile_tally = u.SAUCER_MISSILE_LIMIT
+        gunner = Gunner()
+        gunner.fire(u.SAUCER_MISSILE_DELAY,saucer, None, fleets)
+        assert not fi.missiles
+        saucer.missile_tally = 0
+        gunner.fire(0.1, saucer, None, fleets)
+        assert fi.missiles
+
     def test_targeted(self):
         fleets = Fleets()
         fi = FI(fleets)
@@ -155,6 +167,7 @@ class TestGunner:
         missile_pos = missile.position + missile.velocity_testing_only*time
         ship_pos = ship.position + ship.velocity*time
         assert missile_pos.distance_to(ship_pos) == pytest.approx(2*saucer._radius)
+
 
 
 
