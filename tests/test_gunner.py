@@ -73,7 +73,7 @@ class TestGunner:
         fi = FI(fleets)
         saucer_position = Vector2(500, 500)
         ship_position = Vector2(500, 550)
-        Gunner().create_targeted_missile(saucer_position, ship_position, Vector2(0, 0), fleets)
+        Gunner().create_targeted_missile(saucer_position, ship_position, fleets)
         missile = fi.missiles[0]
         assert missile.velocity_testing_only.x == 0
         assert missile.velocity_testing_only.y == u.MISSILE_SPEED
@@ -83,7 +83,7 @@ class TestGunner:
         fi = FI(fleets)
         saucer_position = Vector2(500, 500)
         ship_position = Vector2(550, 550)
-        Gunner().create_targeted_missile(saucer_position, ship_position, Vector2(0, 0), fleets)
+        Gunner().create_targeted_missile(saucer_position, ship_position, fleets)
         missile = fi.missiles[0]
         assert missile.velocity_testing_only.x == pytest.approx(missile.velocity_testing_only.y)
         assert missile.velocity_testing_only.y == pytest.approx(u.MISSILE_SPEED*0.707, 0.1)
