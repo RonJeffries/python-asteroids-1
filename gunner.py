@@ -63,10 +63,10 @@ class Gunner:
 
     def create_targeted_missile(self, from_position, to_position, velocity_adjustment, fleets):
         angle = self.angle_to_hit(to_position, from_position)
-        missile = self.missile_at_angle(from_position, angle, velocity_adjustment)
+        missile = self.missile_at_angle(from_position, angle)
         fleets.append(missile)
 
-    def missile_at_angle(self, position, desired_angle, velocity_adjustment):
+    def missile_at_angle(self, position, desired_angle):
         missile_velocity = Vector2(u.MISSILE_SPEED, 0).rotate(desired_angle)
         offset = Vector2(2 * self._radius, 0).rotate(desired_angle)
         return Missile.from_saucer(position + offset, missile_velocity)
