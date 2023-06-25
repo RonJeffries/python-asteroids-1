@@ -25,7 +25,6 @@ class Gunner:
 
     def fire_available_missile(self, chance, fleets, saucer, ship_or_none):
         ship_position = self.select_aiming_point(chance, saucer, ship_or_none)
-        velocity_adjustment = Vector2(0, 0)
         self.create_targeted_missile(saucer.position, ship_position, fleets)
 
     def select_aiming_point(self, chance, saucer, ship_or_none):
