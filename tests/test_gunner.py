@@ -101,10 +101,11 @@ class TestGunner:
         pos = Vector2(100, 100)
         fleets = Fleets()
         fi = FI(fleets)
+        ship = Ship(Vector2(100, 100))
         large_saucer = Saucer(2)
         large_saucer._location.position = Vector2(100, 50)
         large_gunner = large_saucer._gunner
-        large_gunner.select_missile_UNUSED_METHOD(1, fleets, large_saucer, pos)
+        large_gunner.fire_available_missile(0.26, fleets, large_saucer, ship)
         missiles = fi.missiles
         assert missiles
         missile = missiles[0]
@@ -115,10 +116,11 @@ class TestGunner:
         pos = Vector2(100, 100)
         fleets = Fleets()
         fi = FI(fleets)
+        ship = Ship(Vector2(100, 100))
         small_saucer = Saucer(1)
         small_saucer._location.position = Vector2(100, 50)
         small_gunner = small_saucer._gunner
-        small_gunner.select_missile_UNUSED_METHOD(1, fleets, small_saucer, pos)
+        small_gunner.fire_available_missile(0, fleets, small_saucer, ship)
         missiles = fi.missiles
         assert missiles
         missile = missiles[0]

@@ -61,13 +61,6 @@ class Gunner:
             else:
                 return 0
 
-    def select_missile_UNUSED_METHOD(self, chance_of_targeting, fleets, saucer, ship_position):
-        if saucer.always_target or chance_of_targeting <= u.SAUCER_TARGETING_FRACTION:
-            velocity_adjustment = Vector2(0, 0)
-        else:
-            velocity_adjustment = saucer.velocity
-        self.create_targeted_missile(saucer.position, ship_position, velocity_adjustment, fleets)
-
     def create_targeted_missile(self, from_position, to_position, velocity_adjustment, fleets):
         angle = self.angle_to_hit(to_position, from_position)
         missile = self.missile_at_angle(from_position, angle, velocity_adjustment)
