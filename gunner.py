@@ -67,7 +67,7 @@ class Gunner:
         fleets.append(missile)
 
     def missile_at_angle(self, position, desired_angle, velocity_adjustment):
-        missile_velocity = Vector2(u.MISSILE_SPEED, 0).rotate(desired_angle) + velocity_adjustment
+        missile_velocity = Vector2(u.MISSILE_SPEED, 0).rotate(desired_angle)
         offset = Vector2(2 * self._radius, 0).rotate(desired_angle)
         return Missile.from_saucer(position + offset, missile_velocity)
 
