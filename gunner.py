@@ -40,15 +40,13 @@ class Gunner:
 
     def create_optimal_missile(self, fleets, saucer, ship):
         saucer_position = saucer.position
-        closest_shot_position = self.closest_aiming_point(saucer_position, ship.position, u.SCREEN_SIZE)
-        delta_position = closest_shot_position - saucer_position
+        best_target_position = self.closest_aiming_point(saucer_position, ship.position, u.SCREEN_SIZE)
+        delta_position = best_target_position - saucer_position
         delta_velocity = ship.velocity  # we treat saucer as not moving
-        initial_offset = 2*self._radius
-        optimizer = ShotOptimizer(delta_position, delta_velocity, initial_offset)
-        aim_time = optimizer.aim_time
-        adjustment_ratio = optimizer.adjustment_ratio
-        target_position = closest_shot_position + delta_velocity * aim_time
-        self.create_adjusted_missile(adjustment_ratio, target_position, saucer_position, fleets)
+        missile_head_start = 2*self._radius
+        optimizer = ShotOptimizer(delta_position, delta_velocity, missile_head_start)
+        future_target_position = best_target_position + delta_velocity * optimizer.aim_time
+        self.create_adjusted_missile(optimizer.adjustment_ratio, future_target_position, saucer_position, fleets)
 
     def create_adjusted_missile(self, velocity_adjustment, target_position, saucer_position, fleets):
         vector_to_target = target_position - saucer_position
