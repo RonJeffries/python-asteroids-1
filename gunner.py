@@ -39,14 +39,14 @@ class Gunner:
         saucer_position = saucer.position
         closest_shot_position = self.closest_aiming_point(saucer_position, ship.position, u.SCREEN_SIZE)
         delta_position = closest_shot_position - saucer_position
-        adjustment_ratio, aim_time = self.optimal_shot(delta_position, ship)
+        aim_time, adjustment_ratio = self.optimal_shot(delta_position, ship)
         target_position = closest_shot_position + ship.velocity * aim_time
         self.create_adjusted_missile(adjustment_ratio, target_position, saucer_position, fleets)
 
     def optimal_shot(self, delta_position, ship):
         aim_time = self.time_to_target(delta_position, ship.velocity)
         adjustment_ratio = self.compute_adjustment_ratio(aim_time)
-        return adjustment_ratio, aim_time
+        return aim_time, adjustment_ratio
 
     def compute_adjustment_ratio(self, aim_time):
         return self.compute_ratio(aim_time) if aim_time else 1
