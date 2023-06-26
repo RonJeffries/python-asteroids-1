@@ -6,6 +6,7 @@ from pygame import Vector2
 import u
 from missile import Missile
 from ship import Ship
+from shot_optimizer import ShotOptimizer
 from timer import Timer
 
 
@@ -42,14 +43,12 @@ class Gunner:
         closest_shot_position = self.closest_aiming_point(saucer_position, ship.position, u.SCREEN_SIZE)
         delta_position = closest_shot_position - saucer_position
         delta_velocity = ship.velocity  # we treat saucer as not moving
-        aim_time, adjustment_ratio = self.optimal_shot(delta_position, delta_velocity, 2*self._radius)
+        initial_offset = 2*self._radius
+        optimizer = ShotOptimizer(delta_position, delta_velocity, initial_offset)
+        aim_time = optimizer.aim_time
+        adjustment_ratio = optimizer.adjustment_ratio
         target_position = closest_shot_position + delta_velocity * aim_time
         self.create_adjusted_missile(adjustment_ratio, target_position, saucer_position, fleets)
-
-    def optimal_shot(self, delta_position, delta_velocity, initial_offset):
-        aim_time = self.time_to_target(delta_position, delta_velocity)
-        adjustment_ratio = self.velocity_adjustment(aim_time, initial_offset)
-        return aim_time, adjustment_ratio
 
     def velocity_adjustment(self, aim_time, initial_offset):
         return self.compensate_for_offset(aim_time, initial_offset) if aim_time else 1
@@ -121,3 +120,4 @@ class Gunner:
     @staticmethod
     def random_coordinate():
         return random.randrange(0, u.SCREEN_SIZE)
+
