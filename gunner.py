@@ -50,15 +50,6 @@ class Gunner:
         target_position = closest_shot_position + delta_velocity * aim_time
         self.create_adjusted_missile(adjustment_ratio, target_position, saucer_position, fleets)
 
-    def velocity_adjustment(self, aim_time, initial_offset):
-        return self.compensate_for_offset(aim_time, initial_offset) if aim_time else 1
-
-    @staticmethod
-    def compensate_for_offset(aim_time, initial_offset):
-        distance_to_target = aim_time * u.MISSILE_SPEED
-        adjusted_distance = distance_to_target - initial_offset
-        return adjusted_distance / distance_to_target
-
     def create_adjusted_missile(self, velocity_adjustment, target_position, saucer_position, fleets):
         vector_to_target = target_position - saucer_position
         direction_to_target = vector_to_target.normalize()
@@ -67,24 +58,6 @@ class Gunner:
         offset = 2 * self._radius * direction_to_target
         missile = Missile.from_saucer(saucer_position + offset, adjusted_velocity)
         fleets.append(missile)
-
-    @staticmethod
-    def time_to_target(delta_position, relative_velocity):
-        # from https://www.gamedeveloper.com/programming/shooting-a-moving-target#close-modal
-        # return time for hit or -1
-        # quadratic
-        a = relative_velocity.dot(relative_velocity) - u.MISSILE_SPEED*u.MISSILE_SPEED
-        b = 2 * relative_velocity.dot(delta_position)
-        c = delta_position.dot(delta_position)
-        disc = b*b - 4*a*c
-        if disc < 0:
-            return 0
-        else:
-            divisor = (math.sqrt(disc) - b)
-            if divisor:
-                return 2*c / divisor
-            else:
-                return 0
 
     def create_unoptimized_missile(self, from_position, to_position, fleets):
         self.create_adjusted_missile(1, to_position, from_position, fleets)
