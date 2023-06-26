@@ -39,16 +39,18 @@ class Gunner:
         target_position = self.closest_aiming_point(saucer.position, ship_or_none.position, u.SCREEN_SIZE)
         delta_position = target_position - saucer.position
         aim_time = self.time_to_target(delta_position, ship_or_none.velocity)
-        if aim_time:
-            distance_to_target = aim_time * u.MISSILE_SPEED
-            adjusted_distance = distance_to_target - 2 * self._radius
-            adjustment_ratio = adjusted_distance / distance_to_target
-        else:
-            adjustment_ratio = 1
+        adjustment_ratio = self.compute_adjustment_ratio(aim_time)
         target = target_position + ship_or_none.velocity * aim_time
-
         saucer_position = saucer.position
         self.create_adjusted_missile(adjustment_ratio, target, saucer_position, fleets)
+
+    def compute_adjustment_ratio(self, aim_time):
+        return self.compute_ratio(aim_time) if aim_time else 1
+
+    def compute_ratio(self, aim_time):
+        distance_to_target = aim_time * u.MISSILE_SPEED
+        adjusted_distance = distance_to_target - 2 * self._radius
+        return adjusted_distance / distance_to_target
 
     def create_adjusted_missile(self, adjustment_ratio, target_position, saucer_position, fleets):
         vector_to_target = target_position - saucer_position
