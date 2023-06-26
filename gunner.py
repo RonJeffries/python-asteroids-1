@@ -29,7 +29,8 @@ class Gunner:
         else:
             self.create_random_missile(fleets, saucer)
 
-    def should_target(self, chance, saucer):
+    @staticmethod
+    def should_target(chance, saucer):
         return saucer.always_target or chance < u.SAUCER_TARGETING_FRACTION
 
     def create_random_missile(self, fleets, saucer):
@@ -40,33 +41,36 @@ class Gunner:
         saucer_position = saucer.position
         closest_shot_position = self.closest_aiming_point(saucer_position, ship.position, u.SCREEN_SIZE)
         delta_position = closest_shot_position - saucer_position
-        aim_time, adjustment_ratio = self.optimal_shot(delta_position, ship)
-        target_position = closest_shot_position + ship.velocity * aim_time
+        delta_velocity = ship.velocity  # we treat saucer as not moving
+        aim_time, adjustment_ratio = self.optimal_shot(delta_position, delta_velocity, 2*self._radius)
+        target_position = closest_shot_position + delta_velocity * aim_time
         self.create_adjusted_missile(adjustment_ratio, target_position, saucer_position, fleets)
 
-    def optimal_shot(self, delta_position, ship):
-        aim_time = self.time_to_target(delta_position, ship.velocity)
-        adjustment_ratio = self.compute_adjustment_ratio(aim_time)
+    def optimal_shot(self, delta_position, delta_velocity, initial_offset):
+        aim_time = self.time_to_target(delta_position, delta_velocity)
+        adjustment_ratio = self.velocity_adjustment(aim_time, initial_offset)
         return aim_time, adjustment_ratio
 
-    def compute_adjustment_ratio(self, aim_time):
-        return self.compute_ratio(aim_time) if aim_time else 1
+    def velocity_adjustment(self, aim_time, initial_offset):
+        return self.compensate_for_offset(aim_time, initial_offset) if aim_time else 1
 
-    def compute_ratio(self, aim_time):
+    @staticmethod
+    def compensate_for_offset(aim_time, initial_offset):
         distance_to_target = aim_time * u.MISSILE_SPEED
-        adjusted_distance = distance_to_target - 2 * self._radius
+        adjusted_distance = distance_to_target - initial_offset
         return adjusted_distance / distance_to_target
 
-    def create_adjusted_missile(self, adjustment_ratio, target_position, saucer_position, fleets):
+    def create_adjusted_missile(self, velocity_adjustment, target_position, saucer_position, fleets):
         vector_to_target = target_position - saucer_position
         direction_to_target = vector_to_target.normalize()
         missile_velocity = u.MISSILE_SPEED * direction_to_target
-        adjusted_velocity = missile_velocity * adjustment_ratio
+        adjusted_velocity = missile_velocity * velocity_adjustment
         offset = 2 * self._radius * direction_to_target
         missile = Missile.from_saucer(saucer_position + offset, adjusted_velocity)
         fleets.append(missile)
 
-    def time_to_target(self, delta_position, relative_velocity):
+    @staticmethod
+    def time_to_target(delta_position, relative_velocity):
         # from https://www.gamedeveloper.com/programming/shooting-a-moving-target#close-modal
         # return time for hit or -1
         # quadratic
