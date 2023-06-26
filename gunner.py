@@ -13,6 +13,7 @@ class Gunner:
     def __init__(self, saucer_radius=20):
         self._timer = Timer(u.SAUCER_MISSILE_DELAY)
         self._radius = saucer_radius
+        self._adjustment_ratio = 1
 
     def fire(self, delta_time, saucer, ship_or_none: Ship | None, fleets):
         self._timer.tick(delta_time, self.fire_if_missile_available, saucer, ship_or_none, fleets)
@@ -24,6 +25,7 @@ class Gunner:
         return result
 
     def fire_available_missile(self, chance, fleets, saucer, ship_or_none):
+        self._adjustment_ratio = 1
         ship_position = self.select_aiming_point(chance, saucer, ship_or_none)
         self.create_targeted_missile(saucer.position, ship_position, fleets)
 
@@ -41,7 +43,16 @@ class Gunner:
         target_position = self.closest_aiming_point(saucer.position, ship.position, u.SCREEN_SIZE)
         delta_position = target_position - saucer.position
         aim_time = self.time_to_target(delta_position, ship.velocity)
+        # egregious hack
+        self.set_adjustment_ratio(aim_time)
         return target_position + ship.velocity * aim_time
+
+    def set_adjustment_ratio(self, aim_time):
+        if not aim_time:
+            return
+        distance_to_target = aim_time*u.MISSILE_SPEED
+        adjusted_distance = distance_to_target - 2*self._radius
+        self._adjustment_ratio = adjusted_distance / distance_to_target
 
     def time_to_target(self, delta_position, relative_velocity):
         # from https://www.gamedeveloper.com/programming/shooting-a-moving-target#close-modal
@@ -66,7 +77,7 @@ class Gunner:
         fleets.append(missile)
 
     def missile_at_angle(self, position, desired_angle):
-        missile_velocity = Vector2(u.MISSILE_SPEED, 0).rotate(desired_angle)
+        missile_velocity = Vector2(u.MISSILE_SPEED, 0).rotate(desired_angle) * self._adjustment_ratio
         offset = Vector2(2 * self._radius, 0).rotate(desired_angle)
         return Missile.from_saucer(position + offset, missile_velocity)
 
