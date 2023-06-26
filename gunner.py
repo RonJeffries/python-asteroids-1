@@ -13,7 +13,6 @@ class Gunner:
     def __init__(self, saucer_radius=20):
         self._timer = Timer(u.SAUCER_MISSILE_DELAY)
         self._radius = saucer_radius
-        self._adjustment_ratio = 1
 
     def fire(self, delta_time, saucer, ship_or_none: Ship | None, fleets):
         self._timer.tick(delta_time, self.fire_if_missile_available, saucer, ship_or_none, fleets)
@@ -25,34 +24,40 @@ class Gunner:
         return result
 
     def fire_available_missile(self, chance, fleets, saucer, ship_or_none):
-        self._adjustment_ratio = 1
-        ship_position = self.select_aiming_point(chance, saucer, ship_or_none)
-        self.create_targeted_missile(saucer.position, ship_position, fleets)
-
-    def select_aiming_point(self, chance, saucer, ship_or_none):
         if not ship_or_none:
-            return self.random_position()
+            target = self.random_position()
+            self.create_unoptimized_missile(saucer.position, target, fleets)
         elif saucer.always_target:
-            return self.optimal_aiming_point(saucer, ship_or_none)
+            self.create_optimal_missile(fleets, saucer, ship_or_none)
         elif chance < u.SAUCER_TARGETING_FRACTION:
-            return self.optimal_aiming_point(saucer, ship_or_none)
+            self.create_optimal_missile(fleets, saucer, ship_or_none)
         else:
-            return self.random_position()
+            target = self.random_position()
+            self.create_unoptimized_missile(saucer.position, target, fleets)
 
-    def optimal_aiming_point(self, saucer, ship):
-        target_position = self.closest_aiming_point(saucer.position, ship.position, u.SCREEN_SIZE)
+    def create_optimal_missile(self, fleets, saucer, ship_or_none):
+        target_position = self.closest_aiming_point(saucer.position, ship_or_none.position, u.SCREEN_SIZE)
         delta_position = target_position - saucer.position
-        aim_time = self.time_to_target(delta_position, ship.velocity)
-        # egregious hack
-        self.set_adjustment_ratio(aim_time)
-        return target_position + ship.velocity * aim_time
+        aim_time = self.time_to_target(delta_position, ship_or_none.velocity)
+        if aim_time:
+            distance_to_target = aim_time * u.MISSILE_SPEED
+            adjusted_distance = distance_to_target - 2 * self._radius
+            adjustment_ratio = adjusted_distance / distance_to_target
+        else:
+            adjustment_ratio = 1
+        target = target_position + ship_or_none.velocity * aim_time
 
-    def set_adjustment_ratio(self, aim_time):
-        if not aim_time:
-            return
-        distance_to_target = aim_time*u.MISSILE_SPEED
-        adjusted_distance = distance_to_target - 2*self._radius
-        self._adjustment_ratio = adjusted_distance / distance_to_target
+        saucer_position = saucer.position
+        self.create_adjusted_missile(adjustment_ratio, target, saucer_position, fleets)
+
+    def create_adjusted_missile(self, adjustment_ratio, target_position, saucer_position, fleets):
+        vector_to_target = target_position - saucer_position
+        direction_to_target = vector_to_target.normalize()
+        missile_velocity = u.MISSILE_SPEED * direction_to_target
+        adjusted_velocity = missile_velocity * adjustment_ratio
+        offset = 2 * self._radius * direction_to_target
+        missile = Missile.from_saucer(saucer_position + offset, adjusted_velocity)
+        fleets.append(missile)
 
     def time_to_target(self, delta_position, relative_velocity):
         # from https://www.gamedeveloper.com/programming/shooting-a-moving-target#close-modal
@@ -71,15 +76,8 @@ class Gunner:
             else:
                 return 0
 
-    def create_targeted_missile(self, from_position, to_position, fleets):
-        angle = self.angle_to_hit(to_position, from_position)
-        missile = self.missile_at_angle(from_position, angle)
-        fleets.append(missile)
-
-    def missile_at_angle(self, position, desired_angle):
-        missile_velocity = Vector2(u.MISSILE_SPEED, 0).rotate(desired_angle) * self._adjustment_ratio
-        offset = Vector2(2 * self._radius, 0).rotate(desired_angle)
-        return Missile.from_saucer(position + offset, missile_velocity)
+    def create_unoptimized_missile(self, from_position, to_position, fleets):
+        self.create_adjusted_missile(1, to_position, from_position, fleets)
 
     @staticmethod
     def angle_to_hit(best_aiming_point, saucer_position):
