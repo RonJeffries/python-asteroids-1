@@ -18,8 +18,9 @@ class Ship(Flyer):
 
     thrust_sound = None
 
-    def __init__(self, position):
+    def __init__(self, position, drop_in=2):
         self.radius = 25
+        self._drop_in = drop_in
         self._location = MovableLocation(position, Vector2(0, 0))
         self._hyperspace_generator = HyperspaceGenerator(self)
         self._hyperspace_timer = Timer(u.SHIP_HYPERSPACE_RECHARGE_TIME)
@@ -128,6 +129,8 @@ class Ship(Flyer):
     def draw(self, screen):
         ship_source = self.select_ship_source()
         rotated = pygame.transform.rotate(ship_source.copy(), self._angle)
+        if self._drop_in > 1:
+            rotated = pygame.transform.scale_by(rotated, self._drop_in)
         half = pygame.Vector2(rotated.get_size()) / 2
         screen.blit(rotated, self.position - half)
 
@@ -177,6 +180,7 @@ class Ship(Flyer):
             return self._ship_surface
 
     def tick(self, delta_time, fleets):
+        self._drop_in = self._drop_in - delta_time*2 if self._drop_in > 1 else 1
         self._hyperspace_generator.tick(delta_time)
 
     def update(self, delta_time, fleets):

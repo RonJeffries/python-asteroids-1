@@ -18,7 +18,7 @@ class NoShips:
 
 class ScoreKeeper(Flyer):
 
-    available_ship = Ship(Vector2(0, 0))
+    available_ship = Ship(Vector2(0, 0), 1)
     available_ship._angle = 90
 
     @classmethod
