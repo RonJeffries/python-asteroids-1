@@ -49,14 +49,13 @@ class Gunner:
         self.create_adjusted_missile(missile_head_start, optimizer.adjustment_ratio, future_target_position, saucer_position, fleets)
 
     @staticmethod
-    def create_adjusted_missile(missile_head_start, velocity_adjustment, target_position, saucer_position,
-                                fleets):
+    def create_adjusted_missile(missile_head_start, velocity_adjustment, target_position, saucer_position, fleets):
         vector_to_target = target_position - saucer_position
         direction_to_target = vector_to_target.normalize()
         missile_velocity = u.MISSILE_SPEED * direction_to_target
         adjusted_velocity = missile_velocity * velocity_adjustment
-        offset = missile_head_start * direction_to_target
-        missile = Missile.from_saucer(saucer_position + offset, adjusted_velocity)
+        head_start = missile_head_start * direction_to_target
+        missile = Missile.from_saucer(saucer_position + head_start, adjusted_velocity)
         fleets.append(missile)
 
     def create_unoptimized_missile(self, from_position, to_position, fleets):
