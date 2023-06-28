@@ -27,6 +27,7 @@ class Saucer(Flyer):
         cls.direction = -1
 
     def __init__(self, size=2):
+        size = 1
         Saucer.direction = -Saucer.direction
         x = 0 if Saucer.direction > 0 else u.SCREEN_SIZE
         position = Vector2(x, random.randrange(0, u.SCREEN_SIZE))
