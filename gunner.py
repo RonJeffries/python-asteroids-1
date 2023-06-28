@@ -44,8 +44,10 @@ class Gunner:
         fleets.append(Missile.from_saucer(target_solution.start, target_solution.velocity))
 
     def create_unoptimized_missile(self, shooter_position, target_position, fleets):
+        safe_distance = self._missile_head_start
+
         direction_to_target = (target_position - shooter_position).normalize()
-        safety_offset = direction_to_target * self._missile_head_start
+        safety_offset = direction_to_target * safe_distance
         velocity = direction_to_target * u.MISSILE_SPEED
         start = shooter_position + safety_offset
 
