@@ -12,10 +12,10 @@ class ShotOptimizer:
         aim_time, speed_adjustment = self.optimal_shot(vector_to_target, ship.velocity, saucer.missile_head_start)
         future_target_position = best_target_position + ship.velocity * aim_time
         direction_to_target = (future_target_position - saucer.position).normalize()
-        missile_velocity = u.MISSILE_SPEED * direction_to_target
-        head_start = saucer.missile_head_start * direction_to_target
-        self.velocity = missile_velocity * speed_adjustment
-        self.start = saucer.position + head_start
+        safety_offset = direction_to_target * saucer.missile_head_start
+        velocity = direction_to_target * u.MISSILE_SPEED
+        self.velocity = velocity * speed_adjustment
+        self.start = saucer.position + safety_offset
 
     def closest_aiming_point(self, shooter_position, target_position, wrap_size):
         nearest_x = self.nearest(shooter_position.x, target_position.x, wrap_size)
