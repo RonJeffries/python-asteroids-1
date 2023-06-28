@@ -1,4 +1,3 @@
-import math
 import random
 
 from pygame import Vector2
@@ -44,19 +43,14 @@ class Gunner:
         target_solution = ShotOptimizer(saucer, ship)
         fleets.append(Missile.from_saucer(target_solution.start, target_solution.velocity))
 
-    @staticmethod
-    def create_adjusted_missile(missile_head_start, velocity_adjustment, target_position, saucer_position, fleets):
-        vector_to_target = target_position - saucer_position
+    def create_unoptimized_missile(self, from_position, to_position, fleets):
+        vector_to_target = to_position - from_position
         direction_to_target = vector_to_target.normalize()
         missile_velocity = u.MISSILE_SPEED * direction_to_target
-        adjusted_velocity = missile_velocity * velocity_adjustment
-        head_start = missile_head_start * direction_to_target
-        missile = Missile.from_saucer(saucer_position + head_start, adjusted_velocity)
+        adjusted_velocity = missile_velocity
+        head_start = self._missile_head_start * direction_to_target
+        missile = Missile.from_saucer(from_position + head_start, adjusted_velocity)
         fleets.append(missile)
-
-    def create_unoptimized_missile(self, from_position, to_position, fleets):
-        no_adjustment = 1
-        self.create_adjusted_missile(self._missile_head_start, no_adjustment, to_position, from_position, fleets)
 
     @staticmethod
     def angle_to_hit(best_aiming_point, saucer_position):
