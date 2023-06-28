@@ -15,10 +15,10 @@ class ShotOptimizer:
 
         direction_to_target = (future_target_position - saucer.position).normalize()
         safety_offset = direction_to_target * safe_distance
-        velocity = direction_to_target * u.MISSILE_SPEED
+        velocity = direction_to_target * u.MISSILE_SPEED * speed_adjustment
         start = saucer.position + safety_offset
 
-        self.velocity = velocity * speed_adjustment
+        self.velocity = velocity
         self.start = start
 
     def closest_aiming_point(self, shooter_position, target_position, wrap_size):
