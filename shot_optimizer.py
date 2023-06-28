@@ -7,16 +7,17 @@ import u
 
 class ShotOptimizer:
     def __init__(self, saucer, ship):
-        best_target_position = self.closest_aiming_point(saucer.position, ship.position, u.SCREEN_SIZE)
-        vector_to_target = best_target_position - saucer.position
+        shooter_position = saucer.position
+        best_target_position = self.closest_aiming_point(shooter_position, ship.position, u.SCREEN_SIZE)
+        vector_to_target = best_target_position - shooter_position
         safe_distance = saucer.missile_head_start
         aim_time, speed_adjustment = self.optimal_shot(vector_to_target, ship.velocity, safe_distance)
         future_target_position = best_target_position + ship.velocity * aim_time
 
-        direction_to_target = (future_target_position - saucer.position).normalize()
+        direction_to_target = (future_target_position - shooter_position).normalize()
         safety_offset = direction_to_target * safe_distance
         velocity = direction_to_target * u.MISSILE_SPEED * speed_adjustment
-        start = saucer.position + safety_offset
+        start = shooter_position + safety_offset
 
         self.velocity = velocity
         self.start = start
