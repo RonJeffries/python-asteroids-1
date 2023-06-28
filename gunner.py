@@ -5,7 +5,7 @@ from pygame import Vector2
 import u
 from missile import Missile
 from ship import Ship
-from shot_optimizer import ShotOptimizer
+from shot_optimizer import ShotOptimizer, FiringSolution
 from timer import Timer
 
 
@@ -46,14 +46,16 @@ class Gunner:
     def create_unoptimized_missile(self, shooter_position, target_position, fleets):
         safe_distance = self._missile_head_start
         speed_adjustment = 1
+        solution = FiringSolution(target_position, shooter_position, safe_distance, speed_adjustment)
+        missile = Missile.from_saucer(solution.start, solution.velocity)
+        fleets.append(missile)
 
+    def solution(self, target_position, shooter_position, safe_distance, speed_adjustment):
         direction_to_target = (target_position - shooter_position).normalize()
         safety_offset = direction_to_target * safe_distance
         velocity = direction_to_target * u.MISSILE_SPEED * speed_adjustment
         start = shooter_position + safety_offset
-
-        missile = Missile.from_saucer(start, velocity)
-        fleets.append(missile)
+        return start, velocity
 
     @staticmethod
     def angle_to_hit(best_aiming_point, saucer_position):

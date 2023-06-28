@@ -1,8 +1,14 @@
 import math
-
 from pygame import Vector2
-
 import u
+
+
+class FiringSolution:
+    def __init__(self, target_position, shooter_position, safe_distance, speed_adjustment):
+        direction_to_target = (target_position - shooter_position).normalize()
+        safety_offset = direction_to_target * safe_distance
+        self.velocity = direction_to_target * u.MISSILE_SPEED * speed_adjustment
+        self.start = shooter_position + safety_offset
 
 
 class ShotOptimizer:
@@ -12,9 +18,9 @@ class ShotOptimizer:
         vector_to_target = best_target_position - shooter_position
         safe_distance = saucer.missile_head_start
         aim_time, speed_adjustment = self.optimal_shot(vector_to_target, ship.velocity, safe_distance)
-        future_target_position = best_target_position + ship.velocity * aim_time
+        target_position = best_target_position + ship.velocity * aim_time
 
-        direction_to_target = (future_target_position - shooter_position).normalize()
+        direction_to_target = (target_position - shooter_position).normalize()
         safety_offset = direction_to_target * safe_distance
         velocity = direction_to_target * u.MISSILE_SPEED * speed_adjustment
         start = shooter_position + safety_offset
