@@ -47,9 +47,8 @@ class Gunner:
         vector_to_target = to_position - from_position
         direction_to_target = vector_to_target.normalize()
         missile_velocity = u.MISSILE_SPEED * direction_to_target
-        adjusted_velocity = missile_velocity
         head_start = self._missile_head_start * direction_to_target
-        missile = Missile.from_saucer(from_position + head_start, adjusted_velocity)
+        missile = Missile.from_saucer(from_position + head_start, missile_velocity)
         fleets.append(missile)
 
     @staticmethod
