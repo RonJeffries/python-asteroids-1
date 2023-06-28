@@ -1,11 +1,42 @@
 import math
 
+from pygame import Vector2
+
 import u
 
 
 class ShotOptimizer:
-    def __init__(self, delta_position, delta_velocity, initial_offset):
-        self.aim_time, self.adjustment_ratio = self.optimal_shot(delta_position, delta_velocity, initial_offset)
+    def __init__(self, saucer, ship):
+        best_target_position = self.closest_aiming_point(saucer.position, ship.position, u.SCREEN_SIZE)
+        vector_to_target = best_target_position - saucer.position
+        aim_time, speed_adjustment = self.optimal_shot(vector_to_target, ship.velocity, saucer.missile_head_start)
+        future_target_position = best_target_position + ship.velocity * aim_time
+        direction_to_target = (future_target_position - saucer.position).normalize()
+        missile_velocity = u.MISSILE_SPEED * direction_to_target
+        head_start = saucer.missile_head_start * direction_to_target
+        self.velocity = missile_velocity * speed_adjustment
+        self.start = saucer.position + head_start
+
+    def closest_aiming_point(self, shooter_position, target_position, wrap_size):
+        nearest_x = self.nearest(shooter_position.x, target_position.x, wrap_size)
+        nearest_y = self.nearest(shooter_position.y, target_position.y, wrap_size)
+        return Vector2(nearest_x, nearest_y)
+
+    @staticmethod
+    def nearest(shooter_coord, target_coord, screen_size):
+        #     Handy Diagram
+        #  ______|______|______
+        #   T      T---S++T
+        # Central T is too far away.
+        # We are to his right, so
+        # we shoot toward the right!
+        direct_distance = abs(target_coord - shooter_coord)
+        if direct_distance <= screen_size / 2:
+            return target_coord
+        elif shooter_coord > target_coord:
+            return target_coord + screen_size
+        else:
+            return target_coord - screen_size
 
     def optimal_shot(self, delta_position, delta_velocity, initial_offset):
         aim_time = self.time_to_target(delta_position, delta_velocity)
@@ -24,7 +55,7 @@ class ShotOptimizer:
     @staticmethod
     def time_to_target(delta_position, relative_velocity):
         # from https://www.gamedeveloper.com/programming/shooting-a-moving-target#close-modal
-        # return time for hit or -1
+        # return time for hit or 0
         # quadratic
         a = relative_velocity.dot(relative_velocity) - u.MISSILE_SPEED*u.MISSILE_SPEED
         b = 2 * relative_velocity.dot(delta_position)
@@ -32,9 +63,7 @@ class ShotOptimizer:
         disc = b*b - 4*a*c
         if disc < 0:
             return 0
-        else:
-            divisor = (math.sqrt(disc) - b)
-            if divisor:
-                return 2*c / divisor
-            else:
-                return 0
+        divisor = (math.sqrt(disc) - b)
+        if divisor == 0:
+            return 0
+        return 2*c / divisor

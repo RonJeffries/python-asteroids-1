@@ -12,8 +12,9 @@ from timer import Timer
 
 class Gunner:
     def __init__(self, saucer_radius=20):
+        self._missile_head_start = 2 * saucer_radius
         self._timer = Timer(u.SAUCER_MISSILE_DELAY)
-        self._radius = saucer_radius
+        self._saucer_radius = saucer_radius
 
     def fire(self, delta_time, saucer, ship_or_none: Ship | None, fleets):
         self._timer.tick(delta_time, self.fire_if_missile_available, saucer, ship_or_none, fleets)
@@ -38,15 +39,10 @@ class Gunner:
         target = self.random_position()
         self.create_unoptimized_missile(saucer.position, target, fleets)
 
-    def create_optimal_missile(self, fleets, saucer, ship):
-        saucer_position = saucer.position
-        best_target_position = self.closest_aiming_point(saucer_position, ship.position, u.SCREEN_SIZE)
-        delta_position = best_target_position - saucer_position
-        delta_velocity = ship.velocity  # we treat saucer as not moving
-        missile_head_start = 2*self._radius
-        optimizer = ShotOptimizer(delta_position, delta_velocity, missile_head_start)
-        future_target_position = best_target_position + delta_velocity * optimizer.aim_time
-        self.create_adjusted_missile(missile_head_start, optimizer.adjustment_ratio, future_target_position, saucer_position, fleets)
+    @staticmethod
+    def create_optimal_missile(fleets, saucer, ship):
+        target_solution = ShotOptimizer(saucer, ship)
+        fleets.append(Missile.from_saucer(target_solution.start, target_solution.velocity))
 
     @staticmethod
     def create_adjusted_missile(missile_head_start, velocity_adjustment, target_position, saucer_position, fleets):
@@ -59,7 +55,8 @@ class Gunner:
         fleets.append(missile)
 
     def create_unoptimized_missile(self, from_position, to_position, fleets):
-        self.create_adjusted_missile(2*self._radius, 1, to_position, from_position, fleets)
+        no_adjustment = 1
+        self.create_adjusted_missile(self._missile_head_start, no_adjustment, to_position, from_position, fleets)
 
     @staticmethod
     def angle_to_hit(best_aiming_point, saucer_position):
