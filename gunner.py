@@ -23,21 +23,13 @@ class Gunner:
 
     def fire_available_missile(self, fleets, saucer, ship_or_none):
         if ship_or_none and self.should_target(saucer):
-            self.create_optimal_missile(fleets, saucer, ship_or_none)
+            solution = ShotOptimizer(saucer, ship_or_none).targeted_solution
         else:
-            self.create_random_missile(fleets, saucer, ship_or_none)
+            solution = ShotOptimizer(saucer, ship_or_none).random_solution
+        fleets.append(solution.saucer_missile())
 
     @staticmethod
     def should_target(saucer):
         return saucer.always_target or random.random() < u.SAUCER_TARGETING_FRACTION
 
-    @staticmethod
-    def create_random_missile(fleets, saucer, ship_or_none):
-        solution = ShotOptimizer(saucer, ship_or_none).random_solution
-        fleets.append(solution.saucer_missile())
-
-    @staticmethod
-    def create_optimal_missile(fleets, saucer, ship):
-        solution = ShotOptimizer(saucer, ship).targeted_solution
-        fleets.append(solution.saucer_missile())
 

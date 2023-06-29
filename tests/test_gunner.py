@@ -6,6 +6,7 @@ from fleets import Fleets
 from gunner import Gunner
 from saucer import Saucer
 from ship import Ship
+from shot_optimizer import ShotOptimizer
 from test_interactions import FI
 from time_to_target import TimeToTarget
 
@@ -77,8 +78,7 @@ class TestGunner:
         saucer = Saucer(2)
         saucer.move_to(saucer_position)
         ship = Ship(ship_position)
-        Gunner().create_optimal_missile(fleets, saucer, ship)
-        missile = fi.missiles[0]
+        missile = ShotOptimizer(saucer, ship).targeted_solution.saucer_missile()
         assert missile.velocity_testing_only.x == 0
         assert missile.velocity_testing_only.y == pytest.approx(u.MISSILE_SPEED/5)
 
@@ -90,8 +90,7 @@ class TestGunner:
         saucer = Saucer(2)
         saucer.move_to(saucer_position)
         ship = Ship(ship_position)
-        Gunner().create_optimal_missile(fleets, saucer, ship)
-        missile = fi.missiles[0]
+        missile = ShotOptimizer(saucer, ship).targeted_solution.saucer_missile()
         assert missile.velocity_testing_only.x == pytest.approx(missile.velocity_testing_only.y)
         # assert missile.velocity_testing_only.y == pytest.approx(u.MISSILE_SPEED*0.707, 0.1)
 
