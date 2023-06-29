@@ -1,6 +1,7 @@
 import math
 from pygame import Vector2
 import u
+from time_to_target import TimeToTarget
 
 
 class FiringSolution:
@@ -59,27 +60,3 @@ class ShotOptimizer:
         distance_to_target = aim_time * u.MISSILE_SPEED
         adjusted_distance = distance_to_target - initial_offset
         return adjusted_distance / distance_to_target
-
-
-class TimeToTarget:
-    def __init__(self, delta_position, relative_velocity):
-        # from https://www.gamedeveloper.com/programming/shooting-a-moving-target#close-modal
-        # return time for hit or 0
-        # quadratic
-        # Quadratic equation coefficients a*t^2 + b*t + c = 0
-        a = relative_velocity.dot(relative_velocity) - u.MISSILE_SPEED*u.MISSILE_SPEED
-        b = 2 * relative_velocity.dot(delta_position)
-        c = delta_position.dot(delta_position)
-        self.result = self.quadratic_formula(a, b, c)
-
-    def quadratic_formula(self, a, b, c):
-        disc = b*b - 4*a*c
-        return 0 if disc < 0 else self.calculate(b, c, disc)
-
-    def calculate(self, b, c, disc):
-        divisor = (math.sqrt(disc) - b)
-        return 0 if divisor == 0 else 2 * c / divisor
-
-    @property
-    def time(self):
-        return self.result

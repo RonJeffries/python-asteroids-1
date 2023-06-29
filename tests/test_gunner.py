@@ -6,8 +6,8 @@ from fleets import Fleets
 from gunner import Gunner
 from saucer import Saucer
 from ship import Ship
-from shot_optimizer import ShotOptimizer, TimeToTarget
 from test_interactions import FI
+from time_to_target import TimeToTarget
 
 
 class TestGunner:
