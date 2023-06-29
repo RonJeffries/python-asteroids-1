@@ -65,12 +65,14 @@ class ShotOptimizer:
         # from https://www.gamedeveloper.com/programming/shooting-a-moving-target#close-modal
         # return time for hit or 0
         # quadratic
+        # Quadratic equation coefficients a*t^2 + b*t + c = 0
         a = relative_velocity.dot(relative_velocity) - u.MISSILE_SPEED*u.MISSILE_SPEED
         b = 2 * relative_velocity.dot(delta_position)
         c = delta_position.dot(delta_position)
         disc = b*b - 4*a*c
         if disc < 0:
             return 0
+        # why not: return (-b + math.sqrt(disc))/2*a
         divisor = (math.sqrt(disc) - b)
         if divisor == 0:
             return 0

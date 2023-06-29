@@ -50,17 +50,6 @@ class Gunner:
         missile = Missile.from_saucer(solution.start, solution.velocity)
         fleets.append(missile)
 
-    def solution(self, target_position, shooter_position, safe_distance, speed_adjustment):
-        direction_to_target = (target_position - shooter_position).normalize()
-        safety_offset = direction_to_target * safe_distance
-        velocity = direction_to_target * u.MISSILE_SPEED * speed_adjustment
-        start = shooter_position + safety_offset
-        return start, velocity
-
-    @staticmethod
-    def angle_to_hit(best_aiming_point, saucer_position):
-        return Vector2(0, 0).angle_to(best_aiming_point - saucer_position)
-
     def closest_aiming_point(self, shooter_position, target_position, wrap_size):
         nearest_x = self.nearest(shooter_position.x, target_position.x, wrap_size)
         nearest_y = self.nearest(shooter_position.y, target_position.y, wrap_size)
