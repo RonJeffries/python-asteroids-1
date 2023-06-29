@@ -18,19 +18,18 @@ class Gunner:
 
     def fire_if_missile_available(self, saucer, ship_or_none, fleets):
         if did_we_fire := saucer.missile_tally < u.SAUCER_MISSILE_LIMIT:
-            chance = random.random()
-            self.fire_available_missile(chance, fleets, saucer, ship_or_none)
+            self.fire_available_missile(fleets, saucer, ship_or_none)
         return did_we_fire
 
-    def fire_available_missile(self, chance, fleets, saucer, ship_or_none):
-        if ship_or_none and self.should_target(chance, saucer):
+    def fire_available_missile(self, fleets, saucer, ship_or_none):
+        if ship_or_none and self.should_target(saucer):
             self.create_optimal_missile(fleets, saucer, ship_or_none)
         else:
             self.create_random_missile(fleets, saucer, ship_or_none)
 
     @staticmethod
-    def should_target(chance, saucer):
-        return saucer.always_target or chance < u.SAUCER_TARGETING_FRACTION
+    def should_target(saucer):
+        return saucer.always_target or random.random() < u.SAUCER_TARGETING_FRACTION
 
     @staticmethod
     def create_random_missile(fleets, saucer, ship_or_none):
