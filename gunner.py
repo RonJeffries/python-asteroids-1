@@ -13,7 +13,6 @@ class Gunner:
     def __init__(self, saucer_radius=20):
         self._missile_head_start = 2 * saucer_radius
         self._timer = Timer(u.SAUCER_MISSILE_DELAY)
-        self._saucer_radius = saucer_radius
 
     def fire(self, delta_time, saucer, ship_or_none: Ship | None, fleets):
         self._timer.tick(delta_time, self.fire_if_missile_available, saucer, ship_or_none, fleets)
