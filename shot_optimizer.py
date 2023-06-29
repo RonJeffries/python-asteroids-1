@@ -47,7 +47,7 @@ class ShotOptimizer:
             return target_coord - screen_size
 
     def optimal_shot(self, delta_position, delta_velocity, initial_offset):
-        aim_time = self.time_to_target(delta_position, delta_velocity)
+        aim_time = TimeToTarget(delta_position, delta_velocity).time
         adjustment_ratio = self.velocity_adjustment(aim_time, initial_offset)
         return aim_time, adjustment_ratio
 
@@ -60,8 +60,9 @@ class ShotOptimizer:
         adjusted_distance = distance_to_target - initial_offset
         return adjusted_distance / distance_to_target
 
-    @staticmethod
-    def time_to_target(delta_position, relative_velocity):
+
+class TimeToTarget:
+    def __init__(self, delta_position, relative_velocity):
         # from https://www.gamedeveloper.com/programming/shooting-a-moving-target#close-modal
         # return time for hit or 0
         # quadratic
@@ -69,11 +70,16 @@ class ShotOptimizer:
         a = relative_velocity.dot(relative_velocity) - u.MISSILE_SPEED*u.MISSILE_SPEED
         b = 2 * relative_velocity.dot(delta_position)
         c = delta_position.dot(delta_position)
+        self.result = self.quadratic_formula(a, b, c)
+
+    def quadratic_formula(self, a, b, c):
         disc = b*b - 4*a*c
-        if disc < 0:
-            return 0
-        # why not: return (-b + math.sqrt(disc))/2*a
+        return 0 if disc < 0 else self.calculate(b, c, disc)
+
+    def calculate(self, b, c, disc):
         divisor = (math.sqrt(disc) - b)
-        if divisor == 0:
-            return 0
-        return 2*c / divisor
+        return 0 if divisor == 0 else 2 * c / divisor
+
+    @property
+    def time(self):
+        return self.result

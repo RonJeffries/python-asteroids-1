@@ -6,7 +6,7 @@ from fleets import Fleets
 from gunner import Gunner
 from saucer import Saucer
 from ship import Ship
-from shot_optimizer import ShotOptimizer
+from shot_optimizer import ShotOptimizer, TimeToTarget
 from test_interactions import FI
 
 
@@ -130,22 +130,22 @@ class TestGunner:
         assert velocity.y != 0  # straight up
 
     def test_time_to_target_1(self):
-        time = ShotOptimizer.time_to_target(Vector2(0, 50), Vector2(0, 0))
+        time = TimeToTarget(Vector2(0, 50), Vector2(0, 0)).time
         assert time == 50/u.MISSILE_SPEED
 
     def test_time_to_target_harder(self):
-        time = ShotOptimizer.time_to_target(Vector2(0, 50), Vector2(0, 10))
+        time = TimeToTarget(Vector2(0, 50), Vector2(0, 10)).time
         missile_position = u.MISSILE_SPEED * time
         ship_distance = 10*time
         ship_position = 50 + ship_distance
         assert missile_position == pytest.approx(ship_position)
 
     def test_time_to_target_impossible(self):
-        time = ShotOptimizer.time_to_target(Vector2(0, 50), Vector2(0, u.MISSILE_SPEED))
+        time = TimeToTarget(Vector2(0, 50), Vector2(0, u.MISSILE_SPEED)).time
         assert time == 0
 
     def test_time_to_target_long(self):
-        time = ShotOptimizer.time_to_target(Vector2(0, 50), Vector2(0, u.MISSILE_SPEED - 1))
+        time = TimeToTarget(Vector2(0, 50), Vector2(0, u.MISSILE_SPEED - 1)).time
         assert time == 50
 
     def test_hits_target(self):
@@ -158,7 +158,7 @@ class TestGunner:
         saucer.move_to(Vector2(19, 43))
         relative_position = Vector2(100, 100) - Vector2(19, 43)
         relative_velocity = Vector2(37, 59)
-        time = ShotOptimizer.time_to_target(relative_position, relative_velocity)
+        time = TimeToTarget(relative_position, relative_velocity).time
         assert time
         gunner.fire_if_missile_available(saucer, ship, fleets)
         assert fi.missiles
