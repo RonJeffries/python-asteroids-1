@@ -1,6 +1,7 @@
 import math
 from pygame import Vector2
 import u
+from missile import Missile
 from time_to_target import TimeToTarget
 
 
@@ -10,6 +11,9 @@ class FiringSolution:
         safety_offset = direction_to_target * safe_distance
         self.velocity = direction_to_target * u.MISSILE_SPEED * speed_adjustment
         self.start = shooter_position + safety_offset
+
+    def saucer_missile(self):
+        return Missile.from_saucer(self.start, self.velocity)
 
 
 class ShotOptimizer:

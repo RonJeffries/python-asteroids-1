@@ -38,17 +38,15 @@ class Gunner:
         target = self.random_position()
         self.create_unoptimized_missile(saucer.position, target, fleets)
 
-    @staticmethod
-    def create_optimal_missile(fleets, saucer, ship):
+    def create_optimal_missile(self, fleets, saucer, ship):
         solution = ShotOptimizer(saucer, ship).firing_solution
-        fleets.append(Missile.from_saucer(solution.start, solution.velocity))
+        fleets.append(solution.saucer_missile())
 
     def create_unoptimized_missile(self, shooter_position, target_position, fleets):
         safe_distance = self._missile_head_start
         speed_adjustment = 1
         solution = FiringSolution(target_position, shooter_position, safe_distance, speed_adjustment)
-        missile = Missile.from_saucer(solution.start, solution.velocity)
-        fleets.append(missile)
+        fleets.append(solution.saucer_missile())
 
     def closest_aiming_point(self, shooter_position, target_position, wrap_size):
         nearest_x = self.nearest(shooter_position.x, target_position.x, wrap_size)
