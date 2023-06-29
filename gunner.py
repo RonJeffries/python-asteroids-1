@@ -40,8 +40,8 @@ class Gunner:
 
     @staticmethod
     def create_optimal_missile(fleets, saucer, ship):
-        target_solution = ShotOptimizer(saucer, ship)
-        fleets.append(Missile.from_saucer(target_solution.start, target_solution.velocity))
+        solution = ShotOptimizer(saucer, ship).firing_solution
+        fleets.append(Missile.from_saucer(solution.start, solution.velocity))
 
     def create_unoptimized_missile(self, shooter_position, target_position, fleets):
         safe_distance = self._missile_head_start

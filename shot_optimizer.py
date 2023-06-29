@@ -20,11 +20,7 @@ class ShotOptimizer:
         safe_distance = saucer.missile_head_start
         aim_time, speed_adjustment = self.optimal_shot(vector_to_target, ship.velocity, safe_distance)
         target_position = best_target_position + ship.velocity * aim_time
-
-        solution = FiringSolution(target_position, shooter_position, safe_distance, speed_adjustment)
-
-        self.velocity = solution.velocity
-        self.start = solution.start
+        self.firing_solution = FiringSolution(target_position, shooter_position, safe_distance, speed_adjustment)
 
     def closest_aiming_point(self, shooter_position, target_position, wrap_size):
         nearest_x = self.nearest(shooter_position.x, target_position.x, wrap_size)
