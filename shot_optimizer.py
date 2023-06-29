@@ -1,4 +1,5 @@
-import math
+import random
+
 from pygame import Vector2
 import u
 from missile import Missile
@@ -18,13 +19,31 @@ class FiringSolution:
 
 class ShotOptimizer:
     def __init__(self, saucer, ship):
-        shooter_position = saucer.position
-        best_target_position = self.closest_aiming_point(shooter_position, ship.position, u.SCREEN_SIZE)
+        self.saucer = saucer
+        self.ship = ship
+
+    @property
+    def targeted_solution(self):
+        if not self.ship:
+            return self.random_solution
+        shooter_position = self.saucer.position
+        best_target_position = self.closest_aiming_point(shooter_position, self.ship.position, u.SCREEN_SIZE)
         vector_to_target = best_target_position - shooter_position
-        safe_distance = saucer.missile_head_start
-        aim_time, speed_adjustment = self.optimal_shot(vector_to_target, ship.velocity, safe_distance)
-        target_position = best_target_position + ship.velocity * aim_time
-        self.firing_solution = FiringSolution(target_position, shooter_position, safe_distance, speed_adjustment)
+        safe_distance = self.saucer.missile_head_start
+        aim_time, speed_adjustment = self.optimal_shot(vector_to_target, self.ship.velocity, safe_distance)
+        target_position = best_target_position + self.ship.velocity * aim_time
+        return FiringSolution(target_position, shooter_position, safe_distance, speed_adjustment)
+
+    @property
+    def random_solution(self):
+        return FiringSolution(self.random_position(), self.saucer.position, self.saucer.missile_head_start, 1)
+
+    def random_position(self):
+        return Vector2(self.random_coordinate(), self.random_coordinate())
+
+    @staticmethod
+    def random_coordinate():
+        return random.randrange(0, u.SCREEN_SIZE)
 
     def closest_aiming_point(self, shooter_position, target_position, wrap_size):
         nearest_x = self.nearest(shooter_position.x, target_position.x, wrap_size)

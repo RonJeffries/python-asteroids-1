@@ -19,6 +19,7 @@ from game import Game
 from fleets import Fleets
 from scorekeeper import ScoreKeeper
 from shipmaker import ShipMaker
+from shot_optimizer import ShotOptimizer
 from thumper import Thumper
 from wavemaker import WaveMaker
 
@@ -493,19 +494,21 @@ class TestInteractions:
         target = 100
         screen_size = 500
         shooter = 200
-        gunner = Gunner()
-        assert gunner.nearest(shooter, target, screen_size) == 100
+        assert ShotOptimizer.nearest(shooter, target, screen_size) == 100
         shooter = 400
-        assert gunner.nearest(shooter, target, screen_size) == 100 + 500
+        assert ShotOptimizer.nearest(shooter, target, screen_size) == 100 + 500
         target = 400
         shooter = 100
-        assert gunner.nearest(shooter, target, screen_size) == 400 - 500
+        assert ShotOptimizer.nearest(shooter, target, screen_size) == 400 - 500
 
     def test_can_choose_nearest_point(self):
         target = Vector2(100, 400)
+        ship = Ship(target)
         screen_size = 500
         shooter = Vector2(150, 150)
-        gunner = Gunner()
+        saucer = Saucer()
+        saucer.move_to(shooter)
+        gunner = ShotOptimizer(saucer, ship)
         assert gunner.closest_aiming_point(shooter, target, screen_size) == Vector2(100, 400)
         shooter = Vector2(150, 50)
         assert gunner.closest_aiming_point(shooter, target, screen_size) == Vector2(100, -100)

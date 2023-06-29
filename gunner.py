@@ -28,51 +28,19 @@ class Gunner:
         if ship_or_none and self.should_target(chance, saucer):
             self.create_optimal_missile(fleets, saucer, ship_or_none)
         else:
-            self.create_random_missile(fleets, saucer)
+            self.create_random_missile(fleets, saucer, ship_or_none)
 
     @staticmethod
     def should_target(chance, saucer):
         return saucer.always_target or chance < u.SAUCER_TARGETING_FRACTION
 
-    def create_random_missile(self, fleets, saucer):
-        target = self.random_position()
-        self.create_unoptimized_missile(saucer.position, target, fleets)
-
-    def create_optimal_missile(self, fleets, saucer, ship):
-        solution = ShotOptimizer(saucer, ship).firing_solution
+    @staticmethod
+    def create_random_missile(fleets, saucer, ship_or_none):
+        solution = ShotOptimizer(saucer, ship_or_none).random_solution
         fleets.append(solution.saucer_missile())
 
-    def create_unoptimized_missile(self, shooter_position, target_position, fleets):
-        safe_distance = self._missile_head_start
-        speed_adjustment = 1
-        solution = FiringSolution(target_position, shooter_position, safe_distance, speed_adjustment)
+    @staticmethod
+    def create_optimal_missile(fleets, saucer, ship):
+        solution = ShotOptimizer(saucer, ship).targeted_solution
         fleets.append(solution.saucer_missile())
-
-    def closest_aiming_point(self, shooter_position, target_position, wrap_size):
-        nearest_x = self.nearest(shooter_position.x, target_position.x, wrap_size)
-        nearest_y = self.nearest(shooter_position.y, target_position.y, wrap_size)
-        return Vector2(nearest_x, nearest_y)
-
-    @staticmethod
-    def nearest(shooter_coord, target_coord, screen_size):
-        #     Handy Diagram
-        #  ______|______|______
-        #   T      T---S++T
-        # Central T is too far away.
-        # We are to his right, so
-        # we shoot toward the right!
-        direct_distance = abs(target_coord - shooter_coord)
-        if direct_distance <= screen_size / 2:
-            return target_coord
-        elif shooter_coord > target_coord:
-            return target_coord + screen_size
-        else:
-            return target_coord - screen_size
-
-    def random_position(self):
-        return Vector2(self.random_coordinate(), self.random_coordinate())
-
-    @staticmethod
-    def random_coordinate():
-        return random.randrange(0, u.SCREEN_SIZE)
 

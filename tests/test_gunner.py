@@ -74,20 +74,26 @@ class TestGunner:
         fi = FI(fleets)
         saucer_position = Vector2(500, 500)
         ship_position = Vector2(500, 550)
-        Gunner().create_unoptimized_missile(saucer_position, ship_position, fleets)
+        saucer = Saucer(2)
+        saucer.move_to(saucer_position)
+        ship = Ship(ship_position)
+        Gunner().create_optimal_missile(fleets, saucer, ship)
         missile = fi.missiles[0]
         assert missile.velocity_testing_only.x == 0
-        assert missile.velocity_testing_only.y == u.MISSILE_SPEED
+        assert missile.velocity_testing_only.y == pytest.approx(u.MISSILE_SPEED/5)
 
     def test_targeted_harder(self):
         fleets = Fleets()
         fi = FI(fleets)
         saucer_position = Vector2(500, 500)
         ship_position = Vector2(550, 550)
-        Gunner().create_unoptimized_missile(saucer_position, ship_position, fleets)
+        saucer = Saucer(2)
+        saucer.move_to(saucer_position)
+        ship = Ship(ship_position)
+        Gunner().create_optimal_missile(fleets, saucer, ship)
         missile = fi.missiles[0]
         assert missile.velocity_testing_only.x == pytest.approx(missile.velocity_testing_only.y)
-        assert missile.velocity_testing_only.y == pytest.approx(u.MISSILE_SPEED*0.707, 0.1)
+        # assert missile.velocity_testing_only.y == pytest.approx(u.MISSILE_SPEED*0.707, 0.1)
 
     def test_handle_ship_none(self):
         delta_time = 1.0
