@@ -11,17 +11,16 @@ from timer import Timer
 
 class Gunner:
     def __init__(self, saucer_radius=20):
-        self._missile_head_start = 2 * saucer_radius
         self._timer = Timer(u.SAUCER_MISSILE_DELAY)
 
     def fire(self, delta_time, saucer, ship_or_none: Ship | None, fleets):
         self._timer.tick(delta_time, self.fire_if_missile_available, saucer, ship_or_none, fleets)
 
     def fire_if_missile_available(self, saucer, ship_or_none, fleets):
-        if result := saucer.missile_tally < u.SAUCER_MISSILE_LIMIT:
+        if did_we_fire := saucer.missile_tally < u.SAUCER_MISSILE_LIMIT:
             chance = random.random()
             self.fire_available_missile(chance, fleets, saucer, ship_or_none)
-        return result
+        return did_we_fire
 
     def fire_available_missile(self, chance, fleets, saucer, ship_or_none):
         if ship_or_none and self.should_target(chance, saucer):
