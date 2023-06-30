@@ -139,7 +139,7 @@ class Saucer(Flyer):
         pass
 
     def update(self, delta_time, fleets):
-        if self._ship == 2:
+        if self._size == 2:
             player.play("saucer_big", self._location, False)
         else:
             player.play("saucer_small", self._location, False)
