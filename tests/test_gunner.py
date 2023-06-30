@@ -13,6 +13,7 @@ from test_interactions import FI
 
 
 class TimeToTarget:
+    # No longer used in game. Could change the tests here to work without it.
     def __init__(self, delta_position, relative_velocity):
         # from https://www.gamedeveloper.com/programming/shooting-a-moving-target#close-modal
         # return time for hit or 0
@@ -36,6 +37,7 @@ def calculate(b, c, disc):
 def quadratic_formula(a, b, c):
     disc = b*b - 4*a*c
     return calculate(b, c, disc) if disc >= 0 else 0
+
 
 class TestGunner:
     def test_exists(self):
