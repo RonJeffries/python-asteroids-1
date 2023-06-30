@@ -49,12 +49,18 @@ class ShotOptimizer:
         return FiringSolution(self.random_position(), self.saucer.position, self.saucer.missile_head_start, 1)
 
     @staticmethod
-    def improved_aiming_point(target_pos, target_velocity, ship_pos, gunner_pos, missile_speed, missile_offset):
-        distance = target_pos.distance_to(gunner_pos)
-        time = (distance - missile_offset) / missile_speed
-        target_move = time * target_velocity
-        new_target_pos = ship_pos + target_move
-        return new_target_pos
+    def improved_aiming_point(
+            initial_aiming_point,
+            target_velocity,
+            target_starting_position,
+            gunner_position,
+            missile_speed,
+            missile_offset):
+        missile_travel_distance = gunner_position.distance_to(initial_aiming_point) - missile_offset
+        missile_travel_time = missile_travel_distance / missile_speed
+        target_motion = missile_travel_time * target_velocity
+        better_aiming_point = target_starting_position + target_motion
+        return better_aiming_point
 
     def random_position(self):
         return Vector2(self.random_coordinate(), self.random_coordinate())
