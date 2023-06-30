@@ -3,7 +3,6 @@ import random
 from pygame import Vector2
 import u
 from missile import Missile
-from time_to_target import TimeToTarget
 
 
 class FiringSolution:
@@ -80,14 +79,6 @@ class ShotOptimizer:
             return target_coord + screen_size
         else:
             return target_coord - screen_size
-
-    def optimal_shot(self, delta_position, delta_velocity, initial_offset):
-        aim_time = TimeToTarget(delta_position, delta_velocity).time
-        adjustment_ratio = self.velocity_adjustment(aim_time, initial_offset)
-        return aim_time, adjustment_ratio
-
-    def velocity_adjustment(self, aim_time, initial_offset):
-        return self.compensate_for_offset(aim_time, initial_offset) if aim_time else 1
 
     @staticmethod
     def compensate_for_offset(aim_time, initial_offset):
