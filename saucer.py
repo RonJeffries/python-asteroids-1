@@ -34,12 +34,12 @@ class Saucer(Flyer):
         self._directions = (velocity.rotate(45), velocity, velocity, velocity.rotate(-45))
         self._gunner = Gunner()
         self._location = MovableLocation(position, velocity)
-        self.missile_tally = 0
         self._radius = 10*size  # getting ready for small saucer
-        self.missile_head_start = 2*self._radius
         self._ship = None
         self._size = size
         self._zig_timer = Timer(u.SAUCER_ZIG_TIME)
+        self.missile_tally = 0
+        self.missile_head_start = 2*self._radius
         self.create_surface_class_members()
 
     @property
