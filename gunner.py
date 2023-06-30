@@ -3,9 +3,8 @@ import random
 from pygame import Vector2
 
 import u
-from missile import Missile
 from ship import Ship
-from shot_optimizer import ShotOptimizer, FiringSolution
+from shot_optimizer import ShotOptimizer
 from timer import Timer
 
 

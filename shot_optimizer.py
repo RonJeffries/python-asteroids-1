@@ -30,13 +30,28 @@ class ShotOptimizer:
         best_target_position = self.closest_aiming_point(shooter_position, self.ship.position, u.SCREEN_SIZE)
         vector_to_target = best_target_position - shooter_position
         safe_distance = self.saucer.missile_head_start
-        aim_time, speed_adjustment = self.optimal_shot(vector_to_target, self.ship.velocity, safe_distance)
-        target_position = best_target_position + self.ship.velocity * aim_time
-        return FiringSolution(target_position, shooter_position, safe_distance, speed_adjustment)
+        target_position = best_target_position
+        for _ in range(3):
+            target_position = self.aiming_point(
+                target_position,
+                self.ship.velocity,
+                best_target_position,
+                shooter_position,
+                u.MISSILE_SPEED,
+                safe_distance)
+        return FiringSolution(target_position, shooter_position, safe_distance, 1)
 
     @property
     def random_solution(self):
         return FiringSolution(self.random_position(), self.saucer.position, self.saucer.missile_head_start, 1)
+
+    @staticmethod
+    def aiming_point(target_pos, target_velocity, ship_pos, gunner_pos, missile_speed, missile_offset):
+        distance = target_pos.distance_to(gunner_pos)
+        time = (distance - missile_offset) / missile_speed
+        target_move = time * target_velocity
+        new_target_pos = ship_pos + target_move
+        return new_target_pos
 
     def random_position(self):
         return Vector2(self.random_coordinate(), self.random_coordinate())
