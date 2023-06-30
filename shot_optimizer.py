@@ -35,7 +35,7 @@ class ShotOptimizer:
     def lead_the_target(self, best_target_position, safe_distance, shooter_position):
         target_position = best_target_position
         for _ in range(3):
-            target_position = self.aiming_point(
+            target_position = self.improved_aiming_point(
                 target_position,
                 self.ship.velocity,
                 best_target_position,
@@ -49,7 +49,7 @@ class ShotOptimizer:
         return FiringSolution(self.random_position(), self.saucer.position, self.saucer.missile_head_start, 1)
 
     @staticmethod
-    def aiming_point(target_pos, target_velocity, ship_pos, gunner_pos, missile_speed, missile_offset):
+    def improved_aiming_point(target_pos, target_velocity, ship_pos, gunner_pos, missile_speed, missile_offset):
         distance = target_pos.distance_to(gunner_pos)
         time = (distance - missile_offset) / missile_speed
         target_move = time * target_velocity
