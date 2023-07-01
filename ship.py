@@ -100,9 +100,6 @@ class Ship(Flyer):
         self._asteroid_tally += 1
         self.explode_if_hit(fleets, asteroid)
 
-    def interact_with_fragment(self, fragment, fleets):
-        pass
-
     def interact_with_missile(self, missile, fleets):
         self._missile_tally += missile.ship_tally
         self.explode_if_hit(fleets, missile)

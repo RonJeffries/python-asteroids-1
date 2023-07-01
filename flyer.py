@@ -21,10 +21,6 @@ class Flyer(ABC):
         pass
 
     @abstractmethod
-    def interact_with_fragment(self, fragment, fleets):
-        pass
-
-    @abstractmethod
     def interact_with_missile(self, missile, fleets):
         pass
 
@@ -43,6 +39,9 @@ class Flyer(ABC):
         pass
 
     def end_interactions(self, fleets):
+        pass
+
+    def interact_with_fragment(self, fragment, fleets):
         pass
 
     def interact_with_gameover(self, game_over, fleets):

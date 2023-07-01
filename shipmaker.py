@@ -28,9 +28,6 @@ class ShipMaker(Flyer):
         if asteroid.position.distance_to(u.CENTER) < u.SAFE_EMERGENCE_DISTANCE:
             self._safe_to_emerge = False
 
-    def interact_with_fragment(self, fragment, fleets):
-        pass
-
     def interact_with_missile(self, missile, fleets):
         self._safe_to_emerge = False
 

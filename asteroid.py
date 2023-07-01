@@ -52,9 +52,6 @@ class Asteroid(Flyer):
     def interact_with_asteroid(self, asteroid, fleets):
         pass
 
-    def interact_with_fragment(self, fragment, fleets):
-        pass
-
     def interact_with_missile(self, missile, fleets):
         self.split_or_die_on_collision(fleets, missile)
 
