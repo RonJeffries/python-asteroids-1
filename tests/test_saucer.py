@@ -17,10 +17,10 @@ from test_interactions import FI
 class TestSaucer:
     def test_alternating_direction(self):
         Saucer.init_for_new_game()
-        saucer = Saucer()
+        saucer = Saucer.large()
         assert saucer.position.x == 0
         assert saucer.velocity == u.SAUCER_VELOCITY
-        saucer = Saucer()
+        saucer = Saucer.large()
         assert saucer.position.x == u.SCREEN_SIZE
         assert saucer.velocity == -u.SAUCER_VELOCITY
         assert saucer._zig_timer.delay == u.SAUCER_ZIG_TIME
@@ -28,7 +28,7 @@ class TestSaucer:
 
     def test_move(self):
         Saucer.init_for_new_game()
-        saucer = Saucer()
+        saucer = Saucer.large()
         saucer._move(delta_time=0.1, fleets=[])
         assert saucer.position.x == u.SAUCER_VELOCITY.x * 0.1
         saucer._move(delta_time=0.1, fleets=[])
@@ -38,7 +38,7 @@ class TestSaucer:
         Saucer.init_for_new_game()
         fleets = Fleets()
         fi = FI(fleets)
-        saucer = Saucer()
+        saucer = Saucer.large()
         fleets.append(saucer)
         assert saucer.position.x == 0
         saucer.update(1, fleets)
@@ -52,19 +52,19 @@ class TestSaucer:
 
     def test_right_to_left(self):
         Saucer.init_for_new_game()
-        _saucer = Saucer()
-        saucer = Saucer()
+        _saucer = Saucer.large()
+        saucer = Saucer.large()
         assert saucer.position.x == u.SCREEN_SIZE
 
     def test_off_low(self):
-        saucer = Saucer()
+        saucer = Saucer.large()
         saucer.move_to(Vector2(100, 3))
         saucer.accelerate_to(Vector2(100, -100))
         saucer._move(0.1, [])
         assert saucer.position.y > 1000
 
     def test_off_high(self):
-        saucer = Saucer()
+        saucer = Saucer.large()
         saucer.move_to(Vector2(100, 1021))
         saucer.accelerate_to(Vector2(100, 100))
         saucer._move(0.1, [])
@@ -73,7 +73,7 @@ class TestSaucer:
     def test_can_only_fire_two(self):
         fleets = Fleets()
         fi = FI(fleets)
-        saucer = Saucer()
+        saucer = Saucer.large()
         ship_missile = Missile.from_ship(Vector2(0, 0), Vector2(0, 0))
         saucer.fire_if_possible(delta_time=0.1, fleets=fleets)
         assert not fi.missiles
@@ -94,7 +94,7 @@ class TestSaucer:
 
     def test_counts_only_saucer_missiles(self):
         fleets = Fleets()
-        saucer = Saucer()
+        saucer = Saucer.large()
         assert saucer.missile_tally == 0
         saucer.missile_tally = 5
         saucer.begin_interactions(fleets)

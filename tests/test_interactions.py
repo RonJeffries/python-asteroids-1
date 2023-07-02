@@ -188,7 +188,7 @@ class TestInteractions:
         assert ship.scores_for_hitting_asteroid() == [0, 0, 0]
         missile = Missile.from_ship(u.CENTER, Vector2(0, 0))
         assert missile.scores_for_hitting_asteroid() == [100, 50, 20]
-        saucer = Saucer()
+        saucer = Saucer.large()
         assert saucer.scores_for_hitting_asteroid() == [0, 0, 0]
 
     def test_missile_v_missile(self):
@@ -336,7 +336,7 @@ class TestInteractions:
 
     def test_saucer_ship_does_not_score(self):
         pos = Vector2(100, 100)
-        saucer = Saucer()
+        saucer = Saucer.large()
         saucer.move_to(pos)
         ship = Ship(pos)
         fleets = Fleets()
@@ -354,7 +354,7 @@ class TestInteractions:
     def test_asteroid_saucer_does_not_score(self):
         pos = Vector2(100, 100)
         asteroid = Asteroid(2, pos)
-        saucer = Saucer()
+        saucer = Saucer.large()
         saucer.move_to(pos)
         fleets = Fleets()
         fleets.append(asteroid)
@@ -370,7 +370,7 @@ class TestInteractions:
 
     def test_saucer_ship_missile_scores(self):
         pos = Vector2(100, 100)
-        saucer = Saucer()
+        saucer = Saucer.large()
         self.interact_with_missile(pos, saucer, 200)
 
     @staticmethod
@@ -392,12 +392,12 @@ class TestInteractions:
 
     def test_small_saucer_ship_missile_scores(self):
         pos = Vector2(100, 100)
-        saucer = Saucer(1)
+        saucer = Saucer.small()
         self.interact_with_missile(pos, saucer, 1000)
 
     def test_saucer_vs_saucer_missile_does_not_score(self):
         pos = Vector2(100, 100)
-        saucer = Saucer()
+        saucer = Saucer.large()
         saucer.move_to(pos)
         missile = Missile.from_saucer(pos, Vector2(0, 0))
         fleets = Fleets()
@@ -417,7 +417,7 @@ class TestInteractions:
     def test_everyone_supports_asteroid_score_lists(self):
         asteroid = Asteroid()
         missile = Missile.from_ship(Vector2(100, 100), Vector2(100, 100))
-        saucer = Saucer()
+        saucer = Saucer.large()
         ship = Ship(Vector2(200, 200))
         assert asteroid.scores_for_hitting_asteroid()
         assert missile.scores_for_hitting_asteroid()
@@ -427,7 +427,7 @@ class TestInteractions:
     def test_everyone_supports_saucer_score_lists(self):
         asteroid = Asteroid()
         missile = Missile.from_ship(Vector2(100, 100), Vector2(100, 100))
-        saucer = Saucer()
+        saucer = Saucer.large()
         ship = Ship(Vector2(200, 200))
         assert asteroid.scores_for_hitting_saucer()
         assert missile.scores_for_hitting_saucer()
@@ -500,7 +500,7 @@ class TestInteractions:
         ship = Ship(target)
         screen_size = 500
         shooter = Vector2(150, 150)
-        saucer = Saucer()
+        saucer = Saucer.large()
         saucer.move_to(shooter)
         gunner = ShotOptimizer(saucer, ship)
         assert gunner.closest_aiming_point(shooter, target, screen_size) == Vector2(100, 400)

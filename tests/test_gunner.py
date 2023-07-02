@@ -48,7 +48,7 @@ class TestGunner:
         ship_position = Vector2(1, 1)
         ship = Ship(ship_position)
         fleets = Fleets()
-        Gunner().fire(delta_time, Saucer(), ship, fleets)
+        Gunner().fire(delta_time, Saucer.large(), ship, fleets)
         assert not FI(fleets).missiles
 
     def test_fire_on_time(self):
@@ -56,7 +56,7 @@ class TestGunner:
         ship_position = Vector2(1, 1)
         ship = Ship(ship_position)
         fleets = Fleets()
-        Gunner().fire(delta_time, Saucer(), ship, fleets)
+        Gunner().fire(delta_time, Saucer.large(), ship, fleets)
         assert FI(fleets).missiles
 
     # def test_random_missile(self):
@@ -79,7 +79,7 @@ class TestGunner:
         saucer_position = Vector2(500, 500)
         velocity = Vector2(0, 0)
         ship_position = Vector2(0, 0)
-        saucer = Saucer()
+        saucer = Saucer.large()
         saucer._location.position = saucer_position
         saucer._location.velocity = velocity
         saucer.missile_tally = u.SAUCER_MISSILE_LIMIT
@@ -89,7 +89,7 @@ class TestGunner:
     def test_timer_reset(self):
         fleets = Fleets()
         fi = FI(fleets)
-        saucer = Saucer()
+        saucer = Saucer.large()
         saucer.missile_tally = u.SAUCER_MISSILE_LIMIT
         gunner = Gunner()
         gunner.fire(u.SAUCER_MISSILE_DELAY,saucer, None, fleets)
@@ -128,7 +128,7 @@ class TestGunner:
         fleets = Fleets()
         fi = FI(fleets)
         ship = None
-        Gunner().fire(delta_time, Saucer(), ship, fleets)
+        Gunner().fire(delta_time, Saucer.large(), ship, fleets)
         assert fi.missiles
 
     # intermittent, does not control the dice.
@@ -152,7 +152,7 @@ class TestGunner:
         fleets = Fleets()
         fi = FI(fleets)
         ship = Ship(Vector2(100, 100))
-        small_saucer = Saucer(1)
+        small_saucer = Saucer.small()
         small_saucer._location.position = Vector2(100, 50)
         small_gunner = small_saucer._gunner
         small_gunner.fire_available_missile(fleets, small_saucer, ship)
@@ -188,7 +188,7 @@ class TestGunner:
         gunner = Gunner(10)
         ship = Ship(Vector2(100, 100))
         ship._location.velocity = Vector2(37, 59)
-        saucer = Saucer(1)
+        saucer = Saucer.small()
         saucer.move_to(Vector2(19, 43))
         relative_position = Vector2(100, 100) - Vector2(19, 43)
         relative_velocity = Vector2(37, 59)
