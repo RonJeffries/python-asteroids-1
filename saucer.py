@@ -28,13 +28,13 @@ class Saucer(Flyer):
 
     @classmethod
     def small(cls):
-        return cls(1, "saucer_small")
+        return cls(size=1, sound="saucer_small", always_target=True)
 
     @classmethod
     def large(cls):
-        return cls(2, "saucer_big")
+        return cls(size=2, sound="saucer_big", always_target=False)
 
-    def __init__(self, size, sound):
+    def __init__(self, size, sound, always_target):
         Saucer.direction = -Saucer.direction
         x = 0 if Saucer.direction > 0 else u.SCREEN_SIZE
         position = Vector2(x, random.randrange(0, u.SCREEN_SIZE))
@@ -47,6 +47,7 @@ class Saucer(Flyer):
         self._size = size
         self._sound = sound
         self._zig_timer = Timer(u.SAUCER_ZIG_TIME)
+        self.always_target = always_target
         self.missile_tally = 0
         self.missile_head_start = 2*self._radius
         self.create_surface_class_members()
@@ -58,10 +59,6 @@ class Saucer(Flyer):
     @property
     def velocity(self):
         return self._location.velocity
-
-    @property
-    def always_target(self):
-        return self._size == 1
 
     def accelerate_to(self, velocity):
         self._location.accelerate_to(velocity)
