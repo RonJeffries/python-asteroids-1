@@ -28,13 +28,13 @@ class Saucer(Flyer):
 
     @classmethod
     def small(cls):
-        return cls(size=1, sound="saucer_small", always_target=True, scale=4)
+        return cls(size=1, sound="saucer_small", is_small=True, always_target=True, scale=4)
 
     @classmethod
     def large(cls):
-        return cls(size=2, sound="saucer_big", always_target=False, scale=8)
+        return cls(size=2, sound="saucer_big", is_small=False, always_target=False, scale=8)
 
-    def __init__(self, size, sound, always_target, scale):
+    def __init__(self, size, sound, is_small, always_target, scale):
         Saucer.direction = -Saucer.direction
         x = 0 if Saucer.direction > 0 else u.SCREEN_SIZE
         position = Vector2(x, random.randrange(0, u.SCREEN_SIZE))
@@ -48,6 +48,7 @@ class Saucer(Flyer):
         self._sound = sound
         self._zig_timer = Timer(u.SAUCER_ZIG_TIME)
         self.always_target = always_target
+        self.is_small_saucer = is_small
         self.missile_tally = 0
         self.missile_head_start = 2*self._radius
         self.create_surface_class_members(scale)
@@ -136,7 +137,8 @@ class Saucer(Flyer):
         return [0, 0]
 
     def score_for_hitting(self, attacker):
-        return attacker.scores_for_hitting_saucer()[self._size - 1]
+        index = 0 if self.is_small_saucer else 1
+        return attacker.scores_for_hitting_saucer()[index]
 
     def tick(self, delta_time, fleets):
         pass
