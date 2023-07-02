@@ -28,13 +28,13 @@ class Saucer(Flyer):
 
     @classmethod
     def small(cls):
-        return cls(size=1, sound="saucer_small", always_target=True)
+        return cls(size=1, sound="saucer_small", always_target=True, scale=4)
 
     @classmethod
     def large(cls):
-        return cls(size=2, sound="saucer_big", always_target=False)
+        return cls(size=2, sound="saucer_big", always_target=False, scale=8)
 
-    def __init__(self, size, sound, always_target):
+    def __init__(self, size, sound, always_target, scale):
         Saucer.direction = -Saucer.direction
         x = 0 if Saucer.direction > 0 else u.SCREEN_SIZE
         position = Vector2(x, random.randrange(0, u.SCREEN_SIZE))
@@ -50,7 +50,7 @@ class Saucer(Flyer):
         self.always_target = always_target
         self.missile_tally = 0
         self.missile_head_start = 2*self._radius
-        self.create_surface_class_members()
+        self.create_surface_class_members(scale)
 
     @property
     def position(self):
@@ -67,12 +67,12 @@ class Saucer(Flyer):
         self._ship = None
         self.missile_tally = 0
 
-    def create_surface_class_members(self):
+    @staticmethod
+    def create_surface_class_members(drawing_scale):
         raw_dimensions = Vector2(10, 6)
-        saucer_scale = 4 * self._size
-        Saucer.offset = raw_dimensions * saucer_scale / 2
-        saucer_size = raw_dimensions * saucer_scale
-        Saucer.saucer_surface = SurfaceMaker.saucer_surface(saucer_size)
+        Saucer.offset = raw_dimensions * drawing_scale / 2
+        drawing_size = raw_dimensions * drawing_scale
+        Saucer.saucer_surface = SurfaceMaker.saucer_surface(drawing_size)
 
     def interact_with(self, attacker, fleets):
         attacker.interact_with_saucer(self, fleets)
