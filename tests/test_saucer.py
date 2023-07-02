@@ -147,14 +147,14 @@ class TestSaucer:
         saucers = fi.saucers
         assert saucers
         saucer = saucers[0]
-        assert saucer._size == 2
+        assert not saucer.is_small_saucer
         fleets.remove(saucer)
         keeper.score = u.SAUCER_SCORE_FOR_SMALL
         fleets.tick(u.SAUCER_EMERGENCE_TIME)
         saucers = fi.saucers
         assert saucers
         saucer = saucers[0]
-        assert saucer._size == 1
+        assert saucer.is_small_saucer
 
 
 
