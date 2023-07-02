@@ -28,13 +28,13 @@ class Saucer(Flyer):
 
     @classmethod
     def small(cls):
-        return cls(1)
+        return cls(1, "saucer_small")
 
     @classmethod
     def large(cls):
-        return cls(2)
+        return cls(2, "saucer_big")
 
-    def __init__(self, size=2):
+    def __init__(self, size, sound):
         Saucer.direction = -Saucer.direction
         x = 0 if Saucer.direction > 0 else u.SCREEN_SIZE
         position = Vector2(x, random.randrange(0, u.SCREEN_SIZE))
@@ -45,6 +45,7 @@ class Saucer(Flyer):
         self._radius = 10*size  # getting ready for small saucer
         self._ship = None
         self._size = size
+        self._sound = sound
         self._zig_timer = Timer(u.SAUCER_ZIG_TIME)
         self.missile_tally = 0
         self.missile_head_start = 2*self._radius
@@ -144,10 +145,7 @@ class Saucer(Flyer):
         pass
 
     def update(self, delta_time, fleets):
-        if self._size == 2:
-            player.play("saucer_big", self._location, False)
-        else:
-            player.play("saucer_small", self._location, False)
+        player.play(self._sound, self._location, False)
         self.fire_if_possible(delta_time, fleets)
         self.check_zigzag(delta_time)
         self._move(delta_time, fleets)
