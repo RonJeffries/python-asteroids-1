@@ -28,13 +28,13 @@ class Saucer(Flyer):
 
     @classmethod
     def small(cls):
-        return cls(size=1, sound="saucer_small", is_small=True, always_target=True, scale=4)
+        return cls(radius=10, sound="saucer_small", is_small=True, always_target=True, scale=4)
 
     @classmethod
     def large(cls):
-        return cls(size=2, sound="saucer_big", is_small=False, always_target=False, scale=8)
+        return cls(radius=20, sound="saucer_big", is_small=False, always_target=False, scale=8)
 
-    def __init__(self, size, sound, is_small, always_target, scale):
+    def __init__(self, radius, sound, is_small, always_target, scale):
         Saucer.direction = -Saucer.direction
         x = 0 if Saucer.direction > 0 else u.SCREEN_SIZE
         position = Vector2(x, random.randrange(0, u.SCREEN_SIZE))
@@ -42,9 +42,8 @@ class Saucer(Flyer):
         self._directions = (velocity.rotate(45), velocity, velocity, velocity.rotate(-45))
         self._gunner = Gunner()
         self._location = MovableLocation(position, velocity)
-        self._radius = 10*size  # getting ready for small saucer
+        self._radius = radius
         self._ship = None
-        self._size = size
         self._sound = sound
         self._zig_timer = Timer(u.SAUCER_ZIG_TIME)
         self.always_target = always_target
