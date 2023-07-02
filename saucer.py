@@ -26,6 +26,14 @@ class Saucer(Flyer):
     def init_for_new_game(cls):
         cls.direction = -1
 
+    @classmethod
+    def small(cls):
+        return cls(1)
+
+    @classmethod
+    def large(cls):
+        return cls(2)
+
     def __init__(self, size=2):
         Saucer.direction = -Saucer.direction
         x = 0 if Saucer.direction > 0 else u.SCREEN_SIZE

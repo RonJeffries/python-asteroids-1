@@ -13,10 +13,10 @@ class SaucerMaker(Flyer):
 
     def create_saucer(self, fleets):
         if self._scorekeeper and self._scorekeeper.score >= u.SAUCER_SCORE_FOR_SMALL:
-            size = 1
+            saucer = Saucer.small()
         else:
-            size = 2
-        fleets.append(Saucer(size))
+            saucer = Saucer.large()
+        fleets.append(saucer)
 
     def begin_interactions(self, fleets):
         self._saucer_gone = True
