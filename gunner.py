@@ -9,7 +9,8 @@ from timer import Timer
 
 
 class Gunner:
-    def __init__(self, saucer_radius=20):
+    def __init__(self, always_target):
+        self._always_target = always_target
         self._timer = Timer(u.SAUCER_MISSILE_DELAY)
 
     def fire(self, delta_time, saucer, ship_or_none: Ship | None, fleets):
@@ -21,14 +22,13 @@ class Gunner:
         return did_we_fire
 
     def fire_available_missile(self, fleets, saucer, ship_or_none):
-        if ship_or_none and self.should_target(saucer):
+        if ship_or_none and self.should_target():
             solution = ShotOptimizer(saucer, ship_or_none).targeted_solution
         else:
             solution = ShotOptimizer(saucer, ship_or_none).random_solution
         fleets.append(solution.saucer_missile())
 
-    @staticmethod
-    def should_target(saucer):
-        return saucer.always_target or random.random() < u.SAUCER_TARGETING_FRACTION
+    def should_target(self):
+        return self._always_target or random.random() < u.SAUCER_TARGETING_FRACTION
 
 

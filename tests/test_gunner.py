@@ -41,14 +41,14 @@ def quadratic_formula(a, b, c):
 
 class TestGunner:
     def test_exists(self):
-        assert Gunner()
+        assert Gunner(False)
 
     def test_no_fire_on_short_time(self):
         delta_time = 0.1
         ship_position = Vector2(1, 1)
         ship = Ship(ship_position)
         fleets = Fleets()
-        Gunner().fire(delta_time, Saucer.large(), ship, fleets)
+        Gunner(False).fire(delta_time, Saucer.large(), ship, fleets)
         assert not FI(fleets).missiles
 
     def test_fire_on_time(self):
@@ -56,7 +56,7 @@ class TestGunner:
         ship_position = Vector2(1, 1)
         ship = Ship(ship_position)
         fleets = Fleets()
-        Gunner().fire(delta_time, Saucer.large(), ship, fleets)
+        Gunner(False).fire(delta_time, Saucer.large(), ship, fleets)
         assert FI(fleets).missiles
 
     # def test_random_missile(self):
@@ -83,7 +83,7 @@ class TestGunner:
         saucer._location.position = saucer_position
         saucer._location.velocity = velocity
         saucer.missile_tally = u.SAUCER_MISSILE_LIMIT
-        Gunner().fire_if_missile_available(saucer, ship_position, fleets)
+        Gunner(False).fire_if_missile_available(saucer, ship_position, fleets)
         assert not fi.missiles
 
     def test_timer_reset(self):
@@ -91,7 +91,7 @@ class TestGunner:
         fi = FI(fleets)
         saucer = Saucer.large()
         saucer.missile_tally = u.SAUCER_MISSILE_LIMIT
-        gunner = Gunner()
+        gunner = Gunner(False)
         gunner.fire(u.SAUCER_MISSILE_DELAY,saucer, None, fleets)
         assert not fi.missiles
         saucer.missile_tally = 0
@@ -128,7 +128,7 @@ class TestGunner:
         fleets = Fleets()
         fi = FI(fleets)
         ship = None
-        Gunner().fire(delta_time, Saucer.large(), ship, fleets)
+        Gunner(False).fire(delta_time, Saucer.large(), ship, fleets)
         assert fi.missiles
 
     # intermittent, does not control the dice.
@@ -185,7 +185,7 @@ class TestGunner:
     def test_hits_target(self):
         fleets = Fleets()
         fi = FI(fleets)
-        gunner = Gunner(10)
+        gunner = Gunner(True)
         ship = Ship(Vector2(100, 100))
         ship._location.velocity = Vector2(37, 59)
         saucer = Saucer.small()

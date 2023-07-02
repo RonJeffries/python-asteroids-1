@@ -40,13 +40,12 @@ class Saucer(Flyer):
         position = Vector2(x, random.randrange(0, u.SCREEN_SIZE))
         velocity = Saucer.direction * u.SAUCER_VELOCITY
         self._directions = (velocity.rotate(45), velocity, velocity, velocity.rotate(-45))
-        self._gunner = Gunner()
+        self._gunner = Gunner(always_target)
         self._location = MovableLocation(position, velocity)
         self._radius = radius
         self._ship = None
         self._sound = sound
         self._zig_timer = Timer(u.SAUCER_ZIG_TIME)
-        self.always_target = always_target
         self.is_small_saucer = is_small
         self.missile_tally = 0
         self.missile_head_start = 2*self._radius
