@@ -28,13 +28,13 @@ class Saucer(Flyer):
 
     @classmethod
     def small(cls):
-        return cls(radius=10, sound="saucer_small", is_small=True, always_target=True, scale=4)
+        return cls(radius=10, score=1000, sound="saucer_small", is_small=True, always_target=True, scale=4)
 
     @classmethod
     def large(cls):
-        return cls(radius=20, sound="saucer_big", is_small=False, always_target=False, scale=8)
+        return cls(radius=20, score=200, sound="saucer_big", is_small=False, always_target=False, scale=8)
 
-    def __init__(self, radius, sound, is_small, always_target, scale):
+    def __init__(self, radius, score, sound, is_small, always_target, scale):
         Saucer.direction = -Saucer.direction
         x = 0 if Saucer.direction > 0 else u.SCREEN_SIZE
         position = Vector2(x, random.randrange(0, u.SCREEN_SIZE))
@@ -43,6 +43,7 @@ class Saucer(Flyer):
         self._gunner = Gunner(always_target)
         self._location = MovableLocation(position, velocity)
         self._radius = radius
+        self._score = score
         self._ship = None
         self._sound = sound
         self._zig_timer = Timer(u.SAUCER_ZIG_TIME)
@@ -130,9 +131,8 @@ class Saucer(Flyer):
     def scores_for_hitting_asteroid():
         return [0, 0, 0]
 
-    def score_for_hitting(self, attacker):
-        index = 0 if self.is_small_saucer else 1
-        return attacker.scores_for_hitting_saucer()[index]
+    def score_for_hitting(self, missile):
+        return missile.authorize_score(self._score)
 
     def tick(self, delta_time, fleets):
         pass
