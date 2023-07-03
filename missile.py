@@ -20,7 +20,7 @@ class Missile(Flyer):
 
     @classmethod
     def from_ship(cls, position, velocity):
-        return cls(position, velocity, u.MISSILE_SCORE_LIST, lambda score: score, True)
+        return cls(position, velocity, u.ASTEROID_SCORE_LIST, lambda score: score, True)
 
     def __init__(self, position, velocity, missile_score_list, confirmation, from_ship):
         self.confirm_score = confirmation

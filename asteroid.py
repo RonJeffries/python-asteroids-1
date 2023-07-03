@@ -16,6 +16,7 @@ class Asteroid(Flyer):
         self.size = size
         if self.size not in [0, 1, 2]:
             self.size = 2
+        self._score = u.ASTEROID_SCORE_LIST[self.size]
         self.radius = [16, 32, 64][self.size]
         position = position if position is not None else Vector2(0, random.randrange(0, u.SCREEN_SIZE))
         angle_of_travel = random.randint(0, 360)
@@ -49,21 +50,21 @@ class Asteroid(Flyer):
         pass
 
     def interact_with_missile(self, missile, fleets):
-        self.split_or_die_on_collision(fleets, missile)
+        if missile.are_we_colliding(self.position, self.radius):
+            self.score_missile_collision(fleets, missile)
 
     def interact_with_saucer(self, saucer, fleets):
         self.split_or_die_on_collision(fleets, saucer)
-        # if saucer.are_we_colliding(self.position, self.radius):
-        #     self.split_or_die(fleets)
 
     def interact_with_ship(self, ship, fleets):
         self.split_or_die_on_collision(fleets, ship)
-        # if ship.are_we_colliding(self.position, self.radius):
-        #     self.split_or_die(fleets)
+
+    def score_missile_collision(self, fleets, missile):
+        fleets.append(Score(self.score_for_hitting(missile)))
+        self.split_or_die_on_collision(fleets, missile)
 
     def split_or_die_on_collision(self, fleets, collider):
         if collider.are_we_colliding(self.position, self.radius):
-            fleets.append(Score(self.score_for_hitting(collider)))
             self.split_or_die(fleets)
 
     def are_we_colliding(self, position, radius):
@@ -71,8 +72,8 @@ class Asteroid(Flyer):
         dist = self.position.distance_to(position)
         return dist <= kill_range
 
-    def score_for_hitting(self, attacker):
-        return attacker.scores_for_hitting_asteroid()[self.size]
+    def score_for_hitting(self, missile):
+        return missile.confirm_score(self._score)
 
     def split_or_die(self, fleets):
         fleets.remove(self)

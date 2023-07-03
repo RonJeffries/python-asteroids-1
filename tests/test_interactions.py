@@ -255,22 +255,34 @@ class TestInteractions:
         missile = Missile.from_ship(pos, vel)
         asteroid.interact_with_missile(missile, fleets)
         scores = fi.scores
-        assert scores[0].score == u.MISSILE_SCORE_LIST[asteroid.size]
-        asteroid.size = 1
+        assert scores[0].score == u.ASTEROID_SCORE_LIST[asteroid.size]
+        asteroid = Asteroid(1, pos)
         asteroid.interact_with_missile(missile, fleets)
         scores = fi.scores
-        assert scores[1].score == u.MISSILE_SCORE_LIST[asteroid.size]
-        asteroid.size = 0
+        assert scores[1].score == u.ASTEROID_SCORE_LIST[asteroid.size]
+        asteroid = Asteroid(0, pos)
         asteroid.interact_with_missile(missile, fleets)
         scores = fi.scores
-        assert scores[2].score == u.MISSILE_SCORE_LIST[asteroid.size]
+        assert scores[2].score == u.ASTEROID_SCORE_LIST[asteroid.size]
+
+    def test_missile_only_scores_on_hit(self):
+        # yes there was such a defect for a moment
+        fleets = Fleets()
+        fi = FI(fleets)
+        ship_pos = Vector2(100, 100)
+        asteroid_pos = Vector2(900, 900)
+        vel = Vector2(0, 0)
+        asteroid = Asteroid(2, asteroid_pos)
+        missile = Missile.from_ship(ship_pos, vel)
+        asteroid.interact_with_missile(missile, fleets)
+        assert not fi.scores
 
     def test_missile_scores_two_asteroids_at_once(self):
         fleets = Fleets()
         fi = FI(fleets)
         pos = Vector2(100, 100)
         vel = Vector2(0, 0)
-        expected = u.MISSILE_SCORE_LIST[2] + u.MISSILE_SCORE_LIST[1]
+        expected = u.ASTEROID_SCORE_LIST[2] + u.ASTEROID_SCORE_LIST[1]
         asteroid1 = Asteroid(2, pos)
         asteroid2 = Asteroid(1, pos)
         missile = Missile.from_ship(pos, vel)
