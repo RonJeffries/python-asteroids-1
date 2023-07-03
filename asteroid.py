@@ -29,10 +29,6 @@ class Asteroid(Flyer):
     def position(self):
         return self._location.position
 
-    @staticmethod
-    def scores_for_hitting_asteroid():
-        return [0, 0, 0]
-
     def draw(self, screen):
         top_left_corner = self.position - self._offset
         screen.blit(self._surface, top_left_corner)
@@ -61,7 +57,7 @@ class Asteroid(Flyer):
 
     def score_missile_collision(self, fleets, missile):
         fleets.append(Score(self.score_for_hitting(missile)))
-        self.split_or_die_on_collision(fleets, missile)
+        self.split_or_die(fleets)
 
     def split_or_die_on_collision(self, fleets, collider):
         if collider.are_we_colliding(self.position, self.radius):

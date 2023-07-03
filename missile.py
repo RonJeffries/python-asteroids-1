@@ -47,9 +47,6 @@ class Missile(Flyer):
         dist = self.position.distance_to(position)
         return dist <= kill_range
 
-    def scores_for_hitting_asteroid(self):
-        return self.score_list
-
     def interact_with(self, attacker, fleets):
         attacker.interact_with_missile(self, fleets)
 

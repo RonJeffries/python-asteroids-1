@@ -127,10 +127,6 @@ class Saucer(Flyer):
     def fire_if_possible(self, delta_time, fleets):
         self._gunner.fire(delta_time, self, self._ship, fleets)
 
-    @staticmethod
-    def scores_for_hitting_asteroid():
-        return [0, 0, 0]
-
     def score_for_hitting(self, missile):
         return missile.confirm_score(self._score)
 
