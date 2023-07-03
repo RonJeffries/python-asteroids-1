@@ -130,10 +130,6 @@ class Saucer(Flyer):
     def scores_for_hitting_asteroid():
         return [0, 0, 0]
 
-    @staticmethod
-    def scores_for_hitting_saucer():
-        return [0, 0]
-
     def score_for_hitting(self, attacker):
         index = 0 if self.is_small_saucer else 1
         return attacker.scores_for_hitting_saucer()[index]

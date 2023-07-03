@@ -424,15 +424,23 @@ class TestInteractions:
         assert saucer.scores_for_hitting_asteroid()
         assert ship.scores_for_hitting_asteroid()
 
-    def test_everyone_supports_saucer_score_lists(self):
-        asteroid = Asteroid()
-        missile = Missile.from_ship(Vector2(100, 100), Vector2(100, 100))
-        saucer = Saucer.large()
-        ship = Ship(Vector2(200, 200))
-        assert asteroid.scores_for_hitting_saucer()
-        assert missile.scores_for_hitting_saucer()
-        assert saucer.scores_for_hitting_saucer()
-        assert ship.scores_for_hitting_saucer()
+    # def test_everyone_supports_saucer_score_lists(self):
+    #     asteroid = Asteroid()
+    #     missile = Missile.from_ship(Vector2(100, 100), Vector2(100, 100))
+    #     saucer = Saucer.large()
+    #     ship = Ship(Vector2(200, 200))
+    #     assert asteroid.scores_for_hitting_saucer()
+    #     assert missile.scores_for_hitting_saucer()
+    #     assert saucer.scores_for_hitting_saucer()
+    #     assert ship.scores_for_hitting_saucer()
+
+    def test_ship_missile_authorizes_saucer_score(self):
+        missile = Missile.from_ship(Vector2(0, 0), Vector2(0, 0))
+        assert missile.authorize_score(1000) == 1000
+
+    def test_saucer_missile_does_not_authorize_saucer_score(self):
+        missile = Missile.from_saucer(Vector2(0, 0), Vector2(0, 0))
+        assert missile.authorize_score(1000) == 0
 
     def test_create_asteroid_at_zero(self):
         asteroid = Asteroid(2, Vector2(0, 0))
