@@ -18,10 +18,10 @@ class Gunner:
 
     def fire_if_missile_available(self, saucer, ship_or_none, fleets):
         if did_we_fire := saucer.missile_tally < u.SAUCER_MISSILE_LIMIT:
-            self.fire_available_missile(fleets, saucer, ship_or_none)
+            self.fire_available_missile(saucer, ship_or_none, fleets)
         return did_we_fire
 
-    def fire_available_missile(self, fleets, saucer, ship_or_none):
+    def fire_available_missile(self, saucer, ship_or_none, fleets):
         if ship_or_none and self.should_target():
             solution = ShotOptimizer(saucer, ship_or_none).targeted_solution
         else:

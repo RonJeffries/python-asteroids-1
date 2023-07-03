@@ -155,7 +155,7 @@ class TestGunner:
         small_saucer = Saucer.small()
         small_saucer._location.position = Vector2(100, 50)
         small_gunner = small_saucer._gunner
-        small_gunner.fire_available_missile(fleets, small_saucer, ship)
+        small_gunner.fire_available_missile(small_saucer, ship, fleets)
         missiles = fi.missiles
         assert missiles
         missile = missiles[0]
