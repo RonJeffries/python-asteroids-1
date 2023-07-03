@@ -24,11 +24,11 @@ class Missile(Flyer):
         if from_ship:
             self.saucer_tally = 0
             self.ship_tally = 1
-            self._authorization_factor = 1
+            self._authorize = lambda score: score
         else:
             self.saucer_tally = 1
             self.ship_tally = 0
-            self._authorization_factor = 0
+            self._authorize = lambda score: 0
         self.score_list = missile_score_list
         self._timer = Timer(u.MISSILE_LIFETIME)
         self._saucer_score_list = saucer_score_list
@@ -48,7 +48,7 @@ class Missile(Flyer):
         return dist <= kill_range
 
     def authorize_score(self, score: int):
-        return self._authorization_factor * score
+        return self._authorize(score)
 
     def scores_for_hitting_asteroid(self):
         return self.score_list
