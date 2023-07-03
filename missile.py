@@ -1,4 +1,5 @@
 # Missile
+from typing import Callable
 
 import pygame
 import u
@@ -8,27 +9,27 @@ from timer import Timer
 
 
 class Missile(Flyer):
+    confirm_score: Callable[[int], int]
 
     Saucer = None
     radius = 2
 
     @classmethod
     def from_saucer(cls, position, velocity):
-        return cls(position, velocity, [0, 0, 0], False)
+        return cls(position, velocity, [0, 0, 0], lambda score: 0, False)
 
     @classmethod
     def from_ship(cls, position, velocity):
-        return cls(position, velocity, u.MISSILE_SCORE_LIST, True)
+        return cls(position, velocity, u.MISSILE_SCORE_LIST, lambda score: score, True)
 
-    def __init__(self, position, velocity, missile_score_list, from_ship):
+    def __init__(self, position, velocity, missile_score_list, confirmation, from_ship):
+        self.confirm_score = confirmation
         if from_ship:
             self.saucer_tally = 0
             self.ship_tally = 1
-            self._authorize = lambda score: score
         else:
             self.saucer_tally = 1
             self.ship_tally = 0
-            self._authorize = lambda score: 0
         self.score_list = missile_score_list
         self._timer = Timer(u.MISSILE_LIFETIME)
         self._location = MovableLocation(position, velocity)
@@ -45,9 +46,6 @@ class Missile(Flyer):
         kill_range = self.radius + radius
         dist = self.position.distance_to(position)
         return dist <= kill_range
-
-    def authorize_score(self, score: int):
-        return self._authorize(score)
 
     def scores_for_hitting_asteroid(self):
         return self.score_list

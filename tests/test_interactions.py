@@ -436,11 +436,11 @@ class TestInteractions:
 
     def test_ship_missile_authorizes_saucer_score(self):
         missile = Missile.from_ship(Vector2(0, 0), Vector2(0, 0))
-        assert missile.authorize_score(1000) == 1000
+        assert missile.confirm_score(1000) == 1000
 
     def test_saucer_missile_does_not_authorize_saucer_score(self):
         missile = Missile.from_saucer(Vector2(0, 0), Vector2(0, 0))
-        assert missile.authorize_score(1000) == 0
+        assert missile.confirm_score(1000) == 0
 
     def test_create_asteroid_at_zero(self):
         asteroid = Asteroid(2, Vector2(0, 0))

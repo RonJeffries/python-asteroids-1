@@ -25,7 +25,7 @@ class TestShipMaker:
         assert fi.ships
 
     def test_unsafe_because_missile(self):
-        missile = Missile(u.CENTER, Vector2(0, 0), [0, 0, 0], True)
+        missile = Missile.from_ship(u.CENTER, Vector2(0, 0))
         fleets = Fleets()
         fleets.append(ShipMaker())
         interactor = Interactor(fleets)

@@ -132,7 +132,7 @@ class Saucer(Flyer):
         return [0, 0, 0]
 
     def score_for_hitting(self, missile):
-        return missile.authorize_score(self._score)
+        return missile.confirm_score(self._score)
 
     def tick(self, delta_time, fleets):
         pass
