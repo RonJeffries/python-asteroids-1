@@ -14,13 +14,13 @@ class Missile(Flyer):
 
     @classmethod
     def from_saucer(cls, position, velocity):
-        return cls(position, velocity, [0, 0, 0], [0, 0], False)
+        return cls(position, velocity, [0, 0, 0], False)
 
     @classmethod
     def from_ship(cls, position, velocity):
-        return cls(position, velocity, u.MISSILE_SCORE_LIST, u.SAUCER_SCORE_LIST, True)
+        return cls(position, velocity, u.MISSILE_SCORE_LIST, True)
 
-    def __init__(self, position, velocity, missile_score_list, saucer_score_list, from_ship):
+    def __init__(self, position, velocity, missile_score_list, from_ship):
         if from_ship:
             self.saucer_tally = 0
             self.ship_tally = 1
@@ -31,7 +31,6 @@ class Missile(Flyer):
             self._authorize = lambda score: 0
         self.score_list = missile_score_list
         self._timer = Timer(u.MISSILE_LIFETIME)
-        self._saucer_score_list = saucer_score_list
         self._location = MovableLocation(position, velocity)
 
     @property
@@ -52,9 +51,6 @@ class Missile(Flyer):
 
     def scores_for_hitting_asteroid(self):
         return self.score_list
-
-    def scores_for_hitting_saucer(self):
-        return self._saucer_score_list
 
     def interact_with(self, attacker, fleets):
         attacker.interact_with_missile(self, fleets)

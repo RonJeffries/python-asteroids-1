@@ -54,10 +54,6 @@ class Ship(Flyer):
     def scores_for_hitting_asteroid():
         return [0, 0, 0]
 
-    @staticmethod
-    def scores_for_hitting_saucer():
-        return [0, 0]
-
     def accelerate_by(self, accel):
         self._location.accelerate_by(accel)
 

@@ -32,10 +32,6 @@ class Asteroid(Flyer):
     def scores_for_hitting_asteroid():
         return [0, 0, 0]
 
-    @staticmethod
-    def scores_for_hitting_saucer():
-        return [0, 0]
-
     def draw(self, screen):
         top_left_corner = self.position - self._offset
         screen.blit(self._surface, top_left_corner)
