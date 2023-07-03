@@ -47,19 +47,19 @@ class Asteroid(Flyer):
 
     def interact_with_missile(self, missile, fleets):
         if missile.are_we_colliding(self.position, self.radius):
-            self.score_missile_collision(fleets, missile)
+            self.score_and_split(missile, fleets)
 
     def interact_with_saucer(self, saucer, fleets):
-        self.split_or_die_on_collision(fleets, saucer)
+        self.split_or_die_on_collision(saucer, fleets)
 
     def interact_with_ship(self, ship, fleets):
-        self.split_or_die_on_collision(fleets, ship)
+        self.split_or_die_on_collision(ship, fleets)
 
-    def score_missile_collision(self, fleets, missile):
+    def score_and_split(self, missile, fleets):
         fleets.append(Score(self.score_for_hitting(missile)))
         self.split_or_die(fleets)
 
-    def split_or_die_on_collision(self, fleets, collider):
+    def split_or_die_on_collision(self, collider, fleets):
         if collider.are_we_colliding(self.position, self.radius):
             self.split_or_die(fleets)
 
