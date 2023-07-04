@@ -74,7 +74,7 @@ class TestSaucer:
         fleets = Fleets()
         fi = FI(fleets)
         saucer = Saucer.large()
-        ship_missile = Missile.from_ship(Vector2(0, 0), Vector2(0, 0))
+        ship_missile = Missile.from_ship("ship", Vector2(0, 0), Vector2(0, 0))
         saucer.fire_if_possible(delta_time=0.1, fleets=fleets)
         assert not fi.missiles
         fleets.append(ship_missile)  # add extra ship missile
@@ -99,10 +99,10 @@ class TestSaucer:
         saucer.missile_tally = 5
         saucer.begin_interactions(fleets)
         assert saucer.missile_tally == 0
-        saucer_missile = Missile.from_saucer(saucer.position, Vector2(0, 0))
+        saucer_missile = Missile.from_saucer("saucer", saucer.position, Vector2(0, 0))
         saucer.interact_with_missile(saucer_missile, fleets)
         assert saucer.missile_tally == 1
-        ship_missile = Missile.from_ship(saucer.position, Vector2(0, 0))
+        ship_missile = Missile.from_ship("ship", saucer.position, Vector2(0, 0))
         saucer.interact_with_missile(ship_missile, fleets)
         assert saucer.missile_tally == 1
 
@@ -119,9 +119,9 @@ class TestSaucer:
     def test_missile_scoring(self):
         p = Vector2(12, 34)
         v = Vector2(56, 78)
-        ship_missile = Missile.from_ship(p, v)
+        ship_missile = Missile.from_ship("ship", p, v)
         assert ship_missile.score_list == u.ASTEROID_SCORE_LIST
-        saucer_missile = Missile.from_saucer(p, v)
+        saucer_missile = Missile.from_saucer("saucer", p, v)
         assert saucer_missile.score_list == [0, 0, 0]
 
     def test_empty_string(self):

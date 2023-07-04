@@ -82,10 +82,13 @@ class Saucer(Flyer):
             self.explode(fleets)
 
     def interact_with_missile(self, missile, fleets):
-        self.missile_tally += missile.saucer_tally
+        missile.ping_transponder("saucer", self.increment_tally)
         if missile.are_we_colliding(self.position, self._radius):
             fleets.append(Score(self.score_for_hitting(missile)))
             self.explode(fleets)
+
+    def increment_tally(self):
+        self.missile_tally += 1
 
     def interact_with_saucer(self, saucer, fleets):
         pass

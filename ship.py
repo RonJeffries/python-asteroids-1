@@ -93,8 +93,11 @@ class Ship(Flyer):
         self.explode_if_hit(asteroid, fleets)
 
     def interact_with_missile(self, missile, fleets):
-        self._missile_tally += missile.ship_tally
+        missile.ping_transponder("ship", self.increment_tally)
         self.explode_if_hit(missile, fleets)
+
+    def increment_tally(self):
+        self._missile_tally += 1
 
     def interact_with_ship(self, ship, fleets):
         pass
@@ -130,7 +133,7 @@ class Ship(Flyer):
 
     def create_missile(self):
         player.play("fire", self._location)
-        return Missile.from_ship(self.missile_start(), self.missile_velocity())
+        return Missile.from_ship("ship", self.missile_start(), self.missile_velocity())
 
     def missile_start(self):
         start_distance = self.radius + Missile.radius + 1

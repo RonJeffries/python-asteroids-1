@@ -6,6 +6,7 @@ import u
 from flyer import Flyer
 from movable_location import MovableLocation
 from timer import Timer
+from transponder import Transponder
 
 
 class Missile(Flyer):
@@ -15,21 +16,16 @@ class Missile(Flyer):
     radius = 2
 
     @classmethod
-    def from_saucer(cls, position, velocity):
-        return cls(position, velocity, [0, 0, 0], lambda score: 0, False)
+    def from_saucer(cls, transponder_key, position, velocity):
+        return cls(transponder_key, position, velocity, [0, 0, 0], lambda score: 0, False)
 
     @classmethod
-    def from_ship(cls, position, velocity):
-        return cls(position, velocity, u.ASTEROID_SCORE_LIST, lambda score: score, True)
+    def from_ship(cls, transponder_key, position, velocity):
+        return cls(transponder_key, position, velocity, u.ASTEROID_SCORE_LIST, lambda score: score, True)
 
-    def __init__(self, position, velocity, missile_score_list, confirmation, from_ship):
+    def __init__(self, transponder_key, position, velocity, missile_score_list, confirmation, from_ship):
+        self._transponder = Transponder(transponder_key)
         self.confirm_score = confirmation
-        if from_ship:
-            self.saucer_tally = 0
-            self.ship_tally = 1
-        else:
-            self.saucer_tally = 1
-            self.ship_tally = 0
         self.score_list = missile_score_list
         self._timer = Timer(u.MISSILE_LIFETIME)
         self._location = MovableLocation(position, velocity)
@@ -72,12 +68,15 @@ class Missile(Flyer):
     def draw(self, screen):
         pygame.draw.circle(screen, "white", self.position, 4)
 
-    def update(self, delta_time, _fleets):
-        self._location.move(delta_time)
+    def ping_transponder(self, transponder_key, function):
+        self._transponder.ping(transponder_key, function)
 
     def tick(self, delta_time, fleets):
         self.tick_timer(delta_time, fleets)
 
     def tick_timer(self, delta_time, fleets):
         self._timer.tick(delta_time, self.die, fleets)
+
+    def update(self, delta_time, _fleets):
+        self._location.move(delta_time)
 
