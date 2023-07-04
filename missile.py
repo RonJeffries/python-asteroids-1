@@ -69,10 +69,6 @@ class Missile(Flyer):
     def die(self, fleets):
         fleets.remove(self)
 
-    @staticmethod
-    def score_for_hitting(_anyone):
-        return 0
-
     def draw(self, screen):
         pygame.draw.circle(screen, "white", self.position, 4)
 

@@ -111,10 +111,6 @@ class Ship(Flyer):
         dist = self.position.distance_to(position)
         return dist <= kill_range
 
-    @staticmethod
-    def score_for_hitting(_anyone):
-        return 0
-
     def draw(self, screen):
         transformed = pygame.transform.rotate(self.select_ship_source(), self._angle)
         if self._drop_in > 1:
