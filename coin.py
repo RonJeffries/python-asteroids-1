@@ -7,6 +7,9 @@ from wavemaker import WaveMaker
 
 
 class Coin:
+    # This is the only class that knows what objects
+    # make up a game, in the current case, Asteroids.
+    # Want another game? Create another kind of coin.
 
     @classmethod
     def quarter(cls, fleets):
