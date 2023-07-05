@@ -17,13 +17,13 @@ class Missile(Flyer):
 
     @classmethod
     def from_saucer(cls, transponder_key, position, velocity):
-        return cls(transponder_key, position, velocity, [0, 0, 0], lambda score: 0, False)
+        return cls(transponder_key, position, velocity, [0, 0, 0], confirmation=lambda score: 0)
 
     @classmethod
     def from_ship(cls, transponder_key, position, velocity):
-        return cls(transponder_key, position, velocity, u.ASTEROID_SCORE_LIST, lambda score: score, True)
+        return cls(transponder_key, position, velocity, u.ASTEROID_SCORE_LIST, confirmation=lambda score: score)
 
-    def __init__(self, transponder_key, position, velocity, missile_score_list, confirmation, from_ship):
+    def __init__(self, transponder_key, position, velocity, missile_score_list, confirmation):
         self._transponder = Transponder(transponder_key)
         self.confirm_score = confirmation
         self.score_list = missile_score_list
