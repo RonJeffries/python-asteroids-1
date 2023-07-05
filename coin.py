@@ -10,31 +10,24 @@ class Coin:
 
     @classmethod
     def quarter(cls, fleets):
-        coin = cls(True, True)
-        coin.populate(fleets)
-        return coin
+        cls.create_common_elements(fleets)
+        fleets.append(WaveMaker())
+        fleets.append(ShipMaker())
 
     @classmethod
     def slug(cls, fleets):
-        coin = cls(False, True)
-        coin.populate(fleets)
-        return coin
+        cls.create_common_elements(fleets)
+        fleets.append(WaveMaker())
+        fleets.append(GameOver())
 
     @classmethod
     def no_asteroids(cls, fleets):
-        coin = cls(True, False)
-        coin.populate(fleets)
-        return coin
+        cls.create_common_elements(fleets)
+        fleets.append(ShipMaker())
 
-    def __init__(self, is_quarter=True, want_asteroids=True):
-        self.is_quarter = is_quarter
-        self.want_asteroids = want_asteroids
-
-    def populate(self, fleets):
+    @classmethod
+    def create_common_elements(cls, fleets):
         fleets.clear()
         fleets.append(SaucerMaker())
         fleets.append(ScoreKeeper())
         fleets.append(Thumper())
-        if self.want_asteroids:
-            fleets.append(WaveMaker())
-        fleets.append(ShipMaker() if self.is_quarter else GameOver())
