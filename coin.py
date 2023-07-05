@@ -14,12 +14,20 @@ class Coin:
     @classmethod
     def quarter(cls, fleets):
         cls.create_common_elements(fleets)
+        cls.add_game_elements(fleets)
+
+    @classmethod
+    def add_game_elements(cls, fleets):
         fleets.append(WaveMaker())
         fleets.append(ShipMaker())
 
     @classmethod
     def slug(cls, fleets):
         cls.create_common_elements(fleets)
+        cls.add_attract_mode_elements(fleets)
+
+    @classmethod
+    def add_attract_mode_elements(cls, fleets):
         fleets.append(WaveMaker())
         fleets.append(GameOver())
 
