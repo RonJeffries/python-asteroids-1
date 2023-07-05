@@ -6,6 +6,7 @@ import random
 from SurfaceMaker import SurfaceMaker
 import u
 from flyer import Flyer
+from missile import Missile
 from movable_location import MovableLocation
 from score import Score
 from sounds import player
@@ -55,9 +56,12 @@ class Asteroid(Flyer):
     def interact_with_ship(self, ship, fleets):
         self.split_or_die_on_collision(ship, fleets)
 
-    def score_and_split(self, missile, fleets):
-        fleets.append(Score(self.score_for_hitting(missile)))
+    def score_and_split(self, missile: Missile, fleets):
+        missile.ping_transponder("ship", self.score_points, fleets)
         self.split_or_die(fleets)
+
+    def score_points(self, fleets):
+        fleets.append(Score(self._score))
 
     def split_or_die_on_collision(self, collider, fleets):
         if collider.are_we_colliding(self.position, self.radius):
@@ -67,9 +71,6 @@ class Asteroid(Flyer):
         kill_range = self.radius + radius
         dist = self.position.distance_to(position)
         return dist <= kill_range
-
-    def score_for_hitting(self, missile):
-        return missile.confirm_score(self._score)
 
     def split_or_die(self, fleets):
         fleets.remove(self)

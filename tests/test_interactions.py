@@ -419,14 +419,6 @@ class TestInteractions:
         assert not fi.saucers
         assert fi.score == 0
 
-    def test_ship_missile_confirms_saucer_score(self):
-        missile = Missile.from_ship("ship", Vector2(0, 0), Vector2(0, 0))
-        assert missile.confirm_score(1000) == 1000
-
-    def test_saucer_missile_does_not_confirm_saucer_score(self):
-        missile = Missile.from_saucer("saucer", Vector2(0, 0), Vector2(0, 0))
-        assert missile.confirm_score(1000) == 0
-
     def test_create_asteroid_at_zero(self):
         asteroid = Asteroid(2, Vector2(0, 0))
         assert asteroid.position == Vector2(0, 0)

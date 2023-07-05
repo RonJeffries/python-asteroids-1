@@ -84,8 +84,11 @@ class Saucer(Flyer):
     def interact_with_missile(self, missile, fleets):
         missile.ping_transponder("saucer", self.increment_tally)
         if missile.are_we_colliding(self.position, self._radius):
-            fleets.append(Score(self.score_for_hitting(missile)))
+            missile.ping_transponder("ship", self.score_points, fleets)
             self.explode(fleets)
+
+    def score_points(self, fleets):
+        fleets.append(Score(self._score))
 
     def increment_tally(self):
         self.missile_tally += 1
@@ -129,9 +132,6 @@ class Saucer(Flyer):
 
     def fire_if_possible(self, delta_time, fleets):
         self._gunner.fire(delta_time, self, self._ship, fleets)
-
-    def score_for_hitting(self, missile):
-        return missile.confirm_score(self._score)
 
     def tick(self, delta_time, fleets):
         pass

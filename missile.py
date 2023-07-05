@@ -10,22 +10,19 @@ import u
 
 
 class Missile(Flyer):
-    confirm_score: Callable[[int], int]
-
     Saucer = None
     radius = 2
 
     @classmethod
     def from_saucer(cls, transponder_key, position, velocity):
-        return cls(transponder_key, position, velocity, [0, 0, 0], confirmation=lambda score: 0)
+        return cls(transponder_key, position, velocity, [0, 0, 0])
 
     @classmethod
     def from_ship(cls, transponder_key, position, velocity):
-        return cls(transponder_key, position, velocity, u.ASTEROID_SCORE_LIST, confirmation=lambda score: score)
+        return cls(transponder_key, position, velocity, u.ASTEROID_SCORE_LIST)
 
-    def __init__(self, transponder_key, position, velocity, missile_score_list, confirmation):
+    def __init__(self, transponder_key, position, velocity, missile_score_list):
         self._transponder = Transponder(transponder_key)
-        self.confirm_score = confirmation
         self.score_list = missile_score_list
         self._timer = Timer(u.MISSILE_LIFETIME)
         self._location = MovableLocation(position, velocity)
@@ -68,8 +65,8 @@ class Missile(Flyer):
     def draw(self, screen):
         pygame.draw.circle(screen, "white", self.position, 4)
 
-    def ping_transponder(self, transponder_key, function):
-        self._transponder.ping(transponder_key, function)
+    def ping_transponder(self, transponder_key, function, *args):
+        self._transponder.ping(transponder_key, function, *args)
 
     def tick(self, delta_time, fleets):
         self.tick_timer(delta_time, fleets)
