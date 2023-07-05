@@ -14,9 +14,7 @@ from sounds import player
 
 class Asteroid(Flyer):
     def __init__(self, size=2, position=None):
-        self.size = size
-        if self.size not in [0, 1, 2]:
-            self.size = 2
+        self.size = max(0, min(size, 2))
         self._score = u.ASTEROID_SCORE_LIST[self.size]
         self.radius = [16, 32, 64][self.size]
         position = position if position is not None else Vector2(0, random.randrange(0, u.SCREEN_SIZE))
