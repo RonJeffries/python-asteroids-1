@@ -74,7 +74,7 @@ class TestSaucer:
         fleets = Fleets()
         fi = FI(fleets)
         saucer = Saucer.large()
-        ship_missile = Missile.from_ship("ship", Vector2(0, 0), Vector2(0, 0))
+        ship_missile = Missile("ship", Vector2(0, 0), Vector2(0, 0))
         saucer.fire_if_possible(delta_time=0.1, fleets=fleets)
         assert not fi.missiles
         fleets.append(ship_missile)  # add extra ship missile
@@ -99,10 +99,10 @@ class TestSaucer:
         saucer.missile_tally = 5
         saucer.begin_interactions(fleets)
         assert saucer.missile_tally == 0
-        saucer_missile = Missile.from_saucer("saucer", saucer.position, Vector2(0, 0))
+        saucer_missile = Missile("saucer", saucer.position, Vector2(0, 0))
         saucer.interact_with_missile(saucer_missile, fleets)
         assert saucer.missile_tally == 1
-        ship_missile = Missile.from_ship("ship", saucer.position, Vector2(0, 0))
+        ship_missile = Missile("ship", saucer.position, Vector2(0, 0))
         saucer.interact_with_missile(ship_missile, fleets)
         assert saucer.missile_tally == 1
 

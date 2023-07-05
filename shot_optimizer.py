@@ -13,7 +13,7 @@ class FiringSolution:
         self.start = shooter_position + safety_offset
 
     def saucer_missile(self):
-        return Missile.from_saucer("saucer", self.start, self.velocity)
+        return Missile("saucer", self.start, self.velocity)
 
 
 class ShotOptimizer:

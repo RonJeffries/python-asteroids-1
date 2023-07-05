@@ -133,7 +133,7 @@ class Ship(Flyer):
 
     def create_missile(self):
         player.play("fire", self._location)
-        return Missile.from_ship("ship", self.missile_start(), self.missile_velocity())
+        return Missile("ship", self.missile_start(), self.missile_velocity())
 
     def missile_start(self):
         start_distance = self.radius + Missile.radius + 1

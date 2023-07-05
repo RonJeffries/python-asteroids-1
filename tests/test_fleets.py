@@ -28,9 +28,9 @@ class TestFleets:
         fleets = Fleets()
         fi = FI(fleets)
         assert len(fi.missiles) == 0
-        fleets.append(Missile.from_saucer("saucer", Vector2(0, 0), Vector2(0, 0)))
-        fleets.append(Missile.from_saucer("saucer", Vector2(0, 0), Vector2(20, 20)))
-        fleets.append(Missile.from_saucer("saucer", Vector2(0, 0), Vector2(30, 30)))
+        fleets.append(Missile("saucer", Vector2(0, 0), Vector2(0, 0)))
+        fleets.append(Missile("saucer", Vector2(0, 0), Vector2(20, 20)))
+        fleets.append(Missile("saucer", Vector2(0, 0), Vector2(30, 30)))
         assert len(fi.missiles) == 3
         assert fi.missiles[1]._location.velocity.x == 20
 

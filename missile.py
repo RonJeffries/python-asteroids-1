@@ -13,14 +13,6 @@ class Missile(Flyer):
     Saucer = None
     radius = 2
 
-    @classmethod
-    def from_saucer(cls, transponder_key, position, velocity):
-        return cls(transponder_key, position, velocity)
-
-    @classmethod
-    def from_ship(cls, transponder_key, position, velocity):
-        return cls(transponder_key, position, velocity)
-
     def __init__(self, transponder_key, position, velocity):
         self._transponder = Transponder(transponder_key)
         self._timer = Timer(u.MISSILE_LIFETIME)

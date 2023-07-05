@@ -94,9 +94,9 @@ class TestAsteroids:
         fleets.append(ship)
         fi = FI(fleets)
         for x in range(2):
-            fleets.append(Missile.from_saucer("saucer", Vector2(200 + 10 * x, 200), Vector2(0, 0)))
+            fleets.append(Missile("saucer", Vector2(200 + 10 * x, 200), Vector2(0, 0)))
         for x in range(3):
-            fleets.append(Missile.from_ship("ship", Vector2(300 + 10 * x, 200), Vector2(0, 0)))
+            fleets.append(Missile("ship", Vector2(300 + 10 * x, 200), Vector2(0, 0)))
         assert len(fi.missiles) == 5
         fleets.perform_interactions()
         ship.fire_if_possible(fleets)
