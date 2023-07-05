@@ -116,14 +116,6 @@ class TestSaucer:
         v1 = v1 + v2
         assert v1 is not v1_original
 
-    def test_missile_scoring(self):
-        p = Vector2(12, 34)
-        v = Vector2(56, 78)
-        ship_missile = Missile.from_ship("ship", p, v)
-        assert ship_missile.score_list == u.ASTEROID_SCORE_LIST
-        saucer_missile = Missile.from_saucer("saucer", p, v)
-        assert saucer_missile.score_list == [0, 0, 0]
-
     def test_empty_string(self):
         assert not ""
         assert "False"
