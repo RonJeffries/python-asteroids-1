@@ -1,10 +1,10 @@
-# Missile
-from typing import Callable
 
+# Missile
 from flyer import Flyer
 from movable_location import MovableLocation
 from timer import Timer
 from transponder import Transponder
+from typing import Callable
 import pygame
 import u
 
