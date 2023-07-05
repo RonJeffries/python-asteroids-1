@@ -9,24 +9,21 @@ from wavemaker import WaveMaker
 class Coin:
 
     @classmethod
-    def quarter(cls, fleets=None):
+    def quarter(cls, fleets):
         coin = cls(True, True)
-        if fleets:
-            coin.populate(fleets)
+        coin.populate(fleets)
         return coin
 
     @classmethod
-    def slug(cls, fleets=None):
+    def slug(cls, fleets):
         coin = cls(False, True)
-        if fleets:
-            coin.populate(fleets)
+        coin.populate(fleets)
         return coin
 
     @classmethod
-    def no_asteroids(cls, fleets=None):
+    def no_asteroids(cls, fleets):
         coin = cls(True, False)
-        if fleets:
-            coin.populate(fleets)
+        coin.populate(fleets)
         return coin
 
     def __init__(self, is_quarter=True, want_asteroids=True):
