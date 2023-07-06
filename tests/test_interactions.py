@@ -40,44 +40,44 @@ class FleetsInspector:
 
     @property
     def explosions(self):
-        return self.select(lambda a: isinstance(a, Explosion))
+        return self.select_class(Explosion)
 
 
     @property
     def fragments(self):
-        return self.select(lambda f: isinstance(f, Fragment))
+        return self.select_class(Fragment)
 
     @property
     def game_over(self):
-        return self.select(lambda game_over: isinstance(game_over, GameOver))
+        return self.select_class(GameOver)
 
     @property
     def missiles(self):
-        return self.select(lambda m: isinstance(m, Missile))
+        return self.select_class(Missile)
 
     @property
     def saucers(self):
-        return self.select(lambda s: isinstance(s, Saucer))
+        return self.select_class(Saucer)
 
     @property
     def saucermakers(self):
-        return self.select(lambda s: isinstance(s, SaucerMaker))
+        return self.select_class(SaucerMaker)
 
     @property
     def scorekeepers(self):
-        return self.select(lambda s: isinstance(s, ScoreKeeper))
+        return self.select_class(ScoreKeeper)
 
     @property
     def shipmakers(self):
-        return self.select(lambda s: isinstance(s, ShipMaker))
+        return self.select_class(ShipMaker)
 
     @property
     def thumpers(self):
-        return self.select(lambda s: isinstance(s, Thumper))
+        return self.select_class(Thumper)
 
     @property
     def wavemakers(self):
-        return self.select(lambda s: isinstance(s, WaveMaker))
+        return self.select_class(WaveMaker)
 
     @property
     def scorekeeper(self):
