@@ -1,49 +1,84 @@
-from pygame import Vector2
-
-import coin
 from asteroid import Asteroid
 from explosion import Explosion
 from fleets import Fleets
-from tests.test_interactions import FI
+from itertools import accumulate
+from pygame import Vector2
+
+from flyer import Flyer
+from fragment import Fragment
+from game_over import GameOver
+from missile import Missile
+from saucer import Saucer
+from saucermaker import SaucerMaker
+from score import Score
+from scorekeeper import ScoreKeeper
+from ship import Ship
+from shipmaker import ShipMaker
+from tests.test_interactions import FI, BeginChecker, EndChecker
+import coin
+from thumper import Thumper
+from wavemaker import WaveMaker
 
 
 class TestCoin:
+
+
+
+    # def test_make_list(self):
+    #     all_classes = Flyer.__subclasses__()
+    #     names = list(map(lambda k: k.__name__, all_classes))
+    #     names.sort()
+    #     s = ""
+    #     for name in names:
+    #         s += name + ", "
+    #     print(s)
+    #     assert s == "hello"
+
+    def all_classes_except(self, classes):
+        all_classes = self.all_known_classes()
+        return [k for k in all_classes if k not in classes]
+
+    def all_known_classes(self):
+        return [
+            Asteroid, BeginChecker, EndChecker,
+            Fragment, GameOver, Missile, Saucer, SaucerMaker,
+            Score, ScoreKeeper, Ship, ShipMaker, Thumper, WaveMaker]
 
     def test_slug(self):
         fleets = Fleets()
         fi = FI(fleets)
         fleets.append(Asteroid())
         coin.slug(fleets)
-        assert fi.saucermakers
-        assert fi.scorekeepers
-        assert fi.thumpers
-        assert fi.wavemakers
-        assert not fi.shipmakers
-        assert not fi.asteroids
+        desired = [GameOver, SaucerMaker, ScoreKeeper, Thumper, WaveMaker]
+        undesired = self.all_classes_except(desired)
+        for klass in desired:
+            assert fi.select_class(klass)
+        for klass in undesired:
+            assert not fi.select_class(klass)
 
     def test_quarter(self):
         fleets = Fleets()
         fi = FI(fleets)
         fleets.append(Asteroid())
         coin.quarter(fleets)
-        assert fi.saucermakers
-        assert fi.scorekeepers
-        assert fi.thumpers
-        assert fi.wavemakers
-        assert fi.shipmakers
-        assert not fi.asteroids
+        desired = [SaucerMaker, ScoreKeeper, ShipMaker, Thumper, WaveMaker]
+        undesired = self.all_classes_except(desired)
+        for klass in desired:
+            assert fi.select_class(klass)
+        for klass in undesired:
+            assert not fi.select_class(klass)
 
     def test_no_asteroids(self):
         fleets = Fleets()
         fi = FI(fleets)
         fleets.append(Asteroid())
         coin.no_asteroids(fleets)
-        assert fi.saucermakers
-        assert fi.scorekeepers
-        assert fi.thumpers
-        assert not fi.wavemakers
-        assert fi.shipmakers
-        assert not fi.asteroids
+        desired = [SaucerMaker, ScoreKeeper, ShipMaker, Thumper]
+        undesired = self.all_classes_except(desired)
+        for klass in desired:
+            assert fi.select_class(klass)
+        for klass in undesired:
+            assert not fi.select_class(klass)
 
     def test_saucer_explosion(self):
         fleets = Fleets()
