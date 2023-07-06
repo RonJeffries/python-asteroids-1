@@ -31,9 +31,12 @@ class FleetsInspector:
     def select(self, condition):
         return self.fleets.select(condition)
 
+    def select_class(self, klass):
+        return self.select(lambda a: isinstance(a, klass))
+
     @property
     def asteroids(self):
-        return self.select(lambda a: isinstance(a, Asteroid))
+        return self.select_class(Asteroid)
 
     @property
     def explosions(self):

@@ -1,6 +1,6 @@
 # Game
 
-from coin import Coin
+import coin
 from fleets import Fleets
 from sounds import player
 import pygame
@@ -12,7 +12,7 @@ class Game:
         self.delta_time = 0
         self.init_pygame_and_display(testing)
         self.fleets = Fleets()
-        Coin.slug(self.fleets)
+        coin.slug(self.fleets)
 
     # noinspection PyAttributeOutsideInit
     def init_pygame_and_display(self, testing):
@@ -49,9 +49,9 @@ class Game:
     def accept_coins(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_q]:
-            Coin.quarter(self.fleets)
+            coin.quarter(self.fleets)
         elif keys[pygame.K_a]:
-            Coin.no_asteroids(self.fleets)
+            coin.no_asteroids(self.fleets)
 
     def prepare_screen(self):
         screen = self.screen

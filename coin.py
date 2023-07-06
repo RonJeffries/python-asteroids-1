@@ -6,39 +6,28 @@ from thumper import Thumper
 from wavemaker import WaveMaker
 
 
-class Coin:
-    # This is the only class that knows what objects
-    # make up a game, in the current case, Asteroids.
-    # Want another game? Create another kind of coin.
+def quarter(fleets):
+    fleets.clear()
+    fleets.append(WaveMaker())
+    fleets.append(ShipMaker())
+    _append_common_elements(fleets)
 
-    @classmethod
-    def quarter(cls, fleets):
-        cls.create_common_elements(fleets)
-        cls.add_game_elements(fleets)
 
-    @classmethod
-    def add_game_elements(cls, fleets):
-        fleets.append(WaveMaker())
-        fleets.append(ShipMaker())
+def slug(fleets):
+    fleets.clear()
+    fleets.append(WaveMaker())
+    fleets.append(GameOver())
+    _append_common_elements(fleets)
 
-    @classmethod
-    def slug(cls, fleets):
-        cls.create_common_elements(fleets)
-        cls.add_attract_mode_elements(fleets)
 
-    @classmethod
-    def add_attract_mode_elements(cls, fleets):
-        fleets.append(WaveMaker())
-        fleets.append(GameOver())
+def no_asteroids(fleets):
+    fleets.clear()
+    fleets.append(ShipMaker())
+    _append_common_elements(fleets)
 
-    @classmethod
-    def no_asteroids(cls, fleets):
-        cls.create_common_elements(fleets)
-        fleets.append(ShipMaker())
 
-    @classmethod
-    def create_common_elements(cls, fleets):
-        fleets.clear()
-        fleets.append(SaucerMaker())
-        fleets.append(ScoreKeeper())
-        fleets.append(Thumper())
+def _append_common_elements(fleets):
+    fleets.append(SaucerMaker())
+    fleets.append(ScoreKeeper())
+    fleets.append(Thumper())
+
