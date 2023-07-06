@@ -44,6 +44,13 @@ class TestCoin:
             Fragment, GameOver, Missile, Saucer, SaucerMaker,
             Score, ScoreKeeper, Ship, ShipMaker, Thumper, WaveMaker]
 
+    def test_no_unchecked_classes(self):
+        # must check names because pytest recompiles.
+        known_names = [k.__name__ for k in self.all_known_classes()]
+        subs = Flyer.__subclasses__()
+        new = [k for k in subs if k.__name__ not in known_names]
+        assert not new
+
     def test_slug(self):
         fleets = Fleets()
         fi = FI(fleets)
