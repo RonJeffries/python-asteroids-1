@@ -34,9 +34,11 @@ class TestCoin:
     #     print(s)
     #     assert s == "hello"
 
-    def all_classes_except(self, classes):
+    def all_classes_except(self, excluded_classes):
+        excluded_names = [k.__name__ for k in excluded_classes]
         all_classes = self.all_known_classes()
-        return all_classes - set(classes)
+        remaining = [k for k in all_classes if k.__name__ not in excluded_names]
+        return remaining
 
     def all_known_classes(self):
         return {
