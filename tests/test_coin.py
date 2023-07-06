@@ -36,13 +36,13 @@ class TestCoin:
 
     def all_classes_except(self, classes):
         all_classes = self.all_known_classes()
-        return [k for k in all_classes if k not in classes]
+        return all_classes - set(classes)
 
     def all_known_classes(self):
-        return [
+        return {
             Asteroid, BeginChecker, EndChecker,
             Fragment, GameOver, Missile, Saucer, SaucerMaker,
-            Score, ScoreKeeper, Ship, ShipMaker, Thumper, WaveMaker]
+            Score, ScoreKeeper, Ship, ShipMaker, Thumper, WaveMaker}
 
     def test_no_unchecked_classes(self):
         # must check names because pytest recompiles.
