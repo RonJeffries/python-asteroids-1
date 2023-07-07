@@ -4,7 +4,7 @@ import u
 from fleets import Fleets
 from hyperspace_generator import HyperspaceGenerator
 from ship import Ship
-from test_interactions import FI
+from tests.tools import FI
 
 
 class TestHyperspaceGenerator:

@@ -7,7 +7,7 @@ from interactor import Interactor
 from missile import Missile
 from saucer import Saucer
 from shipmaker import ShipMaker
-from test_interactions import FI
+from tests.tools import FI
 
 
 class TestShipMaker:

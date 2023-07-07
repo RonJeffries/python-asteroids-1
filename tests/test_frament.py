@@ -3,7 +3,7 @@ from pygame import Vector2
 import u
 from fleets import Fleets
 from fragment import Fragment
-from test_interactions import FI
+from tests.tools import FI
 
 
 class TestFragments:

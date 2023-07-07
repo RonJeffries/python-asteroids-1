@@ -10,8 +10,7 @@ from missile import Missile
 from saucer import Saucer
 from saucermaker import SaucerMaker
 from scorekeeper import ScoreKeeper
-from ship import Ship
-from test_interactions import FI
+from tests.tools import FI
 
 
 class TestSaucer:

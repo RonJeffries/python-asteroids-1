@@ -12,7 +12,7 @@ from score import Score
 from scorekeeper import ScoreKeeper
 from ship import Ship
 from shipmaker import ShipMaker
-from tests.test_interactions import FI, BeginChecker, EndChecker
+from tests.tools import FI, BeginChecker, EndChecker
 from thumper import Thumper
 from wavemaker import WaveMaker
 import coin

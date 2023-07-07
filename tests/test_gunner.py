@@ -9,7 +9,7 @@ from gunner import Gunner
 from saucer import Saucer
 from ship import Ship
 from shot_optimizer import ShotOptimizer
-from test_interactions import FI
+from tests.tools import FI
 
 
 class TimeToTarget:

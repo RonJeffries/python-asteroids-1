@@ -2,7 +2,7 @@ import u
 from fleets import Fleets
 from interactor import Interactor
 from saucermaker import SaucerMaker
-from test_interactions import FI
+from tests.tools import FI
 
 
 class TestSaucerMaker:

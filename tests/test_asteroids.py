@@ -6,7 +6,7 @@ import u
 from fleets import Fleets
 from missile import Missile
 from ship import Ship
-from tests.test_interactions import FI
+from tests.tools import FI
 
 
 class TestAsteroids:

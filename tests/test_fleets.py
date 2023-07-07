@@ -2,7 +2,7 @@ from pygame import Vector2
 
 from fleets import Fleets
 from missile import Missile
-from test_interactions import FI
+from tests.tools import FI
 
 
 class FakeFlyer:
