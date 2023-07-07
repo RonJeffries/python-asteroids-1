@@ -18,6 +18,9 @@ class FleetsInspector:
     def __init__(self, fleets):
         self.fleets = fleets
 
+    def all_classes(self):
+        return set(map(lambda flyer: flyer.__class__, self.fleets.flyers))
+
     def select(self, condition):
         return self.fleets.select(condition)
 

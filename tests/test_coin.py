@@ -33,10 +33,8 @@ class TestCoin:
     #     assert s == "hello"
 
     def all_classes_except(self, excluded_classes):
-        excluded_names = [k.__name__ for k in excluded_classes]
         all_classes = self.all_known_classes()
-        remaining = [k for k in all_classes if k.__name__ not in excluded_names]
-        return remaining
+        return all_classes - excluded_classes
 
     def all_known_classes(self):
         return {
@@ -56,36 +54,33 @@ class TestCoin:
         fi = FI(fleets)
         fleets.append(Asteroid())
         coin.slug(fleets)
-        desired = [GameOver, SaucerMaker, ScoreKeeper, Thumper, WaveMaker]
-        undesired = self.all_classes_except(desired)
+        desired = {GameOver, SaucerMaker, ScoreKeeper, Thumper, WaveMaker}
+        undesired = fi.all_classes() - desired
+        assert not undesired
         for klass in desired:
             assert fi.select_class(klass)
-        for klass in undesired:
-            assert not fi.select_class(klass)
 
     def test_quarter(self):
         fleets = Fleets()
         fi = FI(fleets)
         fleets.append(Asteroid())
         coin.quarter(fleets)
-        desired = [SaucerMaker, ScoreKeeper, ShipMaker, Thumper, WaveMaker]
-        undesired = self.all_classes_except(desired)
+        desired = {SaucerMaker, ScoreKeeper, ShipMaker, Thumper, WaveMaker}
+        undesired = fi.all_classes() - desired
+        assert not undesired
         for klass in desired:
             assert fi.select_class(klass)
-        for klass in undesired:
-            assert not fi.select_class(klass)
 
     def test_no_asteroids(self):
         fleets = Fleets()
         fi = FI(fleets)
         fleets.append(Asteroid())
         coin.no_asteroids(fleets)
-        desired = [SaucerMaker, ScoreKeeper, ShipMaker, Thumper]
-        undesired = self.all_classes_except(desired)
+        desired = {SaucerMaker, ScoreKeeper, ShipMaker, Thumper}
+        undesired = fi.all_classes() - desired
+        assert not undesired
         for klass in desired:
             assert fi.select_class(klass)
-        for klass in undesired:
-            assert not fi.select_class(klass)
 
     def test_saucer_explosion(self):
         fleets = Fleets()
