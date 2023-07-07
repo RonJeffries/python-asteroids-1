@@ -20,8 +20,6 @@ import coin
 
 class TestCoin:
 
-
-
     # def test_make_list(self):
     #     all_classes = Flyer.__subclasses__()
     #     names = list(map(lambda k: k.__name__, all_classes))
