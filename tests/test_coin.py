@@ -32,22 +32,18 @@ class TestCoin:
     #     print(s)
     #     assert s == "hello"
 
-    def all_classes_except(self, excluded_classes):
-        all_classes = self.all_known_classes()
-        return all_classes - excluded_classes
-
-    def all_known_classes(self):
+    @staticmethod
+    def all_known_flyer_subclasses():
         return {
             Asteroid, BeginChecker, EndChecker,
             Fragment, GameOver, Missile, Saucer, SaucerMaker,
             Score, ScoreKeeper, Ship, ShipMaker, Thumper, WaveMaker}
 
     def test_no_unchecked_classes(self):
-        # must check names because pytest recompiles.
-        known_names = [k.__name__ for k in self.all_known_classes()]
-        subs = Flyer.__subclasses__()
-        new = [k for k in subs if k.__name__ not in known_names]
-        assert not new
+        # if this fails, we need to update `all_known_flyer_subclasses`
+        # and re-verify the coin tests to be sure they don't need updating
+        subs = set(Flyer.__subclasses__())
+        assert not subs - self.all_known_flyer_subclasses()
 
     def test_slug(self):
         fleets = Fleets()
