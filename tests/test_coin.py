@@ -1,13 +1,11 @@
 from asteroid import Asteroid
 from explosion import Explosion
 from fleets import Fleets
-from itertools import accumulate
-from pygame import Vector2
-
 from flyer import Flyer
 from fragment import Fragment
 from game_over import GameOver
 from missile import Missile
+from pygame import Vector2
 from saucer import Saucer
 from saucermaker import SaucerMaker
 from score import Score
@@ -15,9 +13,9 @@ from scorekeeper import ScoreKeeper
 from ship import Ship
 from shipmaker import ShipMaker
 from tests.test_interactions import FI, BeginChecker, EndChecker
-import coin
 from thumper import Thumper
 from wavemaker import WaveMaker
+import coin
 
 
 class TestCoin:
