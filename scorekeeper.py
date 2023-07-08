@@ -6,6 +6,7 @@ import u
 from flyer import Flyer
 from score import Score
 from ship import Ship
+from shipmaker import ShipMaker
 
 
 @dataclass
@@ -31,7 +32,7 @@ class ScoreKeeper(Flyer):
         self._fence = u.FREE_SHIP_SCORE
         self._player_number = player_number
         self._scoring = player_number == 0
-        self._ship_maker = NoShips()
+        self._ship_maker: ShipMaker|NoShips = NoShips()
         if pygame.get_init():
             self.score_font = pygame.font.SysFont("arial", 48)
 
