@@ -30,6 +30,7 @@ class ScoreKeeper(Flyer):
         self.score = 0
         self._fence = u.FREE_SHIP_SCORE
         self._player_number = player_number
+        self._scoring = player_number == 0
         self._ship_maker = NoShips()
         if pygame.get_init():
             self.score_font = pygame.font.SysFont("arial", 48)
@@ -81,10 +82,14 @@ class ScoreKeeper(Flyer):
         self._ship_maker = shipmaker
 
     def interact_with_score(self, score, fleets):
-        self.score += score.score
-        if self.score >= self._fence:
-            self._ship_maker.add_ship()
-            self._fence += u.FREE_SHIP_SCORE
+        if self._scoring:
+            self.score += score.score
+            if self.score >= self._fence:
+                self._ship_maker.add_ship()
+                self._fence += u.FREE_SHIP_SCORE
+
+    def interact_with_signal(self, signal, fleets):
+        self._scoring = signal.signal == self._player_number
 
     def tick(self, delta_time, fleets):
         pass
