@@ -26,9 +26,10 @@ class ScoreKeeper(Flyer):
         from score import Score
         return [Score]
 
-    def __init__(self):
+    def __init__(self, player_number=0):
         self.score = 0
         self._fence = u.FREE_SHIP_SCORE
+        self._player_number = player_number
         self._ship_maker = NoShips()
         if pygame.get_init():
             self.score_font = pygame.font.SysFont("arial", 48)
@@ -59,14 +60,18 @@ class ScoreKeeper(Flyer):
             self.draw_available_ship(self.available_ship, i, screen)
 
     def draw_available_ship(self, ship, i, screen):
+        x_position = [55, u.SCREEN_SIZE - 55][self._player_number]
         position = i * Vector2(35, 0)
-        ship.move_to(Vector2(55, 100) + position)
+        if self._player_number == 1:
+            position = - position
+        ship.move_to(Vector2(x_position, 100) + position)
         ship.draw(screen)
 
     def render_score(self):
+        x_position = [10, 875][self._player_number]
         score_text = f"0000{self.score}"[-5:]
         score_surface = self.score_font.render(score_text, True, "green")
-        score_rect = score_surface.get_rect(topleft=(10, 10))
+        score_rect = score_surface.get_rect(topleft=(x_position, 10))
         return score_surface, score_rect
 
     def interact_with(self, other, fleets):
