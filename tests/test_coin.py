@@ -12,6 +12,7 @@ from score import Score
 from scorekeeper import ScoreKeeper
 from ship import Ship
 from shipmaker import ShipMaker
+from signal import Signal
 from tests.tools import FI, BeginChecker, EndChecker
 from thumper import Thumper
 from wavemaker import WaveMaker
@@ -35,7 +36,7 @@ class TestCoin:
         return {
             Asteroid, BeginChecker, EndChecker,
             Fragment, GameOver, Missile, Saucer, SaucerMaker,
-            Score, ScoreKeeper, Ship, ShipMaker, Thumper, WaveMaker}
+            Score, ScoreKeeper, Ship, ShipMaker, Signal, Thumper, WaveMaker}
 
     def test_no_unchecked_classes(self):
         # if this fails, we need to update `all_known_flyer_subclasses`
