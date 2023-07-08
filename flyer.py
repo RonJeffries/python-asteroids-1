@@ -59,6 +59,9 @@ class Flyer(ABC):
     def interact_with_shipmaker(self, shipmaker, fleets):
         pass
 
+    def interact_with_signal(self, signal, fleets):
+        pass
+
     def interact_with_thumper(self, thumper, fleets):
         pass
 
