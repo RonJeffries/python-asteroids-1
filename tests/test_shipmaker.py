@@ -100,3 +100,26 @@ class TestShipMaker:
         fleets.tick(u.SHIP_EMERGENCE_TIME)
         assert not fi.ships
         assert fi.game_over
+
+    def test_unequal_ship_count(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        maker = ShipMaker(2)
+        maker._ships_remaining = [1, 3]
+
+        self.make_ship_for_player(0, fi, fleets, maker)
+        self.make_ship_for_player(1, fi, fleets, maker)
+        self.make_ship_for_player(1, fi, fleets, maker)
+        self.make_ship_for_player(1, fi, fleets, maker)
+
+        assert not maker.ships_remain()
+
+    @staticmethod
+    def make_ship_for_player(player, fi, fleets, maker):
+        assert maker.ships_remain()
+        maker.rez_available_ship(fleets)
+        signal = fi.signals[0]
+        assert signal.signal == player
+        fleets.remove(signal)
+
+

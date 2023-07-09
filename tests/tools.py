@@ -10,6 +10,7 @@ from score import Score
 from scorekeeper import ScoreKeeper
 from ship import Ship
 from shipmaker import ShipMaker
+from signal import Signal
 from thumper import Thumper
 from wavemaker import WaveMaker
 
@@ -63,6 +64,10 @@ class FleetsInspector:
     @property
     def shipmakers(self):
         return self.select_class(ShipMaker)
+
+    @property
+    def signals(self):
+        return self.select_class(Signal)
 
     @property
     def thumpers(self):
