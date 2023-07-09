@@ -12,12 +12,12 @@ from tests.tools import FI
 
 class TestShipMaker:
     def test_exists(self):
-        ShipMaker()
+        ShipMaker(1)
 
     def test_creates_ship(self):
         fleets = Fleets()
         fi = FI(fleets)
-        fleets.append(ShipMaker())
+        fleets.append(ShipMaker(1))
         interactor = Interactor(fleets)
         interactor.perform_interactions()
         assert not fi.ships
@@ -27,7 +27,7 @@ class TestShipMaker:
     def test_unsafe_because_missile(self):
         missile = Missile("ship", u.CENTER, Vector2(0, 0))
         fleets = Fleets()
-        fleets.append(ShipMaker())
+        fleets.append(ShipMaker(1))
         interactor = Interactor(fleets)
         fi = FI(fleets)
         interactor.perform_interactions()
@@ -45,7 +45,7 @@ class TestShipMaker:
 
     def test_unsafe_because_saucer(self):
         fleets = Fleets()
-        fleets.append(ShipMaker())
+        fleets.append(ShipMaker(1))
         interactor = Interactor(fleets)
         fi = FI(fleets)
         interactor.perform_interactions()
@@ -68,7 +68,7 @@ class TestShipMaker:
 
     def test_unsafe_because_asteroid(self):
         fleets = Fleets()
-        fleets.append(ShipMaker())
+        fleets.append(ShipMaker(1))
         interactor = Interactor(fleets)
         fi = FI(fleets)
         asteroid = Asteroid()
@@ -86,7 +86,7 @@ class TestShipMaker:
 
     def test_can_run_out_of_ships(self):
         fleets = Fleets()
-        fleets.append(ShipMaker())
+        fleets.append(ShipMaker(1))
         interactor = Interactor(fleets)
         fi = FI(fleets)
         for _ in range(4):

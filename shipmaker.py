@@ -8,7 +8,7 @@ from timer import Timer
 
 class ShipMaker(Flyer):
 
-    def __init__(self):
+    def __init__(self, number_of_players):
         self._ships_remaining = u.SHIPS_PER_QUARTER
         self._timer = Timer(u.SHIP_EMERGENCE_TIME)
         self._game_over = False

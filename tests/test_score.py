@@ -75,6 +75,6 @@ class TestScore:
     def set_up_free_ship_test():
         fleets = Fleets()
         fleets.append(keeper := ScoreKeeper())
-        fleets.append(maker := ShipMaker())
+        fleets.append(maker := ShipMaker(1))
         maker.testing_set_ships_remaining(0)
         return fleets, maker, keeper
