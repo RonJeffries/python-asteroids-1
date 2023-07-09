@@ -2,6 +2,7 @@ import u
 from flyer import Flyer
 from game_over import GameOver
 from ship import Ship
+from signal import Signal
 from sounds import player
 from timer import Timer
 
@@ -56,6 +57,8 @@ class ShipMaker(Flyer):
         if self._ships_remaining[self._current_player_number] > 0:
             self._ships_remaining[self._current_player_number] -= 1
             fleets.append(Ship(u.CENTER))
+            fleets.append(Signal(self._current_player_number))
+            self._current_player_number = (self._current_player_number + 1) % len(self._ships_remaining)
         else:
             fleets.append(GameOver())
             self._game_over = True

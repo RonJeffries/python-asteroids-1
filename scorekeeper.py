@@ -11,7 +11,8 @@ from shipmaker import ShipMaker
 
 @dataclass
 class NoShips:
-    ships_remaining: int = 0
+    def ships_remaining(self, ignored):
+        return 0
 
     def add_ship(self):
         pass
@@ -58,7 +59,8 @@ class ScoreKeeper(Flyer):
         self.draw_available_ships(screen)
 
     def draw_available_ships(self, screen):
-        for i in range(0, self._ship_maker.ships_remaining):
+        count = self._ship_maker.ships_remaining(self._player_number)
+        for i in range(0, count):
             self.draw_available_ship(self.available_ship, i, screen)
 
     def draw_available_ship(self, ship, i, screen):
