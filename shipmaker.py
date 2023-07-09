@@ -9,14 +9,20 @@ from timer import Timer
 class ShipMaker(Flyer):
 
     def __init__(self):
-        self.ships_remaining = u.SHIPS_PER_QUARTER
+        self._ships_remaining = u.SHIPS_PER_QUARTER
         self._timer = Timer(u.SHIP_EMERGENCE_TIME)
         self._game_over = False
         self._need_ship = True
         self._safe_to_emerge = False
 
+    def ships_remaining(self, player_number):
+        return self._ships_remaining
+
+    def testing_set_ships_remaining(self, ships):
+        self._ships_remaining = ships
+
     def add_ship(self):
-        self.ships_remaining += 1
+        self._ships_remaining += 1
         player.play("extra_ship")
 
     def begin_interactions(self, fleets):
@@ -44,8 +50,8 @@ class ShipMaker(Flyer):
     def create_ship(self, fleets):
         if not self._safe_to_emerge:
             return False
-        if self.ships_remaining > 0:
-            self.ships_remaining -= 1
+        if self._ships_remaining > 0:
+            self._ships_remaining -= 1
             fleets.append(Ship(u.CENTER))
         else:
             fleets.append(GameOver())

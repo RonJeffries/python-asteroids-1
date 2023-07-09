@@ -42,11 +42,11 @@ class TestScore:
         keeper.interact_with_shipmaker(maker, fleets)
         assert keeper.score == 0
         keeper.interact_with_score(Score(100), fleets)
-        assert maker.ships_remaining == 0
+        assert maker.ships_remaining(0) == 0
         assert keeper.score == 100
         keeper.interact_with_score(Score(free), fleets)
         assert keeper.score == 100 + free
-        assert maker.ships_remaining == 1
+        assert maker.ships_remaining(0) == 1
 
     def test_free_ship_moves_fence(self):
         fleets, maker, keeper = self.set_up_free_ship_test()
@@ -54,27 +54,27 @@ class TestScore:
         keeper.interact_with_shipmaker(maker, fleets)
         assert keeper.score == 0
         keeper.interact_with_score(Score(100), fleets)
-        assert maker.ships_remaining == 0
+        assert maker.ships_remaining(0) == 0
         keeper.interact_with_score(Score(free - 100), fleets)
-        assert maker.ships_remaining == 1
+        assert maker.ships_remaining(0) == 1
         keeper.interact_with_score(Score(50), fleets)
-        assert maker.ships_remaining == 1
+        assert maker.ships_remaining(0) == 1
         keeper.interact_with_score(Score(free - 50), fleets)
-        assert maker.ships_remaining == 2
+        assert maker.ships_remaining(0) == 2
 
     def test_free_ship_on_exact_score(self):
         fleets, maker, keeper = self.set_up_free_ship_test()
         free = u.FREE_SHIP_SCORE
         keeper.interact_with_shipmaker(maker, fleets)
         assert keeper.score == 0
-        assert maker.ships_remaining == 0
+        assert maker.ships_remaining(0) == 0
         keeper.interact_with_score(Score(free), fleets)
-        assert maker.ships_remaining == 1
+        assert maker.ships_remaining(0) == 1
 
     @staticmethod
     def set_up_free_ship_test():
         fleets = Fleets()
         fleets.append(keeper := ScoreKeeper())
         fleets.append(maker := ShipMaker())
-        maker.ships_remaining = 0
+        maker.testing_set_ships_remaining(0)
         return fleets, maker, keeper
