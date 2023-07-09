@@ -52,6 +52,8 @@ class Game:
             coin.quarter(self.fleets)
         elif keys[pygame.K_a]:
             coin.no_asteroids(self.fleets)
+        elif keys[pygame.K_2]:
+            coin.two_player(self.fleets)
 
     def prepare_screen(self):
         screen = self.screen

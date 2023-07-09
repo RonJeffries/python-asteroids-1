@@ -74,7 +74,8 @@ class ScoreKeeper(Flyer):
     def render_score(self):
         x_position = [10, 875][self._player_number]
         score_text = f"0000{self.score}"[-5:]
-        score_surface = self.score_font.render(score_text, True, "green")
+        color = "green" if self._scoring else "gray50"
+        score_surface = self.score_font.render(score_text, True, color)
         score_rect = score_surface.get_rect(topleft=(x_position, 10))
         return score_surface, score_rect
 

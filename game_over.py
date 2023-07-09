@@ -20,7 +20,7 @@ class GameOver(Flyer):
         pos_left = u.CENTER.x - 150
         pos_top = self.game_over_pos.centery
         self.help_lines = []
-        messages = ["d - turn left", "f - turn right", "j - accelerate", "k - fire missile", "q - insert quarter", ]
+        messages = ["d - turn left", "f - turn right", "j - accelerate", "k - fire missile", "q - insert quarter", "2 - two players"]
         for message in messages:
             pos_top += 60
             text = small_font.render(message, True, "white")
