@@ -62,14 +62,12 @@ class ShipMaker(Flyer):
         return True
 
     def rez_available_ship(self, fleets):
-        if self.ships_remaining(self._next_player) > 0:
-            self._ships_remaining[self._next_player] -= 1
-            fleets.append(Ship(u.CENTER))
-            fleets.append(Signal(self._next_player))
+        if self.ships_remaining(self._next_player) == 0:
             self._next_player = (self._next_player + 1) % len(self._ships_remaining)
-        else:
-            self._next_player = (self._next_player + 1) % len(self._ships_remaining)
-            self.rez_available_ship(fleets)
+        self._ships_remaining[self._next_player] -= 1
+        fleets.append(Ship(u.CENTER))
+        fleets.append(Signal(self._next_player))
+        self._next_player = (self._next_player + 1) % len(self._ships_remaining)
 
     def ships_remain(self):
         return sum(self._ships_remaining) > 0
