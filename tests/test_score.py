@@ -4,6 +4,7 @@ from interactor import Interactor
 from score import Score
 from scorekeeper import ScoreKeeper
 from shipmaker import ShipMaker
+from signal import Signal
 
 
 class TestScore:
@@ -47,6 +48,26 @@ class TestScore:
         keeper.interact_with_score(Score(free), fleets)
         assert keeper.score == 100 + free
         assert maker.ships_remaining(0) == 1
+
+    def test_two_player_free_ship_goes_to_right_ship(self):
+        fleets = Fleets()
+        fleets.append(keeper := ScoreKeeper())
+        fleets.append(maker := ShipMaker(2))
+        assert maker._next_player == 0
+        maker.rez_available_ship(fleets)
+        assert maker._next_player == 1
+        maker.testing_set_ships_remaining(0)
+        keeper.interact_with_signal(Signal(0), fleets)
+        free = u.FREE_SHIP_SCORE
+        keeper.interact_with_shipmaker(maker, fleets)
+        assert keeper.score == 0
+        keeper.interact_with_score(Score(100), fleets)
+        assert maker.ships_remaining(0) == 0
+        assert keeper.score == 100
+        keeper.interact_with_score(Score(free), fleets)
+        assert keeper.score == 100 + free
+        assert maker.ships_remaining(0) == 1
+        assert maker.ships_remaining(1) == u.SHIPS_PER_QUARTER
 
     def test_free_ship_moves_fence(self):
         fleets, maker, keeper = self.set_up_free_ship_test()

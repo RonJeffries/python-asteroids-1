@@ -26,8 +26,12 @@ class ShipMaker(Flyer):
         self._ships_remaining[0] = ships
 
     def add_ship(self):
-        self._ships_remaining[self._next_player] += 1
+        self._ships_remaining[self._current_player] += 1
         player.play("extra_ship")
+
+    @property
+    def _current_player(self):
+        return (self._next_player + 1) % len(self._ships_remaining)
 
     def begin_interactions(self, fleets):
         self._game_over = False
