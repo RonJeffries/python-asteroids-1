@@ -65,8 +65,8 @@ class ShipMaker(Flyer):
     def rez_available_ship(self, fleets):
         if self.ships_remaining(self._next_player) == 0:
             self.switch_to_other_player()
-        self.rez_ship_for_player(self._next_player, fleets)
         self.switch_to_other_player()
+        self.rez_ship_for_player(self._current_player, fleets)
 
     def rez_ship_for_player(self, player_number, fleets):
         self._ships_remaining[player_number] -= 1
