@@ -53,9 +53,7 @@ class TestScore:
         fleets = Fleets()
         fleets.append(keeper := ScoreKeeper())
         fleets.append(maker := ShipMaker(2))
-        assert maker._next_player == 0
         maker.rez_available_ship(fleets)
-        assert maker._next_player == 1
         maker.testing_set_ships_remaining(0)
         keeper.interact_with_signal(Signal(0), fleets)
         free = u.FREE_SHIP_SCORE

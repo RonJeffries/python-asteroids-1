@@ -108,7 +108,6 @@ class TestShipMaker:
         maker._ships_remaining = [1, 3]
 
         self.make_ship_for_player(0, fi, fleets, maker)
-        assert maker._next_player == 1
         self.make_ship_for_player(1, fi, fleets, maker)
         self.make_ship_for_player(1, fi, fleets, maker)
         self.make_ship_for_player(1, fi, fleets, maker)

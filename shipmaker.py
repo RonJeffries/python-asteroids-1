@@ -13,8 +13,7 @@ class ShipMaker(Flyer):
         self._ships_remaining = []
         for _ in range(0, number_of_players):
             self._ships_remaining.append(u.SHIPS_PER_QUARTER)
-        self._next_player = 0
-        self._current_player = 0
+        self._current_player = number_of_players - 1  # trust me
         self._timer = Timer(u.SHIP_EMERGENCE_TIME)
         self._game_over = False
         self._need_ship = True
@@ -63,9 +62,9 @@ class ShipMaker(Flyer):
         return True
 
     def rez_available_ship(self, fleets):
-        if self.ships_remaining(self._next_player) == 0:
-            self.switch_to_other_player()
         self.switch_to_other_player()
+        if self.ships_remaining(self._current_player) == 0:
+            self.switch_to_other_player()
         self.rez_ship_for_player(self._current_player, fleets)
 
     def rez_ship_for_player(self, player_number, fleets):
@@ -74,8 +73,7 @@ class ShipMaker(Flyer):
         fleets.append(Signal(player_number))
 
     def switch_to_other_player(self):
-        self._current_player = self._next_player
-        self._next_player = (self._next_player + 1) % len(self._ships_remaining)
+        self._current_player = (self._current_player + 1) % len(self._ships_remaining)
 
     def ships_remain(self):
         return sum(self._ships_remaining) > 0
