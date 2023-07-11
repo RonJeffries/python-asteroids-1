@@ -24,8 +24,8 @@ class ShipMaker(Flyer):
     def ships_remaining(self, player_number):
         return self._provider.ships_available(player_number)
 
-    def testing_set_ships_remaining(self, counts):
-        self._provider.testing_set_ships_remaining(counts)
+    def testing_set_ships_remaining(self, ships):
+        self._provider.testing_set_ships_remaining(ships)
 
     def add_ship(self, player_identifier):
         self._provider.add_ship(player_identifier)
