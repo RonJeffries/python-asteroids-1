@@ -22,7 +22,7 @@ class ShipMaker(Flyer):
         self._safe_to_emerge = False
 
     def ships_remaining(self, player_number):
-        return self._provider.ships_available(player_number)
+        return self._provider.ships_remaining(player_number)
 
     def testing_set_ships_remaining(self, ships):
         self._provider.testing_set_ships_remaining(ships)

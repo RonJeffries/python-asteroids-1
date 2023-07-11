@@ -14,7 +14,7 @@ class ShipProvider(ABC):
         pass
 
     @abstractmethod
-    def ships_available(self, _player:int) -> int:
+    def ships_remaining(self, _player:int) -> int:
         pass
 
     @abstractmethod
@@ -29,7 +29,7 @@ class SinglePlayerShipProvider:
     def add_ship(self, _player):
         self._ships += 1
 
-    def ships_available(self, _player):
+    def ships_remaining(self, _player):
         return self._ships
 
     def provide(self):
@@ -51,7 +51,7 @@ class TwoPlayerShipProvider:
     def add_ship(self, player_token):
         self._ships[player_token] += 1
 
-    def ships_available(self, player_token):
+    def ships_remaining(self, player_token):
         return self._ships[player_token]
 
     def provide(self):
