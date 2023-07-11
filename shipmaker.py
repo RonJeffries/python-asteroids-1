@@ -1,4 +1,5 @@
 import u
+from ShipProvider import SinglePlayerShipProvider, TwoPlayerShipProvider
 from flyer import Flyer
 from game_over import GameOver
 from ship import Ship
@@ -10,9 +11,10 @@ from timer import Timer
 class ShipMaker(Flyer):
 
     def __init__(self, number_of_players):
-        self._ships_remaining = []
-        for _ in range(0, number_of_players):
-            self._ships_remaining.append(u.SHIPS_PER_QUARTER)
+        if number_of_players == 1:
+            self._provider = SinglePlayerShipProvider(u.SHIPS_PER_QUARTER)
+        else:
+            self._provider = TwoPlayerShipProvider(u.SHIPS_PER_QUARTER)
         self._current_player = number_of_players - 1  # trust me
         self._timer = Timer(u.SHIP_EMERGENCE_TIME)
         self._game_over = False
@@ -20,13 +22,13 @@ class ShipMaker(Flyer):
         self._safe_to_emerge = False
 
     def ships_remaining(self, player_number):
-        return self._ships_remaining[player_number]
+        return self._provider.ships_available(player_number)
 
     def testing_set_ships_remaining(self, ships):
-        self._ships_remaining[0] = ships
+        self._provider.testing_set_ships_remaining(ships)
 
     def add_ship(self, player_identifier):
-        self._ships_remaining[player_identifier] += 1
+        self._provider.add_ship(player_identifier)
         player.play("extra_ship")
 
     def begin_interactions(self, fleets):
@@ -54,29 +56,17 @@ class ShipMaker(Flyer):
     def create_ship(self, fleets):
         if not self._safe_to_emerge:
             return False
-        if self.ships_remain():
-            self.rez_available_ship(fleets)
-        else:
-            fleets.append(GameOver())
-            self._game_over = True
+        self.rez_available_ship(fleets)
         return True
 
     def rez_available_ship(self, fleets):
-        self.switch_to_other_player()
-        if self.ships_remaining(self._current_player) == 0:
-            self.switch_to_other_player()
-        self.rez_ship_for_player(self._current_player, fleets)
-
-    def rez_ship_for_player(self, player_number, fleets):
-        self._ships_remaining[player_number] -= 1
-        fleets.append(Ship(u.CENTER))
-        fleets.append(Signal(player_number))
-
-    def switch_to_other_player(self):
-        self._current_player = (self._current_player + 1) % len(self._ships_remaining)
-
-    def ships_remain(self):
-        return sum(self._ships_remaining) > 0
+        to_append = self._provider.provide()
+        if to_append:
+            for flyer in to_append:
+                fleets.append(flyer)
+        else:
+            fleets.append(GameOver())
+            self._game_over = True
 
     def interact_with(self, other, fleets):
         other.interact_with_shipmaker(self, fleets)

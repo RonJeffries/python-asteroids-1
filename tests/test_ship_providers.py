@@ -64,6 +64,11 @@ class TestShipProviders:
         results.append(self.execute_provider(provider))  # 0
         assert results == [0, 1, 1]
 
+    def test_tests_can_set(self):
+        provider = SinglePlayerShipProvider(4)
+        provider.testing_set_ships_remaining(2)
+        assert provider.ships_available(0) == 2
+
     def execute_provider(self, provider):
         items = provider.provide()
         assert next(s for s in items if isinstance(s, Ship))
