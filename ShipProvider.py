@@ -45,32 +45,33 @@ class SinglePlayerShipProvider:
 
 class TwoPlayerShipProvider:
     def __init__(self, number_of_ships):
-        self._current_player = 1
-        self._ships = [number_of_ships, number_of_ships]
+        self._current_player_token = u.PLAYER_ONE
+        self._ships = {u.PLAYER_ZERO: number_of_ships, u.PLAYER_ONE: number_of_ships}
 
-    def add_ship(self, player):
-        self._ships[player] += 1
+    def add_ship(self, player_token):
+        self._ships[player_token] += 1
 
-    def ships_available(self, player):
-        return self._ships[player]
+    def ships_available(self, player_token):
+        return self._ships[player_token]
 
     def provide(self):
-        self.switch_players()
-        if self._ships[self._current_player]:
-            return self.ship_for_player(self._current_player)
+        self._switch_players()
+        if self._ships[self._current_player_token]:
+            return self._ship_for_player(self._current_player_token)
         else:
-            self.switch_players()
-            if self._ships[self._current_player]:
-                return self.ship_for_player(self._current_player)
+            self._switch_players()
+            if self._ships[self._current_player_token]:
+                return self._ship_for_player(self._current_player_token)
             else:
                 return []
 
-    def ship_for_player(self, player):
-        self._ships[player] -= 1
-        return [Ship(u.CENTER), Signal(player)]
+    def _ship_for_player(self, player_token):
+        self._ships[player_token] -= 1
+        return [Ship(u.CENTER), Signal(player_token)]
 
-    def switch_players(self):
-        self._current_player = (self._current_player + 1) % 2
+    def _switch_players(self):
+        self._current_player_token = u.PLAYER_ONE if self._current_player_token == u.PLAYER_ZERO else u.PLAYER_ZERO
 
     def testing_set_ships_remaining(self, counts):
-        self._ships = counts
+        self._ships[u.PLAYER_ZERO] = counts[0]
+        self._ships[u.PLAYER_ONE] = counts[1]
