@@ -89,7 +89,7 @@ class ScoreKeeper(Flyer):
         if self._scoring:
             self.score += score.score
             if self.score >= self._fence:
-                self._ship_maker.add_ship()
+                self._ship_maker.add_ship(self._player_number)
                 self._fence += u.FREE_SHIP_SCORE
 
     def interact_with_signal(self, signal, fleets):
