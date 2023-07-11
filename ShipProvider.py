@@ -10,11 +10,11 @@ class ShipProvider(ABC):
         pass
 
     @abstractmethod
-    def provide(self) -> list[Ship|Signal]:
+    def provide(self) -> list[Ship | Signal]:
         pass
 
     @abstractmethod
-    def ships_remaining(self, _player:int) -> int:
+    def ships_remaining(self, _player: int) -> int:
         pass
 
     @abstractmethod

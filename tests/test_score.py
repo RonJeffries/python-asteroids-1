@@ -43,11 +43,11 @@ class TestScore:
         keeper.interact_with_shipmaker(maker, fleets)
         assert keeper.score == 0
         keeper.interact_with_score(Score(100), fleets)
-        assert maker.ships_remaining(0) == 0
+        assert maker.ships_remaining(u.PLAYER_ZERO) == 0
         assert keeper.score == 100
         keeper.interact_with_score(Score(free), fleets)
         assert keeper.score == 100 + free
-        assert maker.ships_remaining(0) == 1
+        assert maker.ships_remaining(u.PLAYER_ZERO) == 1
 
     def test_two_player_free_ship_goes_to_right_ship(self):
         fleets = Fleets()
@@ -60,11 +60,11 @@ class TestScore:
         keeper.interact_with_shipmaker(maker, fleets)
         assert keeper.score == 0
         keeper.interact_with_score(Score(100), fleets)
-        assert maker.ships_remaining(0) == 0
+        assert maker.ships_remaining(u.PLAYER_ZERO) == 0
         assert keeper.score == 100
         keeper.interact_with_score(Score(free), fleets)
         assert keeper.score == 100 + free
-        assert maker.ships_remaining(0) == 1
+        assert maker.ships_remaining(u.PLAYER_ZERO) == 1
         assert maker.ships_remaining(1) == u.SHIPS_PER_QUARTER
 
     def test_free_ship_moves_fence(self):
@@ -73,22 +73,22 @@ class TestScore:
         keeper.interact_with_shipmaker(maker, fleets)
         assert keeper.score == 0
         keeper.interact_with_score(Score(100), fleets)
-        assert maker.ships_remaining(0) == 0
+        assert maker.ships_remaining(u.PLAYER_ZERO) == 0
         keeper.interact_with_score(Score(free - 100), fleets)
-        assert maker.ships_remaining(0) == 1
+        assert maker.ships_remaining(u.PLAYER_ZERO) == 1
         keeper.interact_with_score(Score(50), fleets)
-        assert maker.ships_remaining(0) == 1
+        assert maker.ships_remaining(u.PLAYER_ZERO) == 1
         keeper.interact_with_score(Score(free - 50), fleets)
-        assert maker.ships_remaining(0) == 2
+        assert maker.ships_remaining(u.PLAYER_ZERO) == 2
 
     def test_free_ship_on_exact_score(self):
         fleets, maker, keeper = self.set_up_free_ship_test()
         free = u.FREE_SHIP_SCORE
         keeper.interact_with_shipmaker(maker, fleets)
         assert keeper.score == 0
-        assert maker.ships_remaining(0) == 0
+        assert maker.ships_remaining(u.PLAYER_ZERO) == 0
         keeper.interact_with_score(Score(free), fleets)
-        assert maker.ships_remaining(0) == 1
+        assert maker.ships_remaining(u.PLAYER_ZERO) == 1
 
     @staticmethod
     def set_up_free_ship_test():
