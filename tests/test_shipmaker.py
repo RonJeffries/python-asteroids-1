@@ -106,6 +106,7 @@ class TestShipMaker:
         fi = FI(fleets)
         maker = ShipMaker(2)
         maker._provider._ships = [1, 3]
+        maker.testing_set_ships_remaining([1, 3])
 
         self.make_ship_for_player(0, fi, fleets, maker)
         self.make_ship_for_player(1, fi, fleets, maker)

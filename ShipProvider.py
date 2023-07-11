@@ -21,8 +21,8 @@ class SinglePlayerShipProvider:
         else:
             return []
 
-    def testing_set_ships_remaining(self, count):
-        self._ships = count
+    def testing_set_ships_remaining(self, counts):
+        self._ships = counts[0]
 
 class TwoPlayerShipProvider:
     def __init__(self, number_of_ships):
@@ -53,7 +53,7 @@ class TwoPlayerShipProvider:
     def switch_players(self):
         self._current_player = (self._current_player + 1) % 2
 
-    def testing_set_ships_remaining(self, count):
-        self._ships[0] = count
+    def testing_set_ships_remaining(self, counts):
+        self._ships = counts
 
 

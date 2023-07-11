@@ -54,7 +54,7 @@ class TestScore:
         fleets.append(keeper := ScoreKeeper())
         fleets.append(maker := ShipMaker(2))
         maker.rez_available_ship(fleets)
-        maker.testing_set_ships_remaining(0)
+        maker.testing_set_ships_remaining([0, 4])
         keeper.interact_with_signal(Signal(0), fleets)
         free = u.FREE_SHIP_SCORE
         keeper.interact_with_shipmaker(maker, fleets)
@@ -95,5 +95,5 @@ class TestScore:
         fleets = Fleets()
         fleets.append(keeper := ScoreKeeper())
         fleets.append(maker := ShipMaker(1))
-        maker.testing_set_ships_remaining(0)
+        maker.testing_set_ships_remaining([0])
         return fleets, maker, keeper

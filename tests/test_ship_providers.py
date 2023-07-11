@@ -66,7 +66,7 @@ class TestShipProviders:
 
     def test_tests_can_set(self):
         provider = SinglePlayerShipProvider(4)
-        provider.testing_set_ships_remaining(2)
+        provider.testing_set_ships_remaining([2])
         assert provider.ships_available(0) == 2
 
     def execute_provider(self, provider):
