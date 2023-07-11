@@ -26,6 +26,9 @@ class TwoPlayerShipProvider:
         self._current_player = 1
         self._ships = [number_of_ships, number_of_ships]
 
+    def add_ship(self, player):
+        self._ships[player] += 1
+
     def ships_available(self, player):
         return self._ships[player]
 

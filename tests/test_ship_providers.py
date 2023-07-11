@@ -46,3 +46,27 @@ class TestShipProviders:
         assert not provider.ships_available(u.PLAYER_ONE)
         assert not provider.provide()
 
+    def test_add_for_zero(self):
+        provider = TwoPlayerShipProvider(1)
+        provider.add_ship(u.PLAYER_ZERO)
+        results = []
+        results.append(self.execute_provider(provider))  # 0
+        results.append(self.execute_provider(provider))  # 1
+        results.append(self.execute_provider(provider))  # 0
+        assert results == [0, 1, 0]
+
+    def test_add_for_zone(self):
+        provider = TwoPlayerShipProvider(1)
+        provider.add_ship(u.PLAYER_ONE)
+        results = []
+        results.append(self.execute_provider(provider))  # 0
+        results.append(self.execute_provider(provider))  # 1
+        results.append(self.execute_provider(provider))  # 0
+        assert results == [0, 1, 1]
+
+    def execute_provider(self, provider):
+        items = provider.provide()
+        assert next(s for s in items if isinstance(s, Ship))
+        signal = next(s for s in items if isinstance(s, Signal))
+        return signal.signal
+
