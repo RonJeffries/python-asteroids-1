@@ -44,4 +44,5 @@ class TestShipProviders:
         assert signal.signal == u.PLAYER_ONE
         assert not provider.ships_available(u.PLAYER_ZERO)
         assert not provider.ships_available(u.PLAYER_ONE)
+        assert not provider.provide()
 
