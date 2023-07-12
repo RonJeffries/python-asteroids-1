@@ -10,6 +10,7 @@ from flyer import Flyer
 from hyperspace_generator import HyperspaceGenerator
 from missile import Missile
 from movable_location import MovableLocation
+from score import Score
 from sounds import player
 from timer import Timer
 
@@ -60,6 +61,8 @@ class Ship(Flyer):
         if not pygame.get_init():
             return
         keys = pygame.key.get_pressed()
+        if keys[pygame.K_s]:
+            fleets.append(Score(u.FREE_SHIP_SCORE))
         if keys[pygame.K_f]:
             self.turn_left(delta_time)
         if keys[pygame.K_d]:
