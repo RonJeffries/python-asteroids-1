@@ -35,7 +35,7 @@ class Fleets:
         self.draw(screen)
 
     def draw(self, screen):
-        pygame.draw.circle(screen, "white", u.CENTER, 2*u.SAFE_EMERGENCE_DISTANCE, 1)
+        # pygame.draw.circle(screen, "white", u.CENTER, u.SAFE_EMERGENCE_DISTANCE, 1)
         for flyer in self.all_objects:
             flyer.draw(screen)
 
