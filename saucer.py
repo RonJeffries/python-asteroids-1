@@ -144,3 +144,4 @@ class Saucer(Flyer):
 
     def zig_zag_action(self):
         self.accelerate_to(self.new_direction())
+

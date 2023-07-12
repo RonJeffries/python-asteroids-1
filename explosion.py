@@ -5,7 +5,7 @@ from fragment import Fragment
 class Explosion:
 
     @classmethod
-    def from_ship(cls,position, fleets):
+    def from_ship(cls, position, fleets):
         simple = Fragment.simple_fragment
         vee = Fragment.v_fragment
         guy = Fragment.astronaut_fragment
@@ -13,7 +13,7 @@ class Explosion:
         explosion.explode(fleets)
 
     @classmethod
-    def from_saucer(cls,position, fleets):
+    def from_saucer(cls, position, fleets):
         simple = Fragment.simple_fragment
         vee = Fragment.v_fragment
         explosion = cls(position, [vee, vee, simple, vee, simple, vee, simple])
@@ -33,5 +33,5 @@ class Explosion:
 
     def make_fragment(self, factory_method, base_direction, fleets):
         twiddle = random.randrange(-20, 20)
-        fragment = factory_method(position=self.position, angle=base_direction+twiddle)
+        fragment = factory_method(position=self.position, angle=base_direction + twiddle)
         fleets.append(fragment)
