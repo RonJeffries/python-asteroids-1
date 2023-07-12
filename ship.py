@@ -21,16 +21,18 @@ class Ship(Flyer):
 
     def __init__(self, position, drop_in=2):
         self.radius = 25
+        self._accelerating = False
+        self._acceleration = u.SHIP_ACCELERATION
+        self._allow_freebie = True
+        self._angle = 0
+        self._asteroid_tally = 0
+        self._can_fire = True
         self._drop_in = drop_in
-        self._location = MovableLocation(position, Vector2(0, 0))
         self._hyperspace_generator = HyperspaceGenerator(self)
         self._hyperspace_timer = Timer(u.SHIP_HYPERSPACE_RECHARGE_TIME)
-        self._can_fire = True
-        self._angle = 0
-        self._acceleration = u.SHIP_ACCELERATION
-        self._accelerating = False
-        self._asteroid_tally = 0
+        self._location = MovableLocation(position, Vector2(0, 0))
         self._missile_tally = 0
+        self._shipmaker = None
         ship_scale = 4
         ship_size = Vector2(14, 8)*ship_scale
         self._ship_surface, self._ship_accelerating_surface = SurfaceMaker.ship_surfaces(ship_size)
@@ -62,7 +64,11 @@ class Ship(Flyer):
             return
         keys = pygame.key.get_pressed()
         if keys[pygame.K_s]:
-            fleets.append(Score(u.FREE_SHIP_SCORE))
+            if self._allow_freebie and self._shipmaker:
+                self._shipmaker.add_ship(u.PLAYER_ZERO)
+                self._allow_freebie = False
+        else:
+            self._allow_freebie = True
         if keys[pygame.K_f]:
             self.turn_left(delta_time)
         if keys[pygame.K_d]:
@@ -104,6 +110,9 @@ class Ship(Flyer):
 
     def interact_with_ship(self, ship, fleets):
         pass
+
+    def interact_with_shipmaker(self, shipmaker, fleets):
+        self._shipmaker = shipmaker
 
     def explode_if_hit(self, attacker, fleets):
         if attacker.are_we_colliding(self.position, self.radius):
