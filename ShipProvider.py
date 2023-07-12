@@ -1,7 +1,7 @@
-import u
+from abc import ABC, abstractmethod
 from ship import Ship
 from signal import Signal
-from abc import ABC, abstractmethod
+import u
 
 
 class ShipProvider(ABC):
