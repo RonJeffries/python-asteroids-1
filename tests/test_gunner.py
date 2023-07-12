@@ -72,8 +72,6 @@ class TestGunner:
     #     assert missile.velocity_testing_only == Vector2(u.MISSILE_SPEED + 12, 34)
 
     def test_can_only_fire_limited_number(self):
-        no_target = 0.5
-        angle = 0.0
         fleets = Fleets()
         fi = FI(fleets)
         saucer_position = Vector2(500, 500)
@@ -100,7 +98,6 @@ class TestGunner:
 
     def test_targeted(self):
         fleets = Fleets()
-        fi = FI(fleets)
         saucer_position = Vector2(500, 500)
         ship_position = Vector2(500, 550)
         saucer = Saucer.large()
@@ -112,7 +109,6 @@ class TestGunner:
 
     def test_targeted_harder(self):
         fleets = Fleets()
-        fi = FI(fleets)
         saucer_position = Vector2(500, 500)
         ship_position = Vector2(550, 550)
         saucer = Saucer.large()
@@ -124,7 +120,6 @@ class TestGunner:
 
     def test_handle_ship_none(self):
         delta_time = 1.0
-        tally = 0
         fleets = Fleets()
         fi = FI(fleets)
         ship = None
@@ -151,7 +146,7 @@ class TestGunner:
         pos = Vector2(100, 100)
         fleets = Fleets()
         fi = FI(fleets)
-        ship = Ship(Vector2(100, 100))
+        ship = Ship(pos)
         small_saucer = Saucer.small()
         small_saucer._location.position = Vector2(100, 50)
         small_gunner = small_saucer._gunner

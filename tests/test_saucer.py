@@ -131,7 +131,7 @@ class TestSaucer:
         fleets = Fleets()
         fi = FI(fleets)
         fleets.append(keeper := ScoreKeeper())
-        fleets.append(maker := SaucerMaker())
+        fleets.append(SaucerMaker())
         fleets.perform_interactions()
         keeper.score = 0
         fleets.tick(u.SAUCER_EMERGENCE_TIME)

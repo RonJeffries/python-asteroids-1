@@ -1,15 +1,14 @@
 # Saucer
 
 import random
-from math import atan2, degrees
 
 from pygame import Vector2
+
 import u
 from SurfaceMaker import SurfaceMaker
 from explosion import Explosion
 from flyer import Flyer
 from gunner import Gunner
-from missile import Missile
 from movable_location import MovableLocation
 from score import Score
 from sounds import player

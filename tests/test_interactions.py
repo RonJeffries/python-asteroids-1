@@ -4,24 +4,18 @@ from pygame import Vector2
 
 import u
 from asteroid import Asteroid
-from explosion import Explosion
+from fleets import Fleets
 from flyer import Flyer
-from game_over import GameOver
-from interactor import Interactor
 from fragment import Fragment
+from game import Game
+from interactor import Interactor
 from missile import Missile
 from saucer import Saucer
-from gunner import Gunner
-from saucermaker import SaucerMaker
 from score import Score
-from ship import Ship
-from game import Game
-from fleets import Fleets
 from scorekeeper import ScoreKeeper
-from shipmaker import ShipMaker
+from ship import Ship
 from shot_optimizer import ShotOptimizer
 from tests.tools import FI, BeginChecker, EndChecker
-from thumper import Thumper
 from wavemaker import WaveMaker
 
 
@@ -45,7 +39,6 @@ class TestInteractions:
         ship.fire_if_possible(fleets, )
         missile_count = len([m for m in fleets.all_objects])
         return missile_count
-
 
     def test_missile_v_missile(self):
         pos = Vector2(100, 100)

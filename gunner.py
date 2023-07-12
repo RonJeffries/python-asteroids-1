@@ -1,7 +1,5 @@
 import random
 
-from pygame import Vector2
-
 import u
 from ship import Ship
 from shot_optimizer import ShotOptimizer

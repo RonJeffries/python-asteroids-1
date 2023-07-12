@@ -2,7 +2,6 @@ from game_over import GameOver
 from saucermaker import SaucerMaker
 from scorekeeper import ScoreKeeper
 from shipmaker import ShipMaker
-from signal import Signal
 from thumper import Thumper
 from wavemaker import WaveMaker
 

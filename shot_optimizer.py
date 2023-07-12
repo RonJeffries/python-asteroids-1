@@ -27,7 +27,6 @@ class ShotOptimizer:
             return self.random_solution
         shooter_position = self.saucer.position
         best_target_position = self.closest_aiming_point(shooter_position, self.ship.position, u.SCREEN_SIZE)
-        vector_to_target = best_target_position - shooter_position
         safe_distance = self.saucer.missile_head_start
         target_position = self.lead_the_target(best_target_position, safe_distance, shooter_position)
         return FiringSolution(target_position, shooter_position, safe_distance, 1)

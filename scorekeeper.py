@@ -1,16 +1,17 @@
 from dataclasses import dataclass
-from flyer import Flyer
+
+import pygame
 from pygame import Vector2
-from score import Score
+
+import u
+from flyer import Flyer
 from ship import Ship
 from shipmaker import ShipMaker
-import pygame
-import u
 
 
 @dataclass
 class NoShips:
-    def ships_remaining(self, ignored):
+    def ships_remaining(self, _ignored):
         return 0
 
     def add_ship(self):

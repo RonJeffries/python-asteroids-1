@@ -1,9 +1,7 @@
 import u
 from ShipProvider import SinglePlayerShipProvider, TwoPlayerShipProvider
-from fleets import Fleets
 from ship import Ship
 from signal import Signal
-from tests.tools import FI
 
 
 class TestShipProviders:

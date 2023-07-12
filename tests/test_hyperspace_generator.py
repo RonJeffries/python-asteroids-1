@@ -10,7 +10,7 @@ from tests.tools import FI
 class TestHyperspaceGenerator:
     def test_exists(self):
         ship = Ship(Vector2(0, 0))
-        hg = HyperspaceGenerator(ship)
+        HyperspaceGenerator(ship)
 
     def test_starts_discharged(self):
         ship = Ship(Vector2(0, 0))
@@ -76,7 +76,6 @@ class TestHyperspaceGenerator:
         fleets = Fleets()
         impossible = Vector2(-5, -9)
         ship = Ship(impossible)
-        fi = FI(fleets)
         fleets.append(ship)
         hg = HyperspaceGenerator(ship)
         hg.press_button(0, fleets, 44)  # fail = roll > 44 + tally

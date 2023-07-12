@@ -1,9 +1,6 @@
 # SpaceObjects
-from itertools import chain
 
-from asteroid import Asteroid
 from interactor import Interactor
-from ship import Ship
 
 
 class Fleets:
