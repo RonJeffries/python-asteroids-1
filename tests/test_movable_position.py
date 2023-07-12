@@ -1,5 +1,6 @@
 from pygame import Vector2
 
+import u
 from movable_location import MovableLocation
 
 
@@ -43,4 +44,13 @@ class TestMovablePosition:
         off_x, off_y = mp.move(0.1)
         assert not off_x
         assert off_y
+
+    def test_moving_away_from_point(self):
+        center = u.CENTER
+        position = center + Vector2(10, 10)
+        velocity = Vector2(1, 1)
+        ml = MovableLocation(position, velocity)
+        assert ml.moving_away_from(u.CENTER)
+        m2 = MovableLocation(center + Vector2(10, -10), Vector2(-1, 1))
+        assert not m2.moving_away_from(u.CENTER)
 
