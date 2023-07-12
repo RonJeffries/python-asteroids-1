@@ -1,12 +1,11 @@
-import pygame
-from pygame import Vector2
 from dataclasses import dataclass
-
-import u
 from flyer import Flyer
+from pygame import Vector2
 from score import Score
 from ship import Ship
 from shipmaker import ShipMaker
+import pygame
+import u
 
 
 @dataclass
