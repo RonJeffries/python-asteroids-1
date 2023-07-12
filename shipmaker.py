@@ -1,11 +1,9 @@
-import u
 from ShipProvider import SinglePlayerShipProvider, TwoPlayerShipProvider
 from flyer import Flyer
 from game_over import GameOver
-from ship import Ship
-from signal import Signal
 from sounds import player
 from timer import Timer
+import u
 
 
 class ShipMaker(Flyer):
