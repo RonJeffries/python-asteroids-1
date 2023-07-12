@@ -7,7 +7,7 @@ class MovableLocation:
     def __init__(self, position, velocity, size=u.SCREEN_SIZE):
         self.position = position
         self.velocity = velocity
-        self.size = size
+        self.screen_size = size
 
     def accelerate_by(self, acceleration_vector):
         self.velocity = self.velocity + acceleration_vector
@@ -35,7 +35,7 @@ class MovableLocation:
 
 
     def wrap_around(self, raw_position):
-        return Vector2(raw_position.x % self.size, raw_position.y % self.size)
+        return Vector2(raw_position.x % self.screen_size, raw_position.y % self.screen_size)
 
     def move_to(self, vector):
         self.position = vector
