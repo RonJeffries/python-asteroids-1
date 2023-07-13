@@ -1,4 +1,5 @@
 from ShipProvider import SinglePlayerShipProvider, TwoPlayerShipProvider
+from asteroidanalyzer import AsteroidAnalyzer
 from flyer import Flyer
 from game_over import GameOver
 from sounds import player
@@ -35,7 +36,8 @@ class ShipMaker(Flyer):
         self._safe_to_emerge = True
 
     def interact_with_asteroid(self, asteroid, fleets):
-        self._safe_to_emerge = self._safe_to_emerge and self.asteroid_is_safe(asteroid)
+        analyzer = AsteroidAnalyzer(self)
+        self._safe_to_emerge = self._safe_to_emerge and analyzer.is_safe(asteroid)
 
     def asteroid_is_safe(self, asteroid):
         safe = True
