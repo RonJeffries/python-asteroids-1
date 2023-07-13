@@ -35,14 +35,16 @@ class ShipMaker(Flyer):
         self._safe_to_emerge = True
 
     def interact_with_asteroid(self, asteroid, fleets):
+        safe = True
         distance = asteroid.position.distance_to(u.CENTER)
         ship_radius = 25
         if distance < ship_radius + asteroid.radius:
-            self._safe_to_emerge = False
+            safe = False
         elif distance < u.SAFE_EMERGENCE_DISTANCE:
             ml = asteroid._location
             if not ml.moving_away_from(u.CENTER):
-                self._safe_to_emerge = False
+                safe = False
+        self._safe_to_emerge = self._safe_to_emerge and safe
 
     def interact_with_missile(self, missile, fleets):
         self._safe_to_emerge = False
