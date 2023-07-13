@@ -5,4 +5,4 @@ class AsteroidAnalyzer:
         self._shipmaker = shipmaker
 
     def is_safe(self, asteroid):
-        return asteroid.asteroid_is_safe()
+        return asteroid.is_safe_for_emergence()

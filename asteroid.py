@@ -84,7 +84,7 @@ class Asteroid(Flyer):
     def tick(self, delta_time, fleets):
         pass
 
-    def asteroid_is_safe(self):
+    def is_safe_for_emergence(self):
         safe = True
         distance = self.position.distance_to(u.CENTER)
         ship_radius = 25
