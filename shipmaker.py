@@ -1,7 +1,6 @@
-from ShipProvider import SinglePlayerShipProvider, TwoPlayerShipProvider
-from asteroidanalyzer import AsteroidAnalyzer
 from flyer import Flyer
 from game_over import GameOver
+from shipprovider import SinglePlayerShipProvider, TwoPlayerShipProvider
 from sounds import player
 from timer import Timer
 import u

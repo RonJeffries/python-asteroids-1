@@ -1,5 +1,5 @@
 import u
-from ShipProvider import SinglePlayerShipProvider, TwoPlayerShipProvider
+from shipprovider import SinglePlayerShipProvider, TwoPlayerShipProvider
 from ship import Ship
 from signal import Signal
 
