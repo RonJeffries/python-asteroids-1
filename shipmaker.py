@@ -36,8 +36,7 @@ class ShipMaker(Flyer):
         self._safe_to_emerge = True
 
     def interact_with_asteroid(self, asteroid, fleets):
-        analyzer = AsteroidAnalyzer(self)
-        self._safe_to_emerge = self._safe_to_emerge and analyzer.is_safe(asteroid)
+        self._safe_to_emerge = self._safe_to_emerge and asteroid.asteroid_is_safe()
 
     def interact_with_missile(self, missile, fleets):
         self._safe_to_emerge = False
