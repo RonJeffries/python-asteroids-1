@@ -8,32 +8,51 @@ from flyer import Flyer
 from timer import Timer
 
 
-class Fragment(Flyer):
+class LineCommand:
+    def __init__(self, pos1, pos2):
+        self._pos1 = pos1
+        self._pos2 = pos2
 
+    def draw(self, screen, position, theta):
+        p1 = position + self._pos1.rotate(theta)
+        p2 = position + self._pos2.rotate(theta)
+        pygame.draw.line(screen, "white", p1, p2, 3)
+
+
+class CircleCommand:
+    def __init__(self, position, radius, width):
+        self._pos = position
+        self._radius = radius
+        self._width = width
+
+    def draw(self, screen, position, theta):
+        head_off = self._pos.rotate(theta)
+        pygame.draw.circle(screen, "white", position + head_off, self._radius, self._width)
+
+
+class Fragment(Flyer):
     @classmethod
     def simple_fragment(cls, position, angle=None, speed_mul=None):
-        line = "line"
         half_length = random.uniform(6, 10)
         begin = Vector2(-half_length, 0)
         end = Vector2(half_length, 0)
-        return cls(position, angle, speed_mul, [[line, begin, end]])
+        frag = LineCommand(begin, end)
+        return cls(position, angle, speed_mul, [frag])
 
     @classmethod
     def v_fragment(cls, position, angle=None, speed_mul=None):
-        line = "line"
-        side_1 = [line, Vector2(-7, 5), Vector2(7, 0)]
-        side_2 = [line, Vector2(7, 0), Vector2(-7, -5)]
+        side_1 = LineCommand(Vector2(-7, 5), Vector2(7, 0))
+        side_2 = LineCommand(Vector2(7, 0), Vector2(-7, -5))
         return cls(position, angle, speed_mul, [side_1, side_2])
 
     @classmethod
     def astronaut_fragment(cls, position, angle=None, speed_mul=None):
-        line = "line"
-        head = ["head", Vector2(0, 24), 8, 2]
+        head = CircleCommand(Vector2(0, 24), 8, 2)
         body_bottom = Vector2(0, 2)
-        body = [line, Vector2(0, 16), body_bottom]
-        left_leg = [line, Vector2(-5, -16), body_bottom]
-        right_leg = [line, Vector2(5, -16), body_bottom]
-        arm = [line, Vector2(-9, 10), Vector2(9, 10)]
+        body = LineCommand(Vector2(0, 16), body_bottom)
+        left_leg = LineCommand(Vector2(-5, -16), body_bottom)
+        right_leg = LineCommand(Vector2(5, -16), body_bottom)
+        arm = LineCommand(Vector2(-9, 10), Vector2(9, 10))
         return cls(position, angle, speed_mul, [head, body, arm, left_leg, right_leg])
 
     def __init__(self, position, angle=None, speed_mul=None, fragments=None):
@@ -52,24 +71,7 @@ class Fragment(Flyer):
 
     def draw(self, screen):
         for command in self.fragments:
-            operation = command[0]
-            if operation == "line":
-                self.draw_one_line(screen, self.position, self.theta, command[1:])
-            elif operation == "head":
-                self.draw_head(screen, command[1:])
-            else:
-                pass
-
-    def draw_head(self, screen, parameters):
-        position, radius, width = parameters
-        head_off = position.rotate(self.theta)
-        pygame.draw.circle(screen, "white", self.position + head_off, radius, width)
-
-    @staticmethod
-    def draw_one_line(screen, position, theta, pair):
-        start = pair[0].rotate(theta) + position
-        end = pair[1].rotate(theta) + position
-        pygame.draw.line(screen, "white", start, end, 3)
+            command.draw(screen, self.position, self.theta)
 
     def interact_with(self, attacker, fleets):
         attacker.interact_with_fragment(self, fleets)
