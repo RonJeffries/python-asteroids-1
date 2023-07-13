@@ -83,3 +83,15 @@ class Asteroid(Flyer):
 
     def tick(self, delta_time, fleets):
         pass
+
+    def asteroid_is_safe(self):
+        safe = True
+        distance = self.position.distance_to(u.CENTER)
+        ship_radius = 25
+        if distance < ship_radius + self.radius:
+            safe = False
+        elif distance < u.SAFE_EMERGENCE_DISTANCE:
+            ml = self._location
+            if not ml.moving_away_from(u.CENTER):
+                safe = False
+        return safe
