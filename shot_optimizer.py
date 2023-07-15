@@ -31,6 +31,10 @@ class ShotOptimizer:
         target_position = self.lead_the_target(best_target_position, safe_distance, shooter_position)
         return FiringSolution(target_position, shooter_position, safe_distance, 1)
 
+    @property
+    def random_solution(self):
+        return FiringSolution(self.random_position(), self.saucer.position, self.saucer.missile_head_start, 1)
+
     def lead_the_target(self, best_target_position, safe_distance, shooter_position):
         target_position = best_target_position
         for _ in range(3):
@@ -42,10 +46,6 @@ class ShotOptimizer:
                 u.MISSILE_SPEED,
                 safe_distance)
         return target_position
-
-    @property
-    def random_solution(self):
-        return FiringSolution(self.random_position(), self.saucer.position, self.saucer.missile_head_start, 1)
 
     @staticmethod
     def improved_aiming_point(
