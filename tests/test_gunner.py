@@ -249,7 +249,7 @@ class TestGunner:
         copied = original
         copied += Vector2(10, 20)
         assert copied == Vector2(110, 120)
-        assert original == copied  # !!!! aliasing.
+        assert original == copied  # !!! aliasing.
 
 
 
