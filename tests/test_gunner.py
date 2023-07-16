@@ -4,6 +4,7 @@ import pytest
 from pygame import Vector2
 
 import u
+from aimimprover import AimImprover
 from fleets import Fleets
 from gunner import Gunner
 from saucer import Saucer
@@ -205,7 +206,8 @@ class TestGunner:
         flight_time = starting_distance/100
         ship_move = ship_velocity*flight_time
         new_ship_position = ship_position + ship_move
-        new_target = ShotOptimizer.improved_aiming_point(ship_position, ship_velocity, ship_position, saucer_position, missile_speed, 0)
+        improver = AimImprover(ship_position, ship_velocity, saucer_position, missile_speed, 0)
+        new_target = improver.improved_aiming_point(ship_position)
         dist = new_target.distance_to(new_ship_position)
         assert dist < 0.001
 
@@ -215,8 +217,9 @@ class TestGunner:
         saucer_position = Vector2(0, 0)
         missile_speed = 100
         new_target = ship_position
+        improver = AimImprover(ship_position, ship_velocity, saucer_position, missile_speed, 0)
         for _ in range(3):
-            new_target = ShotOptimizer.improved_aiming_point(new_target, ship_velocity, ship_position, saucer_position, missile_speed, 0)
+            new_target = improver.improved_aiming_point(new_target)
         ship_speed = ship_velocity.length()
         ship_move_distance = ship_position.distance_to(new_target)
         ship_time = ship_move_distance / ship_speed
@@ -231,8 +234,9 @@ class TestGunner:
         missile_speed = 100
         missile_offset = 20
         new_target = ship_position
+        improver = AimImprover(ship_position, ship_velocity, saucer_position, missile_speed, missile_offset)
         for _ in range(3):
-            new_target = ShotOptimizer.improved_aiming_point(new_target, ship_velocity, ship_position, saucer_position, missile_speed, missile_offset)
+            new_target = improver.improved_aiming_point(new_target)
         ship_speed = ship_velocity.length()
         ship_move_distance = ship_position.distance_to(new_target)
         ship_time = ship_move_distance / ship_speed

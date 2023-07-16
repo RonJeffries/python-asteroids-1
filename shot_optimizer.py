@@ -1,7 +1,9 @@
 import random
+from copy import copy
 
 from pygame import Vector2
 import u
+from aimimprover import AimImprover
 from missile import Missile
 
 
@@ -36,30 +38,12 @@ class ShotOptimizer:
         return FiringSolution(self.random_position(), self.saucer.position, self.saucer.missile_head_start, 1)
 
     def lead_the_target(self, best_target_position, safe_distance, shooter_position):
-        target_position = best_target_position
+        aim_improver = AimImprover(best_target_position, self.ship.velocity, shooter_position, u.MISSILE_SPEED,
+                                   safe_distance)
+        target_position = copy(best_target_position)
         for _ in range(3):
-            target_position = self.improved_aiming_point(
-                target_position,
-                self.ship.velocity,
-                best_target_position,
-                shooter_position,
-                u.MISSILE_SPEED,
-                safe_distance)
+            target_position = aim_improver.improved_aiming_point(target_position)
         return target_position
-
-    @staticmethod
-    def improved_aiming_point(
-            initial_aiming_point,
-            ship_velocity,
-            ship_position,
-            saucer_position,
-            missile_speed,
-            missile_offset):
-        missile_travel_distance = saucer_position.distance_to(initial_aiming_point) - missile_offset
-        missile_travel_time = missile_travel_distance / missile_speed
-        ship_motion = missile_travel_time * ship_velocity
-        anticipated_ship_position = ship_position + ship_motion
-        return anticipated_ship_position
 
     def random_position(self):
         return Vector2(self.random_coordinate(), self.random_coordinate())

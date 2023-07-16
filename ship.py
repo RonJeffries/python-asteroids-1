@@ -49,6 +49,10 @@ class Ship(Flyer):
     def velocity(self):
         return self._location.velocity
 
+    @velocity.setter
+    def velocity(self, value):
+        self._location.velocity = value
+
     @velocity_testing_only.setter
     def velocity_testing_only(self, velocity):
         self._location.velocity = velocity
