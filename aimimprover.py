@@ -11,6 +11,6 @@ class AimImprover:
     def improved_aiming_point(self, initial_aiming_point):
         missile_travel_distance = self.shooter_position.distance_to(initial_aiming_point) - self.safe_distance
         missile_travel_time = missile_travel_distance / self.missile_speed
-        ship_motion = missile_travel_time * self.target_velocity
-        anticipated_ship_position = self.original_target_position + ship_motion
+        target_motion_vector = missile_travel_time * self.target_velocity
+        anticipated_ship_position = self.original_target_position + target_motion_vector
         return anticipated_ship_position
