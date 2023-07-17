@@ -8,10 +8,10 @@ from missile import Missile
 
 
 class FiringSolution:
-    def __init__(self, target_position, shooter_position, safe_distance, speed_adjustment):
+    def __init__(self, target_position, shooter_position, safe_distance):
         direction_to_target = (target_position - shooter_position).normalize()
         safety_offset = direction_to_target * safe_distance
-        self.velocity = direction_to_target * u.MISSILE_SPEED * speed_adjustment
+        self.velocity = direction_to_target * u.MISSILE_SPEED
         self.start = shooter_position + safety_offset
 
     def saucer_missile(self):
@@ -31,11 +31,11 @@ class ShotOptimizer:
         best_target_position = self.closest_aiming_point(shooter_position, self.ship.position, u.SCREEN_SIZE)
         safe_distance = self.saucer.missile_head_start
         target_position = self.lead_the_target(best_target_position, safe_distance, shooter_position)
-        return FiringSolution(target_position, shooter_position, safe_distance, 1)
+        return FiringSolution(target_position, shooter_position, safe_distance)
 
     @property
     def random_solution(self):
-        return FiringSolution(self.random_position(), self.saucer.position, self.saucer.missile_head_start, 1)
+        return FiringSolution(self.random_position(), self.saucer.position, self.saucer.missile_head_start)
 
     def lead_the_target(self, best_target_position, safe_distance, shooter_position):
         aim_improver = AimImprover(best_target_position, self.ship.velocity, shooter_position, u.MISSILE_SPEED,
