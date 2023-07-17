@@ -105,20 +105,6 @@ class TestSaucer:
         saucer.interact_with_missile(ship_missile, fleets)
         assert saucer.missile_tally == 1
 
-    def test_vectors_mutate(self):
-        v1 = Vector2(1, 2)
-        v1_original = v1
-        assert v1 is v1_original
-        v2 = Vector2(3, 4)
-        v1 += v2
-        assert v1 is v1_original
-        v1 = v1 + v2
-        assert v1 is not v1_original
-
-    def test_empty_string(self):
-        assert not ""
-        assert "False"
-
     def test_methods(self):
         methods = dir(Saucer)
         methods = [x for x in methods if callable(getattr(Saucer, x))]

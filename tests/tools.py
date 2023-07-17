@@ -157,3 +157,5 @@ class EndChecker(Flyer):
 
     def end_interactions(self, fleets):
         self.triggered = True
+
+

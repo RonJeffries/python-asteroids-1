@@ -244,13 +244,6 @@ class TestGunner:
         missile_time = missile_move_distance / missile_speed
         assert ship_time == pytest.approx(missile_time, 0.01)
 
-    def test_show_vector_aliasing(self):
-        original = Vector2(100, 100)
-        copied = original
-        copied += Vector2(10, 20)
-        assert copied == Vector2(110, 120)
-        assert original == copied  # !!! aliasing.
-
 
 
 
