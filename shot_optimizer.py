@@ -37,12 +37,12 @@ class ShotOptimizer:
     def random_solution(self):
         return FiringSolution(self.random_position(), self.saucer.position, self.saucer.missile_head_start)
 
-    def lead_the_target(self, best_target_position, safe_distance, shooter_position):
-        aim_improver = AimImprover(best_target_position, self.ship.velocity, shooter_position, u.MISSILE_SPEED,
+    def lead_the_target(self, target_position, safe_distance, shooter_position):
+        aim_improver = AimImprover(target_position, self.ship.velocity, shooter_position, u.MISSILE_SPEED,
                                    safe_distance)
         for _ in range(3):
-            best_target_position = aim_improver.improved_aiming_point(best_target_position)
-        return best_target_position
+            target_position = aim_improver.improved_aiming_point(target_position)
+        return target_position
 
     def random_position(self):
         return Vector2(self.random_coordinate(), self.random_coordinate())
