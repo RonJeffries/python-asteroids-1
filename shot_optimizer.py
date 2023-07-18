@@ -40,10 +40,9 @@ class ShotOptimizer:
     def lead_the_target(self, best_target_position, safe_distance, shooter_position):
         aim_improver = AimImprover(best_target_position, self.ship.velocity, shooter_position, u.MISSILE_SPEED,
                                    safe_distance)
-        target_position = copy(best_target_position)
         for _ in range(3):
-            target_position = aim_improver.improved_aiming_point(target_position)
-        return target_position
+            best_target_position = aim_improver.improved_aiming_point(best_target_position)
+        return best_target_position
 
     def random_position(self):
         return Vector2(self.random_coordinate(), self.random_coordinate())
