@@ -61,7 +61,8 @@ class ShotOptimizer:
         #     Handy Diagram
         #  ______|______|______
         #   T      T---S++T
-        # Central T is too far away.
+        # Central T is more than half screen away:
+        # Too far.
         # We are to his right, so
         # we shoot toward the right!
         direct_distance = abs(target_coord - shooter_coord)
