@@ -8,7 +8,7 @@ class AimImprover:
         self.missile_speed = missile_speed
         self.safe_distance = safe_distance
 
-    def improved_aiming_point(self, initial_aiming_point):
+    def refine_aiming_point(self, initial_aiming_point):
         missile_travel_time = self.missile_travel_time_to(initial_aiming_point)
         anticipated_target_position = self.target_position_at_time(missile_travel_time)
         return anticipated_target_position

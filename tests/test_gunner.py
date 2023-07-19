@@ -207,7 +207,7 @@ class TestGunner:
         ship_move = ship_velocity*flight_time
         new_ship_position = ship_position + ship_move
         improver = AimImprover(ship_position, ship_velocity, saucer_position, missile_speed, 0)
-        new_target = improver.improved_aiming_point(ship_position)
+        new_target = improver.refine_aiming_point(ship_position)
         dist = new_target.distance_to(new_ship_position)
         assert dist < 0.001
 
@@ -219,7 +219,7 @@ class TestGunner:
         new_target = ship_position
         improver = AimImprover(ship_position, ship_velocity, saucer_position, missile_speed, 0)
         for _ in range(3):
-            new_target = improver.improved_aiming_point(new_target)
+            new_target = improver.refine_aiming_point(new_target)
         ship_speed = ship_velocity.length()
         ship_move_distance = ship_position.distance_to(new_target)
         ship_time = ship_move_distance / ship_speed
@@ -236,7 +236,7 @@ class TestGunner:
         new_target = ship_position
         improver = AimImprover(ship_position, ship_velocity, saucer_position, missile_speed, missile_offset)
         for _ in range(3):
-            new_target = improver.improved_aiming_point(new_target)
+            new_target = improver.refine_aiming_point(new_target)
         ship_speed = ship_velocity.length()
         ship_move_distance = ship_position.distance_to(new_target)
         ship_time = ship_move_distance / ship_speed

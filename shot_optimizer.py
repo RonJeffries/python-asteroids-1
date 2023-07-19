@@ -28,10 +28,14 @@ class ShotOptimizer:
         if not self.ship:
             return self.random_solution
         shooter_position = self.saucer.position
-        best_target_position = self.closest_aiming_point(shooter_position, self.ship.position, u.SCREEN_SIZE)
         safe_distance = self.saucer.missile_head_start
-        target_position = self.lead_the_target(best_target_position, safe_distance, shooter_position)
+        target_position = self.choose_aiming_point(safe_distance, shooter_position)
         return FiringSolution(target_position, shooter_position, safe_distance)
+
+    def choose_aiming_point(self, safe_distance, shooter_position):
+        initial_aiming_point = self.closest_aiming_point(shooter_position, self.ship.position, u.SCREEN_SIZE)
+        improved_aiming_point = self.lead_the_target(initial_aiming_point, safe_distance, shooter_position)
+        return improved_aiming_point
 
     @property
     def random_solution(self):
@@ -41,7 +45,7 @@ class ShotOptimizer:
         aim_improver = AimImprover(target_position, self.ship.velocity, shooter_position, u.MISSILE_SPEED,
                                    safe_distance)
         for _ in range(3):
-            target_position = aim_improver.improved_aiming_point(target_position)
+            target_position = aim_improver.refine_aiming_point(target_position)
         return target_position
 
     def random_position(self):
