@@ -96,6 +96,7 @@ class SurfaceMaker:
     def create_scaled_surface(dimensions, offset, scale_factor, *point_lists):
         surface = pygame.Surface(dimensions)
         surface.set_colorkey((0, 0, 0))
+        # surface.fill("green")
         for point_list in point_lists:
             SurfaceMaker.draw_adjusted_lines(offset, point_list, scale_factor, surface)
         return surface

@@ -16,13 +16,13 @@ class Asteroid(Flyer):
     def __init__(self, size=2, position=None):
         self.size = max(0, min(size, 2))
         self._score = u.ASTEROID_SCORE_LIST[self.size]
-        self.radius = [16, 32, 64][self.size]
+        self.radius = [16, 32, 64][self.size] * u.SCALE_FACTOR
         position = position if position is not None else Vector2(0, random.randrange(0, u.SCREEN_SIZE))
         angle_of_travel = random.randint(0, 360)
         velocity = u.ASTEROID_SPEED.rotate(angle_of_travel)
         self._location = MovableLocation(position, velocity)
         self._offset = Vector2(self.radius, self.radius)
-        self._surface = SurfaceMaker.asteroid_surface(self.radius * 2)
+        self._surface = SurfaceMaker.asteroid_surface(u.SCALE_FACTOR * self.radius * 2)
 
     @property
     def position(self):

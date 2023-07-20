@@ -41,7 +41,7 @@ class Saucer(Flyer):
         self._directions = (velocity.rotate(45), velocity, velocity, velocity.rotate(-45))
         self._gunner = Gunner(always_target)
         self._location = MovableLocation(position, velocity)
-        self._radius = radius
+        self._radius = radius * u.SCALE_FACTOR
         self._score = score
         self._ship = None
         self._sound = sound
@@ -49,7 +49,7 @@ class Saucer(Flyer):
         self.is_small_saucer = is_small
         self.missile_tally = 0
         self.missile_head_start = 2*self._radius
-        self.create_surface_class_members(scale)
+        self.create_surface_class_members(scale * u.SCALE_FACTOR)
 
     @property
     def position(self):

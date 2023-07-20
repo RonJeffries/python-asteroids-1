@@ -20,7 +20,7 @@ class Ship(Flyer):
     thrust_sound = None
 
     def __init__(self, position, drop_in=2):
-        self.radius = 25
+        self.radius = 25 * u.SCALE_FACTOR
         self._accelerating = False
         self._acceleration = u.SHIP_ACCELERATION
         self._allow_freebie = True
@@ -34,7 +34,7 @@ class Ship(Flyer):
         self._missile_tally = 0
         self._shipmaker = None
         ship_scale = 4
-        ship_size = Vector2(14, 8)*ship_scale
+        ship_size = Vector2(14, 8)*ship_scale*u.SCALE_FACTOR
         self._ship_surface, self._ship_accelerating_surface = SurfaceMaker.ship_surfaces(ship_size)
 
     @property
