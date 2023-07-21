@@ -55,23 +55,25 @@ class SurfaceMaker:
 
     @staticmethod
     def accelerating_surface(object_size: Vector2):
+        room_for_fat_line = Vector2(0, 0)
         raw_points_span = Vector2(14, 8)
         raw_points_offset = raw_points_span / 2
         scale_factor = object_size.x / raw_points_span.x
+        expanded_size = object_size + room_for_fat_line
         accelerating_surface = SurfaceMaker.create_scaled_surface(
-            object_size, raw_points_offset, scale_factor, raw_ship_points, raw_flare_points)
+            expanded_size, raw_points_offset, scale_factor, raw_flare_points)
         return accelerating_surface
 
     @staticmethod
     def asteroid_surface(object_size: Vector2):
+        points_to_draw = SurfaceMaker.get_next_shape()
         room_for_fat_line = Vector2(2, 2)
         raw_points_span = Vector2(8, 8)
         raw_points_offset = raw_points_span / 2
         scale_factor = object_size.x / raw_points_span.x
-        raw_rock_points = SurfaceMaker.get_next_shape()
         expanded_size = object_size + room_for_fat_line
         surface = SurfaceMaker.create_scaled_surface(
-            expanded_size, raw_points_offset, scale_factor, raw_rock_points)
+            expanded_size, raw_points_offset, scale_factor, points_to_draw)
         return surface
 
     @staticmethod
@@ -87,11 +89,13 @@ class SurfaceMaker:
 
     @staticmethod
     def ship_surface(object_size: Vector2):
+        room_for_fat_line = Vector2(0, 0)
         raw_points_span = Vector2(14, 8)
         raw_points_offset = raw_points_span / 2
         scale_factor = object_size.x / raw_points_span.x
+        expanded_size = object_size + room_for_fat_line
         ship_surface = SurfaceMaker.create_scaled_surface(
-            object_size, raw_points_offset, scale_factor, raw_ship_points)
+            expanded_size, raw_points_offset, scale_factor, raw_ship_points)
         return ship_surface
 
     @staticmethod
