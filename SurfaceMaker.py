@@ -64,23 +64,25 @@ class SurfaceMaker:
 
     @staticmethod
     def asteroid_surface(object_size: Vector2):
+        room_for_fat_line = Vector2(2, 2)
         raw_points_span = Vector2(8, 8)
         raw_points_offset = raw_points_span / 2
         scale_factor = object_size.x / raw_points_span.x
         raw_rock_points = SurfaceMaker.get_next_shape()
-        room_for_fat_line = Vector2(2, 2)
-        surface_size = object_size + room_for_fat_line
-        surface = SurfaceMaker.create_scaled_surface(surface_size, raw_points_offset, scale_factor, raw_rock_points)
+        expanded_size = object_size + room_for_fat_line
+        surface = SurfaceMaker.create_scaled_surface(
+            expanded_size, raw_points_offset, scale_factor, raw_rock_points)
         return surface
 
     @staticmethod
     def saucer_surface(object_size: Vector2):
+        room_for_fat_line = Vector2(0, 2)
         raw_points_span = Vector2(10, 6)
         raw_points_offset = raw_points_span / 2
         scale_factor = object_size.x / raw_points_span.x
-        room_for_fat_line = Vector2(0, 2)
+        expanded_size = object_size + room_for_fat_line
         saucer_surface = SurfaceMaker.create_scaled_surface(
-            object_size + room_for_fat_line, raw_points_offset, scale_factor, raw_saucer_points)
+            expanded_size, raw_points_offset, scale_factor, raw_saucer_points)
         return saucer_surface
 
     @staticmethod
