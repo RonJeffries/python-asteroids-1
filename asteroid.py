@@ -22,7 +22,9 @@ class Asteroid(Flyer):
         velocity = u.ASTEROID_SPEED.rotate(angle_of_travel)
         self._location = MovableLocation(position, velocity)
         self._offset = Vector2(self.radius, self.radius)
-        self._surface = SurfaceMaker.asteroid_surface(u.SCALE_FACTOR * self.radius * 2)
+        scaled_size = u.SCALE_FACTOR * self.radius * 2
+        asteroid_size = Vector2(scaled_size, scaled_size)
+        self._surface = SurfaceMaker.asteroid_surface(asteroid_size)
 
     @property
     def position(self):

@@ -54,6 +54,26 @@ class SurfaceMaker:
         return (point + center_adjustment) * scale_factor
 
     @staticmethod
+    def accelerating_surface(ship_size):
+        raw_points_span = Vector2(14, 8)
+        raw_points_offset = raw_points_span / 2
+        scale_factor = ship_size.x / raw_points_span.x
+        accelerating_surface = SurfaceMaker.create_scaled_surface(
+            ship_size, raw_points_offset, scale_factor, raw_ship_points, raw_flare_points)
+        return accelerating_surface
+
+    @staticmethod
+    def asteroid_surface(actual_size: Vector2):
+        raw_points_span = Vector2(8, 8)
+        raw_points_offset = raw_points_span / 2
+        scale_factor = actual_size.x / raw_points_span.x
+        raw_rock_points = SurfaceMaker.get_next_shape()
+        room_for_fat_line = Vector2(2, 2)
+        surface_size = actual_size + room_for_fat_line
+        surface = SurfaceMaker.create_scaled_surface(surface_size, raw_points_offset, scale_factor, raw_rock_points)
+        return surface
+
+    @staticmethod
     def saucer_surface(saucer_size):
         raw_points_span = Vector2(10, 6)
         raw_points_offset = raw_points_span / 2
@@ -71,27 +91,6 @@ class SurfaceMaker:
         ship_surface = SurfaceMaker.create_scaled_surface(
             ship_size, raw_points_offset, scale_factor, raw_ship_points)
         return ship_surface
-
-    @staticmethod
-    def accelerating_surface(ship_size):
-        raw_points_span = Vector2(14, 8)
-        raw_points_offset = raw_points_span / 2
-        scale_factor = ship_size.x / raw_points_span.x
-        accelerating_surface = SurfaceMaker.create_scaled_surface(
-            ship_size, raw_points_offset, scale_factor, raw_ship_points, raw_flare_points)
-        return accelerating_surface
-
-    @staticmethod
-    def asteroid_surface(actual_size):
-        raw_rock_points = SurfaceMaker.get_next_shape()
-        raw_points_span = 8
-        raw_points_offset = Vector2(4, 4)
-        scale = actual_size / raw_points_span
-        room_for_fat_line = 2
-        surface_size = actual_size + room_for_fat_line
-        surface = SurfaceMaker.create_scaled_surface((surface_size, surface_size),
-                                                     raw_points_offset, scale, raw_rock_points)
-        return surface
 
     @staticmethod
     def get_next_shape():
