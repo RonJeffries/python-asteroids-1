@@ -35,7 +35,8 @@ class Ship(Flyer):
         self._shipmaker = None
         ship_scale = 4
         ship_size = Vector2(14, 8)*ship_scale*u.SCALE_FACTOR
-        self._ship_surface, self._ship_accelerating_surface = SurfaceMaker.ship_surfaces(ship_size)
+        self._ship_surface = SurfaceMaker.ship_surface(ship_size)
+        self._ship_accelerating_surface = SurfaceMaker.accelerating_surface(ship_size)
 
     @property
     def position(self):

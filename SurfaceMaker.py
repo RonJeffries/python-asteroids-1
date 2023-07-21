@@ -64,15 +64,22 @@ class SurfaceMaker:
         return saucer_surface
 
     @staticmethod
-    def ship_surfaces(ship_size):
+    def ship_surface(ship_size):
         raw_points_span = Vector2(14, 8)
         raw_points_offset = raw_points_span / 2
         scale_factor = ship_size.x / raw_points_span.x
         ship_surface = SurfaceMaker.create_scaled_surface(
             ship_size, raw_points_offset, scale_factor, raw_ship_points)
+        return ship_surface
+
+    @staticmethod
+    def accelerating_surface(ship_size):
+        raw_points_span = Vector2(14, 8)
+        raw_points_offset = raw_points_span / 2
+        scale_factor = ship_size.x / raw_points_span.x
         accelerating_surface = SurfaceMaker.create_scaled_surface(
             ship_size, raw_points_offset, scale_factor, raw_ship_points, raw_flare_points)
-        return ship_surface, accelerating_surface
+        return accelerating_surface
 
     @staticmethod
     def asteroid_surface(actual_size):
