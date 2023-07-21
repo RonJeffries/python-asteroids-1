@@ -58,18 +58,10 @@ class SurfaceMaker:
         points_to_draw = raw_flare_points
         room_for_fat_line = Vector2(0, 0)
         raw_points_span = Vector2(14, 8)
-        raw_points_offset = raw_points_span / 2
-        scale_factor = object_size.x / raw_points_span.x
-        expanded_size = object_size + room_for_fat_line
-        accelerating_surface = SurfaceMaker.create_scaled_surface(
-            expanded_size, raw_points_offset, scale_factor, points_to_draw)
-        return accelerating_surface
+        return SurfaceMaker.create_desired_surface(points_to_draw, object_size, raw_points_span, room_for_fat_line)
 
     @staticmethod
-    def asteroid_surface(object_size: Vector2):
-        points_to_draw = SurfaceMaker.get_next_shape()
-        room_for_fat_line = Vector2(2, 2)
-        raw_points_span = Vector2(8, 8)
+    def create_desired_surface(points_to_draw, object_size, raw_points_span, room_for_fat_line):
         raw_points_offset = raw_points_span / 2
         scale_factor = object_size.x / raw_points_span.x
         expanded_size = object_size + room_for_fat_line
@@ -78,28 +70,25 @@ class SurfaceMaker:
         return surface
 
     @staticmethod
+    def asteroid_surface(object_size: Vector2):
+        points_to_draw = SurfaceMaker.get_next_shape()
+        room_for_fat_line = Vector2(2, 2)
+        raw_points_span = Vector2(8, 8)
+        return SurfaceMaker.create_desired_surface(points_to_draw, object_size, raw_points_span, room_for_fat_line)
+
+    @staticmethod
     def saucer_surface(object_size: Vector2):
         points_to_draw = raw_saucer_points
         room_for_fat_line = Vector2(0, 2)
         raw_points_span = Vector2(10, 6)
-        raw_points_offset = raw_points_span / 2
-        scale_factor = object_size.x / raw_points_span.x
-        expanded_size = object_size + room_for_fat_line
-        saucer_surface = SurfaceMaker.create_scaled_surface(
-            expanded_size, raw_points_offset, scale_factor, points_to_draw)
-        return saucer_surface
+        return SurfaceMaker.create_desired_surface(points_to_draw, object_size, raw_points_span, room_for_fat_line)
 
     @staticmethod
     def ship_surface(object_size: Vector2):
         points_to_draw = raw_ship_points
         room_for_fat_line = Vector2(0, 0)
         raw_points_span = Vector2(14, 8)
-        raw_points_offset = raw_points_span / 2
-        scale_factor = object_size.x / raw_points_span.x
-        expanded_size = object_size + room_for_fat_line
-        ship_surface = SurfaceMaker.create_scaled_surface(
-            expanded_size, raw_points_offset, scale_factor, points_to_draw)
-        return ship_surface
+        return SurfaceMaker.create_desired_surface(points_to_draw, object_size, raw_points_span, room_for_fat_line)
 
     @staticmethod
     def get_next_shape():
