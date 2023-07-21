@@ -54,42 +54,42 @@ class SurfaceMaker:
         return (point + center_adjustment) * scale_factor
 
     @staticmethod
-    def accelerating_surface(ship_size):
+    def accelerating_surface(object_size: Vector2):
         raw_points_span = Vector2(14, 8)
         raw_points_offset = raw_points_span / 2
-        scale_factor = ship_size.x / raw_points_span.x
+        scale_factor = object_size.x / raw_points_span.x
         accelerating_surface = SurfaceMaker.create_scaled_surface(
-            ship_size, raw_points_offset, scale_factor, raw_ship_points, raw_flare_points)
+            object_size, raw_points_offset, scale_factor, raw_ship_points, raw_flare_points)
         return accelerating_surface
 
     @staticmethod
-    def asteroid_surface(actual_size: Vector2):
+    def asteroid_surface(object_size: Vector2):
         raw_points_span = Vector2(8, 8)
         raw_points_offset = raw_points_span / 2
-        scale_factor = actual_size.x / raw_points_span.x
+        scale_factor = object_size.x / raw_points_span.x
         raw_rock_points = SurfaceMaker.get_next_shape()
         room_for_fat_line = Vector2(2, 2)
-        surface_size = actual_size + room_for_fat_line
+        surface_size = object_size + room_for_fat_line
         surface = SurfaceMaker.create_scaled_surface(surface_size, raw_points_offset, scale_factor, raw_rock_points)
         return surface
 
     @staticmethod
-    def saucer_surface(saucer_size):
+    def saucer_surface(object_size: Vector2):
         raw_points_span = Vector2(10, 6)
         raw_points_offset = raw_points_span / 2
-        scale_factor = saucer_size.x / raw_points_span.x
+        scale_factor = object_size.x / raw_points_span.x
         room_for_fat_line = Vector2(0, 2)
         saucer_surface = SurfaceMaker.create_scaled_surface(
-            saucer_size + room_for_fat_line, raw_points_offset, scale_factor, raw_saucer_points)
+            object_size + room_for_fat_line, raw_points_offset, scale_factor, raw_saucer_points)
         return saucer_surface
 
     @staticmethod
-    def ship_surface(ship_size):
+    def ship_surface(object_size: Vector2):
         raw_points_span = Vector2(14, 8)
         raw_points_offset = raw_points_span / 2
-        scale_factor = ship_size.x / raw_points_span.x
+        scale_factor = object_size.x / raw_points_span.x
         ship_surface = SurfaceMaker.create_scaled_surface(
-            ship_size, raw_points_offset, scale_factor, raw_ship_points)
+            object_size, raw_points_offset, scale_factor, raw_ship_points)
         return ship_surface
 
     @staticmethod
