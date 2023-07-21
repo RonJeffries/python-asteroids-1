@@ -55,13 +55,14 @@ class SurfaceMaker:
 
     @staticmethod
     def accelerating_surface(object_size: Vector2):
+        points_to_draw = raw_flare_points
         room_for_fat_line = Vector2(0, 0)
         raw_points_span = Vector2(14, 8)
         raw_points_offset = raw_points_span / 2
         scale_factor = object_size.x / raw_points_span.x
         expanded_size = object_size + room_for_fat_line
         accelerating_surface = SurfaceMaker.create_scaled_surface(
-            expanded_size, raw_points_offset, scale_factor, raw_flare_points)
+            expanded_size, raw_points_offset, scale_factor, points_to_draw)
         return accelerating_surface
 
     @staticmethod
