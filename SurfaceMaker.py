@@ -57,7 +57,6 @@ class SurfaceMaker:
     def accelerating_surface(object_size: Vector2):
         points_to_draw = raw_ship_points + raw_flare_points
         raw_points_span = SurfaceMaker.span(points_to_draw)
-        room_for_fat_line = Vector2(0, 0)
         return SurfaceMaker.create_desired_surface(points_to_draw, object_size, raw_points_span)
 
     @staticmethod
@@ -74,14 +73,12 @@ class SurfaceMaker:
     def asteroid_surface(object_size: Vector2):
         points_to_draw = SurfaceMaker.get_next_shape()
         raw_points_span = SurfaceMaker.span(points_to_draw)
-        room_for_fat_line = Vector2(2, 2)
         return SurfaceMaker.create_desired_surface(points_to_draw, object_size, raw_points_span)
 
     @staticmethod
     def saucer_surface(object_size: Vector2):
         points_to_draw = raw_saucer_points
         raw_points_span = SurfaceMaker.span(points_to_draw)
-        room_for_fat_line = Vector2(0, 2)
         return SurfaceMaker.create_desired_surface(points_to_draw, object_size, raw_points_span)
 
     @staticmethod
@@ -89,7 +86,6 @@ class SurfaceMaker:
         points_to_draw = raw_ship_points
         points_to_span = raw_ship_points + raw_flare_points
         raw_points_span = SurfaceMaker.span(points_to_span)
-        room_for_fat_line = Vector2(0, 0)
         return SurfaceMaker.create_desired_surface(points_to_draw, object_size, raw_points_span)
 
     @staticmethod
