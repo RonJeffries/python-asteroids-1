@@ -62,6 +62,7 @@ class SurfaceMaker:
 
     @staticmethod
     def create_desired_surface(points_to_draw, object_size, raw_points_span, room_for_fat_line):
+        room_for_fat_line = Vector2(2, 2)
         raw_points_offset = raw_points_span / 2
         scale_factor = object_size.x / raw_points_span.x
         expanded_size = object_size + room_for_fat_line
