@@ -72,8 +72,8 @@ class SurfaceMaker:
     @staticmethod
     def asteroid_surface(object_size: Vector2):
         points_to_draw = SurfaceMaker.get_next_shape()
+        raw_points_span = SurfaceMaker.span(points_to_draw)
         room_for_fat_line = Vector2(2, 2)
-        raw_points_span = Vector2(8, 8)
         return SurfaceMaker.create_desired_surface(points_to_draw, object_size, raw_points_span, room_for_fat_line)
 
     @staticmethod
@@ -109,3 +109,11 @@ class SurfaceMaker:
     def draw_adjusted_lines(offset, point_list, scale_factor, surface):
         adjusted = [SurfaceMaker.adjust(point, offset, scale_factor) for point in point_list]
         pygame.draw.lines(surface, "white", False, adjusted, 3)
+
+    @staticmethod
+    def span(points):
+        max_x = max([point.x for point in points])
+        max_y = max([point.y for point in points])
+        min_x = min([point.x for point in points])
+        min_y = min([point.y for point in points])
+        return Vector2(max_x - min_x, max_y - min_y)

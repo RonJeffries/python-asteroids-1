@@ -1,3 +1,8 @@
+from pygame import Vector2
+
+from SurfaceMaker import SurfaceMaker
+
+
 class TestSurfaceMaker:
 
     def test_fetch(self):
@@ -15,6 +20,11 @@ class TestSurfaceMaker:
         made = maker.fetch("ship-5-7", make, "ship", 5, 7)
         assert made == "made ship-5-7"
         assert make_count == 1
+
+    def test_span(self):
+        points = [Vector2(-3, 9), Vector2(2, 5)]
+        span = SurfaceMaker.span(points)
+        assert span == Vector2(5, 4)
 
 
 class CachedMaker:
