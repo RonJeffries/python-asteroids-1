@@ -58,10 +58,10 @@ class SurfaceMaker:
         points_to_draw = raw_ship_points + raw_flare_points
         raw_points_span = SurfaceMaker.span(points_to_draw)
         room_for_fat_line = Vector2(0, 0)
-        return SurfaceMaker.create_desired_surface(points_to_draw, object_size, raw_points_span, room_for_fat_line)
+        return SurfaceMaker.create_desired_surface(points_to_draw, object_size, raw_points_span)
 
     @staticmethod
-    def create_desired_surface(points_to_draw, object_size, raw_points_span, room_for_fat_line):
+    def create_desired_surface(points_to_draw, object_size, raw_points_span):
         room_for_fat_line = Vector2(2, 2)
         raw_points_offset = raw_points_span / 2
         scale_factor = object_size.x / raw_points_span.x
@@ -75,14 +75,14 @@ class SurfaceMaker:
         points_to_draw = SurfaceMaker.get_next_shape()
         raw_points_span = SurfaceMaker.span(points_to_draw)
         room_for_fat_line = Vector2(2, 2)
-        return SurfaceMaker.create_desired_surface(points_to_draw, object_size, raw_points_span, room_for_fat_line)
+        return SurfaceMaker.create_desired_surface(points_to_draw, object_size, raw_points_span)
 
     @staticmethod
     def saucer_surface(object_size: Vector2):
         points_to_draw = raw_saucer_points
         raw_points_span = SurfaceMaker.span(points_to_draw)
         room_for_fat_line = Vector2(0, 2)
-        return SurfaceMaker.create_desired_surface(points_to_draw, object_size, raw_points_span, room_for_fat_line)
+        return SurfaceMaker.create_desired_surface(points_to_draw, object_size, raw_points_span)
 
     @staticmethod
     def ship_surface(object_size: Vector2):
@@ -90,7 +90,7 @@ class SurfaceMaker:
         points_to_span = raw_ship_points + raw_flare_points
         raw_points_span = SurfaceMaker.span(points_to_span)
         room_for_fat_line = Vector2(0, 0)
-        return SurfaceMaker.create_desired_surface(points_to_draw, object_size, raw_points_span, room_for_fat_line)
+        return SurfaceMaker.create_desired_surface(points_to_draw, object_size, raw_points_span)
 
     @staticmethod
     def get_next_shape():
