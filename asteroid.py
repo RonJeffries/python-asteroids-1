@@ -1,5 +1,5 @@
 # Asteroid
-
+import pygame
 from pygame.math import Vector2
 import random
 
@@ -21,10 +21,11 @@ class Asteroid(Flyer):
         angle_of_travel = random.randint(0, 360)
         velocity = u.ASTEROID_SPEED.rotate(angle_of_travel)
         self._location = MovableLocation(position, velocity)
-        self._offset = Vector2(self.radius, self.radius)
         scaled_size = u.SCALE_FACTOR * self.radius * 2
         asteroid_size = Vector2(scaled_size, scaled_size)
         self._surface = SurfaceMaker.asteroid_surface(asteroid_size)
+        w,h = self._surface.get_size()
+        self._offset = Vector2(w/2, h/2)
 
     @property
     def position(self):
@@ -33,6 +34,7 @@ class Asteroid(Flyer):
     def draw(self, screen):
         top_left_corner = self.position - self._offset
         screen.blit(self._surface, top_left_corner)
+        # pygame.draw.circle(screen, "white", self.position, self.radius, 3)
 
     def update(self, delta_time, _fleets):
         self._location.move(delta_time)
