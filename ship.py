@@ -3,7 +3,7 @@
 import pygame
 from pygame import Vector2
 import random
-from SurfaceMaker import SurfaceMaker, raw_ship_points
+from SurfaceMaker import SurfaceMaker, raw_ship_points, raw_flare_points
 import u
 from explosion import Explosion
 from flyer import Flyer
@@ -128,7 +128,7 @@ class Ship(Flyer):
         return dist <= kill_range
 
     def draw(self, screen):
-        points = raw_ship_points
+        points = self.select_ship_source()
         scale = 4 * u.SCALE_FACTOR
         positioned = [(point.rotate(-self._angle) * scale) + self.position for point in points]
         pygame.draw.lines(screen, "white", False, positioned, 3)
@@ -179,9 +179,9 @@ class Ship(Flyer):
 
     def select_ship_source(self):
         if self._accelerating and random.random() >= 0.66:
-            return self._ship_accelerating_surface
+            return raw_ship_points + raw_flare_points
         else:
-            return self._ship_surface
+            return raw_ship_points
 
     def tick(self, delta_time, fleets):
         self._drop_in = self._drop_in - delta_time*2 if self._drop_in > 1 else 1
