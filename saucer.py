@@ -6,7 +6,7 @@ import pygame
 from pygame import Vector2
 
 import u
-from SurfaceMaker import SurfaceMaker, raw_saucer_points
+from SurfaceMaker import raw_saucer_points
 from explosion import Explosion
 from flyer import Flyer
 from gunner import Gunner

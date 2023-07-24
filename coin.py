@@ -1,7 +1,7 @@
 from game_over import GameOver
 from saucermaker import SaucerMaker
 from scorekeeper import ScoreKeeper
-from shipmaker import ShipMaker
+from raw_object_points import ShipMaker
 from thumper import Thumper
 from wavemaker import WaveMaker
 

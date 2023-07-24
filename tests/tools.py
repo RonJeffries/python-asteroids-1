@@ -9,7 +9,7 @@ from saucermaker import SaucerMaker
 from score import Score
 from scorekeeper import ScoreKeeper
 from ship import Ship
-from shipmaker import ShipMaker
+from raw_object_points import ShipMaker
 from signal import Signal
 from thumper import Thumper
 from wavemaker import WaveMaker
