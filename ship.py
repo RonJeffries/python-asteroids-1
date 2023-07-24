@@ -33,6 +33,8 @@ class Ship(Flyer):
         self._location = MovableLocation(position, Vector2(0, 0))
         self._missile_tally = 0
         self._shipmaker = None
+        self._ship_points = raw_ship_points
+        self._accelerating_ship_points = raw_ship_points + raw_flare_points
 
     @property
     def position(self):
@@ -179,9 +181,9 @@ class Ship(Flyer):
 
     def select_ship_source(self):
         if self._accelerating and random.random() >= 0.66:
-            return raw_ship_points + raw_flare_points
+            return self._accelerating_ship_points
         else:
-            return raw_ship_points
+            return self._ship_points
 
     def tick(self, delta_time, fleets):
         self._drop_in = self._drop_in - delta_time*2 if self._drop_in > 1 else 1
