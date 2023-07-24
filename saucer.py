@@ -2,10 +2,11 @@
 
 import random
 
+import pygame
 from pygame import Vector2
 
 import u
-from SurfaceMaker import SurfaceMaker
+from SurfaceMaker import SurfaceMaker, raw_saucer_points
 from explosion import Explosion
 from flyer import Flyer
 from gunner import Gunner
@@ -49,7 +50,7 @@ class Saucer(Flyer):
         self.is_small_saucer = is_small
         self.missile_tally = 0
         self.missile_head_start = 2*self._radius
-        self.create_surface_class_members(scale * u.SCALE_FACTOR)
+        self._scale = scale * u.SCALE_FACTOR
 
     @property
     def position(self):
@@ -65,13 +66,6 @@ class Saucer(Flyer):
     def begin_interactions(self, fleets):
         self._ship = None
         self.missile_tally = 0
-
-    @staticmethod
-    def create_surface_class_members(drawing_scale):
-        raw_dimensions = Vector2(10, 6)
-        Saucer.offset = raw_dimensions * drawing_scale / 2
-        drawing_size = raw_dimensions * drawing_scale
-        Saucer.saucer_surface = SurfaceMaker.saucer_surface(drawing_size)
 
     def interact_with(self, attacker, fleets):
         attacker.interact_with_saucer(self, fleets)
@@ -106,8 +100,10 @@ class Saucer(Flyer):
         return dist <= kill_range
 
     def draw(self, screen):
-        top_left_corner = self.position - Saucer.offset
-        screen.blit(Saucer.saucer_surface, top_left_corner)
+        scale = self._scale
+        position = self.position
+        adjusted = [point * scale + position for point in raw_saucer_points]
+        pygame.draw.lines(screen, "white", False, adjusted, 3)
 
     def explode(self, fleets):
         player.play("bang_large", self._location)
