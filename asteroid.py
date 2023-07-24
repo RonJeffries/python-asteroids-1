@@ -3,7 +3,7 @@ import pygame
 from pygame.math import Vector2
 import random
 
-from SurfaceMaker import SurfaceMaker
+from SurfaceMaker import SurfaceMaker, raw_rocks
 import u
 from flyer import Flyer
 from missile import Missile
@@ -14,6 +14,7 @@ from sounds import player
 
 class Asteroid(Flyer):
     def __init__(self, size=2, position=None):
+        self._rock_index = random.randint(0, 3)
         self.size = max(0, min(size, 2))
         self._score = u.ASTEROID_SCORE_LIST[self.size]
         self.radius = [16, 32, 64][self.size] * u.SCALE_FACTOR
@@ -32,9 +33,8 @@ class Asteroid(Flyer):
         return self._location.position
 
     def draw(self, screen):
-        top_left_corner = self.position - self._offset
-        screen.blit(self._surface, top_left_corner)
-        # pygame.draw.circle(screen, "white", self.position, self.radius, 3)
+        adjusted = [(point * self.radius / 4) + self.position for point in (raw_rocks[self._rock_index])]
+        pygame.draw.lines(screen, "white", False, adjusted, 3)
 
     def update(self, delta_time, _fleets):
         self._location.move(delta_time)
