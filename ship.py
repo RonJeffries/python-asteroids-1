@@ -132,8 +132,10 @@ class Ship(Flyer):
     def draw(self, screen):
         points = self.select_ship_source()
         scale = 4 * u.SCALE_FACTOR * self._drop_in
-        positioned = [(point.rotate(-self._angle) * scale) + self.position for point in points]
-        pygame.draw.lines(screen, "white", False, positioned, 3)
+        position = self.position
+        angle = self._angle
+        adjusted = [(point.rotate(-angle) * scale) + position for point in points]
+        pygame.draw.lines(screen, "white", False, adjusted, 3)
 
     def explode(self, fleets):
         player.play("bang_large", self._location)

@@ -100,9 +100,11 @@ class Saucer(Flyer):
         return dist <= kill_range
 
     def draw(self, screen):
+        points = raw_saucer_points
         scale = self._scale
         position = self.position
-        adjusted = [point * scale + position for point in raw_saucer_points]
+        angle = 0
+        adjusted = [point.rotate(-angle) * scale + position for point in points]
         pygame.draw.lines(screen, "white", False, adjusted, 3)
 
     def explode(self, fleets):

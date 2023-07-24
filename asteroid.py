@@ -28,7 +28,11 @@ class Asteroid(Flyer):
         return self._location.position
 
     def draw(self, screen):
-        adjusted = [(point * self.radius / 4) + self.position for point in (raw_rocks[self._rock_index])]
+        points = raw_rocks[self._rock_index]
+        scale = self.radius / 4
+        position = self.position
+        angle = 0
+        adjusted = [point.rotate(-angle) * scale + position for point in points]
         pygame.draw.lines(screen, "white", False, adjusted, 3)
 
     def update(self, delta_time, _fleets):
