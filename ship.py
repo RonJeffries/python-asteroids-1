@@ -3,7 +3,7 @@
 import pygame
 from pygame import Vector2
 import random
-from SurfaceMaker import SurfaceMaker
+from SurfaceMaker import SurfaceMaker, raw_ship_points
 import u
 from explosion import Explosion
 from flyer import Flyer
@@ -33,10 +33,6 @@ class Ship(Flyer):
         self._location = MovableLocation(position, Vector2(0, 0))
         self._missile_tally = 0
         self._shipmaker = None
-        ship_scale = 4
-        ship_size = Vector2(14, 8)*ship_scale*u.SCALE_FACTOR
-        self._ship_surface = SurfaceMaker.ship_surface(ship_size)
-        self._ship_accelerating_surface = SurfaceMaker.accelerating_surface(ship_size)
 
     @property
     def position(self):
@@ -132,11 +128,15 @@ class Ship(Flyer):
         return dist <= kill_range
 
     def draw(self, screen):
-        transformed = pygame.transform.rotate(self.select_ship_source(), self._angle)
-        if self._drop_in > 1:
-            transformed = pygame.transform.scale_by(transformed, self._drop_in)
-        half = pygame.Vector2(transformed.get_size()) / 2
-        screen.blit(transformed, self.position - half)
+        points = raw_ship_points
+        scale = 4 * u.SCALE_FACTOR
+        positioned = [(point.rotate(-self._angle) * scale) + self.position for point in points]
+        pygame.draw.lines(screen, "white", False, positioned, 3)
+        # transformed = pygame.transform.rotate(self.select_ship_source(), self._angle)
+        # if self._drop_in > 1:
+        #     transformed = pygame.transform.scale_by(transformed, self._drop_in)
+        # half = pygame.Vector2(transformed.get_size()) / 2
+        # screen.blit(transformed, self.position - half)
 
     def explode(self, fleets):
         player.play("bang_large", self._location)
