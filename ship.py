@@ -132,13 +132,10 @@ class Ship(Flyer):
     def draw(self, screen):
         points = self.select_ship_source()
         scale = 4 * u.SCALE_FACTOR
+        if self._drop_in > 1:
+            scale *= self._drop_in
         positioned = [(point.rotate(-self._angle) * scale) + self.position for point in points]
         pygame.draw.lines(screen, "white", False, positioned, 3)
-        # transformed = pygame.transform.rotate(self.select_ship_source(), self._angle)
-        # if self._drop_in > 1:
-        #     transformed = pygame.transform.scale_by(transformed, self._drop_in)
-        # half = pygame.Vector2(transformed.get_size()) / 2
-        # screen.blit(transformed, self.position - half)
 
     def explode(self, fleets):
         player.play("bang_large", self._location)
