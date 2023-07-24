@@ -6,7 +6,7 @@ import pygame
 from pygame import Vector2
 
 import u
-from raw_object_points import raw_saucer_points
+from raw_object_points import raw_saucer_points, draw_lines
 from explosion import Explosion
 from flyer import Flyer
 from gunner import Gunner
@@ -103,9 +103,7 @@ class Saucer(Flyer):
         points = raw_saucer_points
         scale = self._scale
         position = self.position
-        angle = 0
-        adjusted = [point.rotate(-angle) * scale + position for point in points]
-        pygame.draw.lines(screen, "white", False, adjusted, 3)
+        draw_lines(screen, points, position, scale)
 
     def explode(self, fleets):
         player.play("bang_large", self._location)

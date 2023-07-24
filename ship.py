@@ -3,7 +3,7 @@
 import pygame
 from pygame import Vector2
 import random
-from raw_object_points import raw_ship_points, raw_flare_points
+from raw_object_points import raw_ship_points, raw_flare_points, draw_lines
 import u
 from explosion import Explosion
 from flyer import Flyer
@@ -134,8 +134,7 @@ class Ship(Flyer):
         scale = 4 * u.SCALE_FACTOR * self._drop_in
         position = self.position
         angle = self._angle
-        adjusted = [(point.rotate(-angle) * scale) + position for point in points]
-        pygame.draw.lines(screen, "white", False, adjusted, 3)
+        draw_lines(screen, points, position, scale, angle)
 
     def explode(self, fleets):
         player.play("bang_large", self._location)

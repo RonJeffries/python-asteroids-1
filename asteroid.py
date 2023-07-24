@@ -3,7 +3,7 @@ import pygame
 from pygame.math import Vector2
 import random
 
-from raw_object_points import raw_rocks
+from raw_object_points import raw_rocks, draw_lines
 import u
 from flyer import Flyer
 from missile import Missile
@@ -31,9 +31,7 @@ class Asteroid(Flyer):
         points = raw_rocks[self._rock_index]
         scale = self.radius / 4
         position = self.position
-        angle = 0
-        adjusted = [point.rotate(-angle) * scale + position for point in points]
-        pygame.draw.lines(screen, "white", False, adjusted, 3)
+        draw_lines(screen, points, position, scale)
 
     def update(self, delta_time, _fleets):
         self._location.move(delta_time)

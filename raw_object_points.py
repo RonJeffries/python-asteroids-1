@@ -43,3 +43,8 @@ raw_rocks = [
         Vector2(1.0, 0.0)
     ]
 ]
+
+
+def draw_lines(screen, points, position, scale, angle = 0):
+    adjusted = [(point.rotate(-angle) * scale) + position for point in points]
+    pygame.draw.lines(screen, "white", False, adjusted, 3)
