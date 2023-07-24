@@ -131,9 +131,7 @@ class Ship(Flyer):
 
     def draw(self, screen):
         points = self.select_ship_source()
-        scale = 4 * u.SCALE_FACTOR
-        if self._drop_in > 1:
-            scale *= self._drop_in
+        scale = 4 * u.SCALE_FACTOR * self._drop_in
         positioned = [(point.rotate(-self._angle) * scale) + self.position for point in points]
         pygame.draw.lines(screen, "white", False, positioned, 3)
 
