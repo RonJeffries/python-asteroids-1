@@ -3,7 +3,7 @@ import pygame
 from pygame.math import Vector2
 import random
 
-from SurfaceMaker import raw_rocks
+from raw_object_points import raw_rocks
 import u
 from flyer import Flyer
 from missile import Missile

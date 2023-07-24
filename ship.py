@@ -3,7 +3,7 @@
 import pygame
 from pygame import Vector2
 import random
-from SurfaceMaker import raw_ship_points, raw_flare_points
+from raw_object_points import raw_ship_points, raw_flare_points
 import u
 from explosion import Explosion
 from flyer import Flyer

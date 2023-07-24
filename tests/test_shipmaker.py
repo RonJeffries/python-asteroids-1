@@ -6,7 +6,7 @@ from fleets import Fleets
 from interactor import Interactor
 from missile import Missile
 from saucer import Saucer
-from raw_object_points import ShipMaker
+from shipmaker import ShipMaker
 from tests.tools import FI
 
 

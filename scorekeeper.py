@@ -6,7 +6,7 @@ from pygame import Vector2
 import u
 from flyer import Flyer
 from ship import Ship
-from raw_object_points import ShipMaker
+from shipmaker import ShipMaker
 
 
 @dataclass

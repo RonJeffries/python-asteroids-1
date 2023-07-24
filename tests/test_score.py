@@ -2,7 +2,7 @@ from fleets import Fleets
 from interactor import Interactor
 from score import Score
 from scorekeeper import ScoreKeeper
-from raw_object_points import ShipMaker
+from shipmaker import ShipMaker
 from signal import Signal
 import u
 
