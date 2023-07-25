@@ -1,4 +1,5 @@
 # SurfaceMaker
+import random
 
 import pygame
 from pygame import Vector2
@@ -56,6 +57,12 @@ class Painter:
     @classmethod
     def saucer(cls, scale):
         return cls(raw_saucer_points, scale)
+
+    @classmethod
+    def asteroid(cls, radius):
+        which_one = random.randint(0, 3)
+        scale = radius / 4
+        return cls(raw_rocks[which_one], scale)
 
 
 def draw_lines(screen, points, position, scale, angle=0):
