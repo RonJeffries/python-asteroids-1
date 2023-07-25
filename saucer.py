@@ -6,7 +6,7 @@ import pygame
 from pygame import Vector2
 
 import u
-from raw_object_points import raw_saucer_points, draw_lines, Painter
+from painter import Painter
 from explosion import Explosion
 from flyer import Flyer
 from gunner import Gunner

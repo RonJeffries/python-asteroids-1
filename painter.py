@@ -1,9 +1,8 @@
 # SurfaceMaker
-import random
 
-import pygame
 from pygame import Vector2
-
+import random
+import pygame
 import u
 
 raw_saucer_points = [
@@ -54,7 +53,9 @@ class Painter:
         self._scale = scale
 
     def draw(self, screen, position, angle=0, scale_adjustment=1):
-        draw_lines(screen, self._points, position, self._scale*scale_adjustment, angle)
+        scale = self._scale * scale_adjustment
+        adjusted = [(point.rotate(-angle) * scale) + position for point in self._points]
+        pygame.draw.lines(screen, "white", False, adjusted, 3)
 
     @classmethod
     def saucer(cls, scale):
@@ -78,6 +79,3 @@ class Painter:
 
 
 
-def draw_lines(screen, points, position, scale, angle=0):
-    adjusted = [(point.rotate(-angle) * scale) + position for point in points]
-    pygame.draw.lines(screen, "white", False, adjusted, 3)

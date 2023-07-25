@@ -3,7 +3,7 @@ import pygame
 from pygame.math import Vector2
 import random
 
-from raw_object_points import raw_rocks, draw_lines, Painter
+from painter import Painter
 import u
 from flyer import Flyer
 from missile import Missile
