@@ -132,7 +132,14 @@ class Ship(Flyer):
         return dist <= kill_range
 
     def draw(self, screen):
-        self.select_ship_source().draw(screen, self.position, self._angle, self._drop_in)
+        self.select_ship_source.draw(screen, self.position, self._angle, self._drop_in)
+
+    @property
+    def select_ship_source(self):
+        if self._accelerating and random.random() >= 0.66:
+            return self._accelerating_painter
+        else:
+            return self._ship_painter
 
     def explode(self, fleets):
         player.play("bang_large", self._location)
@@ -172,12 +179,6 @@ class Ship(Flyer):
         self.move_to(u.CENTER)
         self.accelerate_to(Vector2(0, 0))
         self._angle = 0
-
-    def select_ship_source(self):
-        if self._accelerating and random.random() >= 0.66:
-            return self._accelerating_painter
-        else:
-            return self._ship_painter
 
     def tick(self, delta_time, fleets):
         self._drop_in = self._drop_in - delta_time*2 if self._drop_in > 1 else 1
