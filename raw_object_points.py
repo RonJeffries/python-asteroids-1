@@ -45,6 +45,19 @@ raw_rocks = [
 ]
 
 
-def draw_lines(screen, points, position, scale, angle = 0):
+class Painter:
+    def __init__(self, points, scale):
+        self._points = points
+        self._scale = scale
+
+    def draw(self, screen, position):
+        draw_lines(screen, self._points, position, self._scale)
+
+    @classmethod
+    def saucer(cls, scale):
+        return cls(raw_saucer_points, scale)
+
+
+def draw_lines(screen, points, position, scale, angle=0):
     adjusted = [(point.rotate(-angle) * scale) + position for point in points]
     pygame.draw.lines(screen, "white", False, adjusted, 3)

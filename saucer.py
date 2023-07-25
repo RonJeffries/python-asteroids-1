@@ -6,7 +6,7 @@ import pygame
 from pygame import Vector2
 
 import u
-from raw_object_points import raw_saucer_points, draw_lines
+from raw_object_points import raw_saucer_points, draw_lines, Painter
 from explosion import Explosion
 from flyer import Flyer
 from gunner import Gunner
@@ -51,6 +51,7 @@ class Saucer(Flyer):
         self.missile_tally = 0
         self.missile_head_start = 2*self._radius
         self._scale = scale * u.SCALE_FACTOR
+        self._painter = Painter.saucer(self._scale)
 
     @property
     def position(self):
@@ -100,10 +101,7 @@ class Saucer(Flyer):
         return dist <= kill_range
 
     def draw(self, screen):
-        points = raw_saucer_points
-        scale = self._scale
-        position = self.position
-        draw_lines(screen, points, position, scale)
+        self._painter.draw(screen, self.position)
 
     def explode(self, fleets):
         player.play("bang_large", self._location)
