@@ -33,8 +33,6 @@ class Ship(Flyer):
         self._location = MovableLocation(position, Vector2(0, 0))
         self._missile_tally = 0
         self._shipmaker = None
-        self._ship_points = raw_ship_points
-        self._accelerating_ship_points = raw_ship_points + raw_flare_points
         self._ship_painter = Painter.ship()
         self._accelerating_painter = Painter.ship_accelerating()
 
