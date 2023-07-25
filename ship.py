@@ -3,7 +3,7 @@
 import pygame
 from pygame import Vector2
 import random
-from raw_object_points import raw_ship_points, raw_flare_points, draw_lines
+from raw_object_points import raw_ship_points, raw_flare_points, draw_lines, Painter
 import u
 from explosion import Explosion
 from flyer import Flyer
@@ -35,6 +35,8 @@ class Ship(Flyer):
         self._shipmaker = None
         self._ship_points = raw_ship_points
         self._accelerating_ship_points = raw_ship_points + raw_flare_points
+        self._ship_painter = Painter.ship()
+        self._accelerating_painter = Painter.ship_accelerating()
 
     @property
     def position(self):
@@ -130,11 +132,7 @@ class Ship(Flyer):
         return dist <= kill_range
 
     def draw(self, screen):
-        points = self.select_ship_source()
-        scale = 4 * u.SCALE_FACTOR * self._drop_in
-        position = self.position
-        angle = self._angle
-        draw_lines(screen, points, position, scale, angle)
+        self.select_ship_source().draw(screen, self.position, self._angle, self._drop_in)
 
     def explode(self, fleets):
         player.play("bang_large", self._location)
@@ -177,9 +175,9 @@ class Ship(Flyer):
 
     def select_ship_source(self):
         if self._accelerating and random.random() >= 0.66:
-            return self._accelerating_ship_points
+            return self._accelerating_painter
         else:
-            return self._ship_points
+            return self._ship_painter
 
     def tick(self, delta_time, fleets):
         self._drop_in = self._drop_in - delta_time*2 if self._drop_in > 1 else 1
