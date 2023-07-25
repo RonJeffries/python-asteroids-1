@@ -14,7 +14,6 @@ from sounds import player
 
 class Asteroid(Flyer):
     def __init__(self, size=2, position=None):
-        self._rock_index = random.randint(0, 3)
         self.size = max(0, min(size, 2))
         self._score = u.ASTEROID_SCORE_LIST[self.size]
         self.radius = [16, 32, 64][self.size] * u.SCALE_FACTOR
