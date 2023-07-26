@@ -10,7 +10,7 @@ from shipmaker import ShipMaker
 
 
 @dataclass
-class NoShips:
+class FakeShipMaker:
     def ships_remaining(self, _ignored):
         return 0
 
@@ -33,7 +33,7 @@ class ScoreKeeper(Flyer):
         self._fence = u.FREE_SHIP_SCORE
         self._player_number = player_number
         self._scoring = player_number == 0
-        self._ship_maker: ShipMaker|NoShips = NoShips()
+        self._ship_maker: ShipMaker | FakeShipMaker = FakeShipMaker()
         if pygame.get_init():
             self.score_font = pygame.font.SysFont("arial", 48)
 
