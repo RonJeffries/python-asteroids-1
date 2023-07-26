@@ -59,10 +59,14 @@ class Painter:
 
     @classmethod
     def saucer(cls, scale):
+        # scale = 4 or 8 * u.SCALE_FACTOR
+        # note ship is 4 * u.SCALE_FACTOR
         return cls(raw_saucer_points, scale)
 
     @classmethod
     def asteroid(cls, radius):
+        # radius = 16, 32, or 64 * u.SCALE_FACTOR
+        # scale = 4, 8, or 16 * u.SCALE_FACTOR
         which_one = random.randint(0, 3)
         scale = radius / 4
         return cls(raw_rocks[which_one], scale)
