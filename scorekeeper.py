@@ -76,7 +76,7 @@ class ScoreKeeper(Flyer):
         score_text = f"0000{self.score}"[-5:]
         color = "green" if self._scoring else "gray50"
         score_surface = self.score_font.render(score_text, True, color)
-        score_destination = score_surface.get_rect(topleft=(x_position, 10))
+        score_destination = (x_position, 10)
         return score_surface, score_destination
 
     def interact_with(self, other, fleets):
