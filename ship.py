@@ -16,8 +16,6 @@ import u
 
 class Ship(Flyer):
 
-    thrust_sound = None
-
     def __init__(self, position, drop_in=2):
         self.radius = 25 * u.SCALE_FACTOR
         self._accelerating = False
