@@ -61,6 +61,15 @@ class Ship(Flyer):
     def accelerate_to(self, accel):
         self._location.accelerate_to(accel)
 
+    def are_we_colliding(self, position, radius):
+        kill_range = self.radius + radius
+        dist = self.position.distance_to(position)
+        return dist <= kill_range
+
+    def begin_interactions(self, fleets):
+        self._asteroid_tally = 0
+        self._missile_tally = 0
+
     def control_motion(self, delta_time, fleets):
         if not pygame.get_init():
             return
@@ -92,12 +101,32 @@ class Ship(Flyer):
         else:
             self._can_fire = True
 
+    def create_missile(self):
+        player.play("fire", self._location)
+        return Missile("ship", self.missile_start(), self.missile_velocity())
+
+    def draw(self, screen):
+        self.select_ship_source.draw(screen, self.position, self._angle, self._drop_in)
+
+    def explode(self, fleets):
+        player.play("bang_large", self._location)
+        fleets.remove(self)
+        Explosion.from_ship(self.position, fleets)
+
+    def explode_if_hit(self, attacker, fleets):
+        if attacker.are_we_colliding(self.position, self.radius):
+            self.explode(fleets)
+
+    def fire_if_possible(self, fleets):
+        if self._can_fire and self._missile_tally < u.MISSILE_LIMIT:
+            fleets.append(self.create_missile())
+            self._can_fire = False
+
+    def increment_tally(self):
+        self._missile_tally += 1
+
     def interact_with(self, attacker, fleets):
         attacker.interact_with_ship(self, fleets)
-
-    def begin_interactions(self, fleets):
-        self._asteroid_tally = 0
-        self._missile_tally = 0
 
     def interact_with_asteroid(self, asteroid, fleets):
         self._asteroid_tally += 1
@@ -107,50 +136,14 @@ class Ship(Flyer):
         missile.ping_transponder("ship", self.increment_tally)
         self.explode_if_hit(missile, fleets)
 
-    def increment_tally(self):
-        self._missile_tally += 1
+    def interact_with_saucer(self, saucer, fleets):
+        self.explode_if_hit(saucer, fleets)
 
     def interact_with_ship(self, ship, fleets):
         pass
 
     def interact_with_shipmaker(self, shipmaker, fleets):
         self._shipmaker = shipmaker
-
-    def explode_if_hit(self, attacker, fleets):
-        if attacker.are_we_colliding(self.position, self.radius):
-            self.explode(fleets)
-
-    def interact_with_saucer(self, saucer, fleets):
-        self.explode_if_hit(saucer, fleets)
-
-    def are_we_colliding(self, position, radius):
-        kill_range = self.radius + radius
-        dist = self.position.distance_to(position)
-        return dist <= kill_range
-
-    def draw(self, screen):
-        self.select_ship_source.draw(screen, self.position, self._angle, self._drop_in)
-
-    @property
-    def select_ship_source(self):
-        if self._accelerating and random.random() >= 0.66:
-            return self._accelerating_painter
-        else:
-            return self._ship_painter
-
-    def explode(self, fleets):
-        player.play("bang_large", self._location)
-        fleets.remove(self)
-        Explosion.from_ship(self.position, fleets)
-
-    def fire_if_possible(self, fleets):
-        if self._can_fire and self._missile_tally < u.MISSILE_LIMIT:
-            fleets.append(self.create_missile())
-            self._can_fire = False
-
-    def create_missile(self):
-        player.play("fire", self._location)
-        return Missile("ship", self.missile_start(), self.missile_velocity())
 
     def missile_start(self):
         start_distance = self.radius + Missile.radius + 1
@@ -172,22 +165,24 @@ class Ship(Flyer):
     def power_off(self):
         self._accelerating = False
 
-    def reset(self):
-        self.move_to(u.CENTER)
-        self.accelerate_to(Vector2(0, 0))
-        self._angle = 0
+    @property
+    def select_ship_source(self):
+        if self._accelerating and random.random() >= 0.66:
+            return self._accelerating_painter
+        else:
+            return self._ship_painter
 
     def tick(self, delta_time, fleets):
         self._drop_in = self._drop_in - delta_time*2 if self._drop_in > 1 else 1
         self._hyperspace_generator.tick(delta_time)
 
+    def turn_left(self, dt):
+        self._angle -= u.SHIP_ROTATION_STEP * dt
+
+    def turn_right(self, dt):
+        self._angle += u.SHIP_ROTATION_STEP * dt
+
     def update(self, delta_time, fleets):
         self.control_motion(delta_time, fleets)
         self._location.move(delta_time)
         self.control_firing(fleets)
-
-    def turn_left(self, dt):
-        self._angle = self._angle - u.SHIP_ROTATION_STEP * dt
-
-    def turn_right(self, dt):
-        self._angle = self._angle + u.SHIP_ROTATION_STEP * dt
