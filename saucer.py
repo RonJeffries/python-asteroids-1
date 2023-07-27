@@ -1,19 +1,16 @@
 # Saucer
 
-import random
-
-import pygame
-from pygame import Vector2
-
-import u
-from painter import Painter
 from explosion import Explosion
 from flyer import Flyer
 from gunner import Gunner
 from movable_location import MovableLocation
+from painter import Painter
+from pygame import Vector2
 from score import Score
 from sounds import player
 from timer import Timer
+import random
+import u
 
 
 class Saucer(Flyer):
@@ -43,15 +40,14 @@ class Saucer(Flyer):
         self._gunner = Gunner(always_target)
         self._location = MovableLocation(position, velocity)
         self._radius = radius * u.SCALE_FACTOR
+        self._painter = Painter.saucer(scale * u.SCALE_FACTOR)
         self._score = score
-        self._ship = None
+        self._ship_to_target = None
         self._sound = sound
         self._zig_timer = Timer(u.SAUCER_ZIG_TIME)
         self.is_small_saucer = is_small
         self.missile_tally = 0
         self.missile_head_start = 2*self._radius
-        self._scale = scale * u.SCALE_FACTOR
-        self._painter = Painter.saucer(self._scale)
 
     @property
     def position(self):
@@ -65,7 +61,7 @@ class Saucer(Flyer):
         self._location.accelerate_to(velocity)
 
     def begin_interactions(self, fleets):
-        self._ship = None
+        self._ship_to_target = None
         self.missile_tally = 0
 
     def interact_with(self, attacker, fleets):
@@ -91,7 +87,7 @@ class Saucer(Flyer):
         pass
 
     def interact_with_ship(self, ship, fleets):
-        self._ship = ship
+        self._ship_to_target = ship
         if ship.are_we_colliding(self.position, self._radius):
             self.explode(fleets)
 
@@ -124,7 +120,7 @@ class Saucer(Flyer):
         return random.choice(self._directions)
 
     def fire_if_possible(self, delta_time, fleets):
-        self._gunner.fire(delta_time, self, self._ship, fleets)
+        self._gunner.fire(delta_time, self, self._ship_to_target, fleets)
 
     def tick(self, delta_time, fleets):
         pass
