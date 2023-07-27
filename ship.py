@@ -1,18 +1,17 @@
 # Ship
 
-import pygame
-from pygame import Vector2
-import random
-from painter import Painter
-import u
 from explosion import Explosion
 from flyer import Flyer
 from hyperspace_generator import HyperspaceGenerator
 from missile import Missile
 from movable_location import MovableLocation
-from score import Score
+from painter import Painter
+from pygame import Vector2
 from sounds import player
 from timer import Timer
+import pygame
+import random
+import u
 
 
 class Ship(Flyer):
