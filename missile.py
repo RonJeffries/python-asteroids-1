@@ -10,7 +10,6 @@ from transponder import Transponder
 
 
 class Missile(Flyer):
-    Saucer = None
     radius = 2
 
     def __init__(self, transponder_key, position, velocity):
