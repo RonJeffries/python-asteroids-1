@@ -47,6 +47,9 @@ class Flyer(ABC):
     def interact_with_gameover(self, game_over, fleets):
         pass
 
+    def interact_with_invaderfleet(self, fleet, fleets):
+        return 666
+
     def interact_with_score(self, score, fleets):
         pass
 

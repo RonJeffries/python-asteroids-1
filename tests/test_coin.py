@@ -4,6 +4,7 @@ from fleets import Fleets
 from flyer import Flyer
 from fragment import Fragment
 from game_over import GameOver
+from invaderfleet import InvaderFleet
 from missile import Missile
 from pygame import Vector2
 from saucer import Saucer
@@ -35,7 +36,7 @@ class TestCoin:
     def all_known_flyer_subclasses():
         return {
             Asteroid, BeginChecker, EndChecker,
-            Fragment, GameOver, Missile, Saucer, SaucerMaker,
+            Fragment, GameOver, InvaderFleet, Missile, Saucer, SaucerMaker,
             Score, ScoreKeeper, Ship, ShipMaker, Signal, Thumper, WaveMaker}
 
     def test_no_unchecked_classes(self):
