@@ -1,4 +1,5 @@
 from game_over import GameOver
+from invaderfleet import InvaderFleet
 from saucermaker import SaucerMaker
 from scorekeeper import ScoreKeeper
 from shipmaker import ShipMaker
@@ -32,6 +33,11 @@ def no_asteroids(fleets):
     fleets.clear()
     fleets.append(ShipMaker(1))
     _append_common_elements(fleets)
+
+
+def invaders(fleets):
+    fleets.clear()
+    fleets.append(InvaderFleet())
 
 
 def _append_common_elements(fleets):

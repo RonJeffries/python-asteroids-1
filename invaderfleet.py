@@ -1,3 +1,7 @@
+import pygame
+from pygame import Vector2
+
+import u
 from flyer import Flyer
 from invader import Invader
 
@@ -7,7 +11,14 @@ class InvaderFleet(Flyer):
         self.invaders = [Invader(x//5, x % 5) for x in range(55)]
 
     def draw(self, screen):
-        pass
+        pos = u.CENTER
+        hw = Vector2(100, 200)
+        rect = (pos - hw/2,  hw)
+        pygame.draw.rect(screen, "blue", rect)
+        start = Vector2(u.SCREEN_SIZE / 2 - 5*64, 512)
+        step = 64
+        for invader in self.invaders:
+            invader.draw(screen, start, step)
 
     def interact_with_asteroid(self, asteroid, fleets):
         pass

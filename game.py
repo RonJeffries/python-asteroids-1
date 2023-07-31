@@ -54,6 +54,8 @@ class Game:
             coin.no_asteroids(self.fleets)
         elif keys[pygame.K_2]:
             coin.two_player(self.fleets)
+        elif keys[pygame.K_i]:
+            coin.invaders(self.fleets)
 
     def prepare_screen(self):
         screen = self.screen
