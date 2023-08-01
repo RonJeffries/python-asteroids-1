@@ -9,7 +9,13 @@ from invader import Invader
 class InvaderFleet(Flyer):
     def __init__(self):
         self.invaders = [Invader(x//5, x % 5) for x in range(55)]
+        self.origin = Vector2(u.SCREEN_SIZE / 2 - 5*64, 512)
         self.reverse = False
+        self.update(0, None)
+
+    def update(self, delta_time, _fleets):
+        for invader in self.invaders:
+            invader.move_relative(self.origin)
 
     def at_edge(self):
         self.reverse = True
@@ -19,10 +25,9 @@ class InvaderFleet(Flyer):
         hw = Vector2(100, 200)
         rect = (pos - hw/2,  hw)
         pygame.draw.rect(screen, "blue", rect)
-        start = Vector2(u.SCREEN_SIZE / 2 - 5*64, 512)
         step = 64
         for invader in self.invaders:
-            invader.draw(screen, start, step)
+            invader.draw(screen)
 
     def interact_with_asteroid(self, asteroid, fleets):
         pass

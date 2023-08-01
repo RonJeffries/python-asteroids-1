@@ -1,5 +1,6 @@
 from pygame import Vector2
 
+import u
 from bumper import Bumper
 from invader import Invader
 from invaderfleet import InvaderFleet
@@ -24,6 +25,12 @@ class TestInvaderFleet:
                 assert invader.column == y
                 count += 1
 
+    def test_fleet_origin(self):
+        fleet = InvaderFleet()
+        assert fleet.origin == Vector2(u.SCREEN_SIZE / 2 - 5*64, 512)
+        invader = fleet.invaders[5*5]  # bottom row middle column
+        assert invader.rect.center[0] == 512
+
     def test_bumper_invader_collision(self):
         fleet = InvaderFleet()
         bumper_x = 16
@@ -32,12 +39,12 @@ class TestInvaderFleet:
         invader = Invader(invader_column, 2)
         start = Vector2(64, 512)
         step = 64
-        invader.draw(None, start, step)
+        invader.move_relative(fleet.origin)
         invader.interact_with_bumper(bumper, fleet)
         assert not fleet.reverse
         start_x = bumper_x - invader_column*step
         start = Vector2(start_x, 512)
-        invader.draw(None, start, step)
+        invader.move_relative(start)
         invader.interact_with_bumper(bumper, fleet)
         assert fleet.reverse
 
