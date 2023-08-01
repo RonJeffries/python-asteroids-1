@@ -2,13 +2,13 @@ import pygame.draw
 
 
 class Invader:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
+    def __init__(self, row, column):
+        self.row = row
+        self.column = column
         self.rect = pygame.Rect(0, 0, 32, 32)
 
     def draw(self, screen, start, step):
-        pos = (start.x + step*self.x, start.y - step*self.y)
+        pos = (start.x + step*self.row, start.y - step*self.column)
         self.rect.center = pos
         if screen:
             pygame.draw.rect(screen, "yellow", self.rect)

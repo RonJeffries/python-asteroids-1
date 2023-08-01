@@ -20,8 +20,8 @@ class TestInvaderFleet:
         for x in range(11):
             for y in range(5):
                 invader = fleet.invaders[count]
-                assert invader.x == x
-                assert invader.y == y
+                assert invader.row == x
+                assert invader.column == y
                 count += 1
 
     def test_bumper_invader_collision(self):
