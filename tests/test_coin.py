@@ -1,6 +1,7 @@
 import pytest
 
 from asteroid import Asteroid
+from bumper import Bumper
 from explosion import Explosion
 from fleets import Fleets
 from flyer import Flyer
@@ -37,11 +38,11 @@ class TestCoin:
     @staticmethod
     def all_known_flyer_subclasses():
         return {
-            Asteroid, BeginChecker, EndChecker,
+            Asteroid, BeginChecker, Bumper, EndChecker,
             Fragment, GameOver, InvaderFleet, Missile, Saucer, SaucerMaker,
             Score, ScoreKeeper, Ship, ShipMaker, Signal, Thumper, WaveMaker}
 
-    @pytest.mark.skip("needs updating")
+    # @pytest.mark.skip("needs updating")
     def test_no_unchecked_classes(self):
         # if this fails, we need to update `all_known_flyer_subclasses`
         # and re-verify the coin tests to be sure they don't need updating
