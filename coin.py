@@ -1,3 +1,5 @@
+import u
+from bumper import Bumper
 from game_over import GameOver
 from invaderfleet import InvaderFleet
 from saucermaker import SaucerMaker
@@ -37,6 +39,8 @@ def no_asteroids(fleets):
 
 def invaders(fleets):
     fleets.clear()
+    fleets.append(Bumper(16))
+    fleets.append(Bumper(u.SCREEN_SIZE - 16))
     fleets.append(InvaderFleet())
 
 

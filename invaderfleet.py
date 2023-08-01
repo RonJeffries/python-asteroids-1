@@ -10,8 +10,14 @@ class InvaderFleet(Flyer):
     def __init__(self):
         self.invaders = [Invader(x//5, x % 5) for x in range(55)]
         self.origin = Vector2(u.SCREEN_SIZE / 2 - 5*64, 512)
+        self.step = Vector2(30, 0)
         self.reverse = False
         self.update(0, None)
+
+    def end_interactions(self, fleets):
+        if self.reverse:
+            self.reverse = False
+            self.step = -self.step
 
     def update(self, delta_time, _fleets):
         for invader in self.invaders:
