@@ -8,6 +8,10 @@ class Invader:
         self.column = column
         self.rect = pygame.Rect(0, 0, 32, 32)
 
+    @property
+    def position(self):
+        return Vector2(self.rect.center)
+
     def move_relative(self, origin):
         pos = Vector2(origin.x + 64*self.row, origin.y - 64*self.column)
         self.rect.center = pos
@@ -18,6 +22,5 @@ class Invader:
             pygame.draw.circle(screen, "red", self.rect.center, 16)
 
     def interact_with_bumper(self, bumper, invader_fleet):
-        print(bumper.rect, self.rect)
         if bumper.rect.colliderect(self.rect):
             invader_fleet.at_edge()

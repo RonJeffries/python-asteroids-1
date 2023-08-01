@@ -29,11 +29,15 @@ class TestInvaderFleet:
         fleet = InvaderFleet()
         assert fleet.origin == Vector2(u.SCREEN_SIZE / 2 - 5*64, 512)
         invader = fleet.invaders[5*5]  # bottom row middle column
-        assert invader.rect.center[0] == 512
+        assert invader.position.x == 512
 
     def test_fleet_motion(self):
         fleet = InvaderFleet()
         assert fleet.step == Vector2(30, 0)
+        pos = fleet.invaders[0].position
+        fleet.update(1.0, None)
+        new_pos = fleet.invaders[0].position
+        assert new_pos - pos == fleet.step
         fleet.at_edge()
         fleet.end_interactions(None)
         assert fleet.step == (Vector2(-30, 0))

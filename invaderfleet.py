@@ -20,6 +20,7 @@ class InvaderFleet(Flyer):
             self.step = -self.step
 
     def update(self, delta_time, _fleets):
+        self.origin += self.step*delta_time
         for invader in self.invaders:
             invader.move_relative(self.origin)
 
@@ -35,6 +36,13 @@ class InvaderFleet(Flyer):
         for invader in self.invaders:
             invader.draw(screen)
 
+    def interact_with_bumper(self, bumper, _fleets):
+        for invader in self.invaders:
+            invader.interact_with_bumper(bumper, self)
+
+    def interact_with(self, other, fleets):
+        pass
+
     def interact_with_asteroid(self, asteroid, fleets):
         pass
 
@@ -45,9 +53,6 @@ class InvaderFleet(Flyer):
         pass
 
     def interact_with_ship(self, ship, fleets):
-        pass
-
-    def interact_with(self, other, fleets):
         pass
 
     def tick(self, delta_time, fleets):
