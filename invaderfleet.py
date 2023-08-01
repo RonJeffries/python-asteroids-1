@@ -9,6 +9,10 @@ from invader import Invader
 class InvaderFleet(Flyer):
     def __init__(self):
         self.invaders = [Invader(x//5, x % 5) for x in range(55)]
+        self.reverse = False
+
+    def at_edge(self):
+        self.reverse = True
 
     def draw(self, screen):
         pos = u.CENTER
