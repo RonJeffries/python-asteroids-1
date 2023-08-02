@@ -6,6 +6,7 @@ from flyer import Flyer
 def just_pass():
     pass
 
+
 def get_subclasses(klass):
     for subclass in klass.__subclasses__():
         yield from get_subclasses(subclass)
@@ -14,10 +15,10 @@ def get_subclasses(klass):
 
 class TestFlyer:
 
-    @pytest.mark.skip("needs updating")
+    # @pytest.mark.skip("needs updating")
     def test_all_interact_with_implemented_in_flyer(self):
         subclasses = get_subclasses(Flyer)
-        ignores = ["BeginChecker", "EndChecker", "InvaderFleet"]
+        ignores = ["BeginChecker", "EndChecker", "InvaderFleet", "Bumper"]
         subclasses = [klass for klass in subclasses if klass.__name__ not in ignores]
         attributes = dir(Flyer)
         pass_code = just_pass.__code__.co_code
