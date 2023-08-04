@@ -8,8 +8,9 @@ class Interactor:
 
     Given object `fred` of class `Man` and `wilma` of class `Woman`, two interaction calls will occur,
     one for `fred` and one for `wilma`:
-        - `fred.interact_with_woman(wilma)`
-        - `wilma.interact_with_man(fred)`
+
+     - `fred.interact_with_woman(wilma)`
+     - `wilma.interact_with_man(fred)`
 
     Object `a` is free to do anything it wishes to itself.
     By convention, we might ask object `b` for information, but we generally
@@ -17,15 +18,11 @@ class Interactor:
 
     Things you might do:
 
-    - check if colliding with `b` and split or die if so (Asteroid)
-
-    - count the object for use in later decisions (Ship)
-
-    - notice that you don't see an object, and create one (ShipMaker)
-
-    - observe where it is, so you can shoot at it. (Saucer)
-
-    - ask it for its value and accumulate it. (ScoreKeeper)
+     - check if colliding with `b` and split or die if so (Asteroid)
+     - count the object for use in later decisions (Ship)
+     - notice that you don't see an object, and create one (ShipMaker)
+     - observe where it is, so you can shoot at it. (Saucer)
+     - ask it for its value and accumulate it. (ScoreKeeper)
     """
 
     def __init__(self, fleets):
