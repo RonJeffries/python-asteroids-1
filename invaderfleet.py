@@ -8,11 +8,14 @@ from invader import Invader
 
 class InvaderFleet(Flyer):
     def __init__(self):
-        self.invaders = [Invader(x//5, x % 5) for x in range(55)]
+        self.invaders = [Invader(x%11, x//11) for x in range(55)]
         self.origin = Vector2(u.SCREEN_SIZE / 2 - 5*64, 512)
-        self.step = Vector2(30, 0)
+        self.step = Vector2(30, 0)*8
         self.reverse = False
-        self.update(0, None)
+        self.next_invader = len(self.invaders)
+        # self.update(0, None)
+        for invader in self.invaders:
+            invader.move_relative(self.origin)
 
     def end_interactions(self, fleets):
         if self.reverse:
@@ -20,9 +23,11 @@ class InvaderFleet(Flyer):
             self.step = -self.step
 
     def update(self, delta_time, _fleets):
-        self.origin += self.step*delta_time
-        for invader in self.invaders:
-            invader.move_relative(self.origin)
+        if self.next_invader >= len(self.invaders):
+            self.origin += self.step*delta_time
+            self.next_invader = 0
+        self.invaders[self.next_invader].move_relative(self.origin)
+        self.next_invader += 1
 
     def at_edge(self):
         self.reverse = True

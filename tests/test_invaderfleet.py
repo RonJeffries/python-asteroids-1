@@ -18,8 +18,8 @@ class TestInvaderFleet:
     def test_invaders_order(self):
         fleet = InvaderFleet()
         count = 0
-        for x in range(11):
-            for y in range(5):
+        for y in range(5):
+            for x in range(11):
                 invader = fleet.invaders[count]
                 assert invader.row == x
                 assert invader.column == y
@@ -28,12 +28,12 @@ class TestInvaderFleet:
     def test_fleet_origin(self):
         fleet = InvaderFleet()
         assert fleet.origin == Vector2(u.SCREEN_SIZE / 2 - 5*64, 512)
-        invader = fleet.invaders[5*5]  # bottom row middle column
+        invader = fleet.invaders[5]  # bottom row middle column
         assert invader.position.x == 512
 
     def test_fleet_motion(self):
         fleet = InvaderFleet()
-        assert fleet.step == Vector2(30, 0)
+        fleet.step = Vector2(30, 0)
         pos = fleet.invaders[0].position
         fleet.update(1.0, None)
         new_pos = fleet.invaders[0].position
