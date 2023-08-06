@@ -5,8 +5,9 @@ from flyer import Flyer
 
 
 class Bumper(Flyer):
-    def __init__(self, x):
+    def __init__(self, x, incoming_direction):
         self.rect = Rect(x, 0, x+1, u.SCREEN_SIZE)
+        self.incoming_direction = incoming_direction
 
     def interact_with_invaderfleet(self, invader, fleets):
         pass

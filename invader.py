@@ -23,4 +23,4 @@ class Invader:
 
     def interact_with_bumper(self, bumper, invader_fleet):
         if bumper.rect.colliderect(self.rect):
-            invader_fleet.at_edge()
+            invader_fleet.at_edge(bumper.incoming_direction)

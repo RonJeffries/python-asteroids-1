@@ -8,29 +8,41 @@ from invader import Invader
 
 class InvaderFleet(Flyer):
     def __init__(self):
+        self.down_step = Vector2(0, 32)
         self.invaders = [Invader(x%11, x//11) for x in range(55)]
         self.origin = Vector2(u.SCREEN_SIZE / 2 - 5*64, 512)
-        self.step = Vector2(30, 0)*8
+        self.step = Vector2(32, 0)*16
         self.reverse = False
         self.next_invader = len(self.invaders)
+        self.direction = 1
         # self.update(0, None)
         for invader in self.invaders:
             invader.move_relative(self.origin)
 
     def end_interactions(self, fleets):
-        if self.reverse:
-            self.reverse = False
-            self.step = -self.step
+        pass
 
     def update(self, delta_time, _fleets):
-        if self.next_invader >= len(self.invaders):
-            self.origin += self.step*delta_time
-            self.next_invader = 0
+        self.check_end_cycle(delta_time)
         self.invaders[self.next_invader].move_relative(self.origin)
         self.next_invader += 1
 
-    def at_edge(self):
-        self.reverse = True
+    def check_end_cycle(self, delta_time):
+        if self.next_invader >= len(self.invaders):
+            self.reverse_or_continue(delta_time)
+
+    def reverse_or_continue(self, delta_time):
+        # we use +, not += because += modifies in place.
+        if self.reverse:
+            self.reverse = False
+            self.direction = -self.direction
+            self.origin = self.origin + self.direction * self.step * delta_time + self.down_step
+        else:
+            self.origin = self.origin + self.direction * self.step * delta_time
+        self.next_invader = 0
+
+    def at_edge(self, bumper_incoming_direction):
+        self.reverse = bumper_incoming_direction == self.direction
 
     def draw(self, screen):
         pos = u.CENTER
