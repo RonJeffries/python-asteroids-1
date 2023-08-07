@@ -5,31 +5,58 @@ from flyer import Flyer
 from invader import Invader
 
 
+class InvaderGroup():
+    def __init__(self):
+        self.invaders = ()
+        self.create_invaders()
+
+    def create_invaders(self):
+        self.invaders = [Invader(x%11, x//11) for x in range(55)]
+
+    def position_all_invaders(self, origin):
+        for invader in self.invaders:
+            invader.set_position(origin)
+
+    def draw(self, screen):
+        for invader in self.invaders:
+            invader.draw(screen)
+
+    def interact_with_bumper(self, bumper, fleet):
+        for invader in self.invaders:
+            invader.interact_with_bumper(bumper, fleet)
+
+    def set_invader_position(self, index, origin):
+        self.invaders[index].set_position(origin)
+
+
 class InvaderFleet(Flyer):
     def __init__(self):
         self.step = Vector2(8, 0)
         self.down_step = Vector2(0, 32)
-        self.invaders = [Invader(x%11, x//11) for x in range(55)]
+
+        self.invader_group = InvaderGroup()
+        self.origin = Vector2(u.SCREEN_SIZE / 2 - 5*64, 512)
+        self.invader_group.position_all_invaders(self.origin)
+
         self.reverse = False
         self.direction = 1
-        self.origin = Vector2(u.SCREEN_SIZE / 2 - 5*64, 512)
-        self.next_invader = len(self.invaders)
-        self.position_all_invaders()
 
-    def position_all_invaders(self):
-        for invader in self.invaders:
-            invader.set_position(self.origin)
+        self.next_invader = len(self.invader_group.invaders)
+
+    @property
+    def testing_only_invaders(self):
+        return self.invader_group.invaders
 
     def end_interactions(self, fleets):
         pass
 
     def update(self, delta_time, _fleets):
         self.check_end_cycle(delta_time)
-        self.invaders[self.next_invader].set_position(self.origin)
+        self.invader_group.set_invader_position(self.next_invader, self.origin)
         self.next_invader += 1
 
     def check_end_cycle(self, delta_time):
-        if self.next_invader >= len(self.invaders):
+        if self.next_invader >= len(self.invader_group.invaders):
             self.reverse_or_continue(delta_time)
 
     def reverse_or_continue(self, delta_time):
@@ -46,12 +73,10 @@ class InvaderFleet(Flyer):
         self.reverse = bumper_incoming_direction == self.direction
 
     def draw(self, screen):
-        for invader in self.invaders:
-            invader.draw(screen)
+        self.invader_group.draw(screen)
 
     def interact_with_bumper(self, bumper, _fleets):
-        for invader in self.invaders:
-            invader.interact_with_bumper(bumper, self)
+        self.invader_group.interact_with_bumper(bumper, self)
 
     def interact_with(self, other, fleets):
         pass

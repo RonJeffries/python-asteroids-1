@@ -15,6 +15,7 @@ class Invader:
 
     def set_position(self, origin):
         self.rect.center = origin + self.relative_position
+        print(self.relative_position, origin, self.rect.center)
 
     def draw(self, screen):
         if screen:

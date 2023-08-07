@@ -12,7 +12,7 @@ class TestInvaderFleet:
 
     def test_makes_invaders(self):
         fleet = InvaderFleet()
-        invaders = fleet.invaders
+        invaders = fleet.testing_only_invaders
         assert len(invaders) == 55
 
     def test_invaders_order(self):
@@ -20,7 +20,7 @@ class TestInvaderFleet:
         count = 0
         for y in range(5):
             for x in range(11):
-                invader = fleet.invaders[count]
+                invader = fleet.testing_only_invaders[count]
                 assert invader.relative_position.x == x * INVADER_SPACING
                 assert invader.relative_position.y == y * INVADER_SPACING
                 count += 1
@@ -28,20 +28,20 @@ class TestInvaderFleet:
     def test_fleet_origin_is_centered(self):
         fleet = InvaderFleet()
         assert fleet.origin == Vector2(u.SCREEN_SIZE / 2 - 5*64, 512)
-        invader = fleet.invaders[5]  # bottom row middle column
+        invader = fleet.testing_only_invaders[5]  # bottom row middle column
         assert invader.position.x == 512
 
     def test_fleet_motion(self):
         fleet = InvaderFleet()
         fleet.step = Vector2(30, 0)
-        pos = fleet.invaders[0].position
+        pos = fleet.testing_only_invaders[0].position
         fleet.update(1.0, None)
-        new_pos = fleet.invaders[0].position
+        new_pos = fleet.testing_only_invaders[0].position
         assert fleet.direction == +1
         assert new_pos - pos == fleet.step
         fleet.at_edge(+1)
         assert fleet.reverse
-        fleet.next_invader = len(fleet.invaders)
+        fleet.next_invader = len(fleet.testing_only_invaders)
         fleet.update(1.0, None)
         assert fleet.direction == -1
 
