@@ -2,8 +2,8 @@ from pygame import Vector2, Rect
 
 import u
 from bumper import Bumper
-from invader import INVADER_SPACING
-from invaderfleet import InvaderFleet
+from invader import INVADER_SPACING, Invader
+from invaderfleet import InvaderFleet, InvaderGroup
 
 
 class TestInvaderFleet:
@@ -30,6 +30,13 @@ class TestInvaderFleet:
         assert fleet.origin == Vector2(u.SCREEN_SIZE / 2 - 5*64, 512)
         invader = fleet.testing_only_invaders[5]  # bottom row middle column
         assert invader.position.x == 512
+
+    def test_fleet_y_decreases_with_n(self):
+        group = InvaderGroup()
+        group.position_all_invaders(Vector2(0, 0))
+        first: Invader = group.invaders[0]
+        last: Invader = group.invaders[-1]
+        assert first.position.y > last.position.y
 
     def test_fleet_motion(self):
         fleet = InvaderFleet()
