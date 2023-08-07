@@ -45,11 +45,6 @@ class InvaderFleet(Flyer):
         self.reverse = bumper_incoming_direction == self.direction
 
     def draw(self, screen):
-        pos = u.CENTER
-        hw = Vector2(100, 200)
-        rect = (pos - hw/2,  hw)
-        pygame.draw.rect(screen, "blue", rect)
-        step = 64
         for invader in self.invaders:
             invader.draw(screen)
 
