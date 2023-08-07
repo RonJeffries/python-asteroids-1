@@ -25,7 +25,7 @@ class TestInvaderFleet:
                 assert invader.column == y
                 count += 1
 
-    def test_fleet_origin(self):
+    def test_fleet_origin_is_centered(self):
         fleet = InvaderFleet()
         assert fleet.origin == Vector2(u.SCREEN_SIZE / 2 - 5*64, 512)
         invader = fleet.invaders[5]  # bottom row middle column
