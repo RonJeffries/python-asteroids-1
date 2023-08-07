@@ -7,13 +7,13 @@ from invader import Invader
 
 class InvaderFleet(Flyer):
     def __init__(self):
-        self.invaders = [Invader(x%11, x//11) for x in range(55)]
-        self.origin = Vector2(u.SCREEN_SIZE / 2 - 5*64, 512)
         self.step = Vector2(8, 0)
         self.down_step = Vector2(0, 32)
+        self.invaders = [Invader(x%11, x//11) for x in range(55)]
         self.reverse = False
-        self.next_invader = len(self.invaders)
         self.direction = 1
+        self.origin = Vector2(u.SCREEN_SIZE / 2 - 5*64, 512)
+        self.next_invader = len(self.invaders)
         self.position_all_invaders()
 
     def position_all_invaders(self):
