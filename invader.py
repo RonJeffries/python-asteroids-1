@@ -6,7 +6,7 @@ class Invader:
     def __init__(self, row, column):
         self.row = row
         self.column = column
-        self.rect = pygame.Rect(0, 0, 32, 32)
+        self.rect = pygame.Rect(0, 0, 64, 32)
 
     @property
     def position(self):
@@ -22,5 +22,5 @@ class Invader:
             pygame.draw.circle(screen, "red", self.rect.center, 16)
 
     def interact_with_bumper(self, bumper, invader_fleet):
-        if bumper.rect.colliderect(self.rect):
+        if bumper.intersecting(self.rect):
             invader_fleet.at_edge(bumper.incoming_direction)

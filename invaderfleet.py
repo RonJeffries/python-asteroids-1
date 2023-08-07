@@ -8,10 +8,10 @@ from invader import Invader
 
 class InvaderFleet(Flyer):
     def __init__(self):
-        self.down_step = Vector2(0, 32)
         self.invaders = [Invader(x%11, x//11) for x in range(55)]
         self.origin = Vector2(u.SCREEN_SIZE / 2 - 5*64, 512)
-        self.step = Vector2(32, 0)*16
+        self.step = Vector2(8, 0)
+        self.down_step = Vector2(0, 32)
         self.reverse = False
         self.next_invader = len(self.invaders)
         self.direction = 1
@@ -36,9 +36,9 @@ class InvaderFleet(Flyer):
         if self.reverse:
             self.reverse = False
             self.direction = -self.direction
-            self.origin = self.origin + self.direction * self.step * delta_time + self.down_step
+            self.origin = self.origin + self.direction * self.step + self.down_step
         else:
-            self.origin = self.origin + self.direction * self.step * delta_time
+            self.origin = self.origin + self.direction * self.step
         self.next_invader = 0
 
     def at_edge(self, bumper_incoming_direction):

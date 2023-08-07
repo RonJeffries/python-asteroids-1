@@ -39,8 +39,8 @@ def no_asteroids(fleets):
 
 def invaders(fleets):
     fleets.clear()
-    fleets.append(Bumper(16, -1))
-    fleets.append(Bumper(u.SCREEN_SIZE - 16, +1))
+    fleets.append(Bumper(64, -1))
+    fleets.append(Bumper(960, +1))
     fleets.append(InvaderFleet())
 
 

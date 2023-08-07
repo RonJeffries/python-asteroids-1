@@ -1,4 +1,4 @@
-from pygame import Vector2
+from pygame import Vector2, Rect
 
 import u
 from bumper import Bumper
@@ -73,20 +73,23 @@ class TestInvaderFleet:
         assert fleet.origin == origin + fleet.step, \
             "if this fails someone may have modified a vector in place"
 
-    def test_bumper_invader_collision(self):
-        fleet = InvaderFleet()
-        bumper_x = 16
-        bumper = Bumper(bumper_x, 1)
-        invader_column = 5
-        invader = Invader(invader_column, 2)
-        step = 64
-        invader.move_relative(fleet.origin)
-        invader.interact_with_bumper(bumper, fleet)
-        assert not fleet.reverse
-        start_x = bumper_x - invader_column*step
-        start = Vector2(start_x, 512)
-        invader.move_relative(start)
-        invader.interact_with_bumper(bumper, fleet)
-        assert fleet.reverse
+    def test_bumper_intersecting_left(self):
+        bumper = Bumper(64, -1)
+        rect = Rect(64, 512, 64, 32)
+        assert bumper.intersecting(rect)
+        rect = Rect(65, 512, 64, 32)
+        assert not bumper.intersecting(rect)
+
+    def test_bumper_intersecting_right(self):
+        bumper = Bumper(960, +1)
+        rect = Rect(960-64, 512, 64, 32)
+        assert bumper.intersecting(rect)
+        rect = Rect(959-64, 512, 64, 32)
+        assert not bumper.intersecting(rect)
+
+    def test_rectangle_right(self):
+        rect = Rect(100, 200, 64, 32)
+        assert rect.bottomright == (164, 232)
+
 
 

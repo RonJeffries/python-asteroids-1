@@ -1,3 +1,4 @@
+import pygame
 from pygame import Rect
 
 import u
@@ -6,8 +7,14 @@ from flyer import Flyer
 
 class Bumper(Flyer):
     def __init__(self, x, incoming_direction):
-        self.rect = Rect(x, 0, x+1, u.SCREEN_SIZE)
+        self.x = x
         self.incoming_direction = incoming_direction
+
+    def intersecting(self, rect: Rect):
+        if self.incoming_direction > 0:
+            return rect.bottomright[0] >= self.x
+        else:
+            return rect.bottomleft[0] <= self.x
 
     def interact_with_invaderfleet(self, invader, fleets):
         pass
@@ -19,7 +26,7 @@ class Bumper(Flyer):
         other.interact_with_bumper(self, fleets)
 
     def draw(self, screen):
-        pass
+        pygame.draw.line(screen, "green", (self.x, 0), (self.x, u.SCREEN_SIZE))
 
     def tick(self, delta_time, fleets):
         pass
