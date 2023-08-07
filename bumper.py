@@ -8,13 +8,17 @@ from flyer import Flyer
 class Bumper(Flyer):
     def __init__(self, x, incoming_direction):
         self.x = x
+        self.check = self.beyond_on_right if incoming_direction > 0 else self.beyond_on_left
         self.incoming_direction = incoming_direction
 
     def intersecting(self, rect: Rect):
-        if self.incoming_direction > 0:
-            return rect.bottomright[0] >= self.x
-        else:
-            return rect.bottomleft[0] <= self.x
+        return self.check(rect)
+
+    def beyond_on_left(self, rect):
+        return rect.bottomleft[0] <= self.x
+
+    def beyond_on_right(self, rect):
+        return rect.bottomright[0] >= self.x
 
     def interact_with_invaderfleet(self, invader, fleets):
         pass
