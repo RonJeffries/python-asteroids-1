@@ -87,9 +87,13 @@ class TestInvaderFleet:
         rect = Rect(959-64, 512, 64, 32)
         assert not bumper.intersecting(rect)
 
-    def test_rectangle_right(self):
-        rect = Rect(100, 200, 64, 32)
-        assert rect.bottomright == (164, 232)
+    def test_rectangle_bottom_right_is_inclusive(self):
+        left = 100
+        top = 200
+        width = 64
+        height = 32
+        rect = Rect(left, top, width, height)
+        assert rect.bottomright == (left + width, top + height)
 
 
 
