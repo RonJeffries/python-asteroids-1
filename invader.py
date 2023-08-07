@@ -1,19 +1,20 @@
 import pygame.draw
 from pygame import Vector2
 
+INVADER_SPACING = 64
+
 
 class Invader:
     def __init__(self, row, column):
-        self.row = row
-        self.column = column
+        self.relative_position = Vector2(INVADER_SPACING * row, INVADER_SPACING * column)
         self.rect = pygame.Rect(0, 0, 64, 32)
 
     @property
     def position(self):
         return Vector2(self.rect.center)
 
-    def move_relative(self, origin):
-        pos = Vector2(origin.x + 64*self.row, origin.y - 64*self.column)
+    def set_position(self, origin):
+        pos = origin + self.relative_position
         self.rect.center = pos
 
     def draw(self, screen):

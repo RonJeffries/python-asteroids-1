@@ -2,7 +2,7 @@ from pygame import Vector2, Rect
 
 import u
 from bumper import Bumper
-from invader import Invader
+from invader import INVADER_SPACING
 from invaderfleet import InvaderFleet
 
 
@@ -21,8 +21,8 @@ class TestInvaderFleet:
         for y in range(5):
             for x in range(11):
                 invader = fleet.invaders[count]
-                assert invader.row == x
-                assert invader.column == y
+                assert invader.relative_position.x == x * INVADER_SPACING
+                assert invader.relative_position.y == y * INVADER_SPACING
                 count += 1
 
     def test_fleet_origin_is_centered(self):

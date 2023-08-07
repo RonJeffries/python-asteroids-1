@@ -1,4 +1,3 @@
-import pygame
 from pygame import Vector2
 
 import u
@@ -15,16 +14,18 @@ class InvaderFleet(Flyer):
         self.reverse = False
         self.next_invader = len(self.invaders)
         self.direction = 1
-        # self.update(0, None)
+        self.position_all_invaders()
+
+    def position_all_invaders(self):
         for invader in self.invaders:
-            invader.move_relative(self.origin)
+            invader.set_position(self.origin)
 
     def end_interactions(self, fleets):
         pass
 
     def update(self, delta_time, _fleets):
         self.check_end_cycle(delta_time)
-        self.invaders[self.next_invader].move_relative(self.origin)
+        self.invaders[self.next_invader].set_position(self.origin)
         self.next_invader += 1
 
     def check_end_cycle(self, delta_time):
