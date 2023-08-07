@@ -22,7 +22,7 @@ class TestInvaderFleet:
             for x in range(11):
                 invader = fleet.testing_only_invaders[count]
                 assert invader.relative_position.x == x * INVADER_SPACING
-                assert invader.relative_position.y == y * INVADER_SPACING
+                assert invader.relative_position.y == -y * INVADER_SPACING
                 count += 1
 
     def test_fleet_origin_is_centered(self):
