@@ -61,6 +61,9 @@ class InvaderFleet(Flyer):
 
     def update(self, delta_time, _fleets):
         result = self.invader_group.update_next(self.origin)
+        self.process_result(result)
+
+    def process_result(self, result):
         if result == "ok":
             pass
         elif result == "end":
@@ -78,18 +81,6 @@ class InvaderFleet(Flyer):
         self.reverse = False
         self.direction = -self.direction
         self.origin = self.origin + self.direction * self.step + self.down_step
-
-    def check_end_cycle(self, delta_time):
-        if self.next_invader >= len(self.invader_group.invaders):
-            self.reverse_or_continue(delta_time)
-
-    def reverse_or_continue(self, delta_time):
-        # we use +, not += because += modifies in place.
-        if self.reverse:
-            self.reverse_travel()
-        else:
-            self.step_origin()
-        self.next_invader = 0
 
 
     def at_edge(self, bumper_incoming_direction):

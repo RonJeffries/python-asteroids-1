@@ -42,33 +42,26 @@ class TestInvaderFleet:
         fleet.at_edge(+1)
         assert fleet.reverse
 
-    def test_direction_reverses_at_edge(self):
-        fleet = InvaderFleet()
-        assert fleet.direction == +1
-        fleet.at_edge(+1)
-        fleet.reverse_or_continue(1.0)
-        assert fleet.direction == -1
-
-    def test_direction_unchanged_when_not_at_edge(self):
-        fleet = InvaderFleet()
-        assert fleet.direction == +1
-        fleet.reverse_or_continue(1.0)
-        assert fleet.direction == +1
-
-    def test_step_down_at_edge(self):
+    def test_ok_leaves_step_alone(self):
         fleet = InvaderFleet()
         origin = fleet.origin
-        fleet.at_edge(+1)
-        fleet.reverse_or_continue(1.0)
-        assert fleet.origin == origin - fleet.step + fleet.down_step, \
-            "if this fails someone may have modified a vector in place"
+        fleet.process_result("ok")
+        assert fleet.origin == origin
 
-    def test_no_step_down_when_not_at_edge(self):
+    def test_end_increments_step(self):
         fleet = InvaderFleet()
         origin = fleet.origin
-        fleet.reverse_or_continue(1.0)
-        assert fleet.origin == origin + fleet.step, \
-            "if this fails someone may have modified a vector in place"
+        fleet.process_result("end")
+        assert fleet.origin == origin + fleet.step
+
+    def test_end_at_edge_steps_down_and_left(self):
+        fleet = InvaderFleet()
+        origin = fleet.origin
+        direction = fleet.direction
+        fleet.at_edge(+1)
+        fleet.process_result("end")
+        assert fleet.direction == -direction
+        assert fleet.origin == origin - fleet.step + fleet.down_step
 
     def test_bumper_intersecting_left(self):
         bumper = Bumper(64, -1)
