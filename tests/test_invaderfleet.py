@@ -41,9 +41,6 @@ class TestInvaderFleet:
         assert new_pos - pos == fleet.step
         fleet.at_edge(+1)
         assert fleet.reverse
-        # fleet.next_invader = len(fleet.testing_only_invaders)
-        # fleet.update(1.0, None)
-        # assert fleet.direction == -1
 
     def test_direction_reverses_at_edge(self):
         fleet = InvaderFleet()
