@@ -9,6 +9,7 @@ class InvaderGroup():
     def __init__(self):
         self.invaders = ()
         self.create_invaders()
+        self.next_invader = 0
 
     def create_invaders(self):
         self.invaders = [Invader(x%11, x//11) for x in range(55)]
@@ -16,6 +17,16 @@ class InvaderGroup():
     def position_all_invaders(self, origin):
         for invader in self.invaders:
             invader.set_position(origin)
+
+    def update_next(self, origin):
+        invader = self.invaders[self.next_invader]
+        invader.set_position(origin)
+        self.next_invader += 1
+        if self.next_invader < len(self.invaders):
+            return "ok"
+        else:
+            self.next_invader = 0
+            return "end"
 
     def draw(self, screen):
         for invader in self.invaders:
@@ -37,11 +48,9 @@ class InvaderFleet(Flyer):
         self.invader_group = InvaderGroup()
         self.origin = Vector2(u.SCREEN_SIZE / 2 - 5*64, 512)
         self.invader_group.position_all_invaders(self.origin)
-
         self.reverse = False
         self.direction = 1
-
-        self.next_invader = len(self.invader_group.invaders)
+        self.step_origin()
 
     @property
     def testing_only_invaders(self):
@@ -51,9 +60,24 @@ class InvaderFleet(Flyer):
         pass
 
     def update(self, delta_time, _fleets):
-        self.check_end_cycle(delta_time)
-        self.invader_group.set_invader_position(self.next_invader, self.origin)
-        self.next_invader += 1
+        result = self.invader_group.update_next(self.origin)
+        if result == "ok":
+            pass
+        elif result == "end":
+            if self.reverse:
+                self.reverse_travel()
+            else:
+                self.step_origin()
+        else:
+            assert False
+
+    def step_origin(self):
+        self.origin = self.origin + self.direction * self.step
+
+    def reverse_travel(self):
+        self.reverse = False
+        self.direction = -self.direction
+        self.origin = self.origin + self.direction * self.step + self.down_step
 
     def check_end_cycle(self, delta_time):
         if self.next_invader >= len(self.invader_group.invaders):
@@ -62,12 +86,11 @@ class InvaderFleet(Flyer):
     def reverse_or_continue(self, delta_time):
         # we use +, not += because += modifies in place.
         if self.reverse:
-            self.reverse = False
-            self.direction = -self.direction
-            self.origin = self.origin + self.direction * self.step + self.down_step
+            self.reverse_travel()
         else:
-            self.origin = self.origin + self.direction * self.step
+            self.step_origin()
         self.next_invader = 0
+
 
     def at_edge(self, bumper_incoming_direction):
         self.reverse = bumper_incoming_direction == self.direction
