@@ -56,7 +56,7 @@ class BitmapMaker:
     def make_and_scale_surface(self, bytes, scale, size=(16, 8)):
         return pygame.transform.scale_by(self.make_surface(bytes, size), scale)
 
-    def make_surface(self, bytes, size=(16, 8)):
+    def make_surface(self, bytes, size):
         s = Surface(size)
         s.set_colorkey((0, 0, 0))
         width = size[0]
