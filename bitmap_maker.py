@@ -3,7 +3,6 @@ from pygame import Vector2, Surface
 
 
 class BitmapMaker:
-class Game:
     def __init__(self, testing=False):
         self._testing = testing
         alien10 = (0x00, 0x00, 0x39, 0x79, 0x7A, 0x6E, 0xEC, 0xFA, 0xFA, 0xEC, 0x6E, 0x7A, 0x79, 0x39, 0x00, 0x00)
@@ -37,22 +36,21 @@ class Game:
             0xFF, 0xF8, 0xFF, 0xF0, 0xFF, 0xF0, 0xFF, 0xF0, 0xFF, 0xF0, 0xFF,
             0xF0, 0xFF, 0xF0, 0xFF, 0xF0, 0xFF, 0xF8, 0xFF, 0xFC, 0xFF, 0xFF,
             0xFF, 0xFF, 0xFF, 0xFF, 0x7F, 0xFF, 0x3F, 0xFF, 0x1F, 0xFF, 0x0F)
-        if not testing:
-            aliens = (alien10, alien11, alien20, alien21, alien30, alien31)
-            self.aliens = [self.make_and_scale_surface(bytes, 8) for bytes in aliens]
-            players = (player, player_e0, player_e1)
-            self.players = [self.make_and_scale_surface(bytes, 8) for bytes in players]
-            saucers = (saucer, saucer_e)
-            self.saucers = [self.make_and_scale_surface(saucer, 8, (24, 8)) for saucer in saucers]
-            self.saucer = self.make_and_scale_surface(saucer, 8, (24, 8))
-            self.squig = self.make_and_scale_surface(squig_0, 8, (3, 8))
-            squigs = (squig_0, squig_1, squig_2, squig_3)
-            self.squigs = [self.make_and_scale_surface(squig, 8, (3, 8)) for squig in squigs]
-            plungers = (p_0, p_1, p_2, p_3)
-            self.plungers = [self.make_and_scale_surface(plunger, 8, (3, 8)) for plunger in plungers]
-            rollers = (r0, r1, r2, r3)
-            self.rollers = [self.make_and_scale_surface(plunger, 8, (3, 8)) for plunger in rollers]
-            self.shield = self.make_and_scale_surface(shield, 8, (22, 16))
+        aliens = (alien10, alien11, alien20, alien21, alien30, alien31)
+        self.aliens = [self.make_and_scale_surface(bytes, 8) for bytes in aliens]
+        players = (player, player_e0, player_e1)
+        self.players = [self.make_and_scale_surface(bytes, 8) for bytes in players]
+        saucers = (saucer, saucer_e)
+        self.saucers = [self.make_and_scale_surface(saucer, 8, (24, 8)) for saucer in saucers]
+        self.saucer = self.make_and_scale_surface(saucer, 8, (24, 8))
+        self.squig = self.make_and_scale_surface(squig_0, 8, (3, 8))
+        squigs = (squig_0, squig_1, squig_2, squig_3)
+        self.squigs = [self.make_and_scale_surface(squig, 8, (3, 8)) for squig in squigs]
+        plungers = (p_0, p_1, p_2, p_3)
+        self.plungers = [self.make_and_scale_surface(plunger, 8, (3, 8)) for plunger in plungers]
+        rollers = (r0, r1, r2, r3)
+        self.rollers = [self.make_and_scale_surface(plunger, 8, (3, 8)) for plunger in rollers]
+        self.shield = self.make_and_scale_surface(shield, 8, (22, 16))
 
     def make_and_scale_surface(self, bytes, scale, size=(16, 8)):
         return pygame.transform.scale_by(self.make_surface(bytes, size), scale)

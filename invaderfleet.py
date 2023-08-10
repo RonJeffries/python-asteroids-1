@@ -1,6 +1,7 @@
 from pygame import Vector2
 
 import u
+from bitmap_maker import BitmapMaker
 from flyer import Flyer
 from invader import Invader
 
@@ -8,11 +9,23 @@ from invader import Invader
 class InvaderGroup():
     def __init__(self):
         self.invaders = ()
-        self.create_invaders()
+        invader_table = self.create_invader_bitmaps()
+        self.create_invaders(invader_table)
         self.next_invader = 0
 
-    def create_invaders(self):
-        self.invaders = [Invader(x%11, x//11) for x in range(55)]
+    def create_invader_bitmaps(self):
+        maker = BitmapMaker()
+        aliens = maker.aliens
+        alien_table = (aliens[0:2], aliens[0:2], aliens[2:4], aliens[2:4], aliens[4:])
+        return alien_table
+
+    def create_invaders(self, invader_table):
+        self.invaders = []
+        for x in range(55):
+            col = x % 11
+            row = x // 11
+            maps = invader_table[row]
+            self.invaders.append(Invader(col, row, maps))
 
     def position_all_invaders(self, origin):
         for invader in self.invaders:

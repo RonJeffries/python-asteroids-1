@@ -5,7 +5,7 @@ INVADER_SPACING = 64
 
 
 class Invader:
-    def __init__(self, x, y):
+    def __init__(self, x, y, bitmaps):
         self.relative_position = Vector2(INVADER_SPACING * x, -INVADER_SPACING * y)
         self.rect = pygame.Rect(0, 0, 64, 32)
 
