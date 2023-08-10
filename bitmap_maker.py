@@ -36,21 +36,22 @@ class BitmapMaker:
             0xFF, 0xF8, 0xFF, 0xF0, 0xFF, 0xF0, 0xFF, 0xF0, 0xFF, 0xF0, 0xFF,
             0xF0, 0xFF, 0xF0, 0xFF, 0xF0, 0xFF, 0xF8, 0xFF, 0xFC, 0xFF, 0xFF,
             0xFF, 0xFF, 0xFF, 0xFF, 0x7F, 0xFF, 0x3F, 0xFF, 0x1F, 0xFF, 0x0F)
+        scale = 4
         aliens = (alien10, alien11, alien20, alien21, alien30, alien31)
-        self.aliens = [self.make_and_scale_surface(bytes, 8) for bytes in aliens]
+        self.aliens = [self.make_and_scale_surface(bytes, scale) for bytes in aliens]
         players = (player, player_e0, player_e1)
-        self.players = [self.make_and_scale_surface(bytes, 8) for bytes in players]
+        self.players = [self.make_and_scale_surface(bytes, scale) for bytes in players]
         saucers = (saucer, saucer_e)
-        self.saucers = [self.make_and_scale_surface(saucer, 8, (24, 8)) for saucer in saucers]
-        self.saucer = self.make_and_scale_surface(saucer, 8, (24, 8))
-        self.squig = self.make_and_scale_surface(squig_0, 8, (3, 8))
+        self.saucers = [self.make_and_scale_surface(saucer, scale, (24, 8)) for saucer in saucers]
+        self.saucer = self.make_and_scale_surface(saucer, scale, (24, 8))
+        self.squig = self.make_and_scale_surface(squig_0, scale, (3, 8))
         squigs = (squig_0, squig_1, squig_2, squig_3)
-        self.squigs = [self.make_and_scale_surface(squig, 8, (3, 8)) for squig in squigs]
+        self.squigs = [self.make_and_scale_surface(squig, scale, (3, 8)) for squig in squigs]
         plungers = (p_0, p_1, p_2, p_3)
-        self.plungers = [self.make_and_scale_surface(plunger, 8, (3, 8)) for plunger in plungers]
+        self.plungers = [self.make_and_scale_surface(plunger, scale, (3, 8)) for plunger in plungers]
         rollers = (r0, r1, r2, r3)
-        self.rollers = [self.make_and_scale_surface(plunger, 8, (3, 8)) for plunger in rollers]
-        self.shield = self.make_and_scale_surface(shield, 8, (22, 16))
+        self.rollers = [self.make_and_scale_surface(plunger, scale, (3, 8)) for plunger in rollers]
+        self.shield = self.make_and_scale_surface(shield, scale, (22, 16))
 
     def make_and_scale_surface(self, bytes, scale, size=(16, 8)):
         return pygame.transform.scale_by(self.make_surface(bytes, size), scale)
