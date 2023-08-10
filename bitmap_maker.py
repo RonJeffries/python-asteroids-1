@@ -53,24 +53,24 @@ class BitmapMaker:
         self.rollers = [self.make_and_scale_surface(plunger, scale, (3, 8)) for plunger in rollers]
         self.shield = self.make_and_scale_surface(shield, scale, (22, 16))
 
-    def make_and_scale_surface(self, bytes, scale, size=(16, 8)):
-        return pygame.transform.scale_by(self.make_surface(bytes, size), scale)
+    def make_and_scale_surface(self, pixel_bytes, scale, size=(16, 8)):
+        return pygame.transform.scale_by(self.make_surface(pixel_bytes, size), scale)
 
-    def make_surface(self, bytes, size):
+    def make_surface(self, pixel_bytes, size):
         s = Surface(size)
         s.set_colorkey((0, 0, 0))
         width = size[0]
-        layers = len(bytes)//width
-        for x, byte in enumerate(bytes):
+        layers = len(pixel_bytes) // width
+        for x, byte in enumerate(pixel_bytes):
             x_in = x // layers
             y_offset = 0 if layers == 1 else 8 - (x % layers)*8
             self.store_byte(byte, x_in, y_offset, s)
         return s
 
-    def store_byte(self, byte, x, y_offset, surface):
+    def store_byte(self, pixel_byte, x, y_offset, surface):
         for z in range(8):
-            bit = byte & 1
+            bit = pixel_byte & 1
             y = y_offset + 7 - z
             if bit:
                 surface.set_at((x, y), "white")
-            byte = byte >> 1
+            pixel_byte = pixel_byte >> 1
