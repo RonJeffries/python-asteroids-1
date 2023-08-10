@@ -8,7 +8,7 @@ from invader import Invader
 
 class InvaderGroup():
     def __init__(self):
-        self.invaders = ()
+        self.invaders = []
         invader_table = self.create_invader_bitmaps()
         self.create_invaders(invader_table)
         self.next_invader = 0
@@ -18,6 +18,16 @@ class InvaderGroup():
         aliens = maker.aliens
         alien_table = (aliens[0:2], aliens[0:2], aliens[2:4], aliens[2:4], aliens[4:])
         return alien_table
+
+    def bottom_of_column(self, column):
+        matching = [invader for invader in self.invaders if invader.column == column]
+        if matching:
+            return matching[0]
+        else:
+            return None
+
+    def kill(self, invader):
+        self.invaders.remove(invader)
 
     def create_invaders(self, invader_table):
         self.invaders = []

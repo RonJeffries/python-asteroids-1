@@ -15,6 +15,10 @@ class Invader:
     def position(self):
         return Vector2(self.rect.center)
 
+    @property
+    def column(self):
+        return self.relative_position.x // INVADER_SPACING
+
     def set_position(self, origin):
         self.image = 1 if self.image == 0 else 0
         self.rect.center = origin + self.relative_position
