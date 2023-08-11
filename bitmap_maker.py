@@ -13,9 +13,10 @@ class BitmapMaker:
 
     def __init__(self):
         # bitmaps found at https://www.computerarcheology.com/Arcade/SpaceInvaders/Code.html
-        # These are bitmaps, rotated 90 degrees. each byte is 8 pixels for a single column
+        # These are bitmaps, rotated 90 degrees. Each byte is 8 pixels for a single column
         # of the bitmap. All of them are only 8 bits high, except for shield, which is 16.
-        # they are bottom up left to right.
+        # They are bottom up left to right. The low order bit is low in the image.
+        # If the code contradicts these commands, the code is correct.
         invader10 = (0x00, 0x00, 0x39, 0x79, 0x7A, 0x6E, 0xEC, 0xFA, 0xFA, 0xEC, 0x6E, 0x7A, 0x79, 0x39, 0x00, 0x00)
         invader11 = (0x00, 0x00, 0x38, 0x7A, 0x7F, 0x6D, 0xEC, 0xFA, 0xFA, 0xEC, 0x6D, 0x7F, 0x7A, 0x38, 0x00, 0x00)
         invader20 = (0x00, 0x00, 0x00, 0x78, 0x1D, 0xBE, 0x6C, 0x3C, 0x3C, 0x3C, 0x6C, 0xBE, 0x1D, 0x78, 0x00, 0x00)
