@@ -27,7 +27,10 @@ class InvaderGroup():
             return None
 
     def kill(self, invader):
-        self.invaders.remove(invader)
+        index = self.invaders.index(invader)
+        self.invaders.pop(index)
+        if self._next_invader > index:
+            self._next_invader -= 1
 
     def create_invaders(self, invader_table):
         self.invaders = []
