@@ -45,14 +45,13 @@ class InvaderGroup():
             invader.set_position(origin)
 
     def update_next(self, origin):
+        if self._next_invader >= len(self.invaders):
+            self._next_invader = 0
+            return "end"
         invader = self.next_invader()
         invader.set_position(origin)
         self._next_invader += 1
-        if self._next_invader < len(self.invaders):
-            return "ok"
-        else:
-            self._next_invader = 0
-            return "end"
+        return "ok"
 
     def next_invader(self):
         return self.invaders[self._next_invader]

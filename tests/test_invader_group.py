@@ -18,7 +18,7 @@ class TestInvaderGroup:
     def test_update_next(self):
         group = InvaderGroup()
         origin = Vector2(100, 100)
-        for i in range(54):
+        for i in range(55):
             result = group.update_next(origin)
             assert result == "ok"
         result = group.update_next(origin)
@@ -58,4 +58,12 @@ class TestInvaderGroup:
         should_update = group.invaders[30]
         group.kill(to_remove)
         assert group.next_invader() == should_update
+
+    def test_remove_last_invader(self):
+        group = InvaderGroup()
+        for count in range(55):
+            group.kill(group.invaders[0])
+        result = group.update_next(Vector2(0, 0))
+        assert result == "end"
+
 
