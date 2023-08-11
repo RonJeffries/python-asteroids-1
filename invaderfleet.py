@@ -11,7 +11,7 @@ class InvaderGroup():
         self.invaders = []
         invader_table = self.create_invader_bitmaps()
         self.create_invaders(invader_table)
-        self.next_invader = 0
+        self._next_invader = 0
 
     def create_invader_bitmaps(self):
         maker = BitmapMaker.instance()
@@ -42,14 +42,17 @@ class InvaderGroup():
             invader.set_position(origin)
 
     def update_next(self, origin):
-        invader = self.invaders[self.next_invader]
+        invader = self.next_invader()
         invader.set_position(origin)
-        self.next_invader += 1
-        if self.next_invader < len(self.invaders):
+        self._next_invader += 1
+        if self._next_invader < len(self.invaders):
             return "ok"
         else:
-            self.next_invader = 0
+            self._next_invader = 0
             return "end"
+
+    def next_invader(self):
+        return self.invaders[self._next_invader]
 
     def draw(self, screen):
         for invader in self.invaders:
