@@ -14,7 +14,7 @@ class InvaderGroup():
         self.next_invader = 0
 
     def create_invader_bitmaps(self):
-        maker = BitmapMaker()
+        maker = BitmapMaker.instance()
         aliens = maker.aliens
         alien_table = (aliens[0:2], aliens[0:2], aliens[2:4], aliens[2:4], aliens[4:])
         return alien_table
