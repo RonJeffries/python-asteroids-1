@@ -1,4 +1,5 @@
 import pygame
+from pygame import Vector2
 
 import u
 from bitmap_maker import BitmapMaker
@@ -11,7 +12,21 @@ class InvaderPlayer(Flyer):
         self.players = maker.players  # one turret, two explosions
         self.player = self.players[0]
         self.rect = pygame.Rect(0, 0, 64, 32)
-        self.rect.center = (u.SCREEN_SIZE/2, u.SCREEN_SIZE - 5*32 - 16)
+        self.rect.center = Vector2(u.SCREEN_SIZE/2, u.SCREEN_SIZE - 5*32 - 16)
+        self.step = 4
+
+    def update(self, _delta_time, _fleets):
+        if not pygame.get_init():
+            return
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_f]:
+            self.move(self.step)
+        elif keys[pygame.K_d]:
+            self.move(-self.step)
+
+    def move(self, amount):
+        self.rect.center = self.rect.center + Vector2(amount, 0)
+
 
     def interact_with(self, other, fleets):
         pass
