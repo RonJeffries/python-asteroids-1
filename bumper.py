@@ -23,6 +23,9 @@ class Bumper(Flyer):
     def interact_with_invaderfleet(self, invader, fleets):
         pass
 
+    def interact_with_invaderplayer(self, invader, fleets):
+        pass
+
     def interact_with_bumper(self, bumper, fleets):
         pass
 

@@ -120,6 +120,9 @@ class InvaderFleet(Flyer):
     def interact_with_bumper(self, bumper, _fleets):
         self.invader_group.interact_with_bumper(bumper, self)
 
+    def interact_with_invaderplayer(self, player, fleet):
+        pass
+
     def interact_with(self, other, fleets):
         pass
 

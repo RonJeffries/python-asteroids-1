@@ -11,4 +11,3 @@ class TestPlayer:
         player = InvaderPlayer()
         player.move(10000)
         assert player.rect.centerx == player.right
-

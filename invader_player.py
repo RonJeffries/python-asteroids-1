@@ -11,10 +11,10 @@ class InvaderPlayer(Flyer):
         maker = BitmapMaker.instance()
         self.players = maker.players  # one turret, two explosions
         self.player = self.players[0]
-        self.rect = pygame.Rect(0, 0, 64, 32)
+        self.rect = self.player.get_rect()
         self.rect.center = Vector2(u.SCREEN_SIZE/2, u.SCREEN_SIZE - 5*32 - 16)
         self.step = 4
-        half_width = 4 * 8
+        half_width = self.rect.width / 2
         self.left = 64 + half_width
         self.right = 960 - half_width
 
@@ -30,9 +30,8 @@ class InvaderPlayer(Flyer):
     def move(self, amount):
         self.rect.centerx = max(self.left, min(self.rect.centerx + amount, self.right))
 
-
     def interact_with(self, other, fleets):
-        pass
+        other.interact_with_invaderplayer(self, fleets)
 
     def draw(self, screen):
         screen.blit(self.player, self.rect)
