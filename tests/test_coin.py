@@ -7,6 +7,7 @@ from fleets import Fleets
 from flyer import Flyer
 from fragment import Fragment
 from game_over import GameOver
+from invader_player import InvaderPlayer
 from invaderfleet import InvaderFleet
 from missile import Missile
 from pygame import Vector2
@@ -39,7 +40,7 @@ class TestCoin:
     def all_known_flyer_subclasses():
         return {
             Asteroid, BeginChecker, Bumper, EndChecker,
-            Fragment, GameOver, InvaderFleet, Missile, Saucer, SaucerMaker,
+            Fragment, GameOver, InvaderFleet, InvaderPlayer, Missile, Saucer, SaucerMaker,
             Score, ScoreKeeper, Ship, ShipMaker, Signal, Thumper, WaveMaker}
 
     # @pytest.mark.skip("needs updating")

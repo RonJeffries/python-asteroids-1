@@ -1,6 +1,7 @@
 import u
 from bumper import Bumper
 from game_over import GameOver
+from invader_player import InvaderPlayer
 from invaderfleet import InvaderFleet
 from saucermaker import SaucerMaker
 from scorekeeper import ScoreKeeper
@@ -42,6 +43,7 @@ def invaders(fleets):
     fleets.append(Bumper(64, -1))
     fleets.append(Bumper(960, +1))
     fleets.append(InvaderFleet())
+    fleets.append(InvaderPlayer())
 
 
 def _append_common_elements(fleets):
