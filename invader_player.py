@@ -14,6 +14,9 @@ class InvaderPlayer(Flyer):
         self.rect = pygame.Rect(0, 0, 64, 32)
         self.rect.center = Vector2(u.SCREEN_SIZE/2, u.SCREEN_SIZE - 5*32 - 16)
         self.step = 4
+        half_width = 4 * 8
+        self.left = 64 + half_width
+        self.right = 960 - half_width
 
     def update(self, _delta_time, _fleets):
         if not pygame.get_init():
@@ -25,7 +28,7 @@ class InvaderPlayer(Flyer):
             self.move(-self.step)
 
     def move(self, amount):
-        self.rect.center = self.rect.center + Vector2(amount, 0)
+        self.rect.centerx = max(self.left, min(self.rect.centerx + amount, self.right))
 
 
     def interact_with(self, other, fleets):
