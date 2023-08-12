@@ -16,6 +16,41 @@ class Flyer(ABC):
     def tick(self, delta_time, fleets):
         pass
 
+    # not abstract FSR
+    def update(self, delta_time, fleets):
+        pass
+
+    # concrete methods, inheritable
+    # so sue me
+
+    def begin_interactions(self, fleets):
+        pass
+
+    def end_interactions(self, fleets):
+        pass
+
+
+class InvadersFlyer(Flyer):
+
+    @abstractmethod
+    def interact_with_bumper(self, bumper, fleets):
+        pass
+
+    @abstractmethod
+    def interact_with_invaderfleet(self, bumper, fleets):
+        pass
+
+    @abstractmethod
+    def interact_with_invaderplayer(self, bumper, fleets):
+        pass
+
+    @abstractmethod
+    def interact_with_playershot(self, bumper, fleets):
+        pass
+
+
+class AsteroidFlyer(Flyer):
+
     @abstractmethod
     def interact_with_asteroid(self, asteroid, fleets):
         pass
@@ -32,23 +67,11 @@ class Flyer(ABC):
     def interact_with_ship(self, ship, fleets):
         pass
 
-    # concrete methods, inheritable
-    # so sue me
-
-    def begin_interactions(self, fleets):
-        pass
-
-    def end_interactions(self, fleets):
-        pass
-
     def interact_with_fragment(self, fragment, fleets):
         pass
 
     def interact_with_gameover(self, game_over, fleets):
         pass
-
-    def interact_with_invaderfleet(self, fleet, fleets):
-        return 666
 
     def interact_with_score(self, score, fleets):
         pass
@@ -69,9 +92,6 @@ class Flyer(ABC):
         pass
 
     def interact_with_wavemaker(self, wavemaker, fleets):
-        pass
-
-    def update(self, delta_time, fleets):
         pass
 
 

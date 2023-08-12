@@ -1,6 +1,6 @@
 import pytest
 
-from flyer import Flyer
+from flyer import AsteroidFlyer
 
 
 def just_pass():
@@ -17,10 +17,10 @@ class TestFlyer:
 
     @pytest.mark.skip("needs updating")
     def test_all_interact_with_implemented_in_flyer(self):
-        subclasses = get_subclasses(Flyer)
+        subclasses = get_subclasses(AsteroidFlyer)
         ignores = ["BeginChecker", "EndChecker", "InvaderFleet"]
         subclasses = [klass for klass in subclasses if klass.__name__ not in ignores]
-        attributes = dir(Flyer)
+        attributes = dir(AsteroidFlyer)
         pass_code = just_pass.__code__.co_code
         for klass in subclasses:
             name = klass.__name__.lower()
@@ -38,7 +38,7 @@ class TestFlyer:
         # should_interact_with to return a list of classes
         # each of which will be checked for implementing
         # interact_with_xyz
-        subclasses = get_subclasses(Flyer)
+        subclasses = get_subclasses(AsteroidFlyer)
         # print()
         # for k in sorted(subclasses, key=lambda klass: klass.__name__):
         #     print(k.__name__)

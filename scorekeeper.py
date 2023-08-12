@@ -4,7 +4,7 @@ import pygame
 from pygame import Vector2
 
 import u
-from flyer import Flyer
+from flyer import AsteroidFlyer
 from ship import Ship
 from shipmaker import ShipMaker
 
@@ -18,7 +18,7 @@ class FakeShipMaker:
         pass
 
 
-class ScoreKeeper(Flyer):
+class ScoreKeeper(AsteroidFlyer):
 
     available_ship = Ship(Vector2(0, 0), 1)
     available_ship._angle = 90

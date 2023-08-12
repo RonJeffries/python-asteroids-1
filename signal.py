@@ -1,7 +1,7 @@
-from flyer import Flyer
+from flyer import AsteroidFlyer
 
 
-class Signal(Flyer):
+class Signal(AsteroidFlyer):
 
     def __init__(self, signal):
         self.signal = signal

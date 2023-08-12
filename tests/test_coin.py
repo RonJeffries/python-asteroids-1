@@ -4,7 +4,7 @@ from asteroid import Asteroid
 from bumper import Bumper
 from explosion import Explosion
 from fleets import Fleets
-from flyer import Flyer
+from flyer import AsteroidFlyer
 from fragment import Fragment
 from game_over import GameOver
 from invader_player import InvaderPlayer
@@ -47,7 +47,7 @@ class TestCoin:
     def test_no_unchecked_classes(self):
         # if this fails, we need to update `all_known_flyer_subclasses`
         # and re-verify the coin tests to be sure they don't need updating
-        subs = set(Flyer.__subclasses__())
+        subs = set(AsteroidFlyer.__subclasses__())
         assert not subs - self.all_known_flyer_subclasses()
 
     def test_slug(self):

@@ -5,7 +5,7 @@ from pygame import Vector2
 import u
 from asteroid import Asteroid
 from fleets import Fleets
-from flyer import Flyer
+from flyer import AsteroidFlyer
 from fragment import Fragment
 from game import Game
 from interactor import Interactor
@@ -352,7 +352,7 @@ class TestInteractions:
         classes = [Asteroid, Missile, Saucer, Ship, Fragment, Score, ScoreKeeper]
         errors = []
         for klass in classes:
-            assert issubclass(klass, Flyer)
+            assert issubclass(klass, AsteroidFlyer)
             attrs = dir(klass)
             methods = ["interact_with",
                        "interact_with_asteroid",

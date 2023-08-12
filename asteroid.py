@@ -5,14 +5,14 @@ import random
 
 from painter import Painter
 import u
-from flyer import Flyer
+from flyer import AsteroidFlyer
 from missile import Missile
 from movable_location import MovableLocation
 from score import Score
 from sounds import player
 
 
-class Asteroid(Flyer):
+class Asteroid(AsteroidFlyer):
     def __init__(self, size=2, position=None):
         self.size = max(0, min(size, 2))
         self._score = u.ASTEROID_SCORE_LIST[self.size]

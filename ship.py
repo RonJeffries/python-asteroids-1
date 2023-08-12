@@ -1,7 +1,7 @@
 # Ship
 
 from explosion import Explosion
-from flyer import Flyer
+from flyer import AsteroidFlyer
 from hyperspace_generator import HyperspaceGenerator
 from missile import Missile
 from movable_location import MovableLocation
@@ -14,7 +14,7 @@ import random
 import u
 
 
-class Ship(Flyer):
+class Ship(AsteroidFlyer):
 
     def __init__(self, position, drop_in=2):
         self.radius = 25 * u.SCALE_FACTOR

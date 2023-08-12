@@ -1,4 +1,4 @@
-from flyer import Flyer
+from flyer import AsteroidFlyer
 from game_over import GameOver
 from shipprovider import SinglePlayerShipProvider, TwoPlayerShipProvider
 from sounds import player
@@ -6,7 +6,7 @@ from timer import Timer
 import u
 
 
-class ShipMaker(Flyer):
+class ShipMaker(AsteroidFlyer):
 
     def __init__(self, number_of_players):
         if number_of_players == 1:

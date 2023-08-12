@@ -1,10 +1,10 @@
 import u
-from flyer import Flyer
+from flyer import AsteroidFlyer
 from saucer import Saucer
 from timer import Timer
 
 
-class SaucerMaker(Flyer):
+class SaucerMaker(AsteroidFlyer):
 
     def __init__(self):
         self._timer = Timer(u.SAUCER_EMERGENCE_TIME)

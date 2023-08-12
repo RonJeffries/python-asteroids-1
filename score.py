@@ -1,6 +1,6 @@
-from flyer import Flyer
+from flyer import AsteroidFlyer
 
-class Score(Flyer):
+class Score(AsteroidFlyer):
 
     @classmethod
     def should_interact_with(cls):

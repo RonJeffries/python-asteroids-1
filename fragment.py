@@ -4,7 +4,7 @@ import pygame.draw
 from pygame import Vector2
 
 import u
-from flyer import Flyer
+from flyer import AsteroidFlyer
 from timer import Timer
 
 
@@ -30,7 +30,7 @@ class CircleCommand:
         pygame.draw.circle(screen, "white", position + head_off, self._radius, self._width)
 
 
-class Fragment(Flyer):
+class Fragment(AsteroidFlyer):
     @classmethod
     def simple_fragment(cls, position, angle=None, speed_mul=None):
         half_length = random.uniform(6, 10)

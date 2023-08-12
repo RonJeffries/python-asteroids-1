@@ -3,13 +3,13 @@
 import pygame
 
 import u
-from flyer import Flyer
+from flyer import AsteroidFlyer
 from movable_location import MovableLocation
 from timer import Timer
 from transponder import Transponder
 
 
-class Missile(Flyer):
+class Missile(AsteroidFlyer):
     radius = 2
 
     def __init__(self, transponder_key, position, velocity):

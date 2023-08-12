@@ -2,7 +2,7 @@ from pygame import Vector2
 
 import u
 from bitmap_maker import BitmapMaker
-from flyer import Flyer
+from flyer import InvadersFlyer
 from invader import Invader
 
 
@@ -68,7 +68,13 @@ class InvaderGroup():
         self.invaders[index].set_position(origin)
 
 
-class InvaderFleet(Flyer):
+class InvaderFleet(InvadersFlyer):
+    def interact_with_invaderfleet(self, bumper, fleets):
+        pass
+
+    def interact_with_playershot(self, bumper, fleets):
+        pass
+
     def __init__(self):
         self.step = Vector2(8, 0)
         self.down_step = Vector2(0, 32)
@@ -124,18 +130,6 @@ class InvaderFleet(Flyer):
         pass
 
     def interact_with(self, other, fleets):
-        pass
-
-    def interact_with_asteroid(self, asteroid, fleets):
-        pass
-
-    def interact_with_missile(self, missile, fleets):
-        pass
-
-    def interact_with_saucer(self, saucer, fleets):
-        pass
-
-    def interact_with_ship(self, ship, fleets):
         pass
 
     def tick(self, delta_time, fleets):

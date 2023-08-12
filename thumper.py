@@ -1,8 +1,8 @@
-from flyer import Flyer
+from flyer import AsteroidFlyer
 from sounds import player
 
 
-class Thumper(Flyer):
+class Thumper(AsteroidFlyer):
 
     def __init__(self, first_action=None, second_action=None):
         self._longest_time_between_beats = 30 / 60

@@ -1,9 +1,10 @@
 from asteroid import Asteroid
 from explosion import Explosion
-from flyer import Flyer
+from flyer import AsteroidFlyer
 from fragment import Fragment
 from game_over import GameOver
 from missile import Missile
+from player_shot import PlayerShot
 from saucer import Saucer
 from saucermaker import SaucerMaker
 from score import Score
@@ -48,6 +49,10 @@ class FleetsInspector:
     @property
     def missiles(self):
         return self.select_class(Missile)
+
+    @property
+    def player_shots(self):
+        return self.select_class(PlayerShot)
 
     @property
     def saucers(self):
@@ -101,7 +106,7 @@ class FleetsInspector:
 FI = FleetsInspector
 
 
-class BeginChecker(Flyer):
+class BeginChecker(AsteroidFlyer):
     def __init__(self):
         self.triggered = False
 
@@ -130,7 +135,7 @@ class BeginChecker(Flyer):
         pass
 
 
-class EndChecker(Flyer):
+class EndChecker(AsteroidFlyer):
     def interact_with_asteroid(self, asteroid, fleets):
         pass
 

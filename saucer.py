@@ -1,7 +1,7 @@
 # Saucer
 
 from explosion import Explosion
-from flyer import Flyer
+from flyer import AsteroidFlyer
 from gunner import Gunner
 from movable_location import MovableLocation
 from painter import Painter
@@ -13,7 +13,7 @@ import random
 import u
 
 
-class Saucer(Flyer):
+class Saucer(AsteroidFlyer):
 
     direction = -1
     saucer_surface = None

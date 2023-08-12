@@ -1,10 +1,10 @@
 import pygame
 
 import u
-from flyer import Flyer
+from flyer import AsteroidFlyer
 
 
-class GameOver(Flyer):
+class GameOver(AsteroidFlyer):
 
     def __init__(self):
         self.init_game_over()

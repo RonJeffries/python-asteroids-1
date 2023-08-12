@@ -3,10 +3,20 @@ from pygame import Vector2
 
 import u
 from bitmap_maker import BitmapMaker
-from flyer import Flyer
+from flyer import InvadersFlyer
+from player_shot import PlayerShot
 
 
-class InvaderPlayer(Flyer):
+class InvaderPlayer(InvadersFlyer):
+    def interact_with_invaderfleet(self, bumper, fleets):
+        pass
+
+    def interact_with_invaderplayer(self, bumper, fleets):
+        pass
+
+    def interact_with_playershot(self, bumper, fleets):
+        pass
+
     def __init__(self):
         maker = BitmapMaker.instance()
         self.players = maker.players  # one turret, two explosions
@@ -17,6 +27,9 @@ class InvaderPlayer(Flyer):
         half_width = self.rect.width / 2
         self.left = 64 + half_width
         self.right = 960 - half_width
+
+    def attempt_firing(self, fleets):
+        fleets.append(PlayerShot())
 
     def update(self, _delta_time, _fleets):
         if not pygame.get_init():
@@ -39,17 +52,5 @@ class InvaderPlayer(Flyer):
     def tick(self, delta_time, fleets):
         pass
 
-    def interact_with_asteroid(self, asteroid, fleets):
-        pass
-
     def interact_with_bumper(self, bumper, fleets):
-        pass
-
-    def interact_with_missile(self, missile, fleets):
-        pass
-
-    def interact_with_saucer(self, saucer, fleets):
-        pass
-
-    def interact_with_ship(self, ship, fleets):
         pass

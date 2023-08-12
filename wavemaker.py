@@ -1,10 +1,10 @@
 import u
 from asteroid import Asteroid
-from flyer import Flyer
+from flyer import AsteroidFlyer
 from timer import Timer
 
 
-class WaveMaker(Flyer):
+class WaveMaker(AsteroidFlyer):
 
     def __init__(self):
         self._need_asteroids = None
