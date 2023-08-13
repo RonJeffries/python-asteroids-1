@@ -20,6 +20,7 @@ class InvaderPlayer(InvadersFlyer):
         self.left = 64 + half_width
         self.right = 960 - half_width
         self.free_to_fire = True
+        self.fire_request_allowed = True
 
     def begin_interactions(self, fleets):
         self.free_to_fire = True
@@ -27,14 +28,32 @@ class InvaderPlayer(InvadersFlyer):
     def interact_with_playershot(self, bumper, fleets):
         self.free_to_fire = False
 
+    def trigger_pulled(self, fleets):
+        if self.fire_request_allowed:
+            self.attempt_firing(fleets)
+        self.fire_request_allowed = False
+
+    def trigger_released(self):
+        self.fire_request_allowed = True
+
     def attempt_firing(self, fleets):
         if self.free_to_fire:
             fleets.append(PlayerShot())
 
-    def update(self, _delta_time, _fleets):
+    def update(self, _delta_time, fleets):
         if not pygame.get_init():
             return
         keys = pygame.key.get_pressed()
+        self.check_motion(keys)
+        self.check_firing(fleets, keys)
+
+    def check_firing(self, fleets, keys):
+        if not keys[pygame.K_k]:
+            self.trigger_pulled(fleets)
+        else:
+            self.trigger_released()
+
+    def check_motion(self, keys):
         if keys[pygame.K_f]:
             self.move(self.step)
         elif keys[pygame.K_d]:

@@ -1,3 +1,5 @@
+import pygame
+
 from fleets import Fleets
 from invader_player import InvaderPlayer
 from tests.tools import FI
@@ -35,4 +37,31 @@ class TestPlayer:
         player.interact_with_playershot(shot, fleets)
         player.attempt_firing(fleets)
         assert len(fi.player_shots) == 1
+
+    def test_trigger_logic(self):
+        fleets = Fleets()
+        player = InvaderPlayer()
+        assert player.fire_request_allowed
+        player.trigger_pulled(fleets)
+        assert not player.fire_request_allowed
+        player.trigger_released()
+        assert player.fire_request_allowed
+
+    def test_firing_with_trigger(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        player = InvaderPlayer()
+        player.trigger_pulled(fleets)
+        assert fi.player_shots
+        fleets.clear()
+        player.trigger_pulled(fleets)
+        assert not fi.player_shots
+        player.trigger_released()
+        player.trigger_pulled(fleets)
+        assert fi.player_shots
+
+
+
+
+
 
