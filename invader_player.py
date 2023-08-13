@@ -38,7 +38,7 @@ class InvaderPlayer(InvadersFlyer):
 
     def attempt_firing(self, fleets):
         if self.free_to_fire:
-            fleets.append(PlayerShot())
+            fleets.append(PlayerShot(self.rect.center))
 
     def update(self, _delta_time, fleets):
         if not pygame.get_init():
@@ -48,7 +48,7 @@ class InvaderPlayer(InvadersFlyer):
         self.check_firing(fleets, keys)
 
     def check_firing(self, fleets, keys):
-        if not keys[pygame.K_k]:
+        if keys[pygame.K_k]:
             self.trigger_pulled(fleets)
         else:
             self.trigger_released()
