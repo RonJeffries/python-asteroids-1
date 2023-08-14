@@ -2,8 +2,12 @@ from pygame import Vector2, Rect
 
 import u
 from bumper import Bumper
+from fleets import Fleets
 from invader import INVADER_SPACING, Invader
 from invaderfleet import InvaderFleet, InvaderGroup
+from player_shot import PlayerShot
+from tests.tools import FI
+from top_bumper import TopBumper
 
 
 class TestInvaderFleet:
@@ -92,6 +96,20 @@ class TestInvaderFleet:
         assert len(first) == 2
         assert first[0] != first[1]
         # assert False
+
+    def test_top_bumper(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        bumper = TopBumper()
+        shot = PlayerShot(u.CENTER)
+        fleets.append(bumper)
+        fleets.append(shot)
+        shot.interact_with_topbumper(bumper, fleets)
+        assert fi.player_shots
+        shot.position.y = bumper.y
+        shot.interact_with_topbumper(bumper, fleets)
+        assert not fi.player_shots
+
 
 
 

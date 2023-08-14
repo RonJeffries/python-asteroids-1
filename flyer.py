@@ -48,6 +48,10 @@ class InvadersFlyer(Flyer):
     def interact_with_playershot(self, bumper, fleets):
         pass
 
+    # Inherited for convenience
+    def interact_with_topbumper(self, top_bumper, fleets):
+        pass
+
 
 class AsteroidFlyer(Flyer):
 

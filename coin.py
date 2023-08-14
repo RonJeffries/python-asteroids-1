@@ -7,6 +7,7 @@ from saucermaker import SaucerMaker
 from scorekeeper import ScoreKeeper
 from shipmaker import ShipMaker
 from thumper import Thumper
+from top_bumper import TopBumper
 from wavemaker import WaveMaker
 
 
@@ -42,6 +43,7 @@ def invaders(fleets):
     fleets.clear()
     fleets.append(Bumper(64, -1))
     fleets.append(Bumper(960, +1))
+    fleets.append(TopBumper())
     fleets.append(InvaderFleet())
     fleets.append(InvaderPlayer())
 

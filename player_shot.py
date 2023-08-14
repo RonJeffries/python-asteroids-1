@@ -17,6 +17,10 @@ class PlayerShot(InvadersFlyer):
     def interact_with(self, other, fleets):
         other.interact_with_playershot(self, fleets)
 
+    def interact_with_topbumper(self, top_bumper, fleets):
+        if top_bumper.intersecting(self.position):
+            fleets.remove(self)
+
     def interact_with_bumper(self, bumper, fleets):
         pass
 
@@ -40,5 +44,3 @@ class PlayerShot(InvadersFlyer):
 
     def update(self, delta_time, fleets):
         self.position += self.velocity
-        if self.position.y <= 0:
-            fleets.remove(self)
