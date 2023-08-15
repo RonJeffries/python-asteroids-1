@@ -1,5 +1,6 @@
 from pygame import Vector2
 
+from bitmap_maker import BitmapMaker
 from invader import Invader
 from invaderfleet import InvaderGroup
 
@@ -8,11 +9,20 @@ class TestInvaderGroup:
     def test_exists(self):
         InvaderGroup()
 
+    def test_invader_position(self):
+        maker = BitmapMaker.instance()
+        maps = maker.invaders
+        invader = Invader(1, 1, maps)
+        assert invader.position == Vector2(32, 16)
+        invader.position = Vector2(111, 222)
+        assert invader.position == Vector2(111, 222) + Vector2(64, -64)
+
     def test_fleet_y_decreases_with_n(self):
         group = InvaderGroup()
         group.position_all_invaders(Vector2(0, 0))
         first: Invader = group.invaders[0]
         last: Invader = group.invaders[-1]
+        assert first.position is not last.position
         assert first.position.y > last.position.y
 
     def test_update_next(self):

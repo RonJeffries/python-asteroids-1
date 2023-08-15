@@ -1,9 +1,11 @@
+import pygame
 from pygame import Vector2
 
 import u
 from bitmap_maker import BitmapMaker
 from flyer import InvadersFlyer
 from invader import Invader
+from player_shot import PlayerShot
 
 
 class InvaderGroup():
@@ -42,14 +44,14 @@ class InvaderGroup():
 
     def position_all_invaders(self, origin):
         for invader in self.invaders:
-            invader.set_position(origin)
+            invader.position = origin
 
     def update_next(self, origin):
         if self._next_invader >= len(self.invaders):
             self._next_invader = 0
             return "end"
         invader = self.next_invader()
-        invader.set_position(origin)
+        invader.position = origin
         self._next_invader += 1
         return "ok"
 
@@ -57,6 +59,17 @@ class InvaderGroup():
         return self.invaders[self._next_invader]
 
     def draw(self, screen):
+        inv_mask = self.invaders[0].mask
+        rect = pygame.Rect(0, 0, 64, 32)
+        rect.center = Vector2(u.CENTER.x, 1000)
+        screen.blit(inv_mask.to_surface(), rect)
+        shot = PlayerShot()
+        shot_mask = shot.mask
+        rect = shot.rect
+        rect.center = Vector2(u.CENTER.x, 1000)
+        image = shot_mask.to_surface()
+        # image.fill("red", rect, special_flags=pygame.BLEND_MULT)
+        screen.blit(image, rect)
         for invader in self.invaders:
             invader.draw(screen)
 

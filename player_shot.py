@@ -42,11 +42,22 @@ class ShotExplosion(InvadersFlyer):
 class PlayerShot(InvadersFlyer):
     def __init__(self, position=u.CENTER):
         offset = Vector2(2, -8*4)
-        self.position = position + offset
         self.velocity = Vector2(0, -4*4)
         maker = BitmapMaker.instance()
         self.bits = maker.player_shot
+        self.mask = pygame.mask.from_surface(self.bits)
         self.rect = self.bits.get_rect()
+        print("invader shot rect", self.rect)
+        self.position = position + offset
+
+    @property
+    def position(self):
+        return Vector2(self.rect.center)
+
+    @position.setter
+    def position(self, vector):
+        self.rect.center = vector
+
 
     def interact_with(self, other, fleets):
         other.interact_with_playershot(self, fleets)
@@ -76,4 +87,4 @@ class PlayerShot(InvadersFlyer):
         pass
 
     def update(self, delta_time, fleets):
-        self.position += self.velocity
+        self.position = self.position + self.velocity

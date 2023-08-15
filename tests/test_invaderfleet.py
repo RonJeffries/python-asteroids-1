@@ -1,6 +1,8 @@
+import pygame
 from pygame import Vector2, Rect
 
 import u
+from bitmap_maker import BitmapMaker
 from bumper import Bumper
 from fleets import Fleets
 from invader import INVADER_SPACING, Invader
@@ -106,9 +108,60 @@ class TestInvaderFleet:
         fleets.append(shot)
         shot.interact_with_topbumper(bumper, fleets)
         assert fi.player_shots
-        shot.position.y = bumper.y
+        # position is virtual, can't just set its y
+        pos = shot.position
+        pos.y = bumper.y
+        shot.position = pos
         shot.interact_with_topbumper(bumper, fleets)
         assert not fi.player_shots
+
+    def test_shot_invader_rect_collision(self):
+        maker = BitmapMaker.instance()
+        maps = maker.invaders
+        invader = Invader(0, 0, maps)
+        invader.position = u.CENTER
+        shot = PlayerShot(Vector2(0, 0))
+        assert not invader.rect.colliderect(shot.rect)
+        assert not invader.rectangles_overlap(shot)
+        shot.position = u.CENTER
+        assert invader.rect.colliderect(shot.rect)
+        assert invader.rectangles_overlap(shot)
+
+    def test_shot_invader_mask_collision(self):
+        maker = BitmapMaker.instance()
+        maps = maker.invaders
+        invader = Invader(0, 0, maps)
+        invader.position = u.CENTER
+        shot = PlayerShot(Vector2(0, 0))
+        offset = Vector2(shot.rect.topleft) - Vector2(invader.rect.topleft)
+        assert not invader.mask.overlap(shot.mask, offset)
+        shot.position = u.CENTER
+        offset = Vector2(shot.rect.topleft) - Vector2(invader.rect.topleft)
+        assert invader.mask.overlap(shot.mask, offset)
+
+    def test_shot_invader_mask_offset(self):
+        maker = BitmapMaker.instance()
+        maps = maker.invaders
+        invader = Invader(0, 0, maps)
+        invader.position = u.CENTER
+        shot = PlayerShot(Vector2(0, 0))
+        offset = invader.mask_offset(shot)
+        assert not invader.mask.overlap(shot.mask, offset)
+        shot.position = u.CENTER
+        assert invader.mask.overlap(shot.mask, invader.mask_offset(shot))
+        
+    def test_shot_invader_masks_overlap(self):
+        maker = BitmapMaker.instance()
+        maps = maker.invaders
+        invader = Invader(0, 0, maps)
+        invader.position = u.CENTER
+        shot = PlayerShot(Vector2(0, 0))
+        assert not invader.masks_overlap(shot)
+        shot.position = u.CENTER
+        assert invader.masks_overlap(shot)
+
+
+
 
 
 
