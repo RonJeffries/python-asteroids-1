@@ -23,6 +23,9 @@ class Invader:
     def masks_overlap(self, invaders_flyer):
         return self.mask.overlap(invaders_flyer.mask, self.mask_offset(invaders_flyer))
 
+    def colliding(self, invaders_flyer):
+        return self.rectangles_overlap(invaders_flyer) and self.masks_overlap(invaders_flyer)
+
     @property
     def position(self):
         return Vector2(self.rect.center)

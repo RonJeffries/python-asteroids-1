@@ -160,6 +160,23 @@ class TestInvaderFleet:
         shot.position = u.CENTER
         assert invader.masks_overlap(shot)
 
+    def test_shot_invader_collision(self):
+        maker = BitmapMaker.instance()
+        maps = maker.invaders
+        invader = Invader(0, 0, maps)
+        invader_width = invader.rect.width
+        invader.position = u.CENTER
+        shot = PlayerShot(Vector2(0, 0))
+        shot.position = u.CENTER - Vector2(invader_width/2, 0)
+        assert invader.rectangles_overlap(shot)
+        assert not invader.masks_overlap(shot)
+        assert not invader.colliding(shot)
+        shot.position = shot.position + Vector2(4, 0)
+        assert not invader.colliding(shot)
+        shot.position = shot.position + Vector2(4, 0)
+        assert invader.colliding(shot)
+
+
 
 
 
