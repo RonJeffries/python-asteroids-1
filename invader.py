@@ -26,6 +26,10 @@ class Invader:
     def colliding(self, invaders_flyer):
         return self.rectangles_overlap(invaders_flyer) and self.masks_overlap(invaders_flyer)
 
+    def interact_with_playershot(self, shot, group):
+        if self.colliding(shot):
+            group.kill(self)
+
     @property
     def position(self):
         return Vector2(self.rect.center)

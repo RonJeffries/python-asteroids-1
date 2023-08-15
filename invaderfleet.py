@@ -77,6 +77,10 @@ class InvaderGroup():
         for invader in self.invaders:
             invader.interact_with_bumper(bumper, fleet)
 
+    def interact_with_playershot(self, shot):
+        for invader in self.invaders.copy():
+            invader.interact_with_playershot(shot, self)
+
     def set_invader_position(self, index, origin):
         self.invaders[index].set_position(origin)
 
@@ -85,8 +89,8 @@ class InvaderFleet(InvadersFlyer):
     def interact_with_invaderfleet(self, bumper, fleets):
         pass
 
-    def interact_with_playershot(self, bumper, fleets):
-        pass
+    def interact_with_playershot(self, shot, fleets):
+        self.invader_group.interact_with_playershot(shot)
 
     def __init__(self):
         self.step = Vector2(8, 0)

@@ -47,7 +47,6 @@ class PlayerShot(InvadersFlyer):
         self.bits = maker.player_shot
         self.mask = pygame.mask.from_surface(self.bits)
         self.rect = self.bits.get_rect()
-        print("invader shot rect", self.rect)
         self.position = position + offset
 
     @property
