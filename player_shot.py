@@ -39,6 +39,7 @@ class ShotExplosion(InvadersFlyer):
     def interact_with(self, other, fleets):
         pass
 
+
 class PlayerShot(InvadersFlyer):
     def __init__(self, position=u.CENTER):
         offset = Vector2(2, -8*4)
@@ -48,6 +49,17 @@ class PlayerShot(InvadersFlyer):
         self.mask = pygame.mask.from_surface(self.bits)
         self.rect = self.bits.get_rect()
         self.position = position + offset
+        self.should_die = False
+
+    def begin_interactions(self, fleets):
+        self.should_die = False
+
+    def hit_invader(self):
+        self.should_die = True
+
+    def end_interactions(self, fleets):
+        if self.should_die:
+            fleets.remove(self)
 
     @property
     def position(self):

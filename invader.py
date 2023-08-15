@@ -28,6 +28,7 @@ class Invader:
 
     def interact_with_playershot(self, shot, group):
         if self.colliding(shot):
+            shot.hit_invader()
             group.kill(self)
 
     @property
