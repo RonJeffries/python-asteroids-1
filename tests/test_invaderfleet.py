@@ -176,6 +176,17 @@ class TestInvaderFleet:
         shot.position = shot.position + Vector2(4, 0)
         assert invader.colliding(shot)
 
+    def test_shot_removes_itself(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        shot = PlayerShot()
+        fleets.append(shot)
+        assert fi.player_shots
+        fleets.begin_interactions()
+        shot.hit_invader()
+        fleets.end_interactions()
+        assert not fi.player_shots
+
 
 
 
