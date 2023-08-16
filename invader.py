@@ -17,19 +17,22 @@ class Invader:
     def mask(self):
         return self.masks[self.image]
 
-    def mask_offset(self, invaders_flyer):
-        return Vector2(invaders_flyer.rect.topleft) - Vector2(self.rect.topleft)
-
-    def masks_overlap(self, invaders_flyer):
-        return self.mask.overlap(invaders_flyer.mask, self.mask_offset(invaders_flyer))
-
-    def colliding(self, invaders_flyer):
-        return self.rectangles_overlap(invaders_flyer) and self.masks_overlap(invaders_flyer)
-
     def interact_with_playershot(self, shot, group):
         if self.colliding(shot):
             shot.hit_invader()
             group.kill(self)
+
+    def colliding(self, invaders_flyer):
+        return self.rectangles_overlap(invaders_flyer) and self.masks_overlap(invaders_flyer)
+
+    def masks_overlap(self, invaders_flyer):
+        return self.mask.overlap(invaders_flyer.mask, self.mask_offset(invaders_flyer))
+
+    def mask_offset(self, invaders_flyer):
+        return Vector2(invaders_flyer.rect.topleft) - Vector2(self.rect.topleft)
+
+    def rectangles_overlap(self, shot):
+        return self.rect.colliderect(shot.rect)
 
     @property
     def position(self):
@@ -50,6 +53,3 @@ class Invader:
     def interact_with_bumper(self, bumper, invader_fleet):
         if bumper.intersecting(self.rect):
             invader_fleet.at_edge(bumper.incoming_direction)
-
-    def rectangles_overlap(self, shot):
-        return self.rect.colliderect(shot.rect)
