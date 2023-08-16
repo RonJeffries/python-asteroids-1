@@ -1,6 +1,8 @@
 import pygame.draw
 from pygame import Vector2
 
+from Collider import Collider
+
 INVADER_SPACING = 64
 
 
@@ -23,16 +25,8 @@ class Invader:
             group.kill(self)
 
     def colliding(self, invaders_flyer):
-        return self.rectangles_overlap(invaders_flyer) and self.masks_overlap(invaders_flyer)
-
-    def masks_overlap(self, invaders_flyer):
-        return self.mask.overlap(invaders_flyer.mask, self.mask_offset(invaders_flyer))
-
-    def mask_offset(self, invaders_flyer):
-        return Vector2(invaders_flyer.rect.topleft) - Vector2(self.rect.topleft)
-
-    def rectangles_overlap(self, shot):
-        return self.rect.colliderect(shot.rect)
+        collider = Collider(self, invaders_flyer)
+        return collider.colliding()
 
     @property
     def position(self):

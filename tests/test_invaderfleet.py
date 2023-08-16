@@ -115,18 +115,6 @@ class TestInvaderFleet:
         shot.interact_with_topbumper(bumper, fleets)
         assert not fi.player_shots
 
-    def test_shot_invader_rect_collision(self):
-        maker = BitmapMaker.instance()
-        maps = maker.invaders
-        invader = Invader(0, 0, maps)
-        invader.position = u.CENTER
-        shot = PlayerShot(Vector2(0, 0))
-        assert not invader.rect.colliderect(shot.rect)
-        assert not invader.rectangles_overlap(shot)
-        shot.position = u.CENTER
-        assert invader.rect.colliderect(shot.rect)
-        assert invader.rectangles_overlap(shot)
-
     def test_shot_invader_mask_collision(self):
         maker = BitmapMaker.instance()
         maps = maker.invaders
@@ -139,27 +127,6 @@ class TestInvaderFleet:
         offset = Vector2(shot.rect.topleft) - Vector2(invader.rect.topleft)
         assert invader.mask.overlap(shot.mask, offset)
 
-    def test_shot_invader_mask_offset(self):
-        maker = BitmapMaker.instance()
-        maps = maker.invaders
-        invader = Invader(0, 0, maps)
-        invader.position = u.CENTER
-        shot = PlayerShot(Vector2(0, 0))
-        offset = invader.mask_offset(shot)
-        assert not invader.mask.overlap(shot.mask, offset)
-        shot.position = u.CENTER
-        assert invader.mask.overlap(shot.mask, invader.mask_offset(shot))
-        
-    def test_shot_invader_masks_overlap(self):
-        maker = BitmapMaker.instance()
-        maps = maker.invaders
-        invader = Invader(0, 0, maps)
-        invader.position = u.CENTER
-        shot = PlayerShot(Vector2(0, 0))
-        assert not invader.masks_overlap(shot)
-        shot.position = u.CENTER
-        assert invader.masks_overlap(shot)
-
     def test_shot_invader_collision(self):
         maker = BitmapMaker.instance()
         maps = maker.invaders
@@ -168,8 +135,6 @@ class TestInvaderFleet:
         invader.position = u.CENTER
         shot = PlayerShot(Vector2(0, 0))
         shot.position = u.CENTER - Vector2(invader_width/2, 0)
-        assert invader.rectangles_overlap(shot)
-        assert not invader.masks_overlap(shot)
         assert not invader.colliding(shot)
         shot.position = shot.position + Vector2(4, 0)
         assert not invader.colliding(shot)
