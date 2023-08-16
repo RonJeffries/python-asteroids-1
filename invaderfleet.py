@@ -59,17 +59,7 @@ class InvaderGroup():
         return self.invaders[self._next_invader]
 
     def draw(self, screen):
-        inv_mask = self.invaders[0].mask
-        rect = pygame.Rect(0, 0, 64, 32)
-        rect.center = Vector2(u.CENTER.x, 1000)
-        screen.blit(inv_mask.to_surface(), rect)
-        shot = PlayerShot()
-        shot_mask = shot.mask
-        rect = shot.rect
-        rect.center = Vector2(u.CENTER.x, 1000)
-        image = shot_mask.to_surface()
         # image.fill("red", rect, special_flags=pygame.BLEND_MULT)
-        screen.blit(image, rect)
         for invader in self.invaders:
             invader.draw(screen)
 
