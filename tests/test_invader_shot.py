@@ -41,3 +41,16 @@ class TestInvaderShot:
         assert shot.position.y >= u.SCREEN_SIZE
         assert not fi.invader_shots
 
+    def test_map_changes_on_movement(self, shot):
+        fleets = Fleets()
+        maps = shot.maps
+        assert shot.map == maps[0]
+        shot.move(fleets)
+        assert shot.map == maps[1]
+        shot.move(fleets)
+        assert shot.map == maps[2]
+        shot.move(fleets)
+        assert shot.map == maps[3]
+        shot.move(fleets)
+        assert shot.map == maps[0]
+

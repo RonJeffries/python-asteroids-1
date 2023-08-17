@@ -6,15 +6,26 @@ from flyer import InvadersFlyer
 
 class InvaderShot(InvadersFlyer):
     def __init__(self, position, maps):
+        self.maps = maps
+        self.map = maps[0]
+        self.map_index = 0
         self.position = position
         self.count = 0
 
     def update(self, _dt, fleets):
         self.count = (self.count + 1) % 3
         if self.count == 0:
-            self.position = self.position + Vector2(0, 4)
-            if self.position.y >= u.SCREEN_SIZE:
-                fleets.remove(self)
+            self.move(fleets)
+
+    def move(self, fleets):
+        self.update_map()
+        self.position = self.position + Vector2(0, 4)
+        if self.position.y >= u.SCREEN_SIZE:
+            fleets.remove(self)
+
+    def update_map(self):
+        self.map_index = (self.map_index + 1) % 4
+        self.map = self.maps[self.map_index]
 
     def interact_with_bumper(self, bumper, fleets):
         pass
