@@ -9,8 +9,17 @@ class InvaderShot(InvadersFlyer):
         self.maps = maps
         self.map = maps[0]
         self.map_index = 0
-        self.position = position
+        self.rect = self.map.get_rect()
+        self.rect.center = position
         self.count = 0
+
+    @property
+    def position(self):
+        return Vector2(self.rect.center)
+
+    @position.setter
+    def position(self, vector):
+        self.rect.center = vector
 
     def update(self, _dt, fleets):
         self.count = (self.count + 1) % 3
@@ -19,7 +28,7 @@ class InvaderShot(InvadersFlyer):
 
     def move(self, fleets):
         self.update_map()
-        self.position = self.position + Vector2(0, 4)
+        self.position = self.position + Vector2(0, 16)
         if self.position.y >= u.SCREEN_SIZE:
             fleets.remove(self)
 
@@ -43,7 +52,7 @@ class InvaderShot(InvadersFlyer):
         pass
 
     def draw(self, screen):
-        pass
+        screen.blit(self.map, self.rect)
 
     def tick(self, delta_time, fleets):
         pass

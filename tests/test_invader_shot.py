@@ -25,7 +25,7 @@ class TestInvaderShot:
         shot.update(1/60, fleets)
         assert shot.position == u.CENTER
         shot.update(1/60, fleets)
-        assert shot.position == u.CENTER + Vector2(0, 4)
+        assert shot.position == u.CENTER + Vector2(0, 16)
 
     def test_dies_past_edge(self, shot):
         fleets = Fleets()
@@ -34,7 +34,7 @@ class TestInvaderShot:
         current_pos = u.CENTER
         while current_pos.y < u.SCREEN_SIZE:
             assert shot.position == current_pos
-            current_pos = current_pos + Vector2(0, 4)
+            current_pos = current_pos + Vector2(0, 16)
             shot.update(1/60, fleets)
             shot.update(1/60, fleets)
             shot.update(1/60, fleets)

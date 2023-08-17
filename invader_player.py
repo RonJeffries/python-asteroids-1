@@ -4,6 +4,7 @@ from pygame import Vector2
 import u
 from bitmap_maker import BitmapMaker
 from flyer import InvadersFlyer
+from invader_shot import InvaderShot
 from player_shot import PlayerShot
 
 
@@ -39,6 +40,9 @@ class InvaderPlayer(InvadersFlyer):
     def attempt_firing(self, fleets):
         if self.free_to_fire:
             fleets.append(PlayerShot(self.rect.center))
+            pos = Vector2(self.rect.centerx, 32)
+            maps = BitmapMaker.instance().squiggles
+            fleets.append(InvaderShot(pos, maps))
 
     def update(self, _delta_time, fleets):
         if not pygame.get_init():
