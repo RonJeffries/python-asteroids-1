@@ -3,6 +3,7 @@ from explosion import Explosion
 from flyer import AsteroidFlyer
 from fragment import Fragment
 from game_over import GameOver
+from invader_shot import InvaderShot
 from missile import Missile
 from player_shot import PlayerShot
 from saucer import Saucer
@@ -45,6 +46,10 @@ class FleetsInspector:
     @property
     def game_over(self):
         return self.select_class(GameOver)
+
+    @property
+    def invader_shots(self):
+        return self.select_class(InvaderShot)
 
     @property
     def missiles(self):
