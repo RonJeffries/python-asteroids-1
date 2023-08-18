@@ -6,7 +6,8 @@ from bitmap_maker import BitmapMaker
 from bumper import Bumper
 from fleets import Fleets
 from invader import INVADER_SPACING, Invader
-from invaderfleet import InvaderFleet, InvaderGroup
+from invaderfleet import InvaderFleet
+from invader_group import InvaderGroup
 from player_shot import PlayerShot
 from tests.tools import FI
 from top_bumper import TopBumper

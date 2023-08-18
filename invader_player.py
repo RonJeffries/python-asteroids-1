@@ -78,6 +78,12 @@ class InvaderPlayer(InvadersFlyer):
     def interact_with_invaderplayer(self, bumper, fleets):
         pass
 
+    def interact_with_invadershot(self, bumper, fleets):
+        pass
+
+    def interact_with_playerexplosion(self, _explosion, _fleets):
+        pass
+
     def draw(self, screen):
         screen.blit(self.player, self.rect)
 

@@ -2,42 +2,10 @@ import pygame
 from pygame import Vector2
 
 import u
+from Collider import Collider
 from bitmap_maker import BitmapMaker
 from flyer import InvadersFlyer
-
-
-class ShotExplosion(InvadersFlyer):
-    def __init__(self, position):
-        self.position = position
-        maker = BitmapMaker()
-        self.image = maker.player_shot_explosion
-        self.rect = self.image.get_rect()
-        self.image.fill("red",self.rect, special_flags=pygame.BLEND_MULT)
-        self.time = 0.125
-
-    def tick(self, delta_time, fleets):
-        self.time -= delta_time
-        if self.time < 0:
-            fleets.remove(self)
-
-    def draw(self, screen):
-        self.rect.center = self.position
-        screen.blit(self.image, self.rect)
-
-    def interact_with_bumper(self, bumper, fleets):
-        pass
-
-    def interact_with_invaderfleet(self, bumper, fleets):
-        pass
-
-    def interact_with_invaderplayer(self, bumper, fleets):
-        pass
-
-    def interact_with_playershot(self, bumper, fleets):
-        pass
-
-    def interact_with(self, other, fleets):
-        pass
+from shot_explosion import ShotExplosion
 
 
 class PlayerShot(InvadersFlyer):
@@ -85,6 +53,18 @@ class PlayerShot(InvadersFlyer):
         pass
 
     def interact_with_invaderplayer(self, bumper, fleets):
+        pass
+
+    def interact_with_invadershot(self, shot, fleets):
+        if self.colliding(shot):
+            fleets.remove(self)
+            fleets.append(ShotExplosion(self.position))
+
+    def colliding(self, invaders_flyer):
+        collider = Collider(self, invaders_flyer)
+        return collider.colliding()
+
+    def interact_with_playerexplosion(self, _explosion, _fleets):
         pass
 
     def interact_with_playershot(self, bumper, fleets):

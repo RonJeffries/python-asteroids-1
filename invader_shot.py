@@ -1,17 +1,25 @@
+import pygame
 from pygame import Vector2
 
 import u
+from Collider import Collider
 from flyer import InvadersFlyer
 
 
 class InvaderShot(InvadersFlyer):
     def __init__(self, position, maps):
         self.maps = maps
+        self.masks = [pygame.mask.from_surface(bitmap) for bitmap in self.maps]
         self.map = maps[0]
         self.map_index = 0
         self.rect = self.map.get_rect()
         self.rect.center = position
-        self.count = 0
+        self.count = 00
+
+    @property
+    def mask(self):
+        return self.masks[self.map_index]
+
 
     @property
     def position(self):
@@ -45,11 +53,22 @@ class InvaderShot(InvadersFlyer):
     def interact_with_invaderplayer(self, bumper, fleets):
         pass
 
-    def interact_with_playershot(self, bumper, fleets):
+    def interact_with_invadershot(self, shot, fleets):
         pass
 
-    def interact_with(self, other, fleets):
+    def interact_with_playerexplosion(self, bumper, fleets):
         pass
+
+    def interact_with_playershot(self, shot, fleets):
+        if self.colliding(shot):
+            fleets.remove(self)
+
+    def colliding(self, invaders_flyer):
+        collider = Collider(self, invaders_flyer)
+        return collider.colliding()
+
+    def interact_with(self, other, fleets):
+        other.interact_with_invadershot(self, fleets)
 
     def draw(self, screen):
         screen.blit(self.map, self.rect)

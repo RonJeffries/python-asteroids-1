@@ -2,7 +2,7 @@ from pygame import Vector2
 
 from bitmap_maker import BitmapMaker
 from invader import Invader
-from invaderfleet import InvaderGroup
+from invader_group import InvaderGroup
 
 
 class TestInvaderGroup:
