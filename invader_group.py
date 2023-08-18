@@ -61,9 +61,9 @@ class InvaderGroup():
         for invader in self.invaders:
             invader.interact_with_bumper(bumper, fleet)
 
-    def interact_with_playershot(self, shot):
+    def interact_with_playershot(self, shot, fleets):
         for invader in self.invaders.copy():
-            invader.interact_with_playershot(shot, self)
+            invader.interact_with_group_and_playershot(shot, self, fleets)
 
     def set_invader_position(self, index, origin):
         self.invaders[index].set_position(origin)

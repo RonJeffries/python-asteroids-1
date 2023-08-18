@@ -2,6 +2,7 @@ import pygame.draw
 from pygame import Vector2
 
 from Collider import Collider
+from invader_explosion import InvaderExplosion
 
 INVADER_SPACING = 64
 
@@ -19,10 +20,11 @@ class Invader:
     def mask(self):
         return self.masks[self.image]
 
-    def interact_with_playershot(self, shot, group):
+    def interact_with_group_and_playershot(self, shot, group, fleets):
         if self.colliding(shot):
             shot.hit_invader()
             group.kill(self)
+            fleets.append(InvaderExplosion(self.position))
 
     def colliding(self, invaders_flyer):
         collider = Collider(self, invaders_flyer)

@@ -4,14 +4,14 @@ from bitmap_maker import BitmapMaker
 from flyer import InvadersFlyer
 
 
-class ShotExplosion(InvadersFlyer):
+class InvaderExplosion(InvadersFlyer):
     def __init__(self, position):
         self.position = position
         maker = BitmapMaker()
-        self.image = maker.player_shot_explosion
+        self.image = maker.invader_explosion
         self._mask = pygame.mask.from_surface(self.image)
         self._rect = self.image.get_rect()
-        self.image.fill("red",self.rect, special_flags=pygame.BLEND_MULT)
+        # self.image.fill("red",self.rect, special_flags=pygame.BLEND_MULT)
         self.time = 0.125
 
     @property
