@@ -5,6 +5,14 @@ class TopBumper(InvadersFlyer):
     def __init__(self):
         self.y = 40
 
+    @property
+    def mask(self):
+        return None
+
+    @property
+    def rect(self):
+        return None
+
     def intersecting(self, point):
         return point.y <= self.y
 

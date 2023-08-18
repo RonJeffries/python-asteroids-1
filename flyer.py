@@ -32,6 +32,20 @@ class Flyer(ABC):
 
 class InvadersFlyer(Flyer):
 
+    @property
+    @abstractmethod
+    def mask(self):
+        pass
+
+    @property
+    @abstractmethod
+    def rect(self):
+        pass
+
+    @rect.setter
+    def rect(self, value):
+        pass
+
     @abstractmethod
     def interact_with_bumper(self, bumper, fleets):
         pass

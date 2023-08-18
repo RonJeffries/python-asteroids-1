@@ -14,7 +14,8 @@ class InvaderPlayer(InvadersFlyer):
         maker = BitmapMaker.instance()
         self.players = maker.players  # one turret, two explosions
         self.player = self.players[0]
-        self.rect = self.player.get_rect()
+        self._mask = pygame.mask.from_surface(self.player)
+        self._rect = self.player.get_rect()
         self.rect.center = Vector2(u.SCREEN_SIZE/2, u.SCREEN_SIZE - 5*32 - 16)
         self.step = 4
         half_width = self.rect.width / 2
@@ -22,6 +23,14 @@ class InvaderPlayer(InvadersFlyer):
         self.right = 960 - half_width
         self.free_to_fire = True
         self.fire_request_allowed = True
+
+    @property
+    def mask(self):
+        return self._mask
+
+    @property
+    def rect(self):
+        return self._rect
 
     def begin_interactions(self, fleets):
         self.free_to_fire = True

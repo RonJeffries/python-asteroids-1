@@ -11,6 +11,14 @@ class Bumper(InvadersFlyer):
         self.check = self.beyond_on_right if incoming_direction > 0 else self.beyond_on_left
         self.incoming_direction = incoming_direction
 
+    @property
+    def mask(self):
+        return None
+
+    @property
+    def rect(self):
+        return None
+
     def intersecting(self, rect: Rect):
         return self.check(rect)
 

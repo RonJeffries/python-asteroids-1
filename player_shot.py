@@ -9,15 +9,24 @@ from shot_explosion import ShotExplosion
 
 
 class PlayerShot(InvadersFlyer):
+
     def __init__(self, position=u.CENTER):
         offset = Vector2(2, -8*4)
         self.velocity = Vector2(0, -4*4)
         maker = BitmapMaker.instance()
         self.bits = maker.player_shot
-        self.mask = pygame.mask.from_surface(self.bits)
-        self.rect = self.bits.get_rect()
+        self._mask = pygame.mask.from_surface(self.bits)
+        self._rect = self.bits.get_rect()
         self.position = position + offset
         self.should_die = False
+
+    @property
+    def mask(self):
+        return self._mask
+
+    @property
+    def rect(self):
+        return self._rect
 
     def begin_interactions(self, fleets):
         self.should_die = False
@@ -36,7 +45,6 @@ class PlayerShot(InvadersFlyer):
     @position.setter
     def position(self, vector):
         self.rect.center = vector
-
 
     def interact_with(self, other, fleets):
         other.interact_with_playershot(self, fleets)

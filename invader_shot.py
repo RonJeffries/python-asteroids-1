@@ -12,14 +12,17 @@ class InvaderShot(InvadersFlyer):
         self.masks = [pygame.mask.from_surface(bitmap) for bitmap in self.maps]
         self.map = maps[0]
         self.map_index = 0
-        self.rect = self.map.get_rect()
+        self._rect = self.map.get_rect()
         self.rect.center = position
         self.count = 00
 
     @property
+    def rect(self):
+        return self._rect
+
+    @property
     def mask(self):
         return self.masks[self.map_index]
-
 
     @property
     def position(self):

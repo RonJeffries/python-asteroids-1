@@ -6,14 +6,6 @@ from invader_group import InvaderGroup
 
 
 class InvaderFleet(InvadersFlyer):
-    def interact_with_invaderfleet(self, bumper, fleets):
-        pass
-
-    def interact_with_invadershot(self, bumper, fleets):
-        pass
-
-    def interact_with_playershot(self, shot, fleets):
-        self.invader_group.interact_with_playershot(shot)
 
     def __init__(self):
         self.step = Vector2(8, 0)
@@ -25,6 +17,14 @@ class InvaderFleet(InvadersFlyer):
         self.reverse = False
         self.direction = 1
         self.step_origin()
+
+    @property
+    def mask(self):
+        return None
+
+    @property
+    def rect(self):
+        return None
 
     @property
     def testing_only_invaders(self):
@@ -56,12 +56,20 @@ class InvaderFleet(InvadersFlyer):
         self.direction = -self.direction
         self.origin = self.origin + self.direction * self.step + self.down_step
 
-
     def at_edge(self, bumper_incoming_direction):
         self.reverse = bumper_incoming_direction == self.direction
 
     def draw(self, screen):
         self.invader_group.draw(screen)
+
+    def interact_with_invaderfleet(self, bumper, fleets):
+        pass
+
+    def interact_with_invadershot(self, bumper, fleets):
+        pass
+
+    def interact_with_playershot(self, shot, fleets):
+        self.invader_group.interact_with_playershot(shot)
 
     def interact_with_bumper(self, bumper, _fleets):
         self.invader_group.interact_with_bumper(bumper, self)
