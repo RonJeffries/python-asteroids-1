@@ -17,42 +17,34 @@ class TestFlyer:
 
     # @pytest.mark.skip("needs updating")
     def test_all_interact_with_implemented_in_asteroid_flyer(self):
-        subclasses = get_subclasses(AsteroidFlyer)
-        ignores = ["BeginChecker", "EndChecker"]
-        subclasses = [klass for klass in subclasses if klass.__name__ not in ignores]
-        attributes = dir(AsteroidFlyer)
-        pass_code = just_pass.__code__.co_code
-        for klass in subclasses:
-            name = klass.__name__.lower()
-            required_method = "interact_with_" + name
-            assert required_method in attributes
-            if "interact_with" in klass.__dict__:
-                interact_with_method = klass.__dict__["interact_with"]
-                interact_with_code = interact_with_method.__code__.co_code
-                assert interact_with_code != pass_code, name + " has pass in interact_with"
-            else:
-                assert False, name + " does not implement `interact_with`"
-
+        self.check_class(AsteroidFlyer)
 
     # @pytest.mark.skip("needs updating")
     def test_all_interact_with_implemented_in_invaders_flyer(self):
-        test_class = InvadersFlyer
+        self.check_class(InvadersFlyer)
+
+    def check_class(self, test_class):
         subclasses = get_subclasses(test_class)
-        ignores = []
+        ignores = ["BeginChecker", "EndChecker"]
         subclasses = [klass for klass in subclasses if klass.__name__ not in ignores]
         attributes = dir(test_class)
         pass_code = just_pass.__code__.co_code
         for klass in subclasses:
             name = klass.__name__.lower()
-            print("checking", name)
-            required_method = "interact_with_" + name
-            assert required_method in attributes, "InvadersFlyer does not implement " + required_method
-            if "interact_with" in klass.__dict__:
-                interact_with_method = klass.__dict__["interact_with"]
-                interact_with_code = interact_with_method.__code__.co_code
-                assert interact_with_code != pass_code, name + " has pass in interact_with"
-            else:
-                assert False, name + " does not implement `interact_with`"
+            self.check_top_class_has_interact_with_each_subclass(attributes, name, test_class)
+            self.check_interact_with_present_and_not_just_pass(klass, name, pass_code)
+
+    def check_top_class_has_interact_with_each_subclass(self, attributes, name, test_class):
+        required_method = "interact_with_" + name
+        assert required_method in attributes, test_class.__name__ + " does not implement " + required_method
+
+    def check_interact_with_present_and_not_just_pass(self, klass, name, pass_code):
+        if "interact_with" in klass.__dict__:
+            interact_with_method = klass.__dict__["interact_with"]
+            interact_with_code = interact_with_method.__code__.co_code
+            assert interact_with_code != pass_code, name + " has pass in interact_with"
+        else:
+            assert False, name + " does not implement `interact_with`"
 
     def test_should_interact_with(self):
         # a subclass xyz of Flyer can implement
