@@ -55,6 +55,11 @@ class InvadersFlyer(Flyer):
     @abstractmethod
     def interact_with_playershot(self, bumper, fleets):
         pass
+        pass
+
+    # @abstractmethod
+    def interact_with_shotexplosion(self, bumper, fleets):
+        pass
 
     # Inherited for convenience
     def interact_with_topbumper(self, top_bumper, fleets):
