@@ -9,7 +9,10 @@ class Collider:
         self.right_mask = right.mask
 
     def colliding(self):
-        return self.rectangles_colliding() and self.masks_colliding()
+        if self.right_rect and self.right_rect and self.left_mask and self.right_mask:
+            return self.rectangles_colliding() and self.masks_colliding()
+        else:
+            return False
 
     def rectangles_colliding(self):
         return self.left_rect.colliderect(self.right_rect)

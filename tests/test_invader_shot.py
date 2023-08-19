@@ -27,6 +27,17 @@ class TestInvaderShot:
         shot.update(1/60, fleets)
         assert shot.position == u.CENTER + Vector2(0, 16)
 
+    def test_counts_moves(self, shot):
+        fleets = Fleets()
+        assert shot.moves == 0
+        for _ in range(3):
+            shot.update(1/60, fleets)
+        assert shot.moves == 1
+        for _ in range(3):
+            shot.update(1/60, fleets)
+        assert shot.moves == 2
+
+
     def test_dies_past_edge(self, shot):
         fleets = Fleets()
         fi = FI(fleets)

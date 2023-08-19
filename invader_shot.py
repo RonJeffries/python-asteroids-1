@@ -15,6 +15,7 @@ class InvaderShot(InvadersFlyer):
         self._rect = self.map.get_rect()
         self.rect.center = position
         self.count = 00
+        self.moves = 0
 
     @property
     def rect(self):
@@ -38,6 +39,7 @@ class InvaderShot(InvadersFlyer):
             self.move(fleets)
 
     def move(self, fleets):
+        self.moves += 1
         self.update_map()
         self.position = self.position + Vector2(0, 16)
         if self.position.y >= u.SCREEN_SIZE:
