@@ -6,6 +6,7 @@ from invaderfleet import InvaderFleet
 from saucermaker import SaucerMaker
 from scorekeeper import ScoreKeeper
 from shipmaker import ShipMaker
+from shotcontroller import ShotController
 from thumper import Thumper
 from top_bumper import TopBumper
 from wavemaker import WaveMaker
@@ -46,6 +47,7 @@ def invaders(fleets):
     fleets.append(TopBumper())
     fleets.append(InvaderFleet())
     fleets.append(InvaderPlayer())
+    fleets.append(ShotController())
 
 
 def _append_common_elements(fleets):
