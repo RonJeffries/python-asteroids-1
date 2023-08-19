@@ -14,7 +14,7 @@ class InvaderShot(InvadersFlyer):
         self.map_index = 0
         self._rect = self.map.get_rect()
         self.rect.center = position
-        self.count = 00
+        self.count = 0
         self.moves = 0
 
     @property
