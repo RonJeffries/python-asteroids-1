@@ -10,9 +10,16 @@ from invader_shot import InvaderShot
 
 class ShotController(InvadersFlyer):
     max_firing_time = 0x30
+    available = Vector2(-1, -1)
 
     def __init__(self):
         self.time_since_firing = 0
+        self.shots = [
+            InvaderShot(self.available, BitmapMaker.instance().squiggles),
+            InvaderShot(self.available, BitmapMaker.instance().rollers),
+            InvaderShot(self.available, BitmapMaker.instance().plungers)]
+        self.shot_index = 0
+
 
     @property
     def mask(self):
@@ -27,9 +34,14 @@ class ShotController(InvadersFlyer):
 
     def end_interactions(self, fleets):
         if self.time_since_firing >= self.max_firing_time:
-            self.time_since_firing = 0
-            pos = Vector2(random.randint(50, u.SCREEN_SIZE - 50), u.SCREEN_SIZE / 2)
-            shot = InvaderShot(pos, BitmapMaker.instance().squiggles)
+            self.fire_next_shot(fleets)
+
+    def fire_next_shot(self, fleets):
+        self.time_since_firing = 0
+        shot = self.shots[self.shot_index]
+        self.shot_index = (self.shot_index + 1) % 3
+        if shot.position == self.available:
+            shot.position = Vector2(random.randint(50, u.SCREEN_SIZE - 50), u.SCREEN_SIZE / 2)
             fleets.append(shot)
 
     def interact_with_bumper(self, bumper, fleets):

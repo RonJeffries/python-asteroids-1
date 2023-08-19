@@ -28,3 +28,27 @@ class TestShotController:
         controller.time_since_firing = controller.max_firing_time
         controller.end_interactions(fleets)
         assert fi.invader_shots
+
+    def test_fires_three_different_shots(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        controller = ShotController()
+        for _ in range(3):
+            controller.fire_next_shot(fleets)
+        shots = fi.invader_shots
+        assert len(shots) == 3
+        s1, s2, s3 = shots
+        assert s1.map != s2.map and s2.map != s3.map and s3.map != s1.map
+        assert s1.position != ShotController.available
+        assert s2.position != ShotController.available
+        assert s2.position != ShotController.available
+        controller.fire_next_shot(fleets)
+        assert len(fi.invader_shots) == 3
+        s1.die(fleets)
+        s2.die(fleets)
+        s3.die(fleets)
+        assert len(fi.invader_shots) == 0
+        for _ in range(3):
+            controller.fire_next_shot(fleets)
+        assert len(fi.invader_shots) == 3
+

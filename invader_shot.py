@@ -43,7 +43,7 @@ class InvaderShot(InvadersFlyer):
         self.update_map()
         self.position = self.position + Vector2(0, 16)
         if self.position.y >= u.SCREEN_SIZE:
-            fleets.remove(self)
+            self.die(fleets)
 
     def update_map(self):
         self.map_index = (self.map_index + 1) % 4
@@ -66,7 +66,12 @@ class InvaderShot(InvadersFlyer):
 
     def interact_with_playershot(self, shot, fleets):
         if self.colliding(shot):
-            fleets.remove(self)
+            self.die(fleets)
+
+    def die(self, fleets):
+        from shotcontroller import ShotController
+        self.position = ShotController.available
+        fleets.remove(self)
 
     def colliding(self, invaders_flyer):
         collider = Collider(self, invaders_flyer)
