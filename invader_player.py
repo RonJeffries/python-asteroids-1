@@ -2,6 +2,7 @@ import pygame
 from pygame import Vector2
 
 import u
+from Collider import Collider
 from bitmap_maker import BitmapMaker
 from flyer import InvadersFlyer
 from invader_shot import InvaderShot
@@ -23,6 +24,7 @@ class InvaderPlayer(InvadersFlyer):
         self.right = 960 - half_width
         self.free_to_fire = True
         self.fire_request_allowed = True
+        self.explode_time = 0
 
     @property
     def mask(self):
@@ -78,20 +80,27 @@ class InvaderPlayer(InvadersFlyer):
     def interact_with_bumper(self, bumper, fleets):
         pass
 
-    def interact_with_invaderfleet(self, bumper, fleets):
+    def interact_with_invaderfleet(self, fleet, fleets):
         pass
 
-    def interact_with_invaderplayer(self, bumper, fleets):
+    def interact_with_invaderplayer(self, player, fleets):
         pass
 
-    def interact_with_invadershot(self, bumper, fleets):
-        pass
+    def interact_with_invadershot(self, shot, fleets):
+        collider = Collider(self, shot)
+        if collider.colliding():
+            self.explode_time = 1
 
     def interact_with_playerexplosion(self, _explosion, _fleets):
         pass
 
     def draw(self, screen):
-        screen.blit(self.player, self.rect)
+        self.explode_time -= 1/60
+        if self.explode_time > 0:
+            player = self.players[1]
+        else:
+            player = self.player
+        screen.blit(player, self.rect)
 
     def tick(self, delta_time, fleets):
         pass
