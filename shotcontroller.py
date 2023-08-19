@@ -18,6 +18,10 @@ class ShotController(InvadersFlyer):
             InvaderShot(self.available, BitmapMaker.instance().squiggles),
             InvaderShot(self.available, BitmapMaker.instance().rollers),
             InvaderShot(self.available, BitmapMaker.instance().plungers)]
+        self.columns = [
+            [0x01, 0x07, 0x01, 0x01, 0x01, 0x04, 0x0B, 0x01, 0x06, 0x03, 0x01, 0x01, 0x0B, 0x09, 0x02, 0x08],
+            [0x0B, 0x01, 0x06, 0x03, 0x01, 0x01, 0x0B, 0x09, 0x02, 0x08, 0x02, 0x0B, 0x04, 0x07, 0x0A, 0x01]]
+        self.current_columns = [0, 0]
         self.shot_index = 0
 
 
@@ -38,11 +42,20 @@ class ShotController(InvadersFlyer):
 
     def fire_next_shot(self, fleets):
         self.time_since_firing = 0
-        shot = self.shots[self.shot_index]
+        shot_index = self.shot_index
+        self.fire_specific_shot(shot_index, fleets)
         self.shot_index = (self.shot_index + 1) % 3
+
+    def fire_specific_shot(self, shot_index, fleets):
+        shot = self.shots[shot_index]
         if shot.position == self.available:
             shot.position = Vector2(random.randint(50, u.SCREEN_SIZE - 50), u.SCREEN_SIZE / 2)
             fleets.append(shot)
+
+    def next_column_for(self, shot_index):
+        column_number = self.current_columns[shot_index]
+        self.current_columns[shot_index] = (self.current_columns[shot_index] + 1) % 16
+        return self.columns[shot_index][column_number]
 
     def interact_with_bumper(self, bumper, fleets):
         pass

@@ -52,3 +52,14 @@ class TestShotController:
             controller.fire_next_shot(fleets)
         assert len(fi.invader_shots) == 3
 
+    def test_plunger_columns(self):
+        controller = ShotController()
+        assert controller.next_column_for(0) == 0x01
+        assert controller.next_column_for(0) == 0x07
+        assert controller.next_column_for(1) == 0x0B
+        assert controller.next_column_for(1) == 0x01
+        for _ in range(14):
+            controller.next_column_for(1)
+        assert controller.next_column_for(1) == 0x0B
+
+
