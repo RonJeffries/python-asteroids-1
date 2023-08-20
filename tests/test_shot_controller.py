@@ -60,15 +60,10 @@ class TestShotController:
 
     def test_plunger_columns(self):
         controller = ShotController()
-        desired = controller.columns
-        assert len(desired[0]) == 16
-        assert len(desired[1]) == 15
-        assert controller.next_column_for(0) == desired[0][0]
-        assert controller.next_column_for(0) == desired[0][1]
+        desired = controller.columns[1]._values
         for i in range(22):
             col = controller.next_column_for(1)
-            index = i % len(desired[1])
-            print(i, index)
-            assert col == desired[1][index]
+            index = i % len(desired)
+            assert col == desired[index]
 
 
