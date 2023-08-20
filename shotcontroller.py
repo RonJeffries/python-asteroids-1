@@ -20,7 +20,7 @@ class ShotController(InvadersFlyer):
             InvaderShot(self.available, BitmapMaker.instance().plungers)]
         self.columns = [
             [0x00, 0x06, 0x00, 0x00, 0x00, 0x03, 0x0A, 0x00, 0x05, 0x02, 0x00, 0x00, 0x0A, 0x08, 0x01, 0x07],
-            [0x0A, 0x00, 0x05, 0x02, 0x00, 0x00, 0x0A, 0x08, 0x01, 0x07, 0x01, 0x0A, 0x03, 0x06, 0x09, 0x00]]
+            [0x0A, 0x00, 0x05, 0x02, 0x00, 0x00, 0x0A, 0x08, 0x01, 0x07, 0x01, 0x0A, 0x03, 0x06, 0x09]]
         self.current_columns = [0, 0]
         self.shot_index = 0
         self.invader_fleet = None
@@ -66,7 +66,7 @@ class ShotController(InvadersFlyer):
 
     def next_column_for(self, shot_index):
         column_number = self.current_columns[shot_index]
-        self.current_columns[shot_index] = (self.current_columns[shot_index] + 1) % 16
+        self.current_columns[shot_index] = (self.current_columns[shot_index] + 1) % len(self.columns[shot_index])
         return self.columns[shot_index][column_number]
 
     def interact_with_bumper(self, bumper, fleets):
