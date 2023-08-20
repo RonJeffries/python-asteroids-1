@@ -2,6 +2,7 @@ import u
 from bitmap_maker import BitmapMaker
 from fleets import Fleets
 from invader_shot import InvaderShot
+from invaderfleet import InvaderFleet
 from shotcontroller import ShotController
 from tests.tools import FI
 
@@ -22,9 +23,12 @@ class TestShotController:
     def test_fires_shot(self):
         fleets = Fleets()
         fi = FI(fleets)
+        invader_fleet = InvaderFleet()
+        fleets.append(invader_fleet)
         controller = ShotController()
         assert not fi.invader_shots
         controller.begin_interactions(fleets)
+        controller.interact_with_invaderfleet(invader_fleet, fleets)
         controller.time_since_firing = controller.max_firing_time
         controller.end_interactions(fleets)
         assert fi.invader_shots
@@ -33,6 +37,8 @@ class TestShotController:
         fleets = Fleets()
         fi = FI(fleets)
         controller = ShotController()
+        invader_fleet = InvaderFleet()
+        controller.invader_fleet = invader_fleet
         for _ in range(3):
             controller.fire_next_shot(fleets)
         shots = fi.invader_shots
@@ -54,12 +60,13 @@ class TestShotController:
 
     def test_plunger_columns(self):
         controller = ShotController()
-        assert controller.next_column_for(0) == 0x01
-        assert controller.next_column_for(0) == 0x07
-        assert controller.next_column_for(1) == 0x0B
-        assert controller.next_column_for(1) == 0x01
+        desired = controller.columns
+        assert controller.next_column_for(0) == desired[0][0]
+        assert controller.next_column_for(0) == desired[0][1]
+        assert controller.next_column_for(1) == desired[1][0]
+        assert controller.next_column_for(1) == desired[1][1]
         for _ in range(14):
             controller.next_column_for(1)
-        assert controller.next_column_for(1) == 0x0B
+        assert controller.next_column_for(1) == desired[1][0]
 
 

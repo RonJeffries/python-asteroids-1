@@ -19,10 +19,11 @@ class ShotController(InvadersFlyer):
             InvaderShot(self.available, BitmapMaker.instance().rollers),
             InvaderShot(self.available, BitmapMaker.instance().plungers)]
         self.columns = [
-            [0x01, 0x07, 0x01, 0x01, 0x01, 0x04, 0x0B, 0x01, 0x06, 0x03, 0x01, 0x01, 0x0B, 0x09, 0x02, 0x08],
-            [0x0B, 0x01, 0x06, 0x03, 0x01, 0x01, 0x0B, 0x09, 0x02, 0x08, 0x02, 0x0B, 0x04, 0x07, 0x0A, 0x01]]
+            [0x00, 0x06, 0x00, 0x00, 0x00, 0x03, 0x0A, 0x00, 0x05, 0x02, 0x00, 0x00, 0x0A, 0x08, 0x01, 0x07],
+            [0x0A, 0x00, 0x05, 0x02, 0x00, 0x00, 0x0A, 0x08, 0x01, 0x07, 0x01, 0x0A, 0x03, 0x06, 0x09, 0x00]]
         self.current_columns = [0, 0]
         self.shot_index = 0
+        self.invader_fleet = None
 
 
     @property
@@ -44,13 +45,24 @@ class ShotController(InvadersFlyer):
         self.time_since_firing = 0
         shot_index = self.shot_index
         self.fire_specific_shot(shot_index, fleets)
-        self.shot_index = (self.shot_index + 1) % 3
 
     def fire_specific_shot(self, shot_index, fleets):
         shot = self.shots[shot_index]
         if shot.position == self.available:
-            shot.position = Vector2(random.randint(50, u.SCREEN_SIZE - 50), u.SCREEN_SIZE / 2)
+            self.select_shot_position(shot, shot_index)
             fleets.append(shot)
+            self.shot_index = (self.shot_index + 1) % 3
+
+    def select_shot_position(self, shot, shot_index):
+        if shot_index == 2:
+            shot.position = Vector2(1000, 64)
+        else:
+            col = self.next_column_for(shot_index)
+            invader = self.invader_fleet.invader_group.bottom_of_column(col)
+            if invader:
+                shot.position = invader.position
+            else:
+                shot.position = Vector2(10, 10)
 
     def next_column_for(self, shot_index):
         column_number = self.current_columns[shot_index]
@@ -61,7 +73,7 @@ class ShotController(InvadersFlyer):
         pass
 
     def interact_with_invaderfleet(self, fleet, fleets):
-        pass
+        self.invader_fleet = fleet
 
     def interact_with_invaderplayer(self, player, fleets):
         pass
