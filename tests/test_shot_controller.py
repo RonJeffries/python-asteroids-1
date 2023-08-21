@@ -66,4 +66,16 @@ class TestShotController:
             index = i % len(desired)
             assert col == desired[index]
 
+    def test_targeting(self):
+        controller = ShotController()
+        player_x = 100
+        fleet_x = 0
+        # 0 64 128 192 256
+        assert controller.target_column(player_x, fleet_x) == 2
+        fleet_x = 192  # past him, can't hit
+        assert controller.target_column(player_x, fleet_x) == 0  # -1 actually
+        fleet_x = 64  # hard left
+        player_x = 950  # way off to right
+        assert controller.target_column(player_x, fleet_x) == 10  # 14 actually
+
 

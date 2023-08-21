@@ -1,3 +1,5 @@
+import random
+
 import pygame
 from pygame import Vector2
 
@@ -97,7 +99,7 @@ class InvaderPlayer(InvadersFlyer):
     def draw(self, screen):
         self.explode_time -= 1/60
         if self.explode_time > 0:
-            player = self.players[1]
+            player = self.players[random.randint(1,2)]
         else:
             player = self.player
         screen.blit(player, self.rect)

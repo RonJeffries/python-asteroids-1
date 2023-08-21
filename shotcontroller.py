@@ -49,23 +49,29 @@ class ShotController(InvadersFlyer):
     def fire_specific_shot(self, shot_index, fleets):
         shot = self.shots[shot_index]
         if shot.position == self.available:
-            self.select_shot_position(shot, shot_index)
-            fleets.append(shot)
+            pos = self.select_shot_position(shot, shot_index)
+            if pos:
+                shot.position = pos
+                fleets.append(shot)
             self.shot_index = (self.shot_index + 1) % 3
 
     def select_shot_position(self, shot, shot_index):
         if shot_index == 2:
-            shot.position = Vector2(1000, 64)
+            return Vector2(1000, 64)
         else:
             col = self.next_column_for(shot_index)
             invader = self.invader_fleet.invader_group.bottom_of_column(col)
             if invader:
-                shot.position = invader.position
+                return invader.position
             else:
-                shot.position = Vector2(10, 10)
+                return Vector2(10, 10)
 
     def next_column_for(self, shot_index):
         return self.columns[shot_index].next()
+
+    def target_column(self, player_x, fleet_x):
+        steps = round((player_x - fleet_x) / 64)
+        return max(0, min(steps, 10))
 
     def interact_with_bumper(self, bumper, fleets):
         pass
