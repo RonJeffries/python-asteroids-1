@@ -61,14 +61,14 @@ class ShotController(InvadersFlyer):
 
     def select_shot_position(self, shot, shot_index):
         if shot_index == 2:
-            return Vector2(1000, 64)
+            col = self.target_column(self.player_x, self.fleet_x)
         else:
             col = self.next_column_for(shot_index)
-            invader = self.invader_fleet.invader_group.bottom_of_column(col)
-            if invader:
-                return invader.position
-            else:
-                return None
+        invader = self.invader_fleet.invader_group.bottom_of_column(col)
+        if invader:
+            return invader.position
+        else:
+            return None
 
     def next_column_for(self, shot_index):
         return self.columns[shot_index].next()
