@@ -1,6 +1,9 @@
+from pygame import Vector2
+
 import u
 from bitmap_maker import BitmapMaker
 from fleets import Fleets
+from invader_player import InvaderPlayer
 from invader_shot import InvaderShot
 from invaderfleet import InvaderFleet
 from shotcontroller import ShotController
@@ -77,5 +80,24 @@ class TestShotController:
         fleet_x = 64  # hard left
         player_x = 950  # way off to right
         assert controller.target_column(player_x, fleet_x) == 10  # 14 actually
+
+    def test_captures_fleet_x(self):
+        fleets = Fleets()
+        invader_fleet = InvaderFleet()
+        invader_fleet.origin = Vector2(123, 456)
+        controller = ShotController()
+        controller.begin_interactions(fleets)
+        controller.interact_with_invaderfleet(invader_fleet, fleets)
+        assert controller.fleet_x == 123
+
+    def test_captures_player_x(self):
+        fleets = Fleets()
+        player = InvaderPlayer()
+        position = player.position
+        controller = ShotController()
+        controller.begin_interactions(player)
+        controller.interact_with_invaderplayer(player, fleets)
+        assert controller.player_x == position.x
+
 
 

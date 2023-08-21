@@ -24,7 +24,7 @@ class ShotController(InvadersFlyer):
             Cycler([0x0A, 0x00, 0x05, 0x02, 0x00, 0x00, 0x0A, 0x08, 0x01, 0x07, 0x01, 0x0A, 0x03, 0x06, 0x09])]
         self.shot_index = 0
         self.invader_fleet = None
-
+        self.player_x = 0
 
     @property
     def mask(self):
@@ -33,6 +33,10 @@ class ShotController(InvadersFlyer):
     @property
     def rect(self):
         return None
+
+    @property
+    def fleet_x(self):
+        return self.invader_fleet.origin.x
 
     def begin_interactions(self, fleets):
         self.time_since_firing += 1
@@ -64,7 +68,7 @@ class ShotController(InvadersFlyer):
             if invader:
                 return invader.position
             else:
-                return Vector2(10, 10)
+                return None
 
     def next_column_for(self, shot_index):
         return self.columns[shot_index].next()
@@ -80,7 +84,7 @@ class ShotController(InvadersFlyer):
         self.invader_fleet = fleet
 
     def interact_with_invaderplayer(self, player, fleets):
-        pass
+        self.player_x = player.position.x
 
     def interact_with_invadershot(self, shot, fleets):
         pass
