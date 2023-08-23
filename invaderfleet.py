@@ -83,6 +83,9 @@ class InvaderFleet(InvadersFlyer):
     def interact_with_playershot(self, shot, fleets):
         self.invader_group.interact_with_playershot(shot, fleets)
 
+    def interact_with_shotcontroller(self, controller, fleets):
+        pass
+
     def interact_with(self, other, fleets):
         other.interact_with_invaderfleet(self, fleets)
 

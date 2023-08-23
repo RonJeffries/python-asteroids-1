@@ -71,6 +71,9 @@ class InvaderShot(InvadersFlyer):
         if self.colliding(shot):
             self.die(fleets)
 
+    def interact_with_shotcontroller(self, controller, fleets):
+        pass
+
     def die(self, fleets):
         from shotcontroller import ShotController
         self.position = ShotController.available
