@@ -9,7 +9,6 @@ from shot_explosion import ShotExplosion
 
 
 class PlayerShot(InvadersFlyer):
-
     def __init__(self, position=u.CENTER):
         offset = Vector2(2, -8*4)
         self.velocity = Vector2(0, -4*4)
@@ -49,13 +48,13 @@ class PlayerShot(InvadersFlyer):
     def interact_with(self, other, fleets):
         other.interact_with_playershot(self, fleets)
 
+    def interact_with_bumper(self, bumper, fleets):
+        pass
+
     def interact_with_topbumper(self, top_bumper, fleets):
         if top_bumper.intersecting(self.position):
             fleets.remove(self)
             fleets.append(ShotExplosion(self.position))
-
-    def interact_with_bumper(self, bumper, fleets):
-        pass
 
     def interact_with_invaderfleet(self, bumper, fleets):
         pass
