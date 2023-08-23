@@ -89,6 +89,9 @@ class InvaderFleet(InvadersFlyer):
     def interact_with_shotexplosion(self, bumper, fleets):
         pass
 
+    def interact_with_topbumper(self, top_bumper, fleets):
+        pass
+
     def interact_with(self, other, fleets):
         other.interact_with_invaderfleet(self, fleets)
 

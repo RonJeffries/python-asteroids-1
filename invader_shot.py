@@ -77,6 +77,9 @@ class InvaderShot(InvadersFlyer):
     def interact_with_shotexplosion(self, bumper, fleets):
         pass
 
+    def interact_with_topbumper(self, top_bumper, fleets):
+        pass
+
     def die(self, fleets):
         from shotcontroller import ShotController
         self.position = ShotController.available
