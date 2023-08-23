@@ -43,9 +43,6 @@ class InvaderPlayer(InvadersFlyer):
     def begin_interactions(self, fleets):
         self.free_to_fire = True
 
-    def interact_with_playershot(self, bumper, fleets):
-        self.free_to_fire = False
-
     def trigger_pulled(self, fleets):
         if self.fire_request_allowed:
             self.attempt_firing(fleets)
@@ -86,6 +83,9 @@ class InvaderPlayer(InvadersFlyer):
     def interact_with_bumper(self, bumper, fleets):
         pass
 
+    def interact_with_invaderexplosion(self, explosion, fleets):
+        pass
+
     def interact_with_invaderfleet(self, fleet, fleets):
         pass
 
@@ -99,6 +99,9 @@ class InvaderPlayer(InvadersFlyer):
 
     def interact_with_playerexplosion(self, _explosion, _fleets):
         pass
+
+    def interact_with_playershot(self, bumper, fleets):
+        self.free_to_fire = False
 
     def draw(self, screen):
         self.explode_time -= 1/60

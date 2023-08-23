@@ -34,6 +34,9 @@ class ShotExplosion(InvadersFlyer):
     def interact_with_bumper(self, bumper, fleets):
         pass
 
+    def interact_with_invaderexplosion(self, explosion, fleets):
+        pass
+
     def interact_with_invaderfleet(self, bumper, fleets):
         pass
 

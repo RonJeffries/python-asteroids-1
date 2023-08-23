@@ -70,7 +70,7 @@ class InvadersFlyer(Flyer):
     def interact_with_playershot(self, shot, fleets):
         pass
 
-    # Inherited for convenience
+    @abstractmethod
     def interact_with_invaderexplosion(self, explosion, fleets):
         pass
 

@@ -51,10 +51,8 @@ class PlayerShot(InvadersFlyer):
     def interact_with_bumper(self, bumper, fleets):
         pass
 
-    def interact_with_topbumper(self, top_bumper, fleets):
-        if top_bumper.intersecting(self.position):
-            fleets.remove(self)
-            fleets.append(ShotExplosion(self.position))
+    def interact_with_invaderexplosion(self, explosion, fleets):
+        pass
 
     def interact_with_invaderfleet(self, bumper, fleets):
         pass
@@ -67,15 +65,20 @@ class PlayerShot(InvadersFlyer):
             fleets.remove(self)
             fleets.append(ShotExplosion(self.position))
 
-    def colliding(self, invaders_flyer):
-        collider = Collider(self, invaders_flyer)
-        return collider.colliding()
-
     def interact_with_playerexplosion(self, _explosion, _fleets):
         pass
 
     def interact_with_playershot(self, bumper, fleets):
         pass
+
+    def interact_with_topbumper(self, top_bumper, fleets):
+        if top_bumper.intersecting(self.position):
+            fleets.remove(self)
+            fleets.append(ShotExplosion(self.position))
+
+    def colliding(self, invaders_flyer):
+        collider = Collider(self, invaders_flyer)
+        return collider.colliding()
 
     def draw(self, screen):
         self.rect.center = self.position
