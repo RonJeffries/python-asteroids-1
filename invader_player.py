@@ -106,6 +106,9 @@ class InvaderPlayer(InvadersFlyer):
     def interact_with_shotcontroller(self, controller, fleets):
         pass
 
+    def interact_with_shotexplosion(self, bumper, fleets):
+        pass
+
     def draw(self, screen):
         self.explode_time -= 1/60
         if self.explode_time > 0:

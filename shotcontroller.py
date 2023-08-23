@@ -101,6 +101,9 @@ class ShotController(InvadersFlyer):
     def interact_with_shotcontroller(self, controller, fleets):
         pass
 
+    def interact_with_shotexplosion(self, bumper, fleets):
+        pass
+
     def interact_with(self, other, fleets):
         other.interact_with_shotcontroller(self, fleets)
 

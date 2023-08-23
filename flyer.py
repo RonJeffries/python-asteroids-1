@@ -78,7 +78,7 @@ class InvadersFlyer(Flyer):
     def interact_with_shotcontroller(self, controller, fleets):
         pass
 
-    # @abstractmethod
+    @abstractmethod
     def interact_with_shotexplosion(self, bumper, fleets):
         pass
 
