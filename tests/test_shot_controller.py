@@ -3,6 +3,7 @@ from pygame import Vector2
 import u
 from bitmap_maker import BitmapMaker
 from fleets import Fleets
+from flyer import InvadersFlyer
 from invader_player import InvaderPlayer
 from invader_shot import InvaderShot
 from invaderfleet import InvaderFleet
@@ -98,6 +99,30 @@ class TestShotController:
         controller.begin_interactions(player)
         controller.interact_with_invaderplayer(player, fleets)
         assert controller.player_x == position.x
+
+    def test_print_subclasses(self):
+        subs = InvadersFlyer.__subclasses__()
+        names = [sub.__name__ for sub in subs]
+        names.sort()
+        for name in names:
+            print("| " + name, end="")
+        print(" |",)
+        # assert False
+
+    def test_print_dictionaries(self):
+        subs = InvadersFlyer.__subclasses__()
+        names = [sub.__name__ for sub in subs]
+        names.sort()
+        for name in names:
+            self.print_dict(name, names)
+        # assert False
+
+    def print_dict(self, name, names):
+        print(name + ": {")
+        for name in names:
+            print("    " + name + ":error,")
+        print("},")
+
 
 
 
