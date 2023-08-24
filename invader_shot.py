@@ -71,6 +71,9 @@ class InvaderShot(InvadersFlyer):
         if self.colliding(shot):
             self.die(fleets)
 
+    def interact_with_shield(self, shield, fleets):
+        pass
+
     def interact_with_shotcontroller(self, controller, fleets):
         pass
 

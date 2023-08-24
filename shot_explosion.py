@@ -52,6 +52,9 @@ class ShotExplosion(InvadersFlyer):
     def interact_with_playershot(self, bumper, fleets):
         pass
 
+    def interact_with_shield(self, shield, fleets):
+        pass
+
     def interact_with_shotcontroller(self, controller, fleets):
         pass
 

@@ -36,15 +36,20 @@ class TestFlyer:
 
     def check_top_class_has_interact_with_each_subclass(self, attributes, name, test_class):
         required_method = "interact_with_" + name
-        assert required_method in attributes, test_class.__name__ + " does not implement " + required_method
+        if not required_method in attributes:
+            print(test_class.__name__ + " does not implement " + required_method)
+            assert False
 
     def check_interact_with_present_and_not_just_pass(self, klass, name, pass_code):
         if "interact_with" in klass.__dict__:
             interact_with_method = klass.__dict__["interact_with"]
             interact_with_code = interact_with_method.__code__.co_code
-            assert interact_with_code != pass_code, name + " has pass in interact_with"
+            if not interact_with_code != pass_code:
+                print(name + " has pass in interact_with")
+                assert False
         else:
-            assert False, name + " does not implement `interact_with`"
+            print(name + " does not implement `interact_with`")
+            assert False
 
     def test_should_interact_with(self):
         # a subclass xyz of Flyer can implement

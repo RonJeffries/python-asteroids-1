@@ -46,6 +46,9 @@ class Bumper(InvadersFlyer):
     def interact_with_playerexplosion(self, _explosion, _fleets):
         pass
 
+    def interact_with_shield(self, shield, fleets):
+        pass
+
     def interact_with_playershot(self, bumper, fleets):
         pass
 
