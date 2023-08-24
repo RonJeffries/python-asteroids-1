@@ -45,13 +45,19 @@ def no_asteroids(fleets):
 
 def invaders(fleets):
     fleets.clear()
-    fleets.append(Bumper(64, -1))
+    left_bumper = 64
+    fleets.append(Bumper(left_bumper, -1))
     fleets.append(Bumper(960, +1))
     fleets.append(TopBumper())
     fleets.append(InvaderFleet())
     fleets.append(InvaderPlayer())
     fleets.append(ShotController())
-    fleets.append(Shield(Vector2(100, 900)))
+    half_width = 88 / 2
+    spacing = 198
+    step = 180
+    for i in range(4):
+        place = Vector2(half_width + spacing + i*step, 800-16)
+        fleets.append(Shield(place))
 
 
 def _append_common_elements(fleets):
