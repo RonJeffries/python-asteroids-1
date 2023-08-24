@@ -1,17 +1,27 @@
+import pygame
+
+from bitmap_maker import BitmapMaker
 from flyer import InvadersFlyer
 
 
 class Shield(InvadersFlyer):
-    def interact_with_shield(self, shield, fleets):
-        pass
+    def __init__(self, position):
+        maker = BitmapMaker.instance()
+        self.map = maker.shield.copy()
+        self._mask = pygame.mask.from_surface(self.map)
+        self._rect = self.map.get_rect()
+        self._rect.center = position
 
     @property
     def mask(self):
-        pass
+        return self._mask
 
     @property
     def rect(self):
-        pass
+        return self._rect
+
+    def draw(self, screen):
+        screen.blit(self.map, self.rect)
 
     def interact_with(self, other, fleets):
         other.interact_with_shield(self, fleets)
@@ -37,6 +47,9 @@ class Shield(InvadersFlyer):
     def interact_with_invaderexplosion(self, explosion, fleets):
         pass
 
+    def interact_with_shield(self, shield, fleets):
+        pass
+
     def interact_with_shotcontroller(self, controller, fleets):
         pass
 
@@ -44,9 +57,6 @@ class Shield(InvadersFlyer):
         pass
 
     def interact_with_topbumper(self, top_bumper, fleets):
-        pass
-
-    def draw(self, screen):
         pass
 
     def tick(self, delta_time, fleets):

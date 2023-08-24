@@ -1,3 +1,5 @@
+from pygame import Vector2
+
 import u
 from bumper import Bumper
 from game_over import GameOver
@@ -5,6 +7,7 @@ from invader_player import InvaderPlayer
 from invaderfleet import InvaderFleet
 from saucermaker import SaucerMaker
 from scorekeeper import ScoreKeeper
+from shield import Shield
 from shipmaker import ShipMaker
 from shotcontroller import ShotController
 from thumper import Thumper
@@ -48,6 +51,7 @@ def invaders(fleets):
     fleets.append(InvaderFleet())
     fleets.append(InvaderPlayer())
     fleets.append(ShotController())
+    fleets.append(Shield(Vector2(100, 900)))
 
 
 def _append_common_elements(fleets):
