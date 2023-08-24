@@ -1,10 +1,13 @@
 import pytest
 from pygame import Vector2
+from pygame.examples.aliens import Player
 
 import u
 from bitmap_maker import BitmapMaker
 from fleets import Fleets
+from invader_player import InvaderPlayer
 from invader_shot import InvaderShot
+from shield import Shield
 from tests.tools import FI
 
 
@@ -65,3 +68,27 @@ class TestInvaderShot:
         shot.move(fleets)
         assert shot.map == maps[0]
 
+    def test_dies_on_shield(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        shield = Shield(Vector2(100, 100))
+        maker = BitmapMaker.instance()
+        shot = InvaderShot(Vector2(100, 100), maker.rollers)
+        assert shot.colliding(shield)
+        fleets.append(shot)
+        assert fi.invader_shots
+        shot.interact_with_shield(shield, fleets)
+        assert not fi.invader_shots
+
+    def test_dies_on_player(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        player = InvaderPlayer()
+        player.position = Vector2(100, 100)
+        maker = BitmapMaker.instance()
+        shot = InvaderShot(Vector2(100, 100), maker.rollers)
+        assert shot.colliding(player)
+        fleets.append(shot)
+        assert fi.invader_shots
+        shot.interact_with_invaderplayer(player, fleets)
+        assert not fi.invader_shots

@@ -40,6 +40,10 @@ class InvaderPlayer(InvadersFlyer):
     def position(self):
         return Vector2(self.rect.center)
 
+    @position.setter
+    def position(self, value):
+        self.rect.center = value
+
     def begin_interactions(self, fleets):
         self.free_to_fire = True
 
