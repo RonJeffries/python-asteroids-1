@@ -1,5 +1,7 @@
 import pygame
+from pygame import Mask, Surface
 
+from Collider import Collider
 from bitmap_maker import BitmapMaker
 from flyer import InvadersFlyer
 
@@ -36,7 +38,19 @@ class Shield(InvadersFlyer):
         pass
 
     def interact_with_invadershot(self, shot, fleets):
-        pass
+        collider = Collider(self, shot)
+        if collider.colliding():
+            mask: Mask = collider.overlap_mask()
+            rect = mask.get_rect()
+            map = self.map
+            for x in range(rect.right):
+                for y in range(rect.bottom):
+                    bit = mask.get_at((x, y))
+                    if bit:
+                        map.set_at((x, y), "black")
+                    else:
+                        pass
+
 
     def interact_with_playerexplosion(self, explosion, fleets):
         pass

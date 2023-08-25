@@ -20,3 +20,7 @@ class Collider:
     def masks_colliding(self):
         offset = Vector2(self.right_rect.topleft) - Vector2(self.left_rect.topleft)
         return self.left_mask.overlap(self.right_mask, offset)
+
+    def overlap_mask(self):
+        offset = Vector2(self.right_rect.topleft) - Vector2(self.left_rect.topleft)
+        return self.left_mask.overlap_mask(self.right_mask, offset)
