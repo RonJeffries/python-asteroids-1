@@ -7,6 +7,7 @@ from bitmap_maker import BitmapMaker
 from fleets import Fleets
 from invader_player import InvaderPlayer
 from invader_shot import InvaderShot
+from player_shot import PlayerShot
 from shield import Shield
 from tests.tools import FI
 
@@ -92,3 +93,16 @@ class TestInvaderShot:
         assert fi.invader_shots
         shot.interact_with_invaderplayer(player, fleets)
         assert not fi.invader_shots
+
+    def test_playershot_dies_on_shield(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        pos = Vector2(100, 100)
+        shield = Shield(pos)
+        maker = BitmapMaker.instance()
+        shot = PlayerShot(pos)
+        assert shot.colliding(shield)
+        fleets.append(shot)
+        assert fi.player_shots
+        shot.interact_with_shield(shield, fleets)
+        assert not fi.player_shots

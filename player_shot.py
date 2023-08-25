@@ -72,7 +72,8 @@ class PlayerShot(InvadersFlyer):
         pass
 
     def interact_with_shield(self, shield, fleets):
-        pass
+        if self.colliding(shield):
+            fleets.remove(self)
 
     def interact_with_shotcontroller(self, controller, fleets):
         pass
