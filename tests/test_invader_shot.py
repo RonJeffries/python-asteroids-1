@@ -59,15 +59,15 @@ class TestInvaderShot:
     def test_map_changes_on_movement(self, shot):
         fleets = Fleets()
         maps = shot.maps
-        assert shot.map == maps[0]
+        assert shot._map == maps[0]
         shot.move(fleets)
-        assert shot.map == maps[1]
+        assert shot._map == maps[1]
         shot.move(fleets)
-        assert shot.map == maps[2]
+        assert shot._map == maps[2]
         shot.move(fleets)
-        assert shot.map == maps[3]
+        assert shot._map == maps[3]
         shot.move(fleets)
-        assert shot.map == maps[0]
+        assert shot._map == maps[0]
 
     def test_dies_on_shield(self):
         fleets = Fleets()

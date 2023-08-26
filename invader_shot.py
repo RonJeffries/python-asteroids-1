@@ -10,9 +10,9 @@ class InvaderShot(InvadersFlyer):
     def __init__(self, position, maps):
         self.maps = maps
         self.masks = [pygame.mask.from_surface(bitmap) for bitmap in self.maps]
-        self.map = maps[0]
+        self._map = maps[0]
         self.map_index = 0
-        self._rect = self.map.get_rect()
+        self._rect = self._map.get_rect()
         self.rect.center = position
         self.count = 0
         self.moves = 0
@@ -47,7 +47,7 @@ class InvaderShot(InvadersFlyer):
 
     def update_map(self):
         self.map_index = (self.map_index + 1) % 4
-        self.map = self.maps[self.map_index]
+        self._map = self.maps[self.map_index]
 
     def interact_with_bumper(self, bumper, fleets):
         pass
@@ -99,7 +99,7 @@ class InvaderShot(InvadersFlyer):
         other.interact_with_invadershot(self, fleets)
 
     def draw(self, screen):
-        screen.blit(self.map, self.rect)
+        screen.blit(self._map, self.rect)
 
     def tick(self, delta_time, fleets):
         pass

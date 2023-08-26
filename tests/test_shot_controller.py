@@ -48,7 +48,7 @@ class TestShotController:
         shots = fi.invader_shots
         assert len(shots) == 3
         s1, s2, s3 = shots
-        assert s1.map != s2.map and s2.map != s3.map and s3.map != s1.map
+        assert s1._map != s2._map and s2._map != s3._map and s3._map != s1._map
         assert s1.position != ShotController.available
         assert s2.position != ShotController.available
         assert s2.position != ShotController.available

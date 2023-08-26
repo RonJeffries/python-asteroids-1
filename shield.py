@@ -8,12 +8,12 @@ from flyer import InvadersFlyer
 
 class Shield(InvadersFlyer):
     def __init__(self, position):
-        maker = BitmapMaker.instance()
-        self.map = maker.shield.copy()
-        self.map.set_colorkey((0, 0, 0))
-        self._mask = pygame.mask.from_surface(self.map)
+        map = BitmapMaker.instance().shield
+        self._map = map.copy()
+        self._map.set_colorkey("black")
+        self._mask = pygame.mask.from_surface(map)
         self._mask_copy = self.mask.copy()
-        self._rect = self.map.get_rect()
+        self._rect = self._map.get_rect()
         self._rect.center = position
 
     @property
@@ -25,7 +25,7 @@ class Shield(InvadersFlyer):
         return self._rect
 
     def draw(self, screen):
-        screen.blit(self.map, self.rect)
+        screen.blit(self._map, self.rect)
 
         # mask_rect = self.rect.copy()
         # mask_rect.centery = self.rect.centery - 96
@@ -35,6 +35,7 @@ class Shield(InvadersFlyer):
 
     def begin_interactions(self, fleets):
         self._mask = self._mask_copy.copy()
+        pass
 
     def interact_with(self, other, fleets):
         other.interact_with_shield(self, fleets)
@@ -52,15 +53,10 @@ class Shield(InvadersFlyer):
         collider = Collider(self, shot)
         if collider.colliding():
             mask: Mask = collider.overlap_mask()
+            self._mask_copy.erase(mask, (0, 0))
             rect = mask.get_rect()
-            for x in range(88):
-                for y in range(64):
-                    bit = mask.get_at((x, y))
-                    if bit:
-                        self._mask_copy.set_at((x, y), 0)
-                        self.map.set_at((x, y), (0, 0, 0))
-                    else:
-                        pass
+            surf = self._mask_copy.to_surface()
+            self._map.blit(surf, rect)
 
     def interact_with_playerexplosion(self, explosion, fleets):
         pass
