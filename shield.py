@@ -1,5 +1,5 @@
 import pygame
-from pygame import Mask, Surface
+from pygame import Mask, Surface, Vector2
 
 from Collider import Collider
 from bitmap_maker import BitmapMaker
@@ -11,6 +11,8 @@ class Shield(InvadersFlyer):
         map = BitmapMaker.instance().shield
         explo = BitmapMaker.instance().invader_shot_explosion
         self._explosion_mask = pygame.mask.from_surface(explo)
+        player_explo = BitmapMaker.instance().player_shot_explosion
+        self._player_explosion_mask = pygame.mask.from_surface(player_explo)
         self._map = map.copy()
         self._map.set_colorkey("black")
         self._mask = pygame.mask.from_surface(map)
@@ -65,7 +67,15 @@ class Shield(InvadersFlyer):
         pass
 
     def interact_with_playershot(self, shot, fleets):
-        pass
+        collider = Collider(self, shot)
+        if collider.colliding():
+            mask: Mask = collider.overlap_mask()
+            self._mask_copy.erase(mask, (0, 0))
+            rect = mask.get_rect()
+            e_rect = self._player_explosion_mask.get_rect()
+            self._mask_copy.erase(self._player_explosion_mask, collider.offset() + Vector2(-e_rect.width/2, 0))
+            surf = self._mask_copy.to_surface()
+            self._map.blit(surf, rect)
 
     def interact_with_invaderexplosion(self, explosion, fleets):
         pass
