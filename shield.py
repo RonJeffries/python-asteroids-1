@@ -13,7 +13,6 @@ class Shield(InvadersFlyer):
         self.map.set_colorkey((0, 0, 0))
         self._mask = pygame.mask.from_surface(self.map)
         self._mask_copy = self.mask.copy()
-        self._damage = self._mask.copy()
         self._rect = self.map.get_rect()
         self._rect.center = position
 
@@ -53,7 +52,6 @@ class Shield(InvadersFlyer):
         collider = Collider(self, shot)
         if collider.colliding():
             mask: Mask = collider.overlap_mask()
-            self._damage.erase(mask, (0, 0))
             rect = mask.get_rect()
             for x in range(88):
                 for y in range(64):
