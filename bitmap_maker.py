@@ -42,6 +42,7 @@ class BitmapMaker:
         squiggles = ((0x44, 0xAA, 0x10), (0x88, 0x54, 0x22), (0x10, 0xAA, 0x44), (0x22, 0x54, 0x88))
         plungers = ((0x04, 0xFC, 0x04), (0x10, 0xFC, 0x10), (0x20, 0xFC, 0x20), (0x80, 0xFC, 0x80))
         rollers = ((0x00, 0xFE, 0x00), (0x24, 0xFE, 0x12), (0x00, 0xFE, 0x00), (0x48, 0xFE, 0x90))
+        invader_shot_explosion = (0x4A, 0x15, 0xBE, 0x3F, 0x5E, 0x25)
         # shield is 22 pixels by 16 pixels, 44 bytes
         shield = (
             0xFF, 0x0F, 0xFF, 0x1F, 0xFF, 0x3F, 0xFF, 0x7F, 0xFF, 0xFF, 0xFC,
@@ -58,6 +59,7 @@ class BitmapMaker:
         self.saucer = self.make_and_scale_surface(saucer, scale, (24, 8))
         self.squiggles = [self.make_and_scale_surface(squig, scale, (3, 8)) for squig in squiggles]
         self.plungers = [self.make_and_scale_surface(plunger, scale, (3, 8)) for plunger in plungers]
+        self.invader_shot_explosion = self.make_and_scale_surface(invader_shot_explosion, scale, (6, 8))
         self.rollers = [self.make_and_scale_surface(plunger, scale, (3, 8)) for plunger in rollers]
         self.shield = self.make_and_scale_surface(shield, scale, (22, 16))
 

@@ -9,6 +9,8 @@ from flyer import InvadersFlyer
 class Shield(InvadersFlyer):
     def __init__(self, position):
         map = BitmapMaker.instance().shield
+        explo = BitmapMaker.instance().invader_shot_explosion
+        self._explosion_mask = pygame.mask.from_surface(explo)
         self._map = map.copy()
         self._map.set_colorkey("black")
         self._mask = pygame.mask.from_surface(map)
@@ -33,7 +35,7 @@ class Shield(InvadersFlyer):
         # mask_surf.set_colorkey("black")
         # screen.blit(mask_surf, mask_rect)
 
-    def begin_interactions(self, fleets):
+    def end_interactions(self, fleets):
         self._mask = self._mask_copy.copy()
         pass
 
@@ -55,6 +57,7 @@ class Shield(InvadersFlyer):
             mask: Mask = collider.overlap_mask()
             self._mask_copy.erase(mask, (0, 0))
             rect = mask.get_rect()
+            self._mask_copy.erase(self._explosion_mask, collider.offset())
             surf = self._mask_copy.to_surface()
             self._map.blit(surf, rect)
 

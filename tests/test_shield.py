@@ -16,4 +16,8 @@ class TestShield:
     def test_mask_updates_after_shield_hit(self):
         pass
 
+    @pytest.mark.skip(reason="good learning experience")
+    def test_erase_and_blit_to_show_how_they_work_in_shield(self):
+        pass
+
 
