@@ -53,9 +53,9 @@ class ShotController(InvadersFlyer):
     def fire_specific_shot(self, shot_index, fleets):
         shot = self.shots[shot_index]
         if shot.available:
-            shot.available = False
             pos = self.select_shot_position(shot, shot_index)
             if pos:
+                shot.available = False
                 shot.position = pos
                 fleets.append(shot)
             self.shot_index = (self.shot_index + 1) % 3
