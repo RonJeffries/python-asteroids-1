@@ -16,6 +16,15 @@ class InvaderShot(InvadersFlyer):
         self.rect.center = position
         self.count = 0
         self.moves = 0
+        self._available = True
+
+    @property
+    def available(self):
+        return self._available
+
+    @available.setter
+    def available(self, value):
+        self._available = value
 
     @property
     def rect(self):
@@ -87,8 +96,7 @@ class InvaderShot(InvadersFlyer):
         pass
 
     def die(self, fleets):
-        from shotcontroller import ShotController
-        self.position = ShotController.available
+        self._available = True
         fleets.remove(self)
 
     def colliding(self, invaders_flyer):

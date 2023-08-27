@@ -53,7 +53,7 @@ class TestInvaderShot:
             shot.update(1/60, fleets)
             shot.update(1/60, fleets)
             shot.update(1/60, fleets)
-        assert shot.position.y == -1
+        assert shot.available
         assert not fi.invader_shots
 
     def test_map_changes_on_movement(self, shot):
