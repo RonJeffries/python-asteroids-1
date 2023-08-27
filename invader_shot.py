@@ -22,10 +22,6 @@ class InvaderShot(InvadersFlyer):
     def available(self):
         return self._available
 
-    @available.setter
-    def available(self, value):
-        self._available = value
-
     @property
     def rect(self):
         return self._rect
@@ -41,6 +37,11 @@ class InvaderShot(InvadersFlyer):
     @position.setter
     def position(self, vector):
         self.rect.center = vector
+
+    def fire_from(self, position, fleets):
+        self._available = False
+        self.position = position
+        fleets.append(self)
 
     def update(self, _dt, fleets):
         self.count = (self.count + 1) % 3
