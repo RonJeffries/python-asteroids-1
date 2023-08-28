@@ -114,6 +114,7 @@ class TestInvaderFleet:
         pos.y = bumper.y
         shot.position = pos
         shot.interact_with_topbumper(bumper, fleets)
+        fleets._execute_reminders()
         assert not fi.player_shots
 
     def test_shot_invader_mask_collision(self):

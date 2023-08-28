@@ -107,4 +107,5 @@ class TestInvaderShot:
         fleets.append(shot)
         assert fi.player_shots
         shot.interact_with_shield(shield, fleets)
+        fleets._execute_reminders()
         assert not fi.player_shots

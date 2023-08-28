@@ -31,7 +31,7 @@ class PlayerShot(InvadersFlyer):
         pass
 
     def hit_invader(self, fleets):
-        fleets.remove(self)
+        self.remind_me_to_die(fleets)
 
     def end_interactions(self, fleets):
         pass
@@ -61,8 +61,7 @@ class PlayerShot(InvadersFlyer):
 
     def interact_with_invadershot(self, shot, fleets):
         if self.colliding(shot):
-            fleets.remove(self)
-            fleets.append(ShotExplosion(self.position))
+            self.remind_me_to_explode_and_die(fleets)
 
     def interact_with_playerexplosion(self, _explosion, _fleets):
         pass
@@ -72,7 +71,7 @@ class PlayerShot(InvadersFlyer):
 
     def interact_with_shield(self, shield, fleets):
         if self.colliding(shield):
-            fleets.remove(self)
+            self.remind_me_to_die(fleets)
 
     def interact_with_shotcontroller(self, controller, fleets):
         pass
@@ -82,8 +81,23 @@ class PlayerShot(InvadersFlyer):
 
     def interact_with_topbumper(self, top_bumper, fleets):
         if top_bumper.intersecting(self.position):
-            fleets.remove(self)
-            fleets.append(ShotExplosion(self.position))
+            self.remind_me_to_explode_and_die(fleets)
+
+    def remind_me_to_explode_and_die(self, fleets):
+        self.remind_me_to_die(fleets)
+        self.remind_me_to_explode(fleets)
+
+    def remind_me_to_explode(self, fleets):
+        fleets.remind_me(self.actually_explode, fleets)
+
+    def remind_me_to_die(self, fleets):
+        fleets.remind_me(self.actually_die, fleets)
+
+    def actually_explode(self, fleets):
+        fleets.append(ShotExplosion(self.position))
+
+    def actually_die(self, fleets):
+        fleets.remove(self)
 
     def colliding(self, invaders_flyer):
         collider = Collider(self, invaders_flyer)
