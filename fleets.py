@@ -63,24 +63,30 @@ class Fleets:
 
     def end_interactions(self):
         for flyer in self.all_objects:
+            self.execute_reminders(flyer)
             flyer.end_interactions(self)
 
     def remind_me(self, sender, reminder: Callable, *args):
         reminder = [reminder, args]
-        print(reminder)
         try:
-            self.reminders[sender].append(reminder)
+            self.reminders[sender]
         except KeyError:
-            self.reminders[sender] = [reminder]
+            self.reminders[sender] = []
+        self.reminders[sender].append(reminder)
 
     def execute_reminders(self, sender):
         for reminder in self.get_reminders(sender):
             func = reminder[0]
             args = reminder[1]
             func(*args)
+        try:
+            del self.reminders[sender]
+        except KeyError:
+            pass
 
     def get_reminders(self, sender):
         try:
-            return self.reminders[sender]
+            reminder = self.reminders[sender]
+            return reminder
         except KeyError:
             return []

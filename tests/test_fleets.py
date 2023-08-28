@@ -39,6 +39,16 @@ class Remindable:
     def compare(self, a, b):
         self.compared = a == b
 
+    def begin_interactions(self, fleets):
+        pass
+
+    def end_interactions(self, fleets):
+        pass
+
+    def interact_with(self, other, fleets):
+        fleets.remind_me(self, self.compare, 96, 96)
+
+
 class TestFleets:
     def test_len_etc(self):
         fleets = Fleets()
@@ -97,6 +107,17 @@ class TestFleets:
         args = reminder[1]
         func(*args)
         assert obj.compared
+
+    def test_fleets_interaction_cycle(self):
+        obj = Remindable()
+        fleets = Fleets()
+        fleets. append(obj)
+        fleets.append(Remindable())
+        fleets.begin_interactions()
+        fleets.perform_interactions()
+        fleets.end_interactions()
+        assert obj.compared
+
 
 
 
