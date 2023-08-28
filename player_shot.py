@@ -84,8 +84,8 @@ class PlayerShot(InvadersFlyer):
             self.remind_me_to_explode_and_die(fleets)
 
     def remind_me_to_explode_and_die(self, fleets):
-        self.remind_me_to_die(fleets)
         self.remind_me_to_explode(fleets)
+        self.remind_me_to_die(fleets)
 
     def remind_me_to_explode(self, fleets):
         fleets.remind_me(self.actually_explode, fleets)
