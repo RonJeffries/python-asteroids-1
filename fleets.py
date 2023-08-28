@@ -1,4 +1,6 @@
 # SpaceObjects
+from typing import Callable
+
 import pygame
 
 import u
@@ -63,7 +65,7 @@ class Fleets:
         for flyer in self.all_objects:
             flyer.end_interactions(self)
 
-    def remind_me(self, sender, reminder, *args):
+    def remind_me(self, sender, reminder: Callable, *args):
         reminder = [reminder, args]
         print(reminder)
         try:

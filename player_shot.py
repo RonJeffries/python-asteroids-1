@@ -28,14 +28,13 @@ class PlayerShot(InvadersFlyer):
         return self._rect
 
     def begin_interactions(self, fleets):
-        self.should_die = False
+        pass
 
-    def hit_invader(self):
-        self.should_die = True
+    def hit_invader(self, fleets):
+        fleets.remove(self)
 
     def end_interactions(self, fleets):
-        if self.should_die:
-            fleets.remove(self)
+        pass
 
     @property
     def position(self):

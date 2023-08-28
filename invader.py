@@ -22,7 +22,7 @@ class Invader:
 
     def interact_with_group_and_playershot(self, shot, group, fleets):
         if self.colliding(shot):
-            shot.hit_invader()
+            shot.hit_invader(fleets)
             group.kill(self)
             fleets.append(InvaderExplosion(self.position))
 
