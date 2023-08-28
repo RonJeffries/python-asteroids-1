@@ -46,7 +46,7 @@ class Remindable:
         pass
 
     def interact_with(self, other, fleets):
-        fleets.remind_me(self, self.compare, 96, 96)
+        fleets.remind_me(self.compare, 96, 96)
 
 
 class TestFleets:
@@ -67,28 +67,28 @@ class TestFleets:
     def test_reminders(self):
         fleets = Fleets()
         obj = Remindable()
-        fleets.remind_me(obj, obj.set_true)
+        fleets.remind_me(obj.set_true)
         assert not obj.reminded
-        fleets.execute_reminders(obj)
+        fleets._execute_reminders()
         assert obj.reminded
 
     def test_two_reminders(self):
         fleets = Fleets()
         obj = Remindable()
-        fleets.remind_me(obj, obj.set_true)
-        fleets.remind_me(obj, obj.set_value)
+        fleets.remind_me(obj.set_true)
+        fleets.remind_me(obj.set_value)
         assert not obj.reminded
         assert obj.value == 37
-        fleets.execute_reminders(obj)
+        fleets._execute_reminders()
         assert obj.reminded
         assert obj.value == 42
 
     def test_parameters(self):
         fleets = Fleets()
         obj = Remindable()
-        fleets.remind_me(obj, obj.compare, 666, 333+333)
+        fleets.remind_me(obj.compare, 666, 333 + 333)
         assert obj.value == 37
-        fleets.execute_reminders(obj)
+        fleets._execute_reminders()
         assert obj.compared
 
     def test_reminder_form(self):
@@ -117,6 +117,26 @@ class TestFleets:
         fleets.perform_interactions()
         fleets.end_interactions()
         assert obj.compared
+
+    def test_two_remindables(self):
+        o1 = Remindable()
+        o2 = Remindable()
+        fleets = Fleets()
+        fleets. append(o1)
+        fleets. append(o2)
+        fleets.append(Remindable())
+        fleets.begin_interactions()
+        fleets.perform_interactions()
+        fleets.end_interactions()
+        assert o1.compared
+        assert o2.compared
+
+    def test_empty_list(self):
+        a = []
+        b = []
+        a.append("x")
+        assert "x" in a
+        assert "x" not in b
 
 
 

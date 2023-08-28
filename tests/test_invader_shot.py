@@ -79,7 +79,7 @@ class TestInvaderShot:
         fleets.append(shot)
         assert fi.invader_shots
         shot.interact_with_shield(shield, fleets)
-        fleets.execute_reminders(shot)
+        fleets._execute_reminders()
         assert not fi.invader_shots
 
     def test_dies_on_player(self):
@@ -93,7 +93,7 @@ class TestInvaderShot:
         fleets.append(shot)
         assert fi.invader_shots
         shot.interact_with_invaderplayer(player, fleets)
-        fleets.execute_reminders(shot)
+        fleets._execute_reminders()
         assert not fi.invader_shots
 
     def test_playershot_dies_on_shield(self):

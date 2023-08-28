@@ -10,7 +10,7 @@ from interactor import Interactor
 class Fleets:
     def __init__(self):
         self.flyers = list()
-        self.reminders = {}
+        self.reminders = []
 
     @property
     def all_objects(self):
@@ -57,36 +57,23 @@ class Fleets:
         Interactor(self).perform_interactions()
 
     def begin_interactions(self):
-        self.reminders = {}
+        self.reminders = []
         for flyer in self.all_objects:
             flyer.begin_interactions(self)
 
     def end_interactions(self):
         for flyer in self.all_objects:
-            self.execute_reminders(flyer)
+            self._execute_reminders()
             flyer.end_interactions(self)
 
-    def remind_me(self, sender, reminder: Callable, *args):
+    def remind_me(self, reminder: Callable, *args):
         reminder = [reminder, args]
-        try:
-            self.reminders[sender]
-        except KeyError:
-            self.reminders[sender] = []
-        self.reminders[sender].append(reminder)
+        self.reminders.append(reminder)
 
-    def execute_reminders(self, sender):
-        for reminder in self.get_reminders(sender):
+    def _execute_reminders(self):
+        for reminder in self.reminders:
             func = reminder[0]
             args = reminder[1]
             func(*args)
-        try:
-            del self.reminders[sender]
-        except KeyError:
-            pass
+        self.reminders = []
 
-    def get_reminders(self, sender):
-        try:
-            reminder = self.reminders[sender]
-            return reminder
-        except KeyError:
-            return []
