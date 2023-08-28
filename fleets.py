@@ -1,10 +1,15 @@
 # SpaceObjects
 from typing import Callable
-
-import pygame
-
-import u
 from interactor import Interactor
+
+
+class _Reminder:
+    def __init__(self, func, args):
+        self.func = func
+        self.args = args
+
+    def execute(self):
+        self.func(*self.args)
 
 
 class Fleets:
@@ -67,13 +72,11 @@ class Fleets:
             flyer.end_interactions(self)
 
     def remind_me(self, reminder: Callable, *args):
-        reminder = [reminder, args]
+        reminder = _Reminder(reminder, args)
         self.reminders.append(reminder)
 
     def _execute_reminders(self):
         for reminder in self.reminders:
-            func = reminder[0]
-            args = reminder[1]
-            func(*args)
+            reminder.execute()
         self.reminders = []
 
