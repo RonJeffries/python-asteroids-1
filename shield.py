@@ -65,9 +65,9 @@ class Shield(InvadersFlyer):
     def process_shot_collision(self, shot, explosion_mask):
         collider = Collider(self, shot)
         if collider.colliding():
-            mask: Mask = collider.overlap_mask()
-            self.erase_shot_and_explosion_from_mask(shot, collider, mask, explosion_mask)
-            self.erase_visible_pixels(mask.get_rect())
+            overlap_mask: Mask = collider.overlap_mask()
+            self.erase_shot_and_explosion_from_mask(shot, collider, overlap_mask, explosion_mask)
+            self.erase_visible_pixels(overlap_mask)
 
     def erase_shot_and_explosion_from_mask(self, shot, collider, shot_overlap_mask, explosion_mask):
         self._mask_copy.erase(shot_overlap_mask, (0, 0))
@@ -79,9 +79,10 @@ class Shield(InvadersFlyer):
         adjust_image_to_center = collider.offset() + Vector2(offset_x, 0)
         self._mask_copy.erase(explosion_mask, adjust_image_to_center)
 
-    def erase_visible_pixels(self, shot_rect):
+    def erase_visible_pixels(self, shot_mask):
+        rect = shot_mask.get_rect()
         surf = self._mask_copy.to_surface()
-        self._map.blit(surf, shot_rect)
+        self._map.blit(surf, rect)
 
     def interact_with_invaderexplosion(self, explosion, fleets):
         pass
