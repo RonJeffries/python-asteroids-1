@@ -2,15 +2,12 @@ from todolist import TodoList
 
 
 class TestTodoList:
-    def __init__(self):
-        self.value = None
-        self.total = 0
 
     def save_value(self, value):
         self.value = value
 
     def accumulate(self, value):
-        self.total += value
+        self.value += value
 
     def test_exists(self):
         TodoList()
@@ -23,9 +20,8 @@ class TestTodoList:
 
     def test_has_list(self):
         todo = TodoList()
-        todo.remind_me(lambda: self.save_value(86))
+        todo.remind_me(lambda: self.save_value(13))
         todo.remind_me(lambda: self.accumulate(13))
         todo.remind_me(lambda: self.accumulate(13))
         todo.execute()
-        assert self.value == 86
-        assert self.total == 26
+        assert self.value == 39
