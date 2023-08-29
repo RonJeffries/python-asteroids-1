@@ -17,7 +17,6 @@ class Shield(InvadersFlyer):
         self._map = map.copy()
         self._map.set_colorkey("black")
         self._mask = pygame.mask.from_surface(map)
-        self._mask_copy = self.mask.copy()
         self._rect = self._map.get_rect()
         self._rect.center = position
         self._tasks = Tasks()
@@ -44,8 +43,6 @@ class Shield(InvadersFlyer):
 
     def end_interactions(self, fleets):
         self._tasks.finish()
-        self._mask = self._mask_copy.copy()
-        pass
 
     def interact_with(self, other, fleets):
         other.interact_with_shield(self, fleets)
@@ -75,18 +72,18 @@ class Shield(InvadersFlyer):
             self.update_mask_and_visible_pixels(collider, explosion_mask, overlap_mask, shot)
 
     def update_mask_and_visible_pixels(self, collider, explosion_mask, overlap_mask, shot):
-        self.erase_shot_and_explosion_from_mask(shot, collider, overlap_mask, explosion_mask)
-        self._tasks.remind_me(lambda: self.erase_visible_pixels(overlap_mask, self._mask_copy))
+        self._tasks.remind_me(lambda: self.erase_shot_and_explosion_from_mask(shot, collider.offset(), overlap_mask, explosion_mask))
+        self._tasks.remind_me(lambda: self.erase_visible_pixels(overlap_mask, self._mask))
 
-    def erase_shot_and_explosion_from_mask(self, shot, collider, shot_overlap_mask, explosion_mask):
-        self._mask_copy.erase(shot_overlap_mask, (0, 0))
-        self.erase_explosion_from_mask(collider, explosion_mask, shot)
+    def erase_shot_and_explosion_from_mask(self, shot, collider_offset, shot_overlap_mask, explosion_mask):
+        self._mask.erase(shot_overlap_mask, (0, 0))
+        self.erase_explosion_from_mask(collider_offset, explosion_mask, shot)
 
-    def erase_explosion_from_mask(self, collider, explosion_mask, shot):
+    def erase_explosion_from_mask(self, collider_offset, explosion_mask, shot):
         expl_rect = explosion_mask.get_rect()
         offset_x = (shot.rect.w - expl_rect.w) // 2
-        adjust_image_to_center = collider.offset() + Vector2(offset_x, 0)
-        self._mask_copy.erase(explosion_mask, adjust_image_to_center)
+        adjust_image_to_center = collider_offset + Vector2(offset_x, 0)
+        self._mask.erase(explosion_mask, adjust_image_to_center)
 
     def erase_visible_pixels(self, shot_mask, shield_mask):
         rect = shot_mask.get_rect()
