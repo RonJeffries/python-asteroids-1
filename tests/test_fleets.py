@@ -46,7 +46,7 @@ class Remindable:
         pass
 
     def interact_with(self, other, fleets):
-        fleets.remind_me(self.compare, 96, 96)
+        fleets.remind_me(lambda: self.compare(96, 96))
 
 
 class TestFleets:
@@ -86,7 +86,7 @@ class TestFleets:
     def test_parameters(self):
         fleets = Fleets()
         obj = Remindable()
-        fleets.remind_me(obj.compare, 666, 333 + 333)
+        fleets.remind_me(lambda: obj.compare(666, 333 + 333))
         assert obj.value == 37
         fleets._execute_reminders()
         assert obj.compared
@@ -102,10 +102,9 @@ class TestFleets:
     def test_two_parameters(self):
         obj = Remindable()
         assert not obj.compared
-        reminder = [obj.compare, [666, 333+333]]
+        reminder = [lambda: obj.compare(666, 333+333)]
         func = reminder[0]
-        args = reminder[1]
-        func(*args)
+        func()
         assert obj.compared
 
     def test_fleets_interaction_cycle(self):

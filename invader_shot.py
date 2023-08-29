@@ -73,7 +73,7 @@ class InvaderShot(InvadersFlyer):
 
     def die_on_collision(self, flyer, fleets):
         if self.colliding(flyer):
-            fleets.remind_me(self.die, fleets)
+            fleets.remind_me(lambda: self.die(fleets))
 
     def interact_with_invadershot(self, shot, fleets):
         pass

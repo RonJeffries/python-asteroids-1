@@ -4,12 +4,11 @@ from interactor import Interactor
 
 
 class _Reminder:
-    def __init__(self, func, args):
+    def __init__(self, func):
         self.func = func
-        self.args = args
 
     def execute(self):
-        self.func(*self.args)
+        self.func()
 
 
 class Fleets:
@@ -71,8 +70,8 @@ class Fleets:
             self._execute_reminders()
             flyer.end_interactions(self)
 
-    def remind_me(self, reminder: Callable, *args):
-        reminder = _Reminder(reminder, args)
+    def remind_me(self, reminder: Callable):
+        reminder = _Reminder(reminder)
         self.reminders.append(reminder)
 
     def _execute_reminders(self):
