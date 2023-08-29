@@ -1,16 +1,16 @@
 
 
-class TodoList:
+class Tasks:
     def __init__(self):
-        self.todos = []
+        self.tasks = []
         
     def remind_me(self, func):
-        self.todos.append(func)
+        self.tasks.append(func)
 
     def finish(self):
-        for func in self.todos:
+        for func in self.tasks:
             func()
         self.clear()
 
     def clear(self):
-        self.todos.clear()
+        self.tasks.clear()
