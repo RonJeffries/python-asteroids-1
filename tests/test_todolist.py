@@ -1,7 +1,7 @@
 from todolist import TodoList
 
 
-class TestReminders:
+class TestTodoList:
     def __init__(self):
         self.value = None
         self.total = 0
