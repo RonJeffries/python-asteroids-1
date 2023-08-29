@@ -66,8 +66,11 @@ class Shield(InvadersFlyer):
         collider = Collider(self, shot)
         if collider.colliding():
             overlap_mask: Mask = collider.overlap_mask()
-            self.erase_shot_and_explosion_from_mask(shot, collider, overlap_mask, explosion_mask)
-            self.erase_visible_pixels(overlap_mask)
+            self.update_mask_and_visible_pixels(collider, explosion_mask, overlap_mask, shot)
+
+    def update_mask_and_visible_pixels(self, collider, explosion_mask, overlap_mask, shot):
+        self.erase_shot_and_explosion_from_mask(shot, collider, overlap_mask, explosion_mask)
+        self.erase_visible_pixels(overlap_mask)
 
     def erase_shot_and_explosion_from_mask(self, shot, collider, shot_overlap_mask, explosion_mask):
         self._mask_copy.erase(shot_overlap_mask, (0, 0))
