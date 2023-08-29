@@ -6,6 +6,7 @@ from Collider import Collider
 from bitmap_maker import BitmapMaker
 from flyer import InvadersFlyer
 from shot_explosion import ShotExplosion
+from tasks import Tasks
 
 
 class PlayerShot(InvadersFlyer):
@@ -18,6 +19,7 @@ class PlayerShot(InvadersFlyer):
         self._rect = self.bits.get_rect()
         self.position = position + offset
         self.should_die = False
+        self._tasks = Tasks()
 
     @property
     def mask(self):
@@ -28,13 +30,13 @@ class PlayerShot(InvadersFlyer):
         return self._rect
 
     def begin_interactions(self, fleets):
-        pass
+        self._tasks.clear()
 
     def hit_invader(self, fleets):
         self.remind_me_to_die(fleets)
 
     def end_interactions(self, fleets):
-        pass
+        self._tasks.finish()
 
     @property
     def position(self):
@@ -88,10 +90,10 @@ class PlayerShot(InvadersFlyer):
         self.remind_me_to_die(fleets)
 
     def remind_me_to_explode(self, fleets):
-        fleets.remind_me(lambda: self.actually_explode(fleets))
+        self._tasks.remind_me(lambda: self.actually_explode(fleets))
 
     def remind_me_to_die(self, fleets):
-        fleets.remind_me(lambda: self.actually_die(fleets))
+        self._tasks.remind_me(lambda: self.actually_die(fleets))
 
     def actually_explode(self, fleets):
         fleets.append(ShotExplosion(self.position))
