@@ -4,6 +4,7 @@ from pygame import Mask, Surface, Vector2
 from Collider import Collider
 from bitmap_maker import BitmapMaker
 from flyer import InvadersFlyer
+from tasks import Tasks
 
 
 class Shield(InvadersFlyer):
@@ -19,6 +20,7 @@ class Shield(InvadersFlyer):
         self._mask_copy = self.mask.copy()
         self._rect = self._map.get_rect()
         self._rect.center = position
+        self._tasks = Tasks()
 
     @property
     def mask(self):
@@ -37,7 +39,11 @@ class Shield(InvadersFlyer):
         # mask_surf.set_colorkey("black")
         # screen.blit(mask_surf, mask_rect)
 
+    def begin_interactions(self, fleets):
+        self._tasks.clear()
+
     def end_interactions(self, fleets):
+        self._tasks.finish()
         self._mask = self._mask_copy.copy()
         pass
 
@@ -70,7 +76,7 @@ class Shield(InvadersFlyer):
 
     def update_mask_and_visible_pixels(self, collider, explosion_mask, overlap_mask, shot):
         self.erase_shot_and_explosion_from_mask(shot, collider, overlap_mask, explosion_mask)
-        self.erase_visible_pixels(overlap_mask)
+        self._tasks.remind_me(lambda: self.erase_visible_pixels(overlap_mask, self._mask_copy))
 
     def erase_shot_and_explosion_from_mask(self, shot, collider, shot_overlap_mask, explosion_mask):
         self._mask_copy.erase(shot_overlap_mask, (0, 0))
@@ -82,9 +88,9 @@ class Shield(InvadersFlyer):
         adjust_image_to_center = collider.offset() + Vector2(offset_x, 0)
         self._mask_copy.erase(explosion_mask, adjust_image_to_center)
 
-    def erase_visible_pixels(self, shot_mask):
+    def erase_visible_pixels(self, shot_mask, shield_mask):
         rect = shot_mask.get_rect()
-        surf = self._mask_copy.to_surface()
+        surf = shield_mask.to_surface()
         self._map.blit(surf, rect)
 
     def interact_with_invaderexplosion(self, explosion, fleets):
