@@ -7,7 +7,7 @@ class TodoList:
     def remind_me(self, func):
         self.todos.append(func)
 
-    def execute(self):
+    def finish(self):
         for func in self.todos:
             func()
         self.todos.clear()
