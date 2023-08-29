@@ -1,20 +1,13 @@
 # SpaceObjects
 from typing import Callable
 from interactor import Interactor
-
-
-class _Reminder:
-    def __init__(self, func):
-        self.func = func
-
-    def execute(self):
-        self.func()
+from tasks import Tasks
 
 
 class Fleets:
     def __init__(self):
         self.flyers = list()
-        self.reminders = []
+        self.tasks = Tasks()
 
     @property
     def all_objects(self):
@@ -61,7 +54,7 @@ class Fleets:
         Interactor(self).perform_interactions()
 
     def begin_interactions(self):
-        self.reminders = []
+        self.tasks = Tasks()
         for flyer in self.all_objects:
             flyer.begin_interactions(self)
 
@@ -71,11 +64,8 @@ class Fleets:
             flyer.end_interactions(self)
 
     def remind_me(self, reminder: Callable):
-        reminder = _Reminder(reminder)
-        self.reminders.append(reminder)
+        self.tasks.remind_me(reminder)
 
     def _execute_reminders(self):
-        for reminder in self.reminders:
-            reminder.execute()
-        self.reminders = []
+        self.tasks.finish()
 
