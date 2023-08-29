@@ -10,4 +10,7 @@ class TodoList:
     def finish(self):
         for func in self.todos:
             func()
+        self.clear()
+
+    def clear(self):
         self.todos.clear()
