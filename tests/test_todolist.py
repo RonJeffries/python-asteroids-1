@@ -25,3 +25,15 @@ class TestTodoList:
         todo.remind_me(lambda: self.accumulate(13))
         todo.execute()
         assert self.value == 39
+
+    def test_clears_list(self):
+        todo = TodoList()
+        todo.remind_me(lambda: self.save_value(31))
+        todo.remind_me(lambda: self.accumulate(13))
+        todo.execute()
+        assert self.value == 44
+        self.value = 0
+        todo.execute()
+        assert self.value == 0
+
+

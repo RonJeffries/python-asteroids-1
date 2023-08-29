@@ -10,3 +10,4 @@ class TodoList:
     def execute(self):
         for func in self.todos:
             func()
+        self.todos.clear()
