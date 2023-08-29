@@ -24,31 +24,6 @@ class FakeFlyer:
         pass
 
 
-class Remindable:
-    def __init__(self):
-        self.reminded = False
-        self.value = 37
-        self.compared = False
-
-    def set_true(self):
-        self.reminded = True
-
-    def set_value(self, value=42):
-        self.value = value
-
-    def compare(self, a, b):
-        self.compared = a == b
-
-    def begin_interactions(self, fleets):
-        pass
-
-    def end_interactions(self, fleets):
-        pass
-
-    def interact_with(self, other, fleets):
-        fleets.remind_me(lambda: self.compare(96, 96))
-
-
 class TestFleets:
     def test_len_etc(self):
         fleets = Fleets()
@@ -63,72 +38,6 @@ class TestFleets:
     def test_copies_all_objects(self):
         fleets = Fleets()
         assert fleets.all_objects is not fleets.flyers
-
-    def test_reminders(self):
-        fleets = Fleets()
-        obj = Remindable()
-        fleets.remind_me(obj.set_true)
-        assert not obj.reminded
-        fleets._execute_reminders()
-        assert obj.reminded
-
-    def test_two_reminders(self):
-        fleets = Fleets()
-        obj = Remindable()
-        fleets.remind_me(obj.set_true)
-        fleets.remind_me(obj.set_value)
-        assert not obj.reminded
-        assert obj.value == 37
-        fleets._execute_reminders()
-        assert obj.reminded
-        assert obj.value == 42
-
-    def test_parameters(self):
-        fleets = Fleets()
-        obj = Remindable()
-        fleets.remind_me(lambda: obj.compare(666, 333 + 333))
-        assert obj.value == 37
-        fleets._execute_reminders()
-        assert obj.compared
-
-    def test_reminder_form(self):
-        obj = Remindable()
-        reminder = [obj.set_value, 666]
-        func = reminder[0]
-        arg = reminder[1]
-        func(arg)
-        assert obj.value == 666
-
-    def test_two_parameters(self):
-        obj = Remindable()
-        assert not obj.compared
-        reminder = [lambda: obj.compare(666, 333+333)]
-        func = reminder[0]
-        func()
-        assert obj.compared
-
-    def test_fleets_interaction_cycle(self):
-        obj = Remindable()
-        fleets = Fleets()
-        fleets. append(obj)
-        fleets.append(Remindable())
-        fleets.begin_interactions()
-        fleets.perform_interactions()
-        fleets.end_interactions()
-        assert obj.compared
-
-    def test_two_remindables(self):
-        o1 = Remindable()
-        o2 = Remindable()
-        fleets = Fleets()
-        fleets. append(o1)
-        fleets. append(o2)
-        fleets.append(Remindable())
-        fleets.begin_interactions()
-        fleets.perform_interactions()
-        fleets.end_interactions()
-        assert o1.compared
-        assert o2.compared
 
     def test_empty_list(self):
         a = []
