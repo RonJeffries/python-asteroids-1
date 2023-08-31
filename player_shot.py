@@ -6,7 +6,6 @@ from Collider import Collider
 from bitmap_maker import BitmapMaker
 from flyer import InvadersFlyer
 from shot_explosion import ShotExplosion
-from tasks import Tasks
 
 
 class PlayerShot(InvadersFlyer):
@@ -19,7 +18,6 @@ class PlayerShot(InvadersFlyer):
         self._rect = self.bits.get_rect()
         self.position = position + offset
         self.should_die = False
-        self._tasks = Tasks()
 
     @property
     def mask(self):
@@ -30,13 +28,13 @@ class PlayerShot(InvadersFlyer):
         return self._rect
 
     def begin_interactions(self, fleets):
-        self._tasks.clear()
+        pass
 
     def hit_invader(self, fleets):
-        self.remind_me_to_die(fleets)
+        fleets.remove(self)
 
     def end_interactions(self, fleets):
-        self._tasks.finish()
+        pass
 
     @property
     def position(self):
@@ -63,7 +61,8 @@ class PlayerShot(InvadersFlyer):
 
     def interact_with_invadershot(self, shot, fleets):
         if self.colliding(shot):
-            self.remind_me_to_explode_and_die(fleets)
+            fleets.append(ShotExplosion(self.position))
+            fleets.remove(self)
 
     def interact_with_playerexplosion(self, _explosion, _fleets):
         pass
@@ -73,7 +72,7 @@ class PlayerShot(InvadersFlyer):
 
     def interact_with_shield(self, shield, fleets):
         if self.colliding(shield):
-            self.remind_me_to_die(fleets)
+            fleets.remove(self)
 
     def interact_with_shotcontroller(self, controller, fleets):
         pass
@@ -83,23 +82,8 @@ class PlayerShot(InvadersFlyer):
 
     def interact_with_topbumper(self, top_bumper, fleets):
         if top_bumper.intersecting(self.position):
-            self.remind_me_to_explode_and_die(fleets)
-
-    def remind_me_to_explode_and_die(self, fleets):
-        self.remind_me_to_explode(fleets)
-        self.remind_me_to_die(fleets)
-
-    def remind_me_to_explode(self, fleets):
-        self._tasks.remind_me(lambda: self.actually_explode(fleets))
-
-    def remind_me_to_die(self, fleets):
-        self._tasks.remind_me(lambda: self.actually_die(fleets))
-
-    def actually_explode(self, fleets):
-        fleets.append(ShotExplosion(self.position))
-
-    def actually_die(self, fleets):
-        fleets.remove(self)
+            fleets.append(ShotExplosion(self.position))
+            fleets.remove(self)
 
     def colliding(self, invaders_flyer):
         collider = Collider(self, invaders_flyer)

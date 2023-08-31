@@ -4,7 +4,6 @@ from pygame import Vector2
 import u
 from Collider import Collider
 from flyer import InvadersFlyer
-from tasks import Tasks
 
 
 class InvaderShot(InvadersFlyer):
@@ -18,7 +17,6 @@ class InvaderShot(InvadersFlyer):
         self.count = 0
         self.moves = 0
         self._available = True
-        self._tasks = Tasks()
 
     @property
     def available(self):
@@ -61,12 +59,6 @@ class InvaderShot(InvadersFlyer):
         self.map_index = (self.map_index + 1) % 4
         self._map = self.maps[self.map_index]
 
-    def begin_interactions(self, fleets):
-        self._tasks.clear()
-
-    def end_interactions(self, fleets):
-        self._tasks.finish()
-
     def interact_with_bumper(self, bumper, fleets):
         pass
 
@@ -81,7 +73,7 @@ class InvaderShot(InvadersFlyer):
 
     def die_on_collision(self, flyer, fleets):
         if self.colliding(flyer):
-            self._tasks.remind_me(lambda: self.die(fleets))
+            self.die(fleets)
 
     def interact_with_invadershot(self, shot, fleets):
         pass
