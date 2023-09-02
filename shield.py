@@ -80,13 +80,9 @@ class Shield(InvadersFlyer):
         self.erase_explosion_from_mask(collider_offset, explosion, explosion_mask, shot)
 
     def erase_explosion_from_mask(self, collider_offset, explosion, explosion_mask, shot):
-        # explosion_rect = explosion.get_rect()
-        # explosion_rect.center = shot.rect.center
-        # adjust_image_to_center = Vector2(explosion_rect.topleft) - Vector2(shot.rect.topleft)
-        # print(explosion_rect, shot.rect, adjust_image_to_center)
-        expl_rect = explosion_mask.get_rect()
-        offset_x = (shot.rect.w - expl_rect.w) // 2
-        adjust_image_to_center = collider_offset + Vector2(offset_x, 0)
+        explosion_rect = explosion.get_rect()
+        explosion_rect.center = shot.rect.center
+        adjust_image_to_center = Vector2(explosion_rect.topleft) - Vector2(self._rect.topleft)
         self._mask.erase(explosion_mask, adjust_image_to_center)
 
     def erase_visible_pixels(self, shot_mask, shield_mask):
