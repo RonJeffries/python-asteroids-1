@@ -10,10 +10,10 @@ from tasks import Tasks
 class Shield(InvadersFlyer):
     def __init__(self, position):
         map = BitmapMaker.instance().shield
-        explo = BitmapMaker.instance().invader_shot_explosion
-        self._explosion_mask = pygame.mask.from_surface(explo)
-        player_explo = BitmapMaker.instance().player_shot_explosion
-        self._player_explosion_mask = pygame.mask.from_surface(player_explo)
+        self._invader_shot_explosion = BitmapMaker.instance().invader_shot_explosion
+        self._invader_explosion_mask = pygame.mask.from_surface(self._invader_shot_explosion)
+        self._player_shot_explosion = BitmapMaker.instance().player_shot_explosion
+        self._player_explosion_mask = pygame.mask.from_surface(self._player_shot_explosion)
         self._map = map.copy()
         self._map.set_colorkey("black")
         self._mask = pygame.mask.from_surface(map)
@@ -57,29 +57,33 @@ class Shield(InvadersFlyer):
         pass
 
     def interact_with_invadershot(self, shot, fleets):
-        self.process_shot_collision(shot, self._explosion_mask)
+        self.process_shot_collision(shot, self._invader_shot_explosion, self._invader_explosion_mask)
 
     def interact_with_playerexplosion(self, explosion, fleets):
         pass
 
     def interact_with_playershot(self, shot, fleets):
-        self.process_shot_collision(shot, self._player_explosion_mask)
+        self.process_shot_collision(shot, self._player_shot_explosion, self._player_explosion_mask)
 
-    def process_shot_collision(self, shot, explosion_mask):
+    def process_shot_collision(self, shot, explosion, explosion_mask):
         collider = Collider(self, shot)
         if collider.colliding():
             overlap_mask: Mask = collider.overlap_mask()
-            self.update_mask_and_visible_pixels(collider, explosion_mask, overlap_mask, shot)
+            self.update_mask_and_visible_pixels(collider, explosion, explosion_mask, overlap_mask, shot)
 
-    def update_mask_and_visible_pixels(self, collider, explosion_mask, overlap_mask, shot):
-        self._tasks.remind_me(lambda: self.erase_shot_and_explosion_from_mask(shot, collider.offset(), overlap_mask, explosion_mask))
+    def update_mask_and_visible_pixels(self, collider, explosion, explosion_mask, overlap_mask, shot):
+        self._tasks.remind_me(lambda: self.erase_shot_and_explosion_from_mask(shot, collider.offset(), overlap_mask, explosion, explosion_mask))
         self._tasks.remind_me(lambda: self.erase_visible_pixels(overlap_mask, self._mask))
 
-    def erase_shot_and_explosion_from_mask(self, shot, collider_offset, shot_overlap_mask, explosion_mask):
+    def erase_shot_and_explosion_from_mask(self, shot, collider_offset, shot_overlap_mask, explosion, explosion_mask):
         self._mask.erase(shot_overlap_mask, (0, 0))
-        self.erase_explosion_from_mask(collider_offset, explosion_mask, shot)
+        self.erase_explosion_from_mask(collider_offset, explosion, explosion_mask, shot)
 
-    def erase_explosion_from_mask(self, collider_offset, explosion_mask, shot):
+    def erase_explosion_from_mask(self, collider_offset, explosion, explosion_mask, shot):
+        # explosion_rect = explosion.get_rect()
+        # explosion_rect.center = shot.rect.center
+        # adjust_image_to_center = Vector2(explosion_rect.topleft) - Vector2(shot.rect.topleft)
+        # print(explosion_rect, shot.rect, adjust_image_to_center)
         expl_rect = explosion_mask.get_rect()
         offset_x = (shot.rect.w - expl_rect.w) // 2
         adjust_image_to_center = collider_offset + Vector2(offset_x, 0)
