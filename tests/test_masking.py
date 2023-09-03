@@ -2,6 +2,9 @@ import pygame.mask
 import pytest
 from pygame import Surface, Vector2, Rect
 
+from ImageMasher import ImageMasher
+from invader_shot import InvaderShot
+from player_shot import PlayerShot
 from tests.test_collider import Thing
 
 
@@ -34,6 +37,12 @@ class TestMasking:
     def make_explosion(self):
         mask = pygame.Mask((5, 5), fill=True)
         rect = pygame.Rect(0, 0, 5, 5)
+        return Thing(rect, mask)
+
+    @pytest.fixture
+    def make_small_explosion(self):
+        mask = pygame.Mask((3, 3), fill=True)
+        rect = pygame.Rect(0, 0, 3, 3)
         return Thing(rect, mask)
 
     def test_what_are_centers(self, make_missile, make_target):
@@ -227,6 +236,46 @@ class TestMasking:
                 char = line[x]
                 mask.set_at((x, y), char == "1")
         return mask
+
+    def test_masher_exists(self, make_missile, make_target):
+        shield = make_target
+        shot = make_missile
+        ImageMasher(shield, shot)
+
+    def test_masher_vs_shot(self, make_missile, make_target):
+        shield = make_target
+        shield.position = (100, 200)
+        shot = make_missile
+        shot.position = (100, 200)
+        assert shot.rect.center == (100, 200)
+        masher = ImageMasher(shield, shot)
+        assert masher.shot_offset() == (3, 3)
+        masher.apply_shot()
+        mask = masher.get_mask()
+        hits = [(3, 3), (4, 3), (5, 3), (4, 4), (4, 5)]
+        self.check_bits(mask, hits)
+
+    def test_masher_vs_shot_explosion(self, make_missile, make_target, make_small_explosion):
+        shield = make_target
+        shield.position = (100, 200)
+        shot = make_missile
+        shot.position = (100, 200)
+        expl = make_small_explosion
+        shot.explosion_mask = expl.mask
+        masher = ImageMasher(shield, shot)
+        masher.apply_explosion()
+        mask = masher.get_mask()
+        hits = [(3, 3), (4, 3), (5, 3), (3, 4), (4, 4), (5, 4), (3, 5), (4, 5), (5, 5),]
+        self.check_bits(mask, hits)
+
+    def test_shots_explosion_masks(self):
+        player_shot = PlayerShot()
+        assert player_shot.explosion_mask isinstance(pygame.Mask)
+        invader_shot = InvaderShot(None, None)
+        assert invader_shot.explosion_mask isinstance(pygame.Mask)
+
+
+
 
 
 

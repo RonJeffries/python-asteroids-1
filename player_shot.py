@@ -18,6 +18,8 @@ class PlayerShot(InvadersFlyer):
         self._rect = self.bits.get_rect()
         self.position = position + offset
         self.should_die = False
+        explosion = BitmapMaker.instance().player_shot_explosion
+        self.explosion_mask = pygame.mask.from_surface(explosion)
 
     @property
     def mask(self):

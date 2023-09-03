@@ -3,6 +3,7 @@ from pygame import Vector2
 
 import u
 from Collider import Collider
+from bitmap_maker import BitmapMaker
 from flyer import InvadersFlyer
 
 
@@ -17,6 +18,9 @@ class InvaderShot(InvadersFlyer):
         self.count = 0
         self.moves = 0
         self._available = True
+        explosion = BitmapMaker.instance().invader_shot_explosion
+        self.explosion_mask = pygame.mask.from_surface(explosion)
+
 
     @property
     def available(self):

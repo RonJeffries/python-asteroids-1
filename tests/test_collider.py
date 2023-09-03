@@ -11,6 +11,14 @@ class Thing:
         self.rect = rect
         self.mask = mask
 
+    @property
+    def position(self):
+        return self.rect.center
+
+    @position.setter
+    def position(self, value):
+        self.rect.center = value
+
 
 class TestCollider:
     @pytest.fixture
