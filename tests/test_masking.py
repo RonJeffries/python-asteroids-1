@@ -269,6 +269,20 @@ class TestMasking:
         hits = [(3, 3), (4, 3), (5, 3), (3, 4), (4, 4), (5, 4), (3, 5), (4, 5), (5, 5),]
         self.check_bits(mask, hits)
 
+    def test_masher_both(self, make_missile, make_target, make_small_explosion):
+        shield = make_target
+        shield.position = (100, 200)
+        shot = make_missile
+        shot.position = (100, 200)
+        expl = make_small_explosion
+        shot.explosion_mask = expl.mask
+        masher = ImageMasher(shield, shot)
+        masher.apply_shot()
+        masher.apply_explosion()
+        mask = masher.get_mask()
+        hits = [(3, 3), (4, 3), (5, 3), (3, 4), (4, 4), (5, 4), (3, 5), (4, 5), (5, 5),]
+        self.check_bits(mask, hits)
+
     def test_shots_explosion_masks(self):
         player_shot = PlayerShot()
         assert isinstance(player_shot.explosion_mask, pygame.Mask)
