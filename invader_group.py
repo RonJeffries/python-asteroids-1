@@ -1,3 +1,5 @@
+import pygame
+
 from bitmap_maker import BitmapMaker
 from invader import Invader
 
@@ -56,6 +58,12 @@ class InvaderGroup():
         # image.fill("red", rect, special_flags=pygame.BLEND_MULT)
         for invader in self.invaders:
             invader.draw(screen)
+        # surf = BitmapMaker.instance().player_shot_explosion
+        # rect = surf.get_rect()
+        # rect.center = (100, 900)
+        # screen.blit(surf, rect)
+        # pygame.draw.line(screen, "red", (100, 850), (100, 950))
+        # pygame.draw.line(screen, "red", (50, 900), (150, 900))
 
     def interact_with_bumper(self, bumper, fleet):
         for invader in self.invaders:

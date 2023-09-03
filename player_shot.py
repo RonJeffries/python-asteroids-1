@@ -29,6 +29,14 @@ class PlayerShot(InvadersFlyer):
     def rect(self):
         return self._rect
 
+    @property
+    def position(self):
+        return Vector2(self._rect.center)
+
+    @position.setter
+    def position(self, vector):
+        self._rect.center = vector
+
     def begin_interactions(self, fleets):
         pass
 
