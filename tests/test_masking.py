@@ -3,6 +3,7 @@ import pytest
 from pygame import Surface, Vector2, Rect
 
 from ImageMasher import ImageMasher
+from bitmap_maker import BitmapMaker
 from invader_shot import InvaderShot
 from player_shot import PlayerShot
 from tests.test_collider import Thing
@@ -270,9 +271,9 @@ class TestMasking:
 
     def test_shots_explosion_masks(self):
         player_shot = PlayerShot()
-        assert player_shot.explosion_mask isinstance(pygame.Mask)
-        invader_shot = InvaderShot(None, None)
-        assert invader_shot.explosion_mask isinstance(pygame.Mask)
+        assert isinstance(player_shot.explosion_mask, pygame.Mask)
+        invader_shot = InvaderShot((0, 0), BitmapMaker.instance().squiggles)
+        assert isinstance(invader_shot.explosion_mask, pygame.Mask)
 
 
 
