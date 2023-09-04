@@ -5,21 +5,17 @@ class ImageMasher:
     def __init__(self, target, shot):
         self.target = target
         self.shot = shot
-        print("masher center", target.rect.center, shot.rect.center, self.diff(target.rect.center, shot.rect.center))
-        print("masher top", target.rect.topleft, shot.rect.topleft, self.diff(target.rect.topleft, shot.rect.topleft))
         self.new_mask = self.target.mask.copy()
 
-    def diff(self, rect1, rect2):
-        return Vector2(rect2) - Vector2(rect1)
+    def offset(self, point1, point2):
+        return Vector2(point1) - Vector2(point2)
 
     def apply_explosion(self):
-        offset = self.shot_offset()
-        print("masher offset", offset)
-        mask = self.shot.explosion_mask
-        rect = mask.get_rect()
-        center = Vector2(rect.center)
-        center = Vector2(0, 0)
-        self.new_mask.erase(mask, offset - center)
+        explosion_mask = self.shot.explosion_mask
+        explosion_rect = explosion_mask.get_rect()
+        explosion_rect.center = self.shot.position
+        explosion_offset = self.offset(explosion_rect.topleft, self.target.rect.topleft)
+        self.new_mask.erase(explosion_mask, explosion_offset)
 
     def apply_shot(self):
         offset = self.shot_offset()
@@ -30,4 +26,4 @@ class ImageMasher:
         return self.new_mask
 
     def shot_offset(self):
-        return Vector2(self.shot.rect.topleft) - Vector2(self.target.rect.topleft)
+        return self.offset(self.shot.rect.topleft, self.target.rect.topleft)

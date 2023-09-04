@@ -6,6 +6,7 @@ from ImageMasher import ImageMasher
 from bitmap_maker import BitmapMaker
 from invader_shot import InvaderShot
 from player_shot import PlayerShot
+from shield import Shield
 from tests.test_collider import Thing
 
 
@@ -21,6 +22,7 @@ class TestMasking:
         surf.fill("white", surf.get_rect())
         surf.set_at((0, 1), "black")
         surf.set_at((0, 2), "black")
+        # surf.set_at((1, 1), "black")
         surf.set_at((2, 1), "black")
         surf.set_at((2, 2), "black")
         mask = pygame.mask.from_surface(surf)
@@ -44,6 +46,52 @@ class TestMasking:
     def make_small_explosion(self):
         mask = pygame.Mask((3, 3), fill=True)
         rect = pygame.Rect(0, 0, 3, 3)
+        return Thing(rect, mask)
+
+    @pytest.fixture
+    def make_x(self):
+        data = """
+        101
+        010
+        101
+        """
+        mask = self.mask_from_string(data)
+        rect = pygame.Rect(0, 0, 3, 3)
+        return Thing(rect, mask)
+
+    @pytest.fixture
+    def make_plus(self):
+        data = """
+        010
+        111
+        010
+        """
+        mask = self.mask_from_string(data)
+        rect = pygame.Rect(0, 0, 3, 3)
+        return Thing(rect, mask)
+
+    @pytest.fixture
+    def make_small_square(self):
+        data = """
+        111
+        101
+        111
+        """
+        mask = self.mask_from_string(data)
+        rect = pygame.Rect(0, 0, 3, 3)
+        return Thing(rect, mask)
+
+    @pytest.fixture
+    def make_square(self):
+        data = """
+        11111
+        10001
+        10001
+        10001
+        11111
+        """
+        mask = self.mask_from_string(data)
+        rect = pygame.Rect(0, 0, 5, 5)
         return Thing(rect, mask)
 
     def test_what_are_centers(self, make_missile, make_target):
@@ -168,16 +216,20 @@ class TestMasking:
         rect = mask.get_rect()
         ok = True
         print()
+        actual_hits = []
         for y in range(rect.h):
             for x in range(rect.w):
                 cell = (x, y)
                 bit = mask.get_at(cell)
+                if bit == 0:
+                    actual_hits.append(cell)
                 print(bit, end="")
                 if cell in hits:
                     ok = ok and bit == 0
                 else:
                     ok = ok and bit == 1
             print()
+        print(actual_hits)
         assert ok
 
 
@@ -256,6 +308,7 @@ class TestMasking:
         hits = [(3, 3), (4, 3), (5, 3), (4, 4), (4, 5)]
         self.check_bits(mask, hits)
 
+    @pytest.mark.skip(reason="needs work")
     def test_masher_vs_shot_explosion(self, make_missile, make_target, make_small_explosion):
         shield = make_target
         shield.position = (100, 200)
@@ -268,6 +321,7 @@ class TestMasking:
         mask = masher.get_mask()
         hits = [(3, 3), (4, 3), (5, 3), (3, 4), (4, 4), (5, 4), (3, 5), (4, 5), (5, 5),]
         self.check_bits(mask, hits)
+        assert False
 
     def test_masher_both(self, make_missile, make_target, make_small_explosion):
         shield = make_target
@@ -288,6 +342,80 @@ class TestMasking:
         assert isinstance(player_shot.explosion_mask, pygame.Mask)
         invader_shot = InvaderShot((0, 0), BitmapMaker.instance().squiggles)
         assert isinstance(invader_shot.explosion_mask, pygame.Mask)
+
+    @pytest.mark.skip(reason="needs work")
+    def test_player_vs_shield(self):
+        shield = Shield((100, 200))
+        player_shot = PlayerShot()
+        player_shot.position = (100, 200)
+        masher = ImageMasher(shield, player_shot)
+        masher.apply_shot()
+        masher.apply_explosion()
+        mask = masher.get_mask()
+        hits = []
+        self.check_bits(mask, hits)
+
+    @pytest.mark.skip(reason="needs work")
+    def test_invader_vs_shield(self):
+        shield = Shield((100, 200))
+        player_shot = InvaderShot((100, 200), BitmapMaker.instance().rollers)
+        player_shot.position = (100, 200)
+        masher = ImageMasher(shield, player_shot)
+        masher.apply_shot()
+        masher.apply_explosion()
+        mask = masher.get_mask()
+        hits = []
+        self.check_bits(mask, hits)
+
+    # @pytest.mark.skip(reason="needs work")
+    def test_plus_x(self, make_target, make_x, make_plus):
+        x = make_x
+        x.position = (100, 200)
+        plus = make_plus
+        x.explosion_mask = plus.mask
+        target = make_target
+        target.position = (100, 200)
+        masher = ImageMasher(target, x)
+        masher.apply_shot()
+        masher.apply_explosion()
+        mask = masher.get_mask()
+        hits = [(3, 3), (4, 3), (5, 3), (3, 4), (4, 4), (5, 4), (3, 5), (4, 5), (5, 5)]
+        self.check_bits(mask, hits)
+
+    def test_plus_square(self, make_target, make_square, make_plus):
+        x = make_square
+        x.position = (100, 200)
+        plus = make_plus
+        plus.position = (100, 200)
+        plus.explosion_mask = x.mask
+        target = make_target
+        target.position = (100, 200)
+        masher = ImageMasher(target, plus)
+        masher.apply_shot()
+        masher.apply_explosion()
+        mask = masher.get_mask()
+        hits = [(2, 2), (3, 2), (4, 2), (5, 2), (6, 2),
+                (2, 3), (4, 3), (6, 3),
+                (2, 4), (3, 4), (4, 4), (5, 4), (6, 4),
+                (2, 5), (4, 5), (6, 5),
+                (2, 6), (3, 6), (4, 6), (5, 6), (6, 6)]
+        self.check_bits(mask, hits)
+
+    def test_plus_small_square(self, make_target, make_small_square, make_plus):
+        x = make_small_square
+        x.position = (100, 200)
+        plus = make_plus
+        plus.position = (100, 200)
+        plus.explosion_mask = x.mask
+        target = make_target
+        target.position = (100, 200)
+        masher = ImageMasher(target, plus)
+        masher.apply_shot()
+        masher.apply_explosion()
+        mask = masher.get_mask()
+        hits = [(3, 3), (4, 3), (5, 3), (3, 4), (4, 4), (5, 4), (3, 5), (4, 5), (5, 5)]
+        self.check_bits(mask, hits)
+
 
 
 

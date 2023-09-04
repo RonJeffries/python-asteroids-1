@@ -2,6 +2,7 @@ import pygame
 from pygame import Mask, Surface, Vector2
 
 from Collider import Collider
+from ImageMasher import ImageMasher
 from bitmap_maker import BitmapMaker
 from flyer import InvadersFlyer
 from tasks import Tasks
@@ -68,8 +69,18 @@ class Shield(InvadersFlyer):
     def process_shot_collision(self, shot, explosion, explosion_mask):
         collider = Collider(self, shot)
         if collider.colliding():
-            overlap_mask: Mask = collider.overlap_mask()
-            self.update_mask_and_visible_pixels(collider, explosion, explosion_mask, overlap_mask, shot)
+            self._tasks.remind_me(lambda: self.mash_image(shot))
+            # overlap_mask: Mask = collider.overlap_mask()
+            # self.update_mask_and_visible_pixels(collider, explosion, explosion_mask, overlap_mask, shot)
+
+    def mash_image(self, shot):
+        masher = ImageMasher(self, shot)
+        masher.apply_shot()
+        masher.apply_explosion()
+        self._mask = masher.get_mask()
+        rect = self._mask.get_rect()
+        surf = self._mask.to_surface()
+        self._map.blit(surf, rect)
 
     def update_mask_and_visible_pixels(self, collider, explosion, explosion_mask, overlap_mask, shot):
         self._tasks.remind_me(lambda: self.erase_shot_and_explosion_from_mask(shot, collider.offset(), overlap_mask, explosion, explosion_mask))
