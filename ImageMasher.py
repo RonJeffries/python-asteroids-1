@@ -9,7 +9,7 @@ class ImageMasher:
 
     def apply_damage(self):
         self.apply_shot()
-        self.apply_damage()
+        self.apply_explosion()
 
     def apply_shot(self):
         shot_overlap = self.shot_overlap_mask()
