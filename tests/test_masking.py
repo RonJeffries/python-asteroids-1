@@ -317,7 +317,7 @@ class TestMasking:
         expl = make_small_explosion
         shot.explosion_mask = expl.mask
         masher = ImageMasher(shield, shot)
-        masher.apply_damage()
+        masher.determine_damage()
         mask = masher.get_new_mask()
         hits = [(3, 3), (4, 3), (5, 3), (3, 4), (4, 4), (5, 4), (3, 5), (4, 5), (5, 5)]
         self.check_bits(mask, hits)

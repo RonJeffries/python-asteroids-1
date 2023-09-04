@@ -7,7 +7,7 @@ class ImageMasher:
         self.shot = shot
         self.new_mask = self.target.mask.copy()
 
-    def apply_damage(self):
+    def determine_damage(self):
         self.apply_shot()
         self.apply_explosion()
 
@@ -44,3 +44,8 @@ class ImageMasher:
 
     def get_new_mask(self):
         return self.new_mask
+
+    def apply_damage_to_surface(self, surface):
+        area_to_blit = self.new_mask.get_rect()
+        damaged_surface = self.new_mask.to_surface()
+        surface.blit(damaged_surface, area_to_blit)
