@@ -305,7 +305,7 @@ class TestMasking:
         masher = ImageMasher(shield, shot)
         assert masher.shot_offset() == (3, 3)
         masher.apply_shot()
-        mask = masher.get_mask()
+        mask = masher.get_new_mask()
         hits = [(3, 3), (4, 3), (5, 3), (4, 4), (4, 5)]
         self.check_bits(mask, hits)
 
@@ -319,7 +319,7 @@ class TestMasking:
         masher = ImageMasher(shield, shot)
         masher.apply_shot()
         masher.apply_explosion()
-        mask = masher.get_mask()
+        mask = masher.get_new_mask()
         hits = [(3, 3), (4, 3), (5, 3), (3, 4), (4, 4), (5, 4), (3, 5), (4, 5), (5, 5)]
         self.check_bits(mask, hits)
 
@@ -340,7 +340,7 @@ class TestMasking:
         masher = ImageMasher(target, plus)
         masher.apply_shot()
         masher.apply_explosion()
-        mask = masher.get_mask()
+        mask = masher.get_new_mask()
         hits = [(2, 2), (3, 2), (4, 2), (5, 2), (6, 2),
                 (2, 3), (4, 3), (6, 3),
                 (2, 4), (3, 4), (4, 4), (5, 4), (6, 4),

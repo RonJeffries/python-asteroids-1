@@ -77,7 +77,7 @@ class Shield(InvadersFlyer):
         masher = ImageMasher(self, shot)
         masher.apply_shot()
         masher.apply_explosion()
-        self._mask = masher.get_mask()
+        self._mask = masher.get_new_mask()
         rect = self._mask.get_rect()
         surf = self._mask.to_surface()
         self._map.blit(surf, rect)
