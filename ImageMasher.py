@@ -7,6 +7,10 @@ class ImageMasher:
         self.shot = shot
         self.new_mask = self.target.mask.copy()
 
+    def apply_damage(self):
+        self.apply_shot()
+        self.apply_damage()
+
     def apply_shot(self):
         shot_overlap = self.shot_overlap_mask()
         self.new_mask.erase(shot_overlap, (0, 0))
