@@ -2,12 +2,16 @@ from pygame import Vector2
 
 
 class ImageMasher:
-    def __init__(self, target, shot):
-        self.target_mask = target.mask
-        self.target_topleft = target.rect.topleft
-        self.shot_mask = shot.mask
-        self.shot_position = shot.position
-        self.explosion_mask = shot.explosion_mask
+    @classmethod
+    def from_flyers(cls, target, shot):
+        return cls(target.mask, target.rect.topleft, shot.mask, shot.position, shot.explosion_mask)
+
+    def __init__(self, target_mask, target_topleft, shot_mask, shot_position, explosion_mask):
+        self.target_mask = target_mask
+        self.target_topleft = target_topleft
+        self.shot_mask = shot_mask
+        self.shot_position = shot_position
+        self.explosion_mask = explosion_mask
         self.new_mask = self.target_mask.copy()
 
     def determine_damage(self):

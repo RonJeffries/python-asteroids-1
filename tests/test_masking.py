@@ -296,7 +296,7 @@ class TestMasking:
         shot = make_missile
         expl = make_small_explosion
         shot.explosion_mask = expl.mask
-        ImageMasher(shield, shot)
+        ImageMasher.from_flyers(shield, shot)
 
     def test_masher_vs_shot(self, make_missile, make_target, make_small_explosion):
         shield = make_target
@@ -306,7 +306,7 @@ class TestMasking:
         expl = make_small_explosion
         shot.explosion_mask = expl.mask
         assert shot.rect.center == (100, 200)
-        masher = ImageMasher(shield, shot)
+        masher = ImageMasher.from_flyers(shield, shot)
         masher.erase_shot()
         mask = masher.get_new_mask()
         hits = [(3, 3), (4, 3), (5, 3), (4, 4), (4, 5)]
@@ -319,7 +319,7 @@ class TestMasking:
         shot.position = (100, 200)
         expl = make_small_explosion
         shot.explosion_mask = expl.mask
-        masher = ImageMasher(shield, shot)
+        masher = ImageMasher.from_flyers(shield, shot)
         masher.determine_damage()
         mask = masher.get_new_mask()
         hits = [(3, 3), (4, 3), (5, 3), (3, 4), (4, 4), (5, 4), (3, 5), (4, 5), (5, 5)]
@@ -339,7 +339,7 @@ class TestMasking:
         plus.explosion_mask = x.mask
         target = make_target
         target.position = (100, 200)
-        masher = ImageMasher(target, plus)
+        masher = ImageMasher.from_flyers(target, plus)
         masher.erase_shot()
         masher.erase_explosion()
         mask = masher.get_new_mask()
