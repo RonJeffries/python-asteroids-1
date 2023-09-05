@@ -291,16 +291,20 @@ class TestMasking:
 
     # ImageMasher tests start here
 
-    def test_masher_exists(self, make_missile, make_target):
+    def test_masher_exists(self, make_missile, make_target, make_small_explosion):
         shield = make_target
         shot = make_missile
+        expl = make_small_explosion
+        shot.explosion_mask = expl.mask
         ImageMasher(shield, shot)
 
-    def test_masher_vs_shot(self, make_missile, make_target):
+    def test_masher_vs_shot(self, make_missile, make_target, make_small_explosion):
         shield = make_target
         shield.position = (100, 200)
         shot = make_missile
         shot.position = (100, 200)
+        expl = make_small_explosion
+        shot.explosion_mask = expl.mask
         assert shot.rect.center == (100, 200)
         masher = ImageMasher(shield, shot)
         masher.erase_shot()

@@ -5,7 +5,9 @@ class ImageMasher:
     def __init__(self, target, shot):
         self.target_mask = target.mask
         self.target_topleft = target.rect.topleft
-        self.shot = shot
+        self.shot_mask = shot.mask
+        self.shot_position = shot.position
+        self.explosion_mask = shot.explosion_mask
         self.new_mask = self.target_mask.copy()
 
     def determine_damage(self):
@@ -13,10 +15,10 @@ class ImageMasher:
         self.erase_explosion()
 
     def erase_shot(self):
-        self.erase_mask(self.shot.mask)
+        self.erase_mask(self.shot_mask)
 
     def erase_explosion(self):
-        self.erase_mask(self.shot.explosion_mask)
+        self.erase_mask(self.explosion_mask)
 
     def erase_mask(self, shot_mask):
         shot_offset = self.mask_offset_from_target(shot_mask)
@@ -28,7 +30,7 @@ class ImageMasher:
 
     def mask_rectangle_in_shot_position(self, mask):
         rectangle_moved_to_shot_position = mask.get_rect()
-        rectangle_moved_to_shot_position.center = self.shot.position
+        rectangle_moved_to_shot_position.center = self.shot_position
         return rectangle_moved_to_shot_position
 
     def damage_offset_from_target(self, damage_rectangle):
