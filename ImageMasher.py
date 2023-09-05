@@ -16,9 +16,6 @@ class ImageMasher:
         shot_offset = self.mask_offset_from_target(shot_mask)
         self.new_mask.erase(shot_mask, shot_offset)
 
-    def damage_offset_from_target(self, damage_rectangle):
-        return self.offset(damage_rectangle.topleft, self.target.rect.topleft)
-
     def apply_explosion(self):
         explosion_mask = self.shot.explosion_mask
         explosion_offset = self.mask_offset_from_target(explosion_mask)
@@ -33,6 +30,8 @@ class ImageMasher:
         rectangle_moved_to_shot_position.center = self.shot.position
         return rectangle_moved_to_shot_position
 
+    def damage_offset_from_target(self, damage_rectangle):
+        return self.offset(damage_rectangle.topleft, self.target.rect.topleft)
 
     @staticmethod
     def offset(point1, point2):
