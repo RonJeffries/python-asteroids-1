@@ -31,13 +31,13 @@ class ImageMasher:
         self.new_mask.erase(explosion_mask, explosion_offset)
 
     def explosion_offset(self, explosion_mask):
-        explosion_rectangle = self.explosion_rectangle(explosion_mask)
+        explosion_rectangle = self.mask_rectangle_in_shot_position(explosion_mask)
         return self.damage_offset_from_target(explosion_rectangle)
 
-    def explosion_rectangle(self, explosion_mask):
-        explosion_rect_moved_to_shot_position = explosion_mask.get_rect()
-        explosion_rect_moved_to_shot_position.center = self.shot.position
-        return explosion_rect_moved_to_shot_position
+    def mask_rectangle_in_shot_position(self, mask):
+        rectangle_moved_to_shot_position = mask.get_rect()
+        rectangle_moved_to_shot_position.center = self.shot.position
+        return rectangle_moved_to_shot_position
 
 
     @staticmethod
