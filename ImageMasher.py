@@ -14,14 +14,12 @@ class ImageMasher:
     def apply_shot(self):
         self.apply_mask(self.shot.mask)
 
+    def apply_explosion(self):
+        self.apply_mask(self.shot.explosion_mask)
+
     def apply_mask(self, shot_mask):
         shot_offset = self.mask_offset_from_target(shot_mask)
         self.new_mask.erase(shot_mask, shot_offset)
-
-    def apply_explosion(self):
-        explosion_mask = self.shot.explosion_mask
-        explosion_offset = self.mask_offset_from_target(explosion_mask)
-        self.new_mask.erase(explosion_mask, explosion_offset)
 
     def mask_offset_from_target(self, mask):
         explosion_rectangle = self.mask_rectangle_in_shot_position(mask)
