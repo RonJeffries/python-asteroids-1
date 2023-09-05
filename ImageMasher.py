@@ -8,16 +8,16 @@ class ImageMasher:
         self.new_mask = self.target.mask.copy()
 
     def determine_damage(self):
-        self.apply_shot()
-        self.apply_explosion()
+        self.erase_shot()
+        self.erase_explosion()
 
-    def apply_shot(self):
-        self.apply_mask(self.shot.mask)
+    def erase_shot(self):
+        self.erase_mask(self.shot.mask)
 
-    def apply_explosion(self):
-        self.apply_mask(self.shot.explosion_mask)
+    def erase_explosion(self):
+        self.erase_mask(self.shot.explosion_mask)
 
-    def apply_mask(self, shot_mask):
+    def erase_mask(self, shot_mask):
         shot_offset = self.mask_offset_from_target(shot_mask)
         self.new_mask.erase(shot_mask, shot_offset)
 
