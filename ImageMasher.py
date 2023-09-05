@@ -3,9 +3,10 @@ from pygame import Vector2
 
 class ImageMasher:
     def __init__(self, target, shot):
-        self.target = target
+        self.target_mask = target.mask
+        self.target_topleft = target.rect.topleft
         self.shot = shot
-        self.new_mask = self.target.mask.copy()
+        self.new_mask = self.target_mask.copy()
 
     def determine_damage(self):
         self.erase_shot()
@@ -31,7 +32,7 @@ class ImageMasher:
         return rectangle_moved_to_shot_position
 
     def damage_offset_from_target(self, damage_rectangle):
-        return self.offset(damage_rectangle.topleft, self.target.rect.topleft)
+        return self.offset(damage_rectangle.topleft, self.target_topleft)
 
     @staticmethod
     def offset(point1, point2):
