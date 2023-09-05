@@ -12,8 +12,7 @@ class ImageMasher:
         self.apply_explosion()
 
     def apply_shot(self):
-        shot_mask = self.shot.mask
-        self.apply_mask(shot_mask)
+        self.apply_mask(self.shot.mask)
 
     def apply_mask(self, shot_mask):
         shot_offset = self.mask_offset_from_target(shot_mask)
