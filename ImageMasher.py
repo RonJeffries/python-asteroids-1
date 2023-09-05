@@ -13,25 +13,19 @@ class ImageMasher:
 
     def apply_shot(self):
         shot_mask = self.shot.mask
-        shot_offset = self.shot_offset()
+        shot_offset = self.mask_offset_from_target(shot_mask)
         self.new_mask.erase(shot_mask, shot_offset)
-
-    def shot_overlap_mask(self):
-        return self.target.mask.overlap_mask(self.shot.mask, self.shot_offset())
-
-    def shot_offset(self):
-        return self.damage_offset_from_target(self.shot.rect)
 
     def damage_offset_from_target(self, damage_rectangle):
         return self.offset(damage_rectangle.topleft, self.target.rect.topleft)
 
     def apply_explosion(self):
         explosion_mask = self.shot.explosion_mask
-        explosion_offset = self.explosion_offset(explosion_mask)
+        explosion_offset = self.mask_offset_from_target(explosion_mask)
         self.new_mask.erase(explosion_mask, explosion_offset)
 
-    def explosion_offset(self, explosion_mask):
-        explosion_rectangle = self.mask_rectangle_in_shot_position(explosion_mask)
+    def mask_offset_from_target(self, mask):
+        explosion_rectangle = self.mask_rectangle_in_shot_position(mask)
         return self.damage_offset_from_target(explosion_rectangle)
 
     def mask_rectangle_in_shot_position(self, mask):

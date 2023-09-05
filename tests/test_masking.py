@@ -303,7 +303,6 @@ class TestMasking:
         shot.position = (100, 200)
         assert shot.rect.center == (100, 200)
         masher = ImageMasher(shield, shot)
-        assert masher.shot_offset() == (3, 3)
         masher.apply_shot()
         mask = masher.get_new_mask()
         hits = [(3, 3), (4, 3), (5, 3), (4, 4), (4, 5)]
