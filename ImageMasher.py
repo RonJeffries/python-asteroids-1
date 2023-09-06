@@ -1,6 +1,26 @@
 from pygame import Vector2
 
 
+class Masker:
+    def __init__(self, mask, position):
+        self.mask = mask
+        self.rect = mask.get_rect()
+        self.rect.center = position
+
+    @property
+    def topleft(self):
+        return Vector2(self.rect.topleft)
+
+    def erase(self, masker):
+        his_mask = masker.mask
+        his_topleft = masker.topleft
+        offset = his_topleft - self.topleft
+        self.mask.erase(his_mask, offset)
+
+    def get_mask(self):
+        return self.mask
+
+
 class ImageMasher:
     @classmethod
     def from_flyers(cls, target, shot):
@@ -8,8 +28,8 @@ class ImageMasher:
 
     def __init__(self, target_mask, target_topleft, shot_position, shot_mask, explosion_mask):
         self.new_mask = target_mask.copy()
-        self.target_topleft = target_topleft
-        self.shot_position = shot_position
+        self.target_topleft_position = target_topleft
+        self.shot_center_position = shot_position
         self.shot_mask = shot_mask
         self.explosion_mask = explosion_mask
 
@@ -33,11 +53,11 @@ class ImageMasher:
 
     def mask_rectangle_in_shot_position(self, mask):
         rectangle_moved_to_shot_position = mask.get_rect()
-        rectangle_moved_to_shot_position.center = self.shot_position
+        rectangle_moved_to_shot_position.center = self.shot_center_position
         return rectangle_moved_to_shot_position
 
     def damage_offset_from_target(self, damage_rectangle):
-        return self.offset(damage_rectangle.topleft, self.target_topleft)
+        return self.offset(damage_rectangle.topleft, self.target_topleft_position)
 
     @staticmethod
     def offset(point1, point2):

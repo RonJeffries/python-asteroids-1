@@ -2,7 +2,7 @@ import pygame.mask
 import pytest
 from pygame import Surface, Vector2, Rect
 
-from ImageMasher import ImageMasher
+from ImageMasher import ImageMasher, Masker
 from bitmap_maker import BitmapMaker
 from invader_shot import InvaderShot
 from player_shot import PlayerShot
@@ -349,3 +349,29 @@ class TestMasking:
                 (2, 5), (4, 5), (6, 5),
                 (2, 6), (3, 6), (4, 6), (5, 6), (6, 6)]
         self.check_bits(mask, hits)
+
+    def test_masker_exists(self, make_plus):
+        plus = make_plus
+        masker = Masker(plus.mask, (100, 200))
+
+    def test_masker_centered(self):
+        five_data = """
+        11111
+        11111
+        11111
+        11111
+        11111
+        """
+        target_mask = self.mask_from_string(five_data)
+        three_data = """
+        111
+        111
+        111
+        """
+        bullet_mask = self.mask_from_string(three_data)
+        target = Masker(target_mask, (100, 200))
+        bullet = Masker(bullet_mask, (100, 200))
+        target.erase(bullet)
+        erased = target.get_mask()
+        hits = [(1, 1), (2, 1), (3, 1), (1, 2), (2, 2), (3, 2), (1, 3), (2, 3), (3, 3)]
+        self.check_bits(erased, hits)
