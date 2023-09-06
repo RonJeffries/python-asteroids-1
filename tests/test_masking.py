@@ -375,3 +375,25 @@ class TestMasking:
         erased = target.get_mask()
         hits = [(1, 1), (2, 1), (3, 1), (1, 2), (2, 2), (3, 2), (1, 3), (2, 3), (3, 3)]
         self.check_bits(erased, hits)
+
+    def test_masker_down_right(self):
+        five_data = """
+        11111
+        11111
+        11111
+        11111
+        11111
+        """
+        target_mask = self.mask_from_string(five_data)
+        three_data = """
+        111
+        111
+        111
+        """
+        bullet_mask = self.mask_from_string(three_data)
+        target = Masker(target_mask, (100, 200))
+        bullet = Masker(bullet_mask, (101, 201))
+        target.erase(bullet)
+        erased = target.get_mask()
+        hits = [(2, 2), (3, 2), (4, 2), (2, 3), (3, 3), (4, 3), (2, 4), (3, 4), (4, 4)]
+        self.check_bits(erased, hits)
