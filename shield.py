@@ -30,6 +30,10 @@ class Shield(InvadersFlyer):
     def rect(self):
         return self._rect
 
+    @property
+    def position(self):
+        return self._rect.center
+
     def draw(self, screen):
         screen.blit(self._map, self.rect)
 
