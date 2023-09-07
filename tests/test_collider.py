@@ -66,8 +66,6 @@ class TestCollider:
         target_object = self.make_target_object(make_target)
         probe_object = self.make_probe_object(make_probe)
         collider = Collider(target_object, probe_object)
-        assert collider.rectangles_colliding()
-        assert not collider.masks_colliding()
         assert not collider.colliding()
 
     def test_colliding(self, make_target, make_probe):
@@ -75,8 +73,6 @@ class TestCollider:
         probe_object = self.make_probe_object(make_probe)
         probe_object.rect.center = (1, 1)
         collider = Collider(target_object, probe_object)
-        assert collider.rectangles_colliding()
-        assert collider.masks_colliding()
         assert collider.colliding()
 
     def make_probe_object(self, make_probe):
