@@ -12,8 +12,7 @@ class Masker:
         return Vector2(self.rect.topleft)
 
     def erase(self, masker):
-        offset = masker.topleft - self.topleft
-        self.mask.erase(masker.mask, offset)
+        self.mask.erase(masker.mask, self.offset(masker))
 
     def colliding(self, masker):
         return self.rectangles_collide(masker) and self.masks_collide(masker)
@@ -22,10 +21,10 @@ class Masker:
         return self.rect.colliderect(masker.rect)
 
     def masks_collide(self, masker):
-        offset = masker.topleft - self.topleft
-        return self.mask.overlap(masker.mask, offset)
+        return self.mask.overlap(masker.mask, self.offset(masker))
 
-
+    def offset(self, masker):
+        return masker.topleft - self.topleft
 
     def get_mask(self):
         return self.mask
