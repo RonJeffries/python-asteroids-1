@@ -416,3 +416,12 @@ class TestMasking:
         assert target.masks_collide(bullet)
         bullet = Masker(plus_mask, (102, 102))
         assert not target.masks_collide(bullet)
+
+    def test_masker_colliding(self, three_mask, plus_mask):
+        target = Masker(three_mask, (100, 100))
+        bullet = Masker(plus_mask, (100, 100))
+        assert target.colliding(bullet)
+        bullet = Masker(plus_mask, (101, 101))
+        assert target.colliding(bullet)
+        bullet = Masker(plus_mask, (102, 102))
+        assert not target.colliding(bullet)

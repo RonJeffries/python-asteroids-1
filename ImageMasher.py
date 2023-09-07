@@ -15,6 +15,9 @@ class Masker:
         offset = masker.topleft - self.topleft
         self.mask.erase(masker.mask, offset)
 
+    def colliding(self, masker):
+        return self.rectangles_collide(masker) and self.masks_collide(masker)
+
     def rectangles_collide(self, masker):
         return self.rect.colliderect(masker.rect)
 
