@@ -11,6 +11,7 @@ from shield import Shield
 from shipmaker import ShipMaker
 from shotcontroller import ShotController
 from thumper import Thumper
+from timecapsule import TimeCapsule
 from top_bumper import TopBumper
 from wavemaker import WaveMaker
 
@@ -50,7 +51,7 @@ def invaders(fleets):
     fleets.append(Bumper(960, +1))
     fleets.append(TopBumper())
     fleets.append(InvaderFleet())
-    fleets.append(InvaderPlayer())
+    fleets.append(TimeCapsule(InvaderPlayer(), 2))
     fleets.append(ShotController())
     half_width = 88 / 2
     spacing = 198
