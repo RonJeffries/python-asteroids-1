@@ -2,7 +2,8 @@ import pygame
 
 from fleets import Fleets
 from invader_player import InvaderPlayer
-from tests.tools import FI
+from tests.tools import FI, FakeFleets
+from timecapsule import TimeCapsule
 
 
 class TestPlayer:
@@ -59,6 +60,16 @@ class TestPlayer:
         player.trigger_released()
         player.trigger_pulled(fleets)
         assert fi.player_shots
+
+    def test_collision_removes_self(self):
+        fleets = FakeFleets()
+        player = InvaderPlayer()
+        player.hit_by_shot(fleets)
+        assert player in fleets.removes
+        added_tc = [tc for tc in fleets.appends if isinstance(tc, TimeCapsule)]
+        assert added_tc
+
+
 
 
 

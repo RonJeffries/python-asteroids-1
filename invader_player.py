@@ -9,6 +9,7 @@ from bitmap_maker import BitmapMaker
 from flyer import InvadersFlyer
 from invader_shot import InvaderShot
 from player_shot import PlayerShot
+from timecapsule import TimeCapsule
 
 
 class InvaderPlayer(InvadersFlyer):
@@ -19,11 +20,11 @@ class InvaderPlayer(InvadersFlyer):
         self.player = self.players[0]
         self._mask = pygame.mask.from_surface(self.player)
         self._rect = self.player.get_rect()
-        self.rect.center = Vector2(u.SCREEN_SIZE/2, u.SCREEN_SIZE - 5*32 - 16)
         self.step = 4
         half_width = self.rect.width / 2
         self.left = 64 + half_width
         self.right = 960 - half_width
+        self.rect.center = Vector2(self.left, u.SCREEN_SIZE - 5*32 - 16)
         self.free_to_fire = True
         self.fire_request_allowed = True
         self.explode_time = 0
@@ -99,7 +100,12 @@ class InvaderPlayer(InvadersFlyer):
     def interact_with_invadershot(self, shot, fleets):
         collider = Collider(self, shot)
         if collider.colliding():
-            self.explode_time = 1
+            self.hit_by_shot(fleets)
+
+    def hit_by_shot(self, fleets):
+        self.explode_time = 1
+        fleets.remove(self)
+        fleets.append(TimeCapsule(InvaderPlayer(), 2))
 
     def interact_with_playerexplosion(self, _explosion, _fleets):
         pass

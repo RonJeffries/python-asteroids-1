@@ -169,3 +169,14 @@ class EndChecker(AsteroidFlyer):
         self.triggered = True
 
 
+class FakeFleets():
+    def __init__(self):
+        self.appends = []
+        self.removes = []
+
+    def append(self, thing):
+        self.appends.append(thing)
+
+    def remove(self, thing):
+        self.removes.append(thing)
+
