@@ -7,6 +7,10 @@ from timecapsule import TimeCapsule
 
 
 class TestPlayer:
+    def test_start_left(self):
+        player = InvaderPlayer()
+        assert player.rect.centerx == player.left
+
     def test_left_edge(self):
         player = InvaderPlayer()
         player.move(-10000)
