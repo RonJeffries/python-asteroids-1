@@ -8,6 +8,7 @@ from Collider import Collider
 from bitmap_maker import BitmapMaker
 from flyer import InvadersFlyer
 from invader_shot import InvaderShot
+from player_explosion import PlayerExplosion
 from player_shot import PlayerShot
 from timecapsule import TimeCapsule
 
@@ -103,7 +104,7 @@ class InvaderPlayer(InvadersFlyer):
             self.hit_by_shot(fleets)
 
     def hit_by_shot(self, fleets):
-        self.explode_time = 1
+        fleets.append(PlayerExplosion(self.position))
         fleets.remove(self)
         fleets.append(TimeCapsule(InvaderPlayer(), 2))
 

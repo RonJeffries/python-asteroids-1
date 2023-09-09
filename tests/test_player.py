@@ -2,6 +2,7 @@ import pygame
 
 from fleets import Fleets
 from invader_player import InvaderPlayer
+from player_explosion import PlayerExplosion
 from tests.tools import FI, FakeFleets
 from timecapsule import TimeCapsule
 
@@ -72,6 +73,16 @@ class TestPlayer:
         assert player in fleets.removes
         added_tc = [tc for tc in fleets.appends if isinstance(tc, TimeCapsule)]
         assert added_tc
+
+
+class TestPlayerExplosion:
+    def test_exists(self):
+        PlayerExplosion((100, 200))
+
+    def test_position(self):
+        player_position = (100, 200)
+        explosion = PlayerExplosion(player_position)
+        assert explosion.position == player_position
 
 
 

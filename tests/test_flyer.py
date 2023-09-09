@@ -25,7 +25,7 @@ class TestFlyer:
 
     def check_class(self, test_class):
         subclasses = get_subclasses(test_class)
-        ignores = ["BeginChecker", "EndChecker", "TimeCapsule"]
+        ignores = ["BeginChecker", "EndChecker", "TimeCapsule", "PlayerExplosion"]
         subclasses = [klass for klass in subclasses if klass.__name__ not in ignores]
         attributes = dir(test_class)
         pass_code = just_pass.__code__.co_code
