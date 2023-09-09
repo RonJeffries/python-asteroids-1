@@ -46,14 +46,6 @@ class PlayerShot(InvadersFlyer):
     def end_interactions(self, fleets):
         pass
 
-    @property
-    def position(self):
-        return Vector2(self.rect.center)
-
-    @position.setter
-    def position(self, vector):
-        self.rect.center = vector
-
     def interact_with(self, other, fleets):
         other.interact_with_playershot(self, fleets)
 
