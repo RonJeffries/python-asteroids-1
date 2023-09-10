@@ -2,8 +2,9 @@ from flyer import Flyer, InvadersFlyer
 
 
 class TimeCapsule(InvadersFlyer):
-    def __init__(self, flyer, time):
-        self.flyer = flyer
+    def __init__(self, time, added_flyer, removed_flyer=None):
+        self.to_add = added_flyer
+        self.to_remove = removed_flyer
         self.time = time
 
     def interact_with(self, other, fleets):
@@ -16,7 +17,9 @@ class TimeCapsule(InvadersFlyer):
         self.time -= delta_time
         if self.time <= 0:
             fleets.remove(self)
-            fleets.append(self.flyer)
+            fleets.append(self.to_add)
+            if self.to_remove:
+                fleets.remove(self.to_remove)
 
     @property
     def mask(self):

@@ -52,7 +52,7 @@ def invaders(fleets):
     fleets.append(Bumper(960, +1))
     fleets.append(TopBumper())
     fleets.append(InvaderFleet())
-    fleets.append(TimeCapsule(InvaderPlayer(), 2))
+    fleets.append(TimeCapsule(2, InvaderPlayer()))
     fleets.append(ShotController())
     for i in range(3):
         fleets.append(ReservePlayer(i))

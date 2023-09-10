@@ -3,9 +3,11 @@ from explosion import Explosion
 from flyer import AsteroidFlyer
 from fragment import Fragment
 from game_over import GameOver
+from invader_player import InvaderPlayer
 from invader_shot import InvaderShot
 from missile import Missile
 from player_shot import PlayerShot
+from reserveplayer import ReservePlayer
 from saucer import Saucer
 from saucermaker import SaucerMaker
 from score import Score
@@ -48,6 +50,10 @@ class FleetsInspector:
         return self.select_class(GameOver)
 
     @property
+    def invader_players(self):
+        return self.select_class(InvaderPlayer)
+
+    @property
     def invader_shots(self):
         return self.select_class(InvaderShot)
 
@@ -58,6 +64,10 @@ class FleetsInspector:
     @property
     def player_shots(self):
         return self.select_class(PlayerShot)
+
+    @property
+    def reserve_players(self):
+        return self.select_class(ReservePlayer)
 
     @property
     def saucers(self):
