@@ -105,7 +105,6 @@ class InvaderPlayer(InvadersFlyer):
     def hit_by_shot(self, fleets):
         fleets.append(PlayerExplosion(self.position))
         fleets.remove(self)
-        fleets.append(TimeCapsule(2, InvaderPlayer()))
 
     def interact_with_playerexplosion(self, _explosion, _fleets):
         pass
