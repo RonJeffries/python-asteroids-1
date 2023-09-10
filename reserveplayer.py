@@ -15,7 +15,7 @@ class ReservePlayer(InvadersFlyer):
         half_width = self.rect.width / 2
         left = 64 + half_width
         x = left + reserve_number*(5*self._rect.width//4)
-        self.rect.center = Vector2(x, u.SCREEN_SIZE - 16)
+        self.rect.center = Vector2(x, u.SCREEN_SIZE - 32)
 
     @property
     def mask(self):
@@ -26,7 +26,7 @@ class ReservePlayer(InvadersFlyer):
         return self._rect
 
     def draw(self, screen):
-        pass
+        screen.blit(self.player, self.rect)
 
     def interact_with(self, other, fleets):
         pass

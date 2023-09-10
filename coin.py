@@ -5,6 +5,7 @@ from bumper import Bumper
 from game_over import GameOver
 from invader_player import InvaderPlayer
 from invaderfleet import InvaderFleet
+from reserveplayer import ReservePlayer
 from saucermaker import SaucerMaker
 from scorekeeper import ScoreKeeper
 from shield import Shield
@@ -53,6 +54,8 @@ def invaders(fleets):
     fleets.append(InvaderFleet())
     fleets.append(TimeCapsule(InvaderPlayer(), 2))
     fleets.append(ShotController())
+    for i in range(3):
+        fleets.append(ReservePlayer(i))
     half_width = 88 / 2
     spacing = 198
     step = 180
