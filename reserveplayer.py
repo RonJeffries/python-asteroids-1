@@ -14,7 +14,8 @@ class ReservePlayer(InvadersFlyer):
         self._rect = self.player.get_rect()
         half_width = self.rect.width / 2
         left = 64 + half_width
-        self.rect.center = Vector2(left, u.SCREEN_SIZE - 16)
+        x = left + reserve_number*(5*self._rect.width//4)
+        self.rect.center = Vector2(x, u.SCREEN_SIZE - 16)
 
     @property
     def mask(self):
