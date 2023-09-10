@@ -28,7 +28,6 @@ class InvaderPlayer(InvadersFlyer):
         self.rect.center = Vector2(self.left, u.SCREEN_SIZE - 5*32 - 16)
         self.free_to_fire = True
         self.fire_request_allowed = True
-        self.explode_time = 0
 
     @property
     def mask(self):
@@ -127,12 +126,7 @@ class InvaderPlayer(InvadersFlyer):
         pass
 
     def draw(self, screen):
-        self.explode_time -= 1/60
-        if self.explode_time > 0:
-            player = self.players[random.randint(1,2)]
-        else:
-            player = self.player
-        screen.blit(player, self.rect)
+        screen.blit(self.player, self.rect)
 
     def tick(self, delta_time, fleets):
         pass
