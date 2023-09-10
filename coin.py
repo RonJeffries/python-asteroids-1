@@ -5,6 +5,7 @@ from bumper import Bumper
 from game_over import GameOver
 from invader_player import InvaderPlayer
 from invaderfleet import InvaderFleet
+from playermaker import PlayerMaker
 from reserveplayer import ReservePlayer
 from saucermaker import SaucerMaker
 from scorekeeper import ScoreKeeper
@@ -52,7 +53,7 @@ def invaders(fleets):
     fleets.append(Bumper(960, +1))
     fleets.append(TopBumper())
     fleets.append(InvaderFleet())
-    fleets.append(TimeCapsule(2, InvaderPlayer()))
+    fleets.append(PlayerMaker())
     fleets.append(ShotController())
     for i in range(3):
         fleets.append(ReservePlayer(i))

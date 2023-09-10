@@ -1,8 +1,9 @@
+from flyer import InvadersFlyer
 from invader_player import InvaderPlayer
 from timecapsule import TimeCapsule
 
 
-class PlayerMaker:
+class PlayerMaker(InvadersFlyer):
     def __init__(self):
         self.reserve = None
         self.player_missing = True
@@ -22,6 +23,55 @@ class PlayerMaker:
 
     def end_interactions(self, fleets):
         if self.player_missing and self.reserve:
+            fleets.remove(self)
             capsule = TimeCapsule(2, InvaderPlayer(), self.reserve)
             fleets.append(capsule)
+            fleets.append(TimeCapsule(2.1, PlayerMaker()))
+
+    @property
+    def mask(self):
+        return None
+
+    @property
+    def rect(self):
+        return None
+
+    def interact_with_bumper(self, bumper, fleets):
+        pass
+
+    def interact_with_invaderfleet(self, fleet, fleets):
+        pass
+
+    def interact_with_invadershot(self, shot, fleets):
+        pass
+
+    def interact_with_playerexplosion(self, explosion, fleets):
+        pass
+
+    def interact_with_playershot(self, shot, fleets):
+        pass
+
+    def interact_with_invaderexplosion(self, explosion, fleets):
+        pass
+
+    def interact_with_shield(self, shield, fleets):
+        pass
+
+    def interact_with_shotcontroller(self, controller, fleets):
+        pass
+
+    def interact_with_shotexplosion(self, bumper, fleets):
+        pass
+
+    def interact_with_topbumper(self, top_bumper, fleets):
+        pass
+
+    def interact_with(self, other, fleets):
+        pass
+
+    def draw(self, screen):
+        pass
+
+    def tick(self, delta_time, fleets):
+        pass
 

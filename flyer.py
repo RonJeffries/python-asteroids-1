@@ -74,6 +74,9 @@ class InvadersFlyer(Flyer):
     def interact_with_invaderexplosion(self, explosion, fleets):
         pass
 
+    def interact_with_reserveplayer(self, rp, fleets):
+        pass
+
     @abstractmethod
     def interact_with_shield(self, shield, fleets):
         pass

@@ -29,7 +29,7 @@ class ReservePlayer(InvadersFlyer):
         screen.blit(self.player, self.rect)
 
     def interact_with(self, other, fleets):
-        pass
+        other.interact_with_reserveplayer(self, fleets)
 
     def interact_with_bumper(self, bumper, fleets):
         pass
