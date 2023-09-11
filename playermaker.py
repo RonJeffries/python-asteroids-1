@@ -1,3 +1,4 @@
+import coin
 from flyer import InvadersFlyer
 from invader_player import InvaderPlayer
 from timecapsule import TimeCapsule
@@ -22,11 +23,14 @@ class PlayerMaker(InvadersFlyer):
             self.reserve = reserve
 
     def end_interactions(self, fleets):
-        if self.player_missing and self.reserve:
-            fleets.remove(self)
-            capsule = TimeCapsule(2, InvaderPlayer(), self.reserve)
-            fleets.append(capsule)
-            fleets.append(TimeCapsule(2.1, PlayerMaker()))
+        if self.player_missing:
+            if self.reserve:
+                fleets.remove(self)
+                capsule = TimeCapsule(2, InvaderPlayer(), self.reserve)
+                fleets.append(capsule)
+                fleets.append(TimeCapsule(2.1, PlayerMaker()))
+            else:
+                coin.slug(fleets)
 
     @property
     def mask(self):
