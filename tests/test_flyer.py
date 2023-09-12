@@ -22,10 +22,14 @@ class TestFlyer:
     # @pytest.mark.skip("needs updating")
     def test_all_interact_with_implemented_in_invaders_flyer(self):
         self.check_class(InvadersFlyer)
+        
+    @pytest.mark.skip("needs doing")
+    def test_for_non_abstract_pass_in_interface_classes(self):
+        assert False
 
     def check_class(self, test_class):
         subclasses = get_subclasses(test_class)
-        ignores = ["BeginChecker", "EndChecker", "TimeCapsule", "PlayerExplosion", "ReservePlayer", "PlayerMaker"]
+        ignores = ["BeginChecker", "EndChecker"]
         subclasses = [klass for klass in subclasses if klass.__name__ not in ignores]
         attributes = dir(test_class)
         pass_code = just_pass.__code__.co_code

@@ -31,7 +31,7 @@ class PlayerExplosion(InvadersFlyer):
         return Vector2(self.rect.center)
 
     def interact_with(self, other, fleets):
-        pass
+        other.interact_with_playerexplosion(self, fleets)
 
     def draw(self, screen):
         player = self.players[random.randint(1,2)]

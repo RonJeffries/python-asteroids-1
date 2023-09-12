@@ -71,7 +71,7 @@ class PlayerMaker(InvadersFlyer):
         pass
 
     def interact_with(self, other, fleets):
-        pass
+        other.interact_with_playermaker(self, fleets)
 
     def draw(self, screen):
         pass

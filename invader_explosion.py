@@ -65,4 +65,4 @@ class InvaderExplosion(InvadersFlyer):
         pass
 
     def interact_with(self, other, fleets):
-        other.interact_with_playerexplosion(self, fleets)
+        other.interact_with_invaderexplosion(self, fleets)

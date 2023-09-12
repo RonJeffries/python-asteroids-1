@@ -8,7 +8,7 @@ class TimeCapsule(InvadersFlyer):
         self.time = time
 
     def interact_with(self, other, fleets):
-        pass
+        other.interact_with_timecapsule(self, fleets)
 
     def draw(self, screen):
         pass
