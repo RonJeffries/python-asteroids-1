@@ -40,6 +40,8 @@ class InvadersFlyer(Flyer):
     def interact_with_timecapsule(self, capsule, fleets):
         pass
 
+    ## abstract methods
+
     @property
     @abstractmethod
     def mask(self):
