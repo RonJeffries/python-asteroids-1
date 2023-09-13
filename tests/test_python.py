@@ -9,6 +9,24 @@ class MutatorTest:
         self.vector += adjustment
 
 
+class MonkeyVictim:
+    def safe_ignore(self,name):
+        if not getattr(self, name):
+            self.ignore(name)
+
+    def ignore(self, name):
+        setattr(self, name, self.nothing)
+
+    def nothing(self):
+        pass
+
+    def three(self):
+        return 3
+
+    def four(self):
+        return 4
+
+
 class TestPython:
     def test_vectors_mutate(self):
         v1 = Vector2(1, 2)
@@ -51,3 +69,29 @@ class TestPython:
         mutator.mutate("a")
         assert mutator.vector == [1, 2, 3, "a"]
         assert original == mutator.vector  # aliasing!!
+
+    def test_simple_monkey(self):
+        m = MonkeyVictim()
+        assert m.four() == 4
+        setattr(m, "four", m.nothing)
+        assert not m.four()
+
+    def test_monkey_independent(self):
+        m1 = MonkeyVictim()
+        m2 = MonkeyVictim()
+        setattr(m1, "four", m1.nothing)
+        assert not m1.four()
+        assert m2.four() == 4
+
+    def test_ignore_method(self):
+        m = MonkeyVictim()
+        assert m.four() == 4
+        m.ignore("four")
+        assert not m.four()
+
+    def test_safe_ignore(self):
+        m = MonkeyVictim()
+        assert m.four() == 4
+        m.safe_ignore("four")
+        assert m.four() == 4
+
