@@ -10,8 +10,14 @@ class MutatorTest:
 
 
 class MonkeyVictim:
+    def ignore_list(self, *names):
+        for name in names:
+            self.safe_ignore(name)
+
     def safe_ignore(self,name):
-        if not getattr(self, name):
+        try:
+            getattr(self, name)
+        except AttributeError:
             self.ignore(name)
 
     def ignore(self, name):
@@ -94,4 +100,10 @@ class TestPython:
         assert m.four() == 4
         m.safe_ignore("four")
         assert m.four() == 4
+
+    def test_safe_list(self):
+        m = MonkeyVictim()
+        m.ignore_list("four", "six")
+        assert m.four() == 4
+        assert not m.six()
 
