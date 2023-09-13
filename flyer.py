@@ -4,6 +4,16 @@ from abc import ABC, abstractmethod
 
 class Flyer(ABC):
 
+    # concrete methods, inheritable
+
+    def begin_interactions(self, fleets):
+        pass
+
+    def end_interactions(self, fleets):
+        pass
+
+    ## abstract methods
+
     @abstractmethod
     def interact_with(self, other, fleets):
         pass
@@ -18,15 +28,6 @@ class Flyer(ABC):
 
     # not abstract FSR
     def update(self, delta_time, fleets):
-        pass
-
-    # concrete methods, inheritable
-    # so sue me
-
-    def begin_interactions(self, fleets):
-        pass
-
-    def end_interactions(self, fleets):
         pass
 
 
@@ -106,6 +107,8 @@ class InvadersFlyer(Flyer):
 
 class AsteroidFlyer(Flyer):
 
+    ## abstract methods
+
     @abstractmethod
     def interact_with_asteroid(self, asteroid, fleets):
         pass
@@ -121,6 +124,8 @@ class AsteroidFlyer(Flyer):
     @abstractmethod
     def interact_with_ship(self, ship, fleets):
         pass
+
+    ## concrete methods
 
     def interact_with_fragment(self, fragment, fleets):
         pass
