@@ -29,7 +29,7 @@ class TestFlyer:
 
     def check_class(self, test_class):
         subclasses = get_subclasses(test_class)
-        ignores = ["BeginChecker", "EndChecker"]
+        ignores = ["BeginChecker", "EndChecker", "FlyerIgnores"]
         subclasses = [klass for klass in subclasses if klass.__name__ not in ignores]
         attributes = dir(test_class)
         pass_code = just_pass.__code__.co_code
@@ -40,7 +40,8 @@ class TestFlyer:
 
     def check_top_class_has_interact_with_each_subclass(self, attributes, name, test_class):
         required_method = "interact_with_" + name
-        if not required_method in attributes:
+        skip = "interact_with_flyerignores"
+        if required_method != skip and not required_method in attributes:
             print(test_class.__name__ + " does not implement " + required_method)
             assert False
 
