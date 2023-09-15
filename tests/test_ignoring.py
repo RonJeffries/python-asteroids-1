@@ -3,13 +3,9 @@ import pytest
 
 class Ignorables():
     def __init__(self, ignores=[]):
-        print(self.__class__.__dict__)
         for ign in ignores:
             if not ign in self.__class__.__dict__:
-                print("no", ign)
                 setattr(self, ign, self.none)
-            else:
-                print("not hammering ", ign)
 
     def none(self, o, f):
         pass
@@ -48,6 +44,7 @@ class TestIgnoring:
             foo.interact_with_baz(33, [])
         fleets = []
         foo.interact_with_qux(33, fleets)
+        assert fleets, "should have contents unless it was erroneously ignored"
         assert fleets[0] == 42
 
     def test_dict(self):
