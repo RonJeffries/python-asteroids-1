@@ -8,7 +8,7 @@ class IgnoreThese(ABCMeta):
         result = {}
         if ignore:
             for name in ignore:
-                result[name] = lambda x: None
+                result[name] = lambda *args: None
         return result
 
     def __new__(cls, name, bases, classdict, ignore=None):
