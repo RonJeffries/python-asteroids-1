@@ -1,7 +1,7 @@
+from abc import ABCMeta
 
 
-
-class IgnoreThese(type):
+class IgnoreThese(ABCMeta):
 
     @classmethod
     def __prepare__(metacls, name, bases, ignore=None):

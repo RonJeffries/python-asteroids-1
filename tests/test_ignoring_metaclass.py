@@ -1,10 +1,22 @@
+from abc import ABC, abstractmethod
+
 import pytest
 
 from flyer import InvadersFlyer
 from ignorethese import IgnoreThese
 
 
-class Base():
+class AbstractClass(ABC):
+    @abstractmethod
+    def must(self):
+        pass
+
+
+class Base(ABC):
+
+    def must(self):
+        pass
+
     def foo(self):
         raise NotImplementedError
 
