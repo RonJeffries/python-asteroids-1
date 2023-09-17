@@ -21,7 +21,6 @@ class Bumper(InvadersFlyer,
                      "interact_with_topbumper"]):
     def __init__(self, x, incoming_direction):
         self.x = x
-        self.check = self.beyond_on_right if incoming_direction > 0 else self.beyond_on_left
         self.incoming_direction = incoming_direction
 
     @property
@@ -33,7 +32,7 @@ class Bumper(InvadersFlyer,
         return None
 
     def intersecting(self, rect: Rect):
-        return self.check(rect)
+        return self.beyond_on_right(rect) if self.incoming_direction > 0 else self.beyond_on_left(rect)
 
     def beyond_on_left(self, rect):
         return rect.bottomleft[0] <= self.x
