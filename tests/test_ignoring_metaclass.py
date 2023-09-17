@@ -50,9 +50,9 @@ class FooCovered(CoveringClass):
         return "baz"
 
 
-def cover_interface(klass, names):
+def cover_interface(klass, bases, names):
     dict = {name: lambda *args: None for name in names}
-    cover = type("cover", (ABC,), dict)
+    cover = type("cover", bases, dict)
     bases = list(klass.__bases__)
     bases.insert(0, cover)
     klass.__bases__ = tuple(bases)
@@ -84,7 +84,7 @@ class TestIgnoringMetaclass:
             foo.qux()
 
     def test_covering_function(self):
-        cover_interface(FooFunction, ["bar", "baz"])
+        cover_interface(FooFunction, (Base,), ["bar", "baz"])
         foo = FooFunction()
         assert foo.foo() == "foo"
         assert foo.bar() is None
