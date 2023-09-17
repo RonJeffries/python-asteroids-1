@@ -66,6 +66,9 @@ class FooFunction(Base):
         return "baz"
 
 
+ignore_these(FooFunction, (Base,), ["bar", "baz"])
+
+
 class TestIgnoringMetaclass:
     def test_create(self):
         foo = FooIgnores()
@@ -84,7 +87,6 @@ class TestIgnoringMetaclass:
             foo.qux()
 
     def test_covering_function(self):
-        ignore_these(FooFunction, (Base,), ["bar", "baz"])
         foo = FooFunction()
         assert foo.foo() == "foo"
         assert foo.bar() is None
