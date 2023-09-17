@@ -53,9 +53,7 @@ class FooCovered(CoveringClass):
 def ignore_these(klass, bases, names):
     dict = {name: lambda *args: None for name in names}
     cover = type("cover", bases, dict)
-    bases = list(klass.__bases__)
-    bases.insert(0, cover)
-    klass.__bases__ = tuple(bases)
+    klass.__bases__ = (cover,)
 
 
 class FooFunction(Base):
