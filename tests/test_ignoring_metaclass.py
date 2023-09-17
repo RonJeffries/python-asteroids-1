@@ -50,7 +50,7 @@ class FooCovered(CoveringClass):
         return "baz"
 
 
-def cover_interface(klass, bases, names):
+def ignore_these(klass, bases, names):
     dict = {name: lambda *args: None for name in names}
     cover = type("cover", bases, dict)
     bases = list(klass.__bases__)
@@ -84,7 +84,7 @@ class TestIgnoringMetaclass:
             foo.qux()
 
     def test_covering_function(self):
-        cover_interface(FooFunction, (Base,), ["bar", "baz"])
+        ignore_these(FooFunction, (Base,), ["bar", "baz"])
         foo = FooFunction()
         assert foo.foo() == "foo"
         assert foo.bar() is None
