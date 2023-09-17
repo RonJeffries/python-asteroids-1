@@ -41,6 +41,7 @@ class FooIgnores(Base, metaclass=IgnoreThese, ignore=["bar", "baz"]):
 ignore_dict = {"bar": lambda *args: None, "baz": lambda *args: None}
 CoveringClass = type("FooViaType", (Base,), ignore_dict)
 
+# Function Style
 
 class FooCovered(CoveringClass):
     def foo(self):
@@ -91,5 +92,6 @@ class TestIgnoringMetaclass:
         assert foo.baz() == "baz"
         with pytest.raises(NotImplementedError):
             foo.qux()
+
 
 
