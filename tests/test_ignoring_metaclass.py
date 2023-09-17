@@ -38,56 +38,32 @@ class FooIgnores(Base, metaclass=IgnoreThese, ignore=["bar", "baz"]):
         return "baz"
 
 
-class FlyerIgnores(InvadersFlyer):
-    @property
-    def mask(self):
-        return None
+ignore_dict = {"bar": lambda *args: None, "baz": lambda *args: None}
+CoveringClass = type("FooViaType", (Base,), ignore_dict)
 
-    @property
-    def rect(self):
-        return None
 
-    def interact_with_bumper(self, bumper, fleets):
-        pass
+class FooCovered(CoveringClass):
+    def foo(self):
+        return "foo"
 
-    def interact_with_invaderfleet(self, fleet, fleets):
-        pass
+    def baz(self):
+        return "baz"
 
-    def interact_with_invaderplayer(self, player, fleets):
-        pass
 
-    def interact_with_invadershot(self, shot, fleets):
-        pass
+def cover_interface(klass, names):
+    dict = {name: lambda *args: None for name in names}
+    cover = type("cover", (ABC,), dict)
+    bases = list(klass.__bases__)
+    bases.insert(0, cover)
+    klass.__bases__ = tuple(bases)
 
-    def interact_with_playerexplosion(self, explosion, fleets):
-        pass
 
-    def interact_with_playershot(self, shot, fleets):
-        pass
+class FooFunction(Base):
+    def foo(self):
+        return "foo"
 
-    def interact_with_invaderexplosion(self, explosion, fleets):
-        pass
-
-    def interact_with_shield(self, shield, fleets):
-        pass
-
-    def interact_with_shotcontroller(self, controller, fleets):
-        pass
-
-    def interact_with_shotexplosion(self, bumper, fleets):
-        pass
-
-    def interact_with_topbumper(self, top_bumper, fleets):
-        pass
-
-    def interact_with(self, other, fleets):
-        pass
-
-    def draw(self, screen):
-        pass
-
-    def tick(self, delta_time, fleets):
-        pass
+    def baz(self):
+        return "baz"
 
 
 class TestIgnoringMetaclass:
@@ -98,3 +74,22 @@ class TestIgnoringMetaclass:
         assert foo.baz() == "baz"
         with pytest.raises(NotImplementedError):
             foo.qux()
+
+    def test_using_covering(self):
+        foo = FooCovered()
+        assert foo.foo() == "foo"
+        assert foo.bar() is None
+        assert foo.baz() == "baz"
+        with pytest.raises(NotImplementedError):
+            foo.qux()
+
+    def test_covering_function(self):
+        cover_interface(FooFunction, ["bar", "baz"])
+        foo = FooFunction()
+        assert foo.foo() == "foo"
+        assert foo.bar() is None
+        assert foo.baz() == "baz"
+        with pytest.raises(NotImplementedError):
+            foo.qux()
+
+
