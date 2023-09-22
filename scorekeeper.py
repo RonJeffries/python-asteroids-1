@@ -20,6 +20,24 @@ class FakeShipMaker:
 
 class ScoreKeeper(AsteroidFlyer):
 
+    def interact_with_fragment(self, fragment, fleets):
+        pass
+
+    def interact_with_gameover(self, game_over, fleets):
+        pass
+
+    def interact_with_saucermaker(self, saucermaker, fleets):
+        pass
+
+    def interact_with_scorekeeper(self, scorekeeper, fleets):
+        pass
+
+    def interact_with_thumper(self, thumper, fleets):
+        pass
+
+    def interact_with_wavemaker(self, wavemaker, fleets):
+        pass
+
     available_ship = Ship(Vector2(0, 0), 1)
     available_ship._angle = 90
 

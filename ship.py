@@ -16,6 +16,30 @@ import u
 
 class Ship(AsteroidFlyer):
 
+    def interact_with_fragment(self, fragment, fleets):
+        pass
+
+    def interact_with_gameover(self, game_over, fleets):
+        pass
+
+    def interact_with_saucermaker(self, saucermaker, fleets):
+        pass
+
+    def interact_with_score(self, score, fleets):
+        pass
+
+    def interact_with_scorekeeper(self, scorekeeper, fleets):
+        pass
+
+    def interact_with_signal(self, signal, fleets):
+        pass
+
+    def interact_with_thumper(self, thumper, fleets):
+        pass
+
+    def interact_with_wavemaker(self, wavemaker, fleets):
+        pass
+
     def __init__(self, position, drop_in=2):
         self.radius = 25 * u.SCALE_FACTOR
         self._accelerating = False
