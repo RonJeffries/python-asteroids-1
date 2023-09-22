@@ -3,7 +3,6 @@ from pygame import Rect
 
 import u
 from flyer import InvadersFlyer
-from ignorethese import IgnoreThese
 
 
 class Bumper(InvadersFlyer):
