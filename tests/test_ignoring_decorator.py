@@ -59,19 +59,18 @@ class FooDecorated(Base):
 
 class TestIgnoringDecorator:
     def test_class_decorator(self):
-        print("decorating")
-
-        # @ignoring_decorator(None)
-        # class Fubar:
-        #     def action(self):
-        #         return 4422
-        # print("calling")
-        # fubar = Fubar()
-        # assert fubar.action() == 4422
         foo = FooDecorated()
-        print("foo created")
         assert foo.foo() == "foo"
         assert foo.bar() is None
         assert foo.baz() == "baz"
         with pytest.raises(NotImplementedError):
             foo.qux()
+
+    def test_local(self):
+        @ignoring_decorator(None)
+        class Fubar:
+            def action(self):
+                return 4422
+        print("calling")
+        fubar = Fubar()
+        assert fubar.action() == 4422
