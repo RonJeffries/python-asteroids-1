@@ -6,6 +6,12 @@ from flyer import InvadersFlyer
 
 
 class ReservePlayer(InvadersFlyer):
+    def interact_with_playermaker(self, maker, fleets):
+        pass
+
+    def interact_with_timecapsule(self, capsule, fleets):
+        pass
+
     def __init__(self, reserve_number):
         self.reserve_number = reserve_number
         maker = BitmapMaker.instance()

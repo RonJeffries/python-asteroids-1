@@ -5,6 +5,12 @@ from flyer import InvadersFlyer
 
 
 class InvaderExplosion(InvadersFlyer):
+    def interact_with_playermaker(self, maker, fleets):
+        pass
+
+    def interact_with_timecapsule(self, capsule, fleets):
+        pass
+
     def __init__(self, position):
         self.position = position
         maker = BitmapMaker()

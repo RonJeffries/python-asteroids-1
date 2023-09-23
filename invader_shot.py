@@ -8,6 +8,12 @@ from flyer import InvadersFlyer
 
 
 class InvaderShot(InvadersFlyer):
+    def interact_with_playermaker(self, maker, fleets):
+        pass
+
+    def interact_with_timecapsule(self, capsule, fleets):
+        pass
+
     def __init__(self, position, maps):
         self.maps = maps
         self.masks = [pygame.mask.from_surface(bitmap) for bitmap in self.maps]

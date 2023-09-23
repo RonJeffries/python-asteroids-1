@@ -10,6 +10,12 @@ from invader_shot import InvaderShot
 
 
 class ShotController(InvadersFlyer):
+    def interact_with_playermaker(self, maker, fleets):
+        pass
+
+    def interact_with_timecapsule(self, capsule, fleets):
+        pass
+
     max_firing_time = 0x30
     available = Vector2(-1, -1)
 

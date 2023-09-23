@@ -5,6 +5,12 @@ from timecapsule import TimeCapsule
 
 
 class PlayerMaker(InvadersFlyer):
+    def interact_with_playermaker(self, maker, fleets):
+        pass
+
+    def interact_with_timecapsule(self, capsule, fleets):
+        pass
+
     def __init__(self):
         self.reserve = None
         self.player_missing = True

@@ -9,6 +9,12 @@ from shot_explosion import ShotExplosion
 
 
 class PlayerShot(InvadersFlyer):
+    def interact_with_playermaker(self, maker, fleets):
+        pass
+
+    def interact_with_timecapsule(self, capsule, fleets):
+        pass
+
     def __init__(self, position=u.CENTER):
         offset = Vector2(2, -8*4)
         self.velocity = Vector2(0, -4*4)

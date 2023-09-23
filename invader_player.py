@@ -15,6 +15,12 @@ from timecapsule import TimeCapsule
 
 class InvaderPlayer(InvadersFlyer):
 
+    def interact_with_playermaker(self, maker, fleets):
+        pass
+
+    def interact_with_timecapsule(self, capsule, fleets):
+        pass
+
     def __init__(self):
         maker = BitmapMaker.instance()
         self.players = maker.players  # one turret, two explosions

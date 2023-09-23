@@ -33,16 +33,6 @@ class Flyer(ABC):
 
 class InvadersFlyer(Flyer):
 
-    ## defaulted methods
-
-    def interact_with_playermaker(self, maker, fleets):
-        pass
-
-    def interact_with_timecapsule(self, capsule, fleets):
-        pass
-
-    ## abstract methods
-
     @property
     @abstractmethod
     def mask(self):
@@ -78,6 +68,10 @@ class InvadersFlyer(Flyer):
         pass
 
     @abstractmethod
+    def interact_with_playermaker(self, maker, fleets):
+        pass
+
+    @abstractmethod
     def interact_with_playershot(self, shot, fleets):
         pass
 
@@ -98,6 +92,10 @@ class InvadersFlyer(Flyer):
 
     @abstractmethod
     def interact_with_shotexplosion(self, bumper, fleets):
+        pass
+
+    @abstractmethod
+    def interact_with_timecapsule(self, capsule, fleets):
         pass
 
     @abstractmethod

@@ -7,6 +7,12 @@ from invader_group import InvaderGroup
 
 class InvaderFleet(InvadersFlyer):
 
+    def interact_with_timecapsule(self, capsule, fleets):
+        pass
+
+    def interact_with_playermaker(self, maker, fleets):
+        pass
+
     def interact_with_shield(self, shield, fleets):
         pass
 

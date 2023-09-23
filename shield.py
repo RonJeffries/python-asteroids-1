@@ -9,6 +9,12 @@ from tasks import Tasks
 
 
 class Shield(InvadersFlyer):
+    def interact_with_playermaker(self, maker, fleets):
+        pass
+
+    def interact_with_timecapsule(self, capsule, fleets):
+        pass
+
     def __init__(self, position):
         map = BitmapMaker.instance().shield
         self._invader_shot_explosion = BitmapMaker.instance().invader_shot_explosion

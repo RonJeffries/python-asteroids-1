@@ -2,6 +2,12 @@ from flyer import Flyer, InvadersFlyer
 
 
 class TimeCapsule(InvadersFlyer):
+    def interact_with_playermaker(self, maker, fleets):
+        pass
+
+    def interact_with_timecapsule(self, capsule, fleets):
+        pass
+
     def __init__(self, time, added_flyer, removed_flyer=None):
         self.to_add = added_flyer
         self.to_remove = removed_flyer

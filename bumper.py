@@ -6,6 +6,12 @@ from flyer import InvadersFlyer
 
 
 class Bumper(InvadersFlyer):
+    def interact_with_playermaker(self, maker, fleets):
+        pass
+
+    def interact_with_timecapsule(self, capsule, fleets):
+        pass
+
     def interact_with_bumper(self, bumper, fleets):
         pass
 
