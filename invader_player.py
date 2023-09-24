@@ -1,26 +1,16 @@
 import random
 
-import pygame
-from pygame import Vector2
-
-import u
 from Collider import Collider
 from bitmap_maker import BitmapMaker
 from flyer import InvadersFlyer
-from invader_shot import InvaderShot
 from player_explosion import PlayerExplosion
 from player_shot import PlayerShot
-from timecapsule import TimeCapsule
+from pygame import Vector2
+import pygame
+import u
 
 
 class InvaderPlayer(InvadersFlyer):
-
-    def interact_with_playermaker(self, maker, fleets):
-        pass
-
-    def interact_with_timecapsule(self, capsule, fleets):
-        pass
-
     def __init__(self):
         maker = BitmapMaker.instance()
         self.players = maker.players  # one turret, two explosions
@@ -91,18 +81,6 @@ class InvaderPlayer(InvadersFlyer):
     def interact_with(self, other, fleets):
         other.interact_with_invaderplayer(self, fleets)
 
-    def interact_with_bumper(self, bumper, fleets):
-        pass
-
-    def interact_with_invaderexplosion(self, explosion, fleets):
-        pass
-
-    def interact_with_invaderfleet(self, fleet, fleets):
-        pass
-
-    def interact_with_invaderplayer(self, player, fleets):
-        pass
-
     def interact_with_invadershot(self, shot, fleets):
         collider = Collider(self, shot)
         if collider.colliding():
@@ -112,26 +90,8 @@ class InvaderPlayer(InvadersFlyer):
         fleets.append(PlayerExplosion(self.position))
         fleets.remove(self)
 
-    def interact_with_playerexplosion(self, _explosion, _fleets):
-        pass
-
     def interact_with_playershot(self, bumper, fleets):
         self.free_to_fire = False
 
-    def interact_with_shield(self, shield, fleets):
-        pass
-
-    def interact_with_shotcontroller(self, controller, fleets):
-        pass
-
-    def interact_with_shotexplosion(self, bumper, fleets):
-        pass
-
-    def interact_with_topbumper(self, top_bumper, fleets):
-        pass
-
     def draw(self, screen):
         screen.blit(self.player, self.rect)
-
-    def tick(self, delta_time, fleets):
-        pass
