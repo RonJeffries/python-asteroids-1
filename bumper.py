@@ -6,45 +6,6 @@ from flyer import InvadersFlyer
 
 
 class Bumper(InvadersFlyer):
-    def interact_with_playermaker(self, maker, fleets):
-        pass
-
-    def interact_with_timecapsule(self, capsule, fleets):
-        pass
-
-    def interact_with_bumper(self, bumper, fleets):
-        pass
-
-    def interact_with_invaderfleet(self, fleet, fleets):
-        pass
-
-    def interact_with_invaderplayer(self, player, fleets):
-        pass
-
-    def interact_with_invadershot(self, shot, fleets):
-        pass
-
-    def interact_with_playerexplosion(self, explosion, fleets):
-        pass
-
-    def interact_with_playershot(self, shot, fleets):
-        pass
-
-    def interact_with_invaderexplosion(self, explosion, fleets):
-        pass
-
-    def interact_with_shield(self, shield, fleets):
-        pass
-
-    def interact_with_shotcontroller(self, controller, fleets):
-        pass
-
-    def interact_with_shotexplosion(self, bumper, fleets):
-        pass
-
-    def interact_with_topbumper(self, top_bumper, fleets):
-        pass
-
     def __init__(self, x, incoming_direction):
         self.x = x
         self.incoming_direction = incoming_direction

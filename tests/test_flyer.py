@@ -41,7 +41,7 @@ class TestFlyer:
     def check_top_class_has_interact_with_each_subclass(self, attributes, name, test_class):
         required_method = "interact_with_" + name
         skip = "interact_with_flyerignores"
-        if required_method != skip and not required_method in attributes:
+        if required_method != skip and required_method not in attributes:
             print(test_class.__name__ + " does not implement " + required_method)
             assert False
 
