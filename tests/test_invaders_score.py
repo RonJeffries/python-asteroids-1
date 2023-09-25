@@ -1,4 +1,6 @@
+from bitmap_maker import BitmapMaker
 from fleets import Fleets
+from invader import Invader
 from invader_score import InvaderScore, InvaderScoreKeeper
 
 
@@ -23,3 +25,12 @@ class TestInvaderScore:
         keeper = InvaderScoreKeeper()
         score.interact_with_invaderscorekeeper(keeper, fleets)
         assert not fleets
+
+    def test_invader_scores(self):
+        maker = BitmapMaker.instance()
+        maps = maker.invaders
+        assert Invader(1, 0, maps)._score == 100
+        assert Invader(1, 1, maps)._score == 100
+        assert Invader(1, 2, maps)._score == 200
+        assert Invader(1, 3, maps)._score == 200
+        assert Invader(1, 4, maps)._score == 300
