@@ -3,6 +3,7 @@ from pygame import Vector2
 
 from Collider import Collider
 from invader_explosion import InvaderExplosion
+from invader_score import InvaderScore
 
 INVADER_SPACING = 64
 
@@ -25,6 +26,7 @@ class Invader:
         if self.colliding(shot):
             shot.hit_invader(fleets)
             group.kill(self)
+            fleets.append(InvaderScore(self._score))
             fleets.append(InvaderExplosion(self.position))
 
     def colliding(self, invaders_flyer):

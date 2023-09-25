@@ -4,6 +4,7 @@ import u
 from bumper import Bumper
 from game_over import GameOver
 from invader_player import InvaderPlayer
+from invader_score import InvaderScoreKeeper
 from invaderfleet import InvaderFleet
 from playermaker import PlayerMaker
 from reserveplayer import ReservePlayer
@@ -55,6 +56,7 @@ def invaders(fleets):
     fleets.append(InvaderFleet())
     fleets.append(PlayerMaker())
     fleets.append(ShotController())
+    fleets.append(InvaderScoreKeeper())
     for i in range(3):
         fleets.append(ReservePlayer(i))
     half_width = 88 / 2
