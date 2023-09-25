@@ -1,6 +1,6 @@
-from invaders_score import InvadersScore
+from invader_score import InvaderScore
 
 
-class TestInvadersScore:
+class TestInvaderScore:
     def test_exists(self):
-        InvadersScore(100)
+        InvaderScore(100)
