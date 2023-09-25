@@ -49,4 +49,3 @@ class InvaderScoreKeeper(InvadersFlyer):
 
     def interact_with_invaderscore(self, score, fleets):
         self.total_score += score.score
-        print("Score:", self.total_score)
