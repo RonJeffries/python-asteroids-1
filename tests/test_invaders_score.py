@@ -13,9 +13,9 @@ class TestInvaderScore:
         score = InvaderScore(100)
         keeper = InvaderScoreKeeper()
         assert keeper.total_score == 0
-        keeper.interact_with_invaderscore(score, [])
+        score.interact_with(keeper, [])
         assert keeper.total_score == 100
-        keeper.interact_with_invaderscore(score,[])
+        score.interact_with(keeper, [])
         assert keeper.total_score == 200
 
     def test_score_removes_self(self):
@@ -23,7 +23,7 @@ class TestInvaderScore:
         score = InvaderScore(100)
         fleets.append(score)
         keeper = InvaderScoreKeeper()
-        score.interact_with_invaderscorekeeper(keeper, fleets)
+        keeper.interact_with(score, fleets)
         assert not fleets
 
     def test_invader_scores(self):
