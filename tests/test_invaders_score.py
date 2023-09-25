@@ -29,8 +29,8 @@ class TestInvaderScore:
     def test_invader_scores(self):
         maker = BitmapMaker.instance()
         maps = maker.invaders
-        assert Invader(1, 0, maps)._score == 100
-        assert Invader(1, 1, maps)._score == 100
-        assert Invader(1, 2, maps)._score == 200
-        assert Invader(1, 3, maps)._score == 200
-        assert Invader(1, 4, maps)._score == 300
+        assert Invader(1, 0, maps)._score == 10
+        assert Invader(1, 1, maps)._score == 10
+        assert Invader(1, 2, maps)._score == 20
+        assert Invader(1, 3, maps)._score == 20
+        assert Invader(1, 4, maps)._score == 30

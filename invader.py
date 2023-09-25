@@ -10,7 +10,7 @@ INVADER_SPACING = 64
 
 class Invader:
     def __init__(self, column, row, bitmaps):
-        self._score = [100, 100, 200, 200, 300][row]
+        self._score = [10, 10, 20, 20, 30][row]
         self.bitmaps = bitmaps
         self.masks = [pygame.mask.from_surface(bitmap) for bitmap in self.bitmaps]
         self.column = column
