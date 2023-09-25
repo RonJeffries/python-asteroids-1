@@ -16,6 +16,9 @@ class InvaderScore(InvadersFlyer):
     def interact_with(self, other, fleets):
         other.interact_with_invaderscore(self)
 
+    def interact_with_invaderscorekeeper(self, keeper, fleets):
+        fleets.remove(self)
+
 
 class InvaderScoreKeeper(InvadersFlyer):
     def __init__(self):
