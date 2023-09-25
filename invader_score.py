@@ -19,7 +19,7 @@ class InvaderScore(InvadersFlyer):
 
 class InvaderScoreKeeper(InvadersFlyer):
     def __init__(self):
-        self._total_score = 0
+        self.total_score = 0
 
     @property
     def mask(self):
@@ -31,3 +31,6 @@ class InvaderScoreKeeper(InvadersFlyer):
 
     def interact_with(self, other, fleets):
         other.interact_with_invaderscorekeeper(self)
+
+    def interact_with_invaderscore(self, score, fleets):
+        self.total_score += score.score
