@@ -51,10 +51,10 @@ class InvadersFlyer(Flyer):
     def interact_with_invaderplayer(self, player, fleets):
         pass
 
-    def interact_with_invaderscore(self, player, fleets):
+    def interact_with_invaderscore(self, score, fleets):
         pass
 
-    def interact_with_invaderscorekeeper(self, player, fleets):
+    def interact_with_invaderscorekeeper(self, keeper, fleets):
         pass
 
     def interact_with_invadershot(self, shot, fleets):
@@ -81,7 +81,7 @@ class InvadersFlyer(Flyer):
     def interact_with_shotcontroller(self, controller, fleets):
         pass
 
-    def interact_with_shotexplosion(self, bumper, fleets):
+    def interact_with_shotexplosion(self, explosion, fleets):
         pass
 
     def interact_with_timecapsule(self, capsule, fleets):
