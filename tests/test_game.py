@@ -1,7 +1,7 @@
 import itertools
 
 
-from game import Game
+from core.game import Game
 
 
 class TestGame:

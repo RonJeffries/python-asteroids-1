@@ -1,10 +1,7 @@
-import pygame
-
-from fleets import Fleets
-from invader_player import InvaderPlayer
-from player_explosion import PlayerExplosion
+from core.fleets import Fleets
+from invaders.invader_player import InvaderPlayer
+from invaders.player_explosion import PlayerExplosion
 from tests.tools import FI, FakeFleets
-from timecapsule import TimeCapsule
 
 
 class TestPlayer:

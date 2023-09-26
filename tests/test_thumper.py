@@ -1,4 +1,4 @@
-from thumper import Thumper
+from asteroids.thumper import Thumper
 
 thump = None
 

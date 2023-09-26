@@ -1,6 +1,6 @@
-import pygame.mixer
 
-from movable_location import MovableLocation
+from asteroids.movable_location import MovableLocation
+import pygame.mixer
 
 
 class Sounds:

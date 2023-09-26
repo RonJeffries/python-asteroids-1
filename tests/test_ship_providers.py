@@ -1,7 +1,7 @@
 import u
-from shipprovider import SinglePlayerShipProvider, TwoPlayerShipProvider
-from ship import Ship
-from signal import Signal
+from asteroids.shipprovider import SinglePlayerShipProvider, TwoPlayerShipProvider
+from asteroids.ship import Ship
+from asteroids.signal import Signal
 
 
 class TestShipProviders:

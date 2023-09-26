@@ -1,7 +1,6 @@
-from fleets import Fleets
-from invader_player import InvaderPlayer
-from playermaker import PlayerMaker
-from reserveplayer import ReservePlayer
+from invaders.invader_player import InvaderPlayer
+from invaders.playermaker import PlayerMaker
+from invaders.reserveplayer import ReservePlayer
 from tests.tools import FakeFleets
 
 

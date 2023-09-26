@@ -1,16 +1,15 @@
-import pygame
 from pygame import Vector2, Rect
 
 import u
-from bitmap_maker import BitmapMaker
-from bumper import Bumper
-from fleets import Fleets
-from invader import INVADER_SPACING, Invader
-from invaderfleet import InvaderFleet
-from invader_group import InvaderGroup
-from player_shot import PlayerShot
+from invaders.bitmap_maker import BitmapMaker
+from invaders.bumper import Bumper
+from core.fleets import Fleets
+from invaders.invader import INVADER_SPACING, Invader
+from invaders.invaderfleet import InvaderFleet
+from invaders.invader_group import InvaderGroup
+from invaders.player_shot import PlayerShot
 from tests.tools import FI
-from top_bumper import TopBumper
+from invaders.top_bumper import TopBumper
 
 
 class TestInvaderFleet:

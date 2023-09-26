@@ -2,11 +2,10 @@ import pygame.mask
 import pytest
 from pygame import Surface, Vector2, Rect
 
-from ImageMasher import ImageMasher, Masker
-from bitmap_maker import BitmapMaker
-from invader_shot import InvaderShot
-from player_shot import PlayerShot
-from shield import Shield
+from invaders.ImageMasher import ImageMasher, Masker
+from invaders.bitmap_maker import BitmapMaker
+from invaders.invader_shot import InvaderShot
+from invaders.player_shot import PlayerShot
 from tests.test_collider import Thing
 
 

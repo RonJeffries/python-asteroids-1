@@ -1,12 +1,12 @@
 from pygame import Vector2
 
 import u
-from asteroid import Asteroid
-from fleets import Fleets
-from interactor import Interactor
-from missile import Missile
-from saucer import Saucer
-from shipmaker import ShipMaker
+from asteroids.asteroid import Asteroid
+from core.fleets import Fleets
+from core.interactor import Interactor
+from asteroids.missile import Missile
+from asteroids.saucer import Saucer
+from asteroids.shipmaker import ShipMaker
 from tests.tools import FI
 
 

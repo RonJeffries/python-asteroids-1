@@ -1,8 +1,7 @@
-import pytest
 from pygame import Vector2
 
-from fleets import Fleets
-from missile import Missile
+from core.fleets import Fleets
+from asteroids.missile import Missile
 from tests.tools import FI
 
 

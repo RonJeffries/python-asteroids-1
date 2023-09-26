@@ -1,11 +1,7 @@
 import pytest
 from pygame import Vector2
 
-from bitmap_maker import BitmapMaker
-from fleets import Fleets
-from invader_shot import InvaderShot
-from shield import Shield
-from tests.tools import FI
+from invaders.shield import Shield
 
 
 class TestShield:

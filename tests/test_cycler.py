@@ -1,4 +1,4 @@
-from cycler import Cycler
+from invaders.cycler import Cycler
 
 
 class TestCycler:

@@ -2,8 +2,7 @@ import pygame.mask
 import pytest
 from pygame import Surface
 
-from Collider import Collider
-from bitmap_maker import BitmapMaker
+from invaders.Collider import Collider
 
 
 class Thing:

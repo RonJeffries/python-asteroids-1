@@ -1,4 +1,4 @@
-from reserveplayer import ReservePlayer
+from invaders.reserveplayer import ReservePlayer
 
 
 class TestReservePlayer:

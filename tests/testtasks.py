@@ -1,4 +1,4 @@
-from tasks import Tasks
+from core.tasks import Tasks
 
 
 class TestTasks:

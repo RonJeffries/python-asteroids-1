@@ -1,7 +1,6 @@
-from bitmap_maker import BitmapMaker
-from fleets import Fleets
-from invader import Invader
-from invader_score import InvaderScore, InvaderScoreKeeper
+from invaders.bitmap_maker import BitmapMaker
+from invaders.invader import Invader
+from invaders.invader_score import InvaderScore, InvaderScoreKeeper
 
 
 class TestInvaderScore:

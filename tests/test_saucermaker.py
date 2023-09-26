@@ -1,7 +1,7 @@
 import u
-from fleets import Fleets
-from interactor import Interactor
-from saucermaker import SaucerMaker
+from core.fleets import Fleets
+from core.interactor import Interactor
+from asteroids.saucermaker import SaucerMaker
 from tests.tools import FI
 
 

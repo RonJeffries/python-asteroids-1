@@ -1,9 +1,9 @@
 from pygame import Vector2
 
 import u
-from fleets import Fleets
-from hyperspace_generator import HyperspaceGenerator
-from ship import Ship
+from core.fleets import Fleets
+from asteroids.hyperspace_generator import HyperspaceGenerator
+from asteroids.ship import Ship
 from tests.tools import FI
 
 

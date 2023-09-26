@@ -1,15 +1,13 @@
 # test_saucer
-from math import degrees
 
-import pytest
 from pygame import Vector2
 
 import u
-from fleets import Fleets
-from missile import Missile
-from saucer import Saucer
-from saucermaker import SaucerMaker
-from scorekeeper import ScoreKeeper
+from core.fleets import Fleets
+from asteroids.missile import Missile
+from asteroids.saucer import Saucer
+from asteroids.saucermaker import SaucerMaker
+from asteroids.scorekeeper import ScoreKeeper
 from tests.tools import FI
 
 

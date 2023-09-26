@@ -1,9 +1,9 @@
-from fleets import Fleets
-from invader_player import InvaderPlayer
-from player_shot import PlayerShot
-from reserveplayer import ReservePlayer
+from core.fleets import Fleets
+from invaders.invader_player import InvaderPlayer
+from invaders.player_shot import PlayerShot
+from invaders.reserveplayer import ReservePlayer
 from tests.tools import FI
-from timecapsule import TimeCapsule
+from invaders.timecapsule import TimeCapsule
 
 
 class TestTimeCapsule:

@@ -1,7 +1,7 @@
 import u
-from asteroid import Asteroid
-from fleets import Fleets
-from wavemaker import WaveMaker
+from asteroids.asteroid import Asteroid
+from core.fleets import Fleets
+from asteroids.wavemaker import WaveMaker
 
 
 class TestWaveMaker:

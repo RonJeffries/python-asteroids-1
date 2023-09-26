@@ -2,8 +2,7 @@ from abc import ABC, abstractmethod
 
 import pytest
 
-from flyer import InvadersFlyer
-from ignorethese import IgnoreThese
+from core.ignorethese import IgnoreThese
 
 
 class AbstractClass(ABC):

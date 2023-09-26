@@ -1,8 +1,8 @@
 from pygame import Vector2
 
 import u
-from fleets import Fleets
-from fragment import Fragment
+from core.fleets import Fleets
+from asteroids.fragment import Fragment
 from tests.tools import FI
 
 

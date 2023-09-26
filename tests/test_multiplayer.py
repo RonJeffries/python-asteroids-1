@@ -1,5 +1,5 @@
-from scorekeeper import ScoreKeeper
-from signal import Signal
+from asteroids.scorekeeper import ScoreKeeper
+from asteroids.signal import Signal
 
 
 class TestMultiPlayer():

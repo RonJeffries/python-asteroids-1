@@ -1,13 +1,13 @@
 from pygame import Vector2
 
 import u
-from bitmap_maker import BitmapMaker
-from fleets import Fleets
+from invaders.bitmap_maker import BitmapMaker
+from core.fleets import Fleets
 from flyer import InvadersFlyer
-from invader_player import InvaderPlayer
-from invader_shot import InvaderShot
-from invaderfleet import InvaderFleet
-from shotcontroller import ShotController
+from invaders.invader_player import InvaderPlayer
+from invaders.invader_shot import InvaderShot
+from invaders.invaderfleet import InvaderFleet
+from invaders.shotcontroller import ShotController
 from tests.tools import FI
 
 

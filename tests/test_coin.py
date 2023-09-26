@@ -1,27 +1,25 @@
-import pytest
-
-from asteroid import Asteroid
-from bumper import Bumper
-from explosion import Explosion
-from fleets import Fleets
+from asteroids.asteroid import Asteroid
+from invaders.bumper import Bumper
+from asteroids.explosion import Explosion
+from core.fleets import Fleets
 from flyer import AsteroidFlyer
-from fragment import Fragment
-from game_over import GameOver
-from invader_player import InvaderPlayer
-from invaderfleet import InvaderFleet
-from missile import Missile
+from asteroids.fragment import Fragment
+from asteroids.game_over import GameOver
+from invaders.invader_player import InvaderPlayer
+from invaders.invaderfleet import InvaderFleet
+from asteroids.missile import Missile
 from pygame import Vector2
-from saucer import Saucer
-from saucermaker import SaucerMaker
-from score import Score
-from scorekeeper import ScoreKeeper
-from ship import Ship
-from shipmaker import ShipMaker
-from signal import Signal
+from asteroids.saucer import Saucer
+from asteroids.saucermaker import SaucerMaker
+from asteroids.score import Score
+from asteroids.scorekeeper import ScoreKeeper
+from asteroids.ship import Ship
+from asteroids.shipmaker import ShipMaker
+from asteroids.signal import Signal
 from tests.tools import FI, BeginChecker, EndChecker
-from thumper import Thumper
-from wavemaker import WaveMaker
-import coin
+from asteroids.thumper import Thumper
+from asteroids.wavemaker import WaveMaker
+from core import coin
 
 
 class TestCoin:

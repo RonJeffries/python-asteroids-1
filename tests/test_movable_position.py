@@ -1,7 +1,7 @@
 from pygame import Vector2
 
 import u
-from movable_location import MovableLocation
+from asteroids.movable_location import MovableLocation
 
 
 class TestMovablePosition:

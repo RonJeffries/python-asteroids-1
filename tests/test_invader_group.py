@@ -1,8 +1,8 @@
 from pygame import Vector2
 
-from bitmap_maker import BitmapMaker
-from invader import Invader
-from invader_group import InvaderGroup
+from invaders.bitmap_maker import BitmapMaker
+from invaders.invader import Invader
+from invaders.invader_group import InvaderGroup
 
 
 class TestInvaderGroup:

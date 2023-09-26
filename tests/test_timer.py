@@ -1,6 +1,6 @@
 # test timer object
 
-from timer import Timer
+from core.timer import Timer
 
 
 class Checker:

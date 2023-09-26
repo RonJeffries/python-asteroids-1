@@ -1,14 +1,13 @@
 import pytest
 from pygame import Vector2
-from pygame.examples.aliens import Player
 
 import u
-from bitmap_maker import BitmapMaker
-from fleets import Fleets
-from invader_player import InvaderPlayer
-from invader_shot import InvaderShot
-from player_shot import PlayerShot
-from shield import Shield
+from invaders.bitmap_maker import BitmapMaker
+from core.fleets import Fleets
+from invaders.invader_player import InvaderPlayer
+from invaders.invader_shot import InvaderShot
+from invaders.player_shot import PlayerShot
+from invaders.shield import Shield
 from tests.tools import FI
 
 

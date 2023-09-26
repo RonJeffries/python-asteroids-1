@@ -3,9 +3,9 @@ import pytest
 from pygame.math import clamp, Vector2
 
 import u
-from fleets import Fleets
-from missile import Missile
-from ship import Ship
+from core.fleets import Fleets
+from asteroids.missile import Missile
+from asteroids.ship import Ship
 from tests.tools import FI
 
 

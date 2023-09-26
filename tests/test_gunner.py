@@ -4,12 +4,12 @@ import pytest
 from pygame import Vector2
 
 import u
-from aimimprover import AimImprover
-from fleets import Fleets
-from gunner import Gunner
-from saucer import Saucer
-from ship import Ship
-from shot_optimizer import ShotOptimizer
+from asteroids.aimimprover import AimImprover
+from core.fleets import Fleets
+from asteroids.gunner import Gunner
+from asteroids.saucer import Saucer
+from asteroids.ship import Ship
+from asteroids.shot_optimizer import ShotOptimizer
 from tests.tools import FI
 
 

@@ -1,9 +1,9 @@
-from fleets import Fleets
-from interactor import Interactor
-from score import Score
-from scorekeeper import ScoreKeeper
-from shipmaker import ShipMaker
-from signal import Signal
+from core.fleets import Fleets
+from core.interactor import Interactor
+from asteroids.score import Score
+from asteroids.scorekeeper import ScoreKeeper
+from asteroids.shipmaker import ShipMaker
+from asteroids.signal import Signal
 import u
 
 

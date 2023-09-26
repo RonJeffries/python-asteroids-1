@@ -3,20 +3,20 @@ import itertools
 from pygame import Vector2
 
 import u
-from asteroid import Asteroid
-from fleets import Fleets
+from asteroids.asteroid import Asteroid
+from core.fleets import Fleets
 from flyer import AsteroidFlyer
-from fragment import Fragment
-from game import Game
-from interactor import Interactor
-from missile import Missile
-from saucer import Saucer
-from score import Score
-from scorekeeper import ScoreKeeper
-from ship import Ship
-from shot_optimizer import ShotOptimizer
+from asteroids.fragment import Fragment
+from core.game import Game
+from core.interactor import Interactor
+from asteroids.missile import Missile
+from asteroids.saucer import Saucer
+from asteroids.score import Score
+from asteroids.scorekeeper import ScoreKeeper
+from asteroids.ship import Ship
+from asteroids.shot_optimizer import ShotOptimizer
 from tests.tools import FI, BeginChecker, EndChecker
-from wavemaker import WaveMaker
+from asteroids.wavemaker import WaveMaker
 
 
 class TestInteractions:
