@@ -8,12 +8,6 @@ from core.tasks import Tasks
 
 
 class Shield(InvadersFlyer):
-    def interact_with_playermaker(self, maker, fleets):
-        pass
-
-    def interact_with_timecapsule(self, capsule, fleets):
-        pass
-
     def __init__(self, position):
         map = BitmapMaker.instance().shield
         self._invader_shot_explosion = BitmapMaker.instance().invader_shot_explosion
@@ -57,15 +51,6 @@ class Shield(InvadersFlyer):
     def interact_with(self, other, fleets):
         other.interact_with_shield(self, fleets)
 
-    def interact_with_bumper(self, bumper, fleets):
-        pass
-
-    def interact_with_invaderfleet(self, fleet, fleets):
-        pass
-
-    def interact_with_invaderplayer(self, player, fleets):
-        pass
-
     def interact_with_invadershot(self, shot, fleets):
         self.process_shot_collision(shot, self._invader_shot_explosion, self._invader_explosion_mask)
 
@@ -87,22 +72,4 @@ class Shield(InvadersFlyer):
         masher.determine_damage()
         self._mask = masher.get_new_mask()
         masher.apply_damage_to_surface(self._map)
-
-    def interact_with_invaderexplosion(self, explosion, fleets):
-        pass
-
-    def interact_with_shield(self, shield, fleets):
-        pass
-
-    def interact_with_shotcontroller(self, controller, fleets):
-        pass
-
-    def interact_with_shotexplosion(self, bumper, fleets):
-        pass
-
-    def interact_with_topbumper(self, top_bumper, fleets):
-        pass
-
-    def tick(self, delta_time, fleets):
-        pass
 

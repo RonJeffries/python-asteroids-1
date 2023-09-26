@@ -8,12 +8,6 @@ from flyer import InvadersFlyer
 
 
 class InvaderShot(InvadersFlyer):
-    def interact_with_playermaker(self, maker, fleets):
-        pass
-
-    def interact_with_timecapsule(self, capsule, fleets):
-        pass
-
     def __init__(self, position, maps):
         self.maps = maps
         self.masks = [pygame.mask.from_surface(bitmap) for bitmap in self.maps]
@@ -26,7 +20,6 @@ class InvaderShot(InvadersFlyer):
         self._available = True
         explosion = BitmapMaker.instance().invader_shot_explosion
         self.explosion_mask = pygame.mask.from_surface(explosion)
-
 
     @property
     def available(self):
@@ -69,15 +62,6 @@ class InvaderShot(InvadersFlyer):
         self.map_index = (self.map_index + 1) % 4
         self._map = self.maps[self.map_index]
 
-    def interact_with_bumper(self, bumper, fleets):
-        pass
-
-    def interact_with_invaderexplosion(self, explosion, fleets):
-        pass
-
-    def interact_with_invaderfleet(self, invader_fleet, fleets):
-        pass
-
     def interact_with_invaderplayer(self, player, fleets):
         self.die_on_collision(player, fleets)
 
@@ -85,26 +69,11 @@ class InvaderShot(InvadersFlyer):
         if self.colliding(flyer):
             self.die(fleets)
 
-    def interact_with_invadershot(self, shot, fleets):
-        pass
-
-    def interact_with_playerexplosion(self, explosion, fleets):
-        pass
-
     def interact_with_playershot(self, shot, fleets):
         self.die_on_collision(shot, fleets)
 
     def interact_with_shield(self, shield, fleets):
         self.die_on_collision(shield, fleets)
-
-    def interact_with_shotcontroller(self, controller, fleets):
-        pass
-
-    def interact_with_shotexplosion(self, explosion, fleets):
-        pass
-
-    def interact_with_topbumper(self, top_bumper, fleets):
-        pass
 
     def die(self, fleets):
         self._available = True
