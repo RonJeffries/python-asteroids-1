@@ -54,7 +54,7 @@ class BitmapMaker:
         self.invader_shot_explosion = self.make_and_scale_surface(invader_shot_explosion, scale, (6, 8))
         self.invaders = [self.make_and_scale_surface(invader, scale) for invader in invaders]
         self.player_shot = self.make_and_scale_surface(player_shot, scale, (1, 8))
-        self.player_shot_explosion = self.make_and_scale_surface(player_shot_explosion, scale, (8, 8))
+        self.player_shot_explosion = self.make_and_scale_surface(player_shot_explosion, scale, (8, 8), "red")
         self.players = [self.make_and_scale_surface(player, scale, (16, 8),"green") for player in players]
         self.plungers = [self.make_and_scale_surface(plunger, scale, (3, 8)) for plunger in plungers]
         self.rollers = [self.make_and_scale_surface(plunger, scale, (3, 8)) for plunger in rollers]
