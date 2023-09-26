@@ -54,9 +54,6 @@ class Shield(InvadersFlyer):
     def interact_with_invadershot(self, shot, fleets):
         self.process_shot_collision(shot, self._invader_shot_explosion, self._invader_explosion_mask)
 
-    def interact_with_playerexplosion(self, explosion, fleets):
-        pass
-
     def interact_with_playershot(self, shot, fleets):
         self.process_shot_collision(shot, self._player_shot_explosion, self._player_explosion_mask)
 
