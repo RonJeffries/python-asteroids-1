@@ -42,6 +42,9 @@ class InvadersFlyer(Flyer):
     def rect(self, value):
         pass
 
+    def interact_with_bottomline(self, bottomline, fleets):
+        pass
+
     def interact_with_bumper(self, bumper, fleets):
         pass
 

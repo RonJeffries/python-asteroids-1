@@ -1,7 +1,4 @@
-
-
-class BottomLine:
-    pass
+from invaders.bottomline import BottomLine
 
 
 class TestBottomLine:

@@ -1,5 +1,6 @@
 from pygame import Vector2
 
+from invaders.bottomline import BottomLine
 from invaders.bumper import Bumper
 from asteroids.game_over import GameOver
 from invaders.invader_score import InvaderScoreKeeper
@@ -54,6 +55,7 @@ def invaders(fleets):
     fleets.append(PlayerMaker())
     fleets.append(ShotController())
     fleets.append(InvaderScoreKeeper())
+    fleets.append(BottomLine())
     for i in range(3):
         fleets.append(ReservePlayer(i))
     half_width = 88 / 2
