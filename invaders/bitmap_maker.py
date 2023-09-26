@@ -50,18 +50,18 @@ class BitmapMaker:
             0xF0, 0xFF, 0xF0, 0xFF, 0xF0, 0xFF, 0xF8, 0xFF, 0xFC, 0xFF, 0xFF,
             0xFF, 0xFF, 0xFF, 0xFF, 0x7F, 0xFF, 0x3F, 0xFF, 0x1F, 0xFF, 0x0F)
         scale = 4
-        self.invaders = [self.make_and_scale_surface(invader, scale) for invader in invaders]
         self.invader_explosion = self.make_and_scale_surface(invader_exploding, scale, (16, 8))
-        self.players = [self.make_and_scale_surface(player, scale, (16, 8),"green") for player in players]
+        self.invader_shot_explosion = self.make_and_scale_surface(invader_shot_explosion, scale, (6, 8))
+        self.invaders = [self.make_and_scale_surface(invader, scale) for invader in invaders]
         self.player_shot = self.make_and_scale_surface(player_shot, scale, (1, 8))
         self.player_shot_explosion = self.make_and_scale_surface(player_shot_explosion, scale, (8, 8))
-        self.saucers = [self.make_and_scale_surface(saucer, scale, (24, 8)) for saucer in saucers]
-        self.saucer = self.make_and_scale_surface(saucer, scale, (24, 8))
-        self.squiggles = [self.make_and_scale_surface(squig, scale, (3, 8)) for squig in squiggles]
+        self.players = [self.make_and_scale_surface(player, scale, (16, 8),"green") for player in players]
         self.plungers = [self.make_and_scale_surface(plunger, scale, (3, 8)) for plunger in plungers]
-        self.invader_shot_explosion = self.make_and_scale_surface(invader_shot_explosion, scale, (6, 8))
         self.rollers = [self.make_and_scale_surface(plunger, scale, (3, 8)) for plunger in rollers]
+        self.saucer = self.make_and_scale_surface(saucer, scale, (24, 8))
+        self.saucers = [self.make_and_scale_surface(saucer, scale, (24, 8)) for saucer in saucers]
         self.shield = self.make_and_scale_surface(shield, scale, (22, 16), "green")
+        self.squiggles = [self.make_and_scale_surface(squig, scale, (3, 8)) for squig in squiggles]
 
     def make_and_scale_surface(self, pixel_bytes, scale, size=(16, 8), color="white"):
         return pygame.transform.scale_by(self.make_surface(pixel_bytes, size, color), scale)
