@@ -52,7 +52,7 @@ class BitmapMaker:
         scale = 4
         self.invaders = [self.make_and_scale_surface(invader, scale) for invader in invaders]
         self.invader_explosion = self.make_and_scale_surface(invader_exploding, scale, (16, 8))
-        self.players = [self.make_and_scale_surface(player, scale) for player in players]
+        self.players = [self.make_and_scale_surface(player, scale, (16, 8),"green") for player in players]
         self.player_shot = self.make_and_scale_surface(player_shot, scale, (1, 8))
         self.player_shot_explosion = self.make_and_scale_surface(player_shot_explosion, scale, (8, 8))
         self.saucers = [self.make_and_scale_surface(saucer, scale, (24, 8)) for saucer in saucers]
@@ -61,12 +61,12 @@ class BitmapMaker:
         self.plungers = [self.make_and_scale_surface(plunger, scale, (3, 8)) for plunger in plungers]
         self.invader_shot_explosion = self.make_and_scale_surface(invader_shot_explosion, scale, (6, 8))
         self.rollers = [self.make_and_scale_surface(plunger, scale, (3, 8)) for plunger in rollers]
-        self.shield = self.make_and_scale_surface(shield, scale, (22, 16))
+        self.shield = self.make_and_scale_surface(shield, scale, (22, 16), "green")
 
-    def make_and_scale_surface(self, pixel_bytes, scale, size=(16, 8)):
-        return pygame.transform.scale_by(self.make_surface(pixel_bytes, size), scale)
+    def make_and_scale_surface(self, pixel_bytes, scale, size=(16, 8), color="white"):
+        return pygame.transform.scale_by(self.make_surface(pixel_bytes, size, color), scale)
 
-    def make_surface(self, pixel_bytes, size):
+    def make_surface(self, pixel_bytes, size, color):
         s = Surface(size)
         s.set_colorkey((0, 0, 0))
         width = size[0]
@@ -74,13 +74,14 @@ class BitmapMaker:
         for x, byte in enumerate(pixel_bytes):
             x_in = x // layers
             y_offset = 0 if layers == 1 else 8 - (x % layers)*8
-            self.store_byte(byte, x_in, y_offset, s)
+            self.store_byte(byte, x_in, y_offset, s, color)
         return s
 
-    def store_byte(self, pixel_byte, x, y_offset, surface):
+    @staticmethod
+    def store_byte(pixel_byte, x, y_offset, surface, color):
         for z in range(8):
             bit = pixel_byte & 1
             y = y_offset + 7 - z
             if bit:
-                surface.set_at((x, y), "white")
+                surface.set_at((x, y), color)
             pixel_byte = pixel_byte >> 1
