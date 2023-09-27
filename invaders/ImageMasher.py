@@ -56,6 +56,11 @@ class ImageMasher:
     def get_new_mask(self):
         return self.target_masker.mask
 
+    def update(self, surface):
+        self.determine_damage()
+        self.apply_damage_to_surface(surface)
+        return self.get_new_mask()
+
     def apply_damage_to_surface(self, surface):
         new_mask = self.get_new_mask()
         for x in range(new_mask.get_rect().width):
