@@ -18,12 +18,12 @@ class BottomLine(InvadersFlyer):
         rect = Rect(0, 0, w, h)
         rect.bottomleft = (64, u.SCREEN_SIZE - 56)
         self.position = rect.center
-        self._rect = rect
+        self._invader_explosion_mask = pygame.mask.from_surface(self._invader_shot_explosion)
+        self._invader_shot_explosion = BitmapMaker.instance().invader_shot_explosion
         self._map = surface
         self._mask = pygame.mask.from_surface(surface)
+        self._rect = rect
         self._tasks = Tasks()
-        self._invader_shot_explosion = BitmapMaker.instance().invader_shot_explosion
-        self._invader_explosion_mask = pygame.mask.from_surface(self._invader_shot_explosion)
 
     @property
     def mask(self):
