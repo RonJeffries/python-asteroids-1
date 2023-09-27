@@ -58,6 +58,8 @@ class ImageMasher:
 
     def apply_damage_to_surface(self, surface):
         new_mask = self.get_new_mask()
-        area_to_blit = new_mask.get_rect()
-        damaged_surface = new_mask.to_surface()
-        surface.blit(damaged_surface, area_to_blit)
+        for x in range(new_mask.get_rect().width):
+            for y in range(new_mask.get_rect().height):
+                bit = new_mask.get_at((x, y))
+                if not bit:
+                    surface.set_at((x, y), (0, 0, 0))
