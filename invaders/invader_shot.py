@@ -62,18 +62,21 @@ class InvaderShot(InvadersFlyer):
         self.map_index = (self.map_index + 1) % 4
         self._map = self.maps[self.map_index]
 
+    def interact_with_bottomline(self, line, fleets):
+        self.die_on_collision(line, fleets)
+
     def interact_with_invaderplayer(self, player, fleets):
         self.die_on_collision(player, fleets)
-
-    def die_on_collision(self, flyer, fleets):
-        if self.colliding(flyer):
-            self.die(fleets)
 
     def interact_with_playershot(self, shot, fleets):
         self.die_on_collision(shot, fleets)
 
     def interact_with_shield(self, shield, fleets):
         self.die_on_collision(shield, fleets)
+
+    def die_on_collision(self, flyer, fleets):
+        if self.colliding(flyer):
+            self.die(fleets)
 
     def die(self, fleets):
         self._available = True
@@ -88,6 +91,3 @@ class InvaderShot(InvadersFlyer):
 
     def draw(self, screen):
         screen.blit(self._map, self.rect)
-
-    def tick(self, delta_time, fleets):
-        pass
