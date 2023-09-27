@@ -19,7 +19,7 @@ class BottomLine(InvadersFlyer):
         rect.bottomleft = (64, u.SCREEN_SIZE - 56)
         self.position = rect.center
         self._rect = rect
-        self.map = surface
+        self._map = surface
         self._mask = pygame.mask.from_surface(surface)
         self._tasks = Tasks()
         self._invader_shot_explosion = BitmapMaker.instance().invader_shot_explosion
@@ -34,7 +34,7 @@ class BottomLine(InvadersFlyer):
         return self._rect
 
     def draw(self, screen):
-        screen.blit(self.map, self.rect)
+        screen.blit(self._map, self.rect)
 
     def begin_interactions(self, fleets):
         self._tasks.clear()
@@ -57,5 +57,5 @@ class BottomLine(InvadersFlyer):
         masher = ImageMasher.from_flyers(self, shot)
         masher.determine_damage()
         self._mask = masher.get_new_mask()
-        masher.apply_damage_to_surface(self.map)
+        masher.apply_damage_to_surface(self._map)
 
