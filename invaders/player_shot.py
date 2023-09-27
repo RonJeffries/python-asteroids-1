@@ -8,12 +8,6 @@ import u
 
 
 class PlayerShot(InvadersFlyer):
-    def interact_with_playermaker(self, maker, fleets):
-        pass
-
-    def interact_with_timecapsule(self, capsule, fleets):
-        pass
-
     def __init__(self, position=u.CENTER):
         offset = Vector2(2, -8*4)
         self.velocity = Vector2(0, -4*4)
@@ -54,38 +48,14 @@ class PlayerShot(InvadersFlyer):
     def interact_with(self, other, fleets):
         other.interact_with_playershot(self, fleets)
 
-    def interact_with_bumper(self, bumper, fleets):
-        pass
-
-    def interact_with_invaderexplosion(self, explosion, fleets):
-        pass
-
-    def interact_with_invaderfleet(self, bumper, fleets):
-        pass
-
-    def interact_with_invaderplayer(self, bumper, fleets):
-        pass
-
     def interact_with_invadershot(self, shot, fleets):
         if self.colliding(shot):
             fleets.append(ShotExplosion(self.position))
             fleets.remove(self)
 
-    def interact_with_playerexplosion(self, _explosion, _fleets):
-        pass
-
-    def interact_with_playershot(self, bumper, fleets):
-        pass
-
     def interact_with_shield(self, shield, fleets):
         if self.colliding(shield):
             fleets.remove(self)
-
-    def interact_with_shotcontroller(self, controller, fleets):
-        pass
-
-    def interact_with_shotexplosion(self, bumper, fleets):
-        pass
 
     def interact_with_topbumper(self, top_bumper, fleets):
         if top_bumper.intersecting(self.position):
@@ -99,9 +69,6 @@ class PlayerShot(InvadersFlyer):
     def draw(self, screen):
         self.rect.center = self.position
         screen.blit(self.bits, self.rect)
-
-    def tick(self, delta_time, fleets):
-        pass
 
     def update(self, delta_time, fleets):
         self.position = self.position + self.velocity
