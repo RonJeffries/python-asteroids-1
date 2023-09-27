@@ -36,12 +36,6 @@ class Shield(InvadersFlyer):
     def draw(self, screen):
         screen.blit(self._map, self.rect)
 
-        # mask_rect = self.rect.copy()
-        # mask_rect.centery = self.rect.centery - 96
-        # mask_surf = self._mask.to_surface()
-        # mask_surf.set_colorkey("black")
-        # screen.blit(mask_surf, mask_rect)
-
     def begin_interactions(self, fleets):
         self._tasks.clear()
 
@@ -61,8 +55,6 @@ class Shield(InvadersFlyer):
         collider = Collider(self, shot)
         if collider.colliding():
             self._tasks.remind_me(lambda: self.mash_image(shot))
-            # overlap_mask: Mask = collider.overlap_mask()
-            # self.update_mask_and_visible_pixels(collider, explosion, explosion_mask, overlap_mask, shot)
 
     def mash_image(self, shot):
         masher = ImageMasher.from_flyers(self, shot)
