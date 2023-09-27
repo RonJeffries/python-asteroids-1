@@ -3,7 +3,7 @@ from pygame import Vector2
 
 class Masker:
     def __init__(self, mask, position):
-        self.mask = mask
+        self.mask = mask.copy()  # don't mutate your input
         self.rect = mask.get_rect()
         self.rect.center = position
 

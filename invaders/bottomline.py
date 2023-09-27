@@ -47,8 +47,7 @@ class BottomLine(InvadersFlyer):
         self.process_shot_collision(shot)
 
     def process_shot_collision(self, shot):
-        collider = Collider(self, shot)
-        if collider.colliding():
+        if Collider(self, shot).colliding():
             self._tasks.remind_me(lambda: self.mash_image(shot))
 
     def mash_image(self, shot):
