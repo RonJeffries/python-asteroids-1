@@ -18,8 +18,6 @@ class BottomLine(InvadersFlyer):
         rect = Rect(0, 0, w, h)
         rect.bottomleft = (64, u.SCREEN_SIZE - 56)
         self.position = rect.center
-        self._invader_shot_explosion = BitmapMaker.instance().invader_shot_explosion
-        self._invader_explosion_mask = pygame.mask.from_surface(self._invader_shot_explosion)
         self._map = surface
         self._mask = pygame.mask.from_surface(surface)
         self._rect = rect
@@ -46,9 +44,9 @@ class BottomLine(InvadersFlyer):
         other.interact_with_bottomline(self, fleets)
 
     def interact_with_invadershot(self, shot, fleets):
-        self.process_shot_collision(shot, self._invader_shot_explosion, self._invader_explosion_mask)
+        self.process_shot_collision(shot)
 
-    def process_shot_collision(self, shot, explosion, explosion_mask):
+    def process_shot_collision(self, shot):
         collider = Collider(self, shot)
         if collider.colliding():
             self._tasks.remind_me(lambda: self.mash_image(shot))
