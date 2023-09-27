@@ -52,8 +52,6 @@ class BottomLine(InvadersFlyer):
         collider = Collider(self, shot)
         if collider.colliding():
             self._tasks.remind_me(lambda: self.mash_image(shot))
-            # overlap_mask: Mask = collider.overlap_mask()
-            # self.update_mask_and_visible_pixels(collider, explosion, explosion_mask, overlap_mask, shot)
 
     def mash_image(self, shot):
         masher = ImageMasher.from_flyers(self, shot)
