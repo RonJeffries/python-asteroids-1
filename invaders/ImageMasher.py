@@ -56,10 +56,10 @@ class ImageMasher:
     def get_new_mask(self):
         return self.target_masker.mask
 
-    def update(self, surface):
+    def update(self, mask, surface):
         self.determine_damage()
         self.apply_damage_to_surface(surface)
-        return self.get_new_mask()
+        return self.get_new_mask(), surface
 
     def apply_damage_to_surface(self, surface):
         new_mask = self.get_new_mask()

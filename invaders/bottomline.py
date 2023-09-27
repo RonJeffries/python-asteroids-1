@@ -52,5 +52,5 @@ class BottomLine(InvadersFlyer):
 
     def mash_image(self, shot):
         masher = ImageMasher.from_flyers(self, shot)
-        self._mask = masher.update(self._map)
+        self._mask, self._map = masher.update(self._mask, self._map)
 
