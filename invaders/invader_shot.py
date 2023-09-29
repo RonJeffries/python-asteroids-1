@@ -71,7 +71,7 @@ class InvaderShot(InvadersFlyer):
     def interact_with_playershot(self, shot, fleets):
         self.die_on_collision(shot, fleets)
 
-    def interact_with_shield(self, shield, fleets):
+    def interact_with_roadfurniture(self, shield, fleets):
         self.die_on_collision(shield, fleets)
 
     def die_on_collision(self, flyer, fleets):

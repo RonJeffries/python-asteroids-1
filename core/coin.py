@@ -8,7 +8,7 @@ from invaders.playermaker import PlayerMaker
 from invaders.reserveplayer import ReservePlayer
 from asteroids.saucermaker import SaucerMaker
 from asteroids.scorekeeper import ScoreKeeper
-from invaders.shield import Shield
+from invaders.roadfurniture import RoadFurniture
 from asteroids.shipmaker import ShipMaker
 from invaders.shotcontroller import ShotController
 from asteroids.thumper import Thumper
@@ -54,7 +54,7 @@ def invaders(fleets):
     fleets.append(PlayerMaker())
     fleets.append(ShotController())
     fleets.append(InvaderScoreKeeper())
-    fleets.append(Shield.bottom_line())
+    fleets.append(RoadFurniture.bottom_line())
     for i in range(3):
         fleets.append(ReservePlayer(i))
     half_width = 88 / 2
@@ -62,7 +62,7 @@ def invaders(fleets):
     step = 180
     for i in range(4):
         place = Vector2(half_width + spacing + i*step, 800-16)
-        fleets.append(Shield.shield(place))
+        fleets.append(RoadFurniture.shield(place))
 
 
 def _append_common_elements(fleets):

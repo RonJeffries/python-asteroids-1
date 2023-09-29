@@ -9,7 +9,7 @@ from flyer import InvadersFlyer
 from core.tasks import Tasks
 
 
-class Shield(InvadersFlyer):
+class RoadFurniture(InvadersFlyer):
     @classmethod
     def shield(cls, position):
         surface = BitmapMaker.instance().shield
@@ -56,7 +56,7 @@ class Shield(InvadersFlyer):
         self._tasks.finish()
 
     def interact_with(self, other, fleets):
-        other.interact_with_shield(self, fleets)
+        other.interact_with_roadfurniture(self, fleets)
 
     def interact_with_invadershot(self, shot, fleets):
         self.process_shot_collision(shot)

@@ -78,7 +78,7 @@ class InvadersFlyer(Flyer):
     def interact_with_reserveplayer(self, rp, fleets):
         pass
 
-    def interact_with_shield(self, shield, fleets):
+    def interact_with_roadfurniture(self, shield, fleets):
         pass
 
     def interact_with_shotcontroller(self, controller, fleets):
@@ -94,7 +94,7 @@ class InvadersFlyer(Flyer):
         pass
 
 
-class AsteroidFlyer(Flyer):
+class   AsteroidFlyer(Flyer):
 
     def interact_with_asteroid(self, asteroid, fleets):
         pass

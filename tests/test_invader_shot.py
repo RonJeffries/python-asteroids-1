@@ -7,7 +7,7 @@ from core.fleets import Fleets
 from invaders.invader_player import InvaderPlayer
 from invaders.invader_shot import InvaderShot
 from invaders.player_shot import PlayerShot
-from invaders.shield import Shield
+from invaders.roadfurniture import RoadFurniture
 from tests.tools import FI
 
 
@@ -71,13 +71,13 @@ class TestInvaderShot:
     def test_dies_on_shield(self):
         fleets = Fleets()
         fi = FI(fleets)
-        shield = Shield.shield(Vector2(100, 100))
+        shield = RoadFurniture.shield(Vector2(100, 100))
         maker = BitmapMaker.instance()
         shot = InvaderShot(Vector2(100, 100), maker.rollers)
         assert shot.colliding(shield)
         fleets.append(shot)
         assert fi.invader_shots
-        shot.interact_with_shield(shield, fleets)
+        shot.interact_with_roadfurniture(shield, fleets)
         fleets.end_interactions()
         assert not fi.invader_shots
 
@@ -99,12 +99,12 @@ class TestInvaderShot:
         fleets = Fleets()
         fi = FI(fleets)
         pos = Vector2(100, 100)
-        shield = Shield.shield(pos)
+        shield = RoadFurniture.shield(pos)
         maker = BitmapMaker.instance()
         shot = PlayerShot(pos)
         assert shot.colliding(shield)
         fleets.append(shot)
         assert fi.player_shots
-        shot.interact_with_shield(shield, fleets)
+        shot.interact_with_roadfurniture(shield, fleets)
         fleets.end_interactions()
         assert not fi.player_shots

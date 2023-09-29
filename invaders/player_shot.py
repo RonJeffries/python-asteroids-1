@@ -53,7 +53,7 @@ class PlayerShot(InvadersFlyer):
             fleets.append(ShotExplosion(self.position))
             fleets.remove(self)
 
-    def interact_with_shield(self, shield, fleets):
+    def interact_with_roadfurniture(self, shield, fleets):
         if self.colliding(shield):
             fleets.remove(self)
 

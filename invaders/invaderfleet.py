@@ -13,7 +13,7 @@ class InvaderFleet(InvadersFlyer):
     def interact_with_playermaker(self, maker, fleets):
         pass
 
-    def interact_with_shield(self, shield, fleets):
+    def interact_with_roadfurniture(self, shield, fleets):
         pass
 
     def __init__(self):

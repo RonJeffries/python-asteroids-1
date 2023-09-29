@@ -56,7 +56,7 @@ class TimeCapsule(InvadersFlyer):
     def interact_with_invaderexplosion(self, explosion, fleets):
         pass
 
-    def interact_with_shield(self, shield, fleets):
+    def interact_with_roadfurniture(self, shield, fleets):
         pass
 
     def interact_with_shotcontroller(self, controller, fleets):

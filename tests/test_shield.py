@@ -1,12 +1,12 @@
 import pytest
 from pygame import Vector2
 
-from invaders.shield import Shield
+from invaders.roadfurniture import RoadFurniture
 
 
 class TestShield:
     def test_exists(self):
-        Shield.shield(Vector2(0, 0))
+        RoadFurniture.shield(Vector2(0, 0))
 
     @pytest.mark.skip(reason="needs work")
     def test_mask_updates_after_shield_hit(self):
