@@ -71,7 +71,7 @@ class TestInvaderShot:
     def test_dies_on_shield(self):
         fleets = Fleets()
         fi = FI(fleets)
-        shield = Shield(Vector2(100, 100))
+        shield = Shield.shield(Vector2(100, 100))
         maker = BitmapMaker.instance()
         shot = InvaderShot(Vector2(100, 100), maker.rollers)
         assert shot.colliding(shield)
@@ -99,7 +99,7 @@ class TestInvaderShot:
         fleets = Fleets()
         fi = FI(fleets)
         pos = Vector2(100, 100)
-        shield = Shield(pos)
+        shield = Shield.shield(pos)
         maker = BitmapMaker.instance()
         shot = PlayerShot(pos)
         assert shot.colliding(shield)

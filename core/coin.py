@@ -63,7 +63,7 @@ def invaders(fleets):
     step = 180
     for i in range(4):
         place = Vector2(half_width + spacing + i*step, 800-16)
-        fleets.append(Shield(place))
+        fleets.append(Shield.shield(place))
 
 
 def _append_common_elements(fleets):
