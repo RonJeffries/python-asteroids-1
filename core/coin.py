@@ -1,6 +1,5 @@
 from pygame import Vector2
 
-from invaders.bottomline import BottomLine
 from invaders.bumper import Bumper
 from asteroids.game_over import GameOver
 from invaders.invader_score import InvaderScoreKeeper
