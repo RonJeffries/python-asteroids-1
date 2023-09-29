@@ -10,10 +10,6 @@ from core.tasks import Tasks
 class Shield(InvadersFlyer):
     def __init__(self, position):
         map = BitmapMaker.instance().shield
-        self._invader_shot_explosion = BitmapMaker.instance().invader_shot_explosion
-        self._invader_explosion_mask = pygame.mask.from_surface(self._invader_shot_explosion)
-        self._player_shot_explosion = BitmapMaker.instance().player_shot_explosion
-        self._player_explosion_mask = pygame.mask.from_surface(self._player_shot_explosion)
         self._map = map.copy()
         self._map.set_colorkey("black")
         self._mask = pygame.mask.from_surface(map)
@@ -46,14 +42,13 @@ class Shield(InvadersFlyer):
         other.interact_with_shield(self, fleets)
 
     def interact_with_invadershot(self, shot, fleets):
-        self.process_shot_collision(shot, self._invader_shot_explosion, self._invader_explosion_mask)
+        self.process_shot_collision(shot)
 
     def interact_with_playershot(self, shot, fleets):
-        self.process_shot_collision(shot, self._player_shot_explosion, self._player_explosion_mask)
+        self.process_shot_collision(shot)
 
-    def process_shot_collision(self, shot, explosion, explosion_mask):
-        collider = Collider(self, shot)
-        if collider.colliding():
+    def process_shot_collision(self, shot):
+        if Collider(self, shot).colliding():
             self._tasks.remind_me(lambda: self.mash_image(shot))
 
     def mash_image(self, shot):

@@ -107,3 +107,41 @@ class TestPython:
         assert m.four() == 4
         assert not m.six()
 
+    def test_print(self):
+        strs = ["abc", "def", "ghi"]
+        joined = ",".join(strs)
+        assert joined == "abc,def,ghi"
+
+        vec = (1, 2, 3)
+        list_result = [f"{c:.2f}" for c in vec]
+        assert list_result == ["1.00", "2.00", "3.00"]
+
+        format_one = f",".join(["1.00", "2.00", "3.00"])
+        assert format_one == "1.00,2.00,3.00"
+
+        vertices = [(1, 2, 3), (4, 5, 6), (7, 8, 9)]
+        output = ""
+        for v in vertices:
+            output += "<" + f",".join(f"{c:.2f}" for c in v) + ">\n"
+        assert output == "<1.00,2.00,3.00>\n<4.00,5.00,6.00>\n<7.00,8.00,9.00>\n"
+
+        vectors = [(1, 2, 3), (4, 5, 6), (7, 8, 9)]
+        output = ""
+        for vec in vectors:
+            output += "<"
+            joined_vector = f",".join(f"{c:.2f}" for c in vec)
+            output += joined_vector
+            output += ">\n"
+        assert output == "<1.00,2.00,3.00>\n<4.00,5.00,6.00>\n<7.00,8.00,9.00>\n"
+
+        vectors = [(1, 2, 3), (4, 5, 6), (7, 8, 9)]
+        output = ""
+        for vec in vectors:
+            output += "<"
+            output += f"{vec[0]:.2f},"
+            output += f"{vec[1]:.2f},"
+            output += f"{vec[2]:.2f}"
+            output += ">\n"
+        assert output == "<1.00,2.00,3.00>\n<4.00,5.00,6.00>\n<7.00,8.00,9.00>\n"
+
+

@@ -17,7 +17,6 @@ class BottomLine(InvadersFlyer):
         surface.fill("green")
         rect = Rect(0, 0, w, h)
         rect.bottomleft = (64, u.SCREEN_SIZE - 56)
-        self.position = rect.center
         self._map = surface
         self._mask = pygame.mask.from_surface(surface)
         self._rect = rect
@@ -30,6 +29,10 @@ class BottomLine(InvadersFlyer):
     @property
     def rect(self):
         return self._rect
+
+    @property
+    def position(self):
+        return self._rect.center
 
     def draw(self, screen):
         screen.blit(self._map, self.rect)
