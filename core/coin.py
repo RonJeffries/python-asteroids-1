@@ -55,7 +55,7 @@ def invaders(fleets):
     fleets.append(PlayerMaker())
     fleets.append(ShotController())
     fleets.append(InvaderScoreKeeper())
-    fleets.append(BottomLine())
+    fleets.append(Shield.bottom_line())
     for i in range(3):
         fleets.append(ReservePlayer(i))
     half_width = 88 / 2

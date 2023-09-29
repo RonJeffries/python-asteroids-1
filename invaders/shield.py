@@ -1,5 +1,7 @@
 import pygame
+from pygame import Surface
 
+import u
 from invaders.Collider import Collider
 from invaders.ImageMasher import ImageMasher
 from invaders.bitmap_maker import BitmapMaker
@@ -11,6 +13,17 @@ class Shield(InvadersFlyer):
     @classmethod
     def shield(cls, position):
         surface = BitmapMaker.instance().shield
+        return cls(surface, position)
+
+    @classmethod
+    def bottom_line(cls):
+        w = 960-128
+        h = 4
+        surface = Surface((w, h))
+        surface.fill("green")
+        rect = surface.get_rect()
+        rect.bottomleft = (64, u.SCREEN_SIZE - 56)
+        position = rect.center
         return cls(surface, position)
 
     def __init__(self, surface, position):
