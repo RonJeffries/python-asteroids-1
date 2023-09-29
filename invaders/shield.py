@@ -10,6 +10,7 @@ from core.tasks import Tasks
 class Shield(InvadersFlyer):
     def __init__(self, position):
         map = BitmapMaker.instance().shield
+
         self._map = map.copy()
         self._map.set_colorkey("black")
         self._mask = pygame.mask.from_surface(map)

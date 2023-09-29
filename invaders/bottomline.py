@@ -13,11 +13,12 @@ class BottomLine(InvadersFlyer):
         w = 960-128
         h = 4
         surface = Surface((w, h))
-        surface.set_colorkey((0, 0, 0))
         surface.fill("green")
         rect = Rect(0, 0, w, h)
         rect.bottomleft = (64, u.SCREEN_SIZE - 56)
+
         self._map = surface
+        self._map.set_colorkey("black")
         self._mask = pygame.mask.from_surface(surface)
         self._rect = rect
         self._tasks = Tasks()
