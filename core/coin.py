@@ -1,5 +1,6 @@
 from pygame import Vector2
 
+import u
 from invaders.bumper import Bumper
 from asteroids.game_over import GameOver
 from invaders.invader_score import InvaderScoreKeeper
@@ -14,6 +15,7 @@ from invaders.shotcontroller import ShotController
 from asteroids.thumper import Thumper
 from invaders.top_bumper import TopBumper
 from asteroids.wavemaker import WaveMaker
+from u import ShieldOffset
 
 
 def quarter(fleets):
@@ -61,7 +63,7 @@ def invaders(fleets):
     spacing = 198
     step = 180
     for i in range(4):
-        place = Vector2(half_width + spacing + i*step, 800-16)
+        place = Vector2(half_width + spacing + i * step, u.SCREEN_SIZE - ShieldOffset)
         fleets.append(RoadFurniture.shield(place))
 
 
