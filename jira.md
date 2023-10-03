@@ -4,13 +4,14 @@
 
 1. Saucer
 2. Two Players
-3. Better testing around startup
-4. gunner magic number radius
-5. Star field
-6. improve shipmaker interact_with_asteroid
-7. simplify saucer (asteroids)
-8. test check-firing keys
-9. movable location?
+3. Sound
+4. Better testing around startup
+5. gunner magic number radius
+6. Star field
+7. improve shipmaker interact_with_asteroid
+8. simplify saucer (asteroids)
+9. test check-firing keys
+10. movable location?
 11. See article 147 N.B. test missile point time t???
 12. rename Fleets and Asteroids_tick
 13. Robot move is not round trip (robot???)
