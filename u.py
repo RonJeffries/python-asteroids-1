@@ -36,3 +36,4 @@ BottomLineOffset = 50
 InvaderPlayerOffset = 128
 ReservePlayerOffset = 32
 ShieldOffset = 208
+InvaderSaucerY = 128

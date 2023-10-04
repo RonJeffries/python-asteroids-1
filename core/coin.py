@@ -5,6 +5,7 @@ from invaders.bumper import Bumper
 from asteroids.game_over import GameOver
 from invaders.invader_score import InvaderScoreKeeper
 from invaders.invaderfleet import InvaderFleet
+from invaders.invaders_saucer import InvadersSaucer
 from invaders.playermaker import PlayerMaker
 from invaders.reserveplayer import ReservePlayer
 from asteroids.saucermaker import SaucerMaker
@@ -13,6 +14,7 @@ from invaders.roadfurniture import RoadFurniture
 from asteroids.shipmaker import ShipMaker
 from invaders.shotcontroller import ShotController
 from asteroids.thumper import Thumper
+from invaders.timecapsule import TimeCapsule
 from invaders.top_bumper import TopBumper
 from asteroids.wavemaker import WaveMaker
 from u import ShieldOffset
@@ -57,6 +59,7 @@ def invaders(fleets):
     fleets.append(ShotController())
     fleets.append(InvaderScoreKeeper())
     fleets.append(RoadFurniture.bottom_line())
+    fleets.append(TimeCapsule(10, InvadersSaucer(1)))
     for i in range(3):
         fleets.append(ReservePlayer(i))
     half_width = 88 / 2
