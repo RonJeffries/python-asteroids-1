@@ -3,19 +3,22 @@
 ### Program
 
 1. Saucer
-2. Two Players
-3. Sound
-4. Better testing around startup
-5. gunner magic number radius
-6. Star field
-7. improve shipmaker interact_with_asteroid
-8. simplify saucer (asteroids)
-9. test check-firing keys
-10. movable location?
-11. See article 147 N.B. test missile point time t???
-12. rename Fleets and Asteroids_tick
-13. Robot move is not round trip (robot???)
-14. Events ala Rickard Lindberg?
+2. Invaders eat shields
+3. Invader Waves
+4. Invaders Advance
+5. Two Players
+6. Sound
+7. Better testing around startup
+8. gunner magic number radius
+9. Star field
+10. improve shipmaker interact_with_asteroid
+11. simplify saucer (asteroids)
+12. test check-firing keys
+13. movable location?
+14. See article 147 N.B. test missile point time t???
+15. rename Fleets and Asteroids_tick
+16. Robot move is not round trip (robot???)
+17. Events ala Rickard Lindberg?
 
 ### Done
 
