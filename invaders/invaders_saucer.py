@@ -13,8 +13,10 @@ class InvadersSaucer(InvadersFlyer):
         self._map = self.saucers[0]
         self._mask = pygame.mask.from_surface(self._map)
         self._rect = self._map.get_rect()
-        self.left = 64
-        self.rect.center = Vector2(self.left, u.INVADER_SAUCER_Y)
+        half_width = self._rect.width // 2
+        self._left = u.BUMPER_LEFT + half_width
+        self._right = u.BUMPER_RIGHT - half_width
+        self.rect.center = Vector2(self._left, u.INVADER_SAUCER_Y)
 
     @property
     def mask(self):
@@ -37,8 +39,7 @@ class InvadersSaucer(InvadersFlyer):
 
     def update(self, delta_time, fleets):
         x = self.position.x + 16
-        x_max = 960
-        if x > x_max:
+        if x > self._right:
             fleets.remove(self)
         else:
             self.position = (x, self.position.y)
