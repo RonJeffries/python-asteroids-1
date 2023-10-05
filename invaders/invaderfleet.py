@@ -6,16 +6,6 @@ from invaders.invader_group import InvaderGroup
 
 
 class InvaderFleet(InvadersFlyer):
-
-    def interact_with_timecapsule(self, capsule, fleets):
-        pass
-
-    def interact_with_playermaker(self, maker, fleets):
-        pass
-
-    def interact_with_roadfurniture(self, shield, fleets):
-        pass
-
     def __init__(self):
         self.step = Vector2(8, 0)
         self.down_step = Vector2(0, 32)
