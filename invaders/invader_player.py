@@ -6,7 +6,6 @@ from flyer import InvadersFlyer
 from pygame import Vector2
 import pygame
 import u
-from u import InvaderPlayerOffset
 
 
 class InvaderPlayer(InvadersFlyer):
@@ -20,7 +19,7 @@ class InvaderPlayer(InvadersFlyer):
         half_width = self.rect.width / 2
         self.left = 64 + half_width
         self.right = 960 - half_width
-        self.rect.center = Vector2(self.left, u.SCREEN_SIZE - InvaderPlayerOffset)
+        self.rect.center = Vector2(self.left, u.INVADER_PLAYER_Y)
         self.free_to_fire = True
         self.fire_request_allowed = True
 

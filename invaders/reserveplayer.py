@@ -1,9 +1,7 @@
-from pygame import Vector2
-
-import u
-from invaders.bitmap_maker import BitmapMaker
 from flyer import InvadersFlyer
-from u import ReservePlayerOffset
+from invaders.bitmap_maker import BitmapMaker
+from pygame import Vector2
+import u
 
 
 class ReservePlayer(InvadersFlyer):
@@ -22,7 +20,7 @@ class ReservePlayer(InvadersFlyer):
         half_width = self.rect.width / 2
         left = 64 + half_width
         x = left + reserve_number*(5*self._rect.width//4)
-        self.rect.center = Vector2(x, u.SCREEN_SIZE - ReservePlayerOffset)
+        self.rect.center = Vector2(x, u.RESERVE_PLAYER_Y)
 
     @property
     def mask(self):

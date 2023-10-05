@@ -7,7 +7,7 @@ from invaders.ImageMasher import ImageMasher
 from invaders.bitmap_maker import BitmapMaker
 from flyer import InvadersFlyer
 from core.tasks import Tasks
-from u import BottomLineOffset
+from u import BOTTOM_LINE_OFFSET
 
 
 class RoadFurniture(InvadersFlyer):
@@ -23,7 +23,7 @@ class RoadFurniture(InvadersFlyer):
         surface = Surface((w, h))
         surface.fill("green")
         rect = surface.get_rect()
-        rect.bottomleft = (64, u.SCREEN_SIZE - BottomLineOffset)
+        rect.bottomleft = (64, u.SCREEN_SIZE - BOTTOM_LINE_OFFSET)
         position = rect.center
         return cls(surface, position)
 

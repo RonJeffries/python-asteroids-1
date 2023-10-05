@@ -17,7 +17,6 @@ from asteroids.thumper import Thumper
 from invaders.timecapsule import TimeCapsule
 from invaders.top_bumper import TopBumper
 from asteroids.wavemaker import WaveMaker
-from u import ShieldOffset
 
 
 def quarter(fleets):
@@ -50,9 +49,9 @@ def no_asteroids(fleets):
 
 def invaders(fleets):
     fleets.clear()
-    left_bumper = 64
+    left_bumper = u.BUMPER_LEFT
     fleets.append(Bumper(left_bumper, -1))
-    fleets.append(Bumper(960, +1))
+    fleets.append(Bumper(u.BUMPER_RIGHT, +1))
     fleets.append(TopBumper())
     fleets.append(InvaderFleet())
     fleets.append(PlayerMaker())
@@ -66,7 +65,7 @@ def invaders(fleets):
     spacing = 198
     step = 180
     for i in range(4):
-        place = Vector2(half_width + spacing + i * step, u.SCREEN_SIZE - ShieldOffset)
+        place = Vector2(half_width + spacing + i * step, u.SHIELD_Y)
         fleets.append(RoadFurniture.shield(place))
 
 
