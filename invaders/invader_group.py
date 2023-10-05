@@ -22,6 +22,9 @@ class InvaderGroup():
         else:
             return None
 
+    def invader_count(self):
+        return len(self.invaders)
+
     def kill(self, invader):
         index = self.invaders.index(invader)
         self.invaders.pop(index)

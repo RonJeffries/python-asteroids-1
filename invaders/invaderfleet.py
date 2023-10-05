@@ -29,6 +29,9 @@ class InvaderFleet(InvadersFlyer):
     def testing_only_invaders(self):
         return self.invader_group.invaders
 
+    def invader_count(self):
+        return self.invader_group.invader_count()
+
     def end_interactions(self, fleets):
         pass
 

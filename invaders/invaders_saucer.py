@@ -37,10 +37,17 @@ class InvadersSaucer(InvadersFlyer):
     def interact_with(self, other, fleets):
         other.interact_with_invaderssaucer(self, fleets)
 
+    def interact_with_invaderfleet(self, invader_fleet, fleets):
+        if invader_fleet.invader_count() < 8:
+            self.die(fleets)
+
+    def die(self, fleets):
+        fleets.remove(self)
+
     def update(self, delta_time, fleets):
         x = self.position.x + 16
         if x > self._right:
-            fleets.remove(self)
+            self.die()
         else:
             self.position = (x, self.position.y)
 
