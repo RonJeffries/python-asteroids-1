@@ -3,6 +3,7 @@ from pygame import Vector2
 import u
 from flyer import InvadersFlyer
 from invaders.bitmap_maker import BitmapMaker
+from invaders.timecapsule import TimeCapsule
 
 
 class InvadersSaucer(InvadersFlyer):
@@ -43,11 +44,12 @@ class InvadersSaucer(InvadersFlyer):
 
     def die(self, fleets):
         fleets.remove(self)
+        fleets.append(TimeCapsule(10, InvadersSaucer()))
 
     def update(self, delta_time, fleets):
         x = self.position.x + 16
         if x > self._right:
-            self.die()
+            self.die(fleets)
         else:
             self.position = (x, self.position.y)
 

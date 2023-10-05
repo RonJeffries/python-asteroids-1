@@ -51,3 +51,19 @@ class TestInvadersSaucer:
         saucer.interact_with_invaderfleet(invader_fleet, fleets)
         saucer.update(1.0/60.0, fleets)
         assert fi.invader_saucers
+
+    def test_returns_after_dying(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        fleets.append(saucer := InvadersSaucer())
+        stop_loop = 10000
+        while fi.invader_saucers and stop_loop > 0:
+            saucer.update(1/60, fleets)
+            stop_loop -= 1
+        assert stop_loop > 0
+        assert not fi.invader_saucers
+        assert fi.time_capsules
+
+
+
+
