@@ -3,16 +3,13 @@ from pygame import Vector2
 import u
 from core.fleets import Fleets
 from invaders.invaderfleet import InvaderFleet
-from invaders.invaders_saucer import InvadersSaucer, InvadersSaucerMaker
+from invaders.invaders_saucer import InvadersSaucer
 from tests.tools import FI
 
 
 class TestInvadersSaucer:
     def test_exists(self):
         InvadersSaucer()
-
-    def test_maker_exists(self):
-        InvadersSaucerMaker()
 
     def test_saucer_moves(self):
         saucer = InvadersSaucer()

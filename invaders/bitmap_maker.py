@@ -59,8 +59,7 @@ class BitmapMaker:
         self.players = [self.make_and_scale_surface(player, scale, (16, 8),"green") for player in players]
         self.plungers = [self.make_and_scale_surface(plunger, scale, (3, 8)) for plunger in plungers]
         self.rollers = [self.make_and_scale_surface(plunger, scale, (3, 8)) for plunger in rollers]
-        self.saucer = self.make_and_scale_surface(saucer, scale, (24, 8))
-        self.saucers = [self.make_and_scale_surface(saucer, scale, (24, 8)) for saucer in saucers]
+        self.saucers = [self.make_and_scale_surface(saucer, scale, (24, 8), "red") for saucer in saucers]
         self.shield = self.make_and_scale_surface(shield, scale, (22, 16), "green")
         self.squiggles = [self.make_and_scale_surface(squig, scale, (3, 8)) for squig in squiggles]
 

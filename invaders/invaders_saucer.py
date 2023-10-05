@@ -18,6 +18,7 @@ class InvadersSaucer(InvadersFlyer):
         self._left = u.BUMPER_LEFT + half_width
         self._right = u.BUMPER_RIGHT - half_width
         self.rect.center = Vector2(self._left, u.INVADER_SAUCER_Y)
+        self._speed = 8
 
     @property
     def mask(self):
@@ -47,7 +48,7 @@ class InvadersSaucer(InvadersFlyer):
         fleets.append(TimeCapsule(10, InvadersSaucer()))
 
     def update(self, delta_time, fleets):
-        x = self.position.x + 16
+        x = self.position.x + self._speed
         if x > self._right:
             self.die(fleets)
         else:
@@ -56,6 +57,3 @@ class InvadersSaucer(InvadersFlyer):
     def draw(self, screen):
         screen.blit(self._map, self.rect)
 
-
-class InvadersSaucerMaker:
-    pass
