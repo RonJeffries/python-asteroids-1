@@ -43,6 +43,9 @@ class InvadersSaucer(InvadersFlyer):
         if invader_fleet.invader_count() < 8:
             self.die(fleets)
 
+    def interact_with_playershot(self, shot, fleets):
+        self.die(fleets)
+
     def die(self, fleets):
         fleets.remove(self)
         fleets.append(TimeCapsule(10, InvadersSaucer()))

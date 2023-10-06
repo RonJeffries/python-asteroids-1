@@ -4,6 +4,7 @@ import u
 from core.fleets import Fleets
 from invaders.invaderfleet import InvaderFleet
 from invaders.invaders_saucer import InvadersSaucer
+from invaders.player_shot import PlayerShot
 from tests.tools import FI
 
 
@@ -60,6 +61,16 @@ class TestInvadersSaucer:
         assert stop_loop > 0
         assert not fi.invader_saucers
         assert fi.time_capsules
+
+    def test_dies_if_hit(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        fleets.append(saucer := InvadersSaucer())
+        shot = PlayerShot()
+        shot.position = saucer.position
+        assert fi.invader_saucers
+        saucer.interact_with_playershot(shot, fleets)
+        assert not fi.invader_saucers
 
 
 
