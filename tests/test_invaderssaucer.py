@@ -2,6 +2,7 @@ from pygame import Vector2
 
 import u
 from core.fleets import Fleets
+from invaders.invader_score import InvaderScoreKeeper
 from invaders.invaderfleet import InvaderFleet
 from invaders.invaders_saucer import InvadersSaucer
 from invaders.player_shot import PlayerShot
@@ -71,6 +72,18 @@ class TestInvadersSaucer:
         assert fi.invader_saucers
         saucer.interact_with_playershot(shot, fleets)
         assert not fi.invader_saucers
+
+    def test_first_score(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        fleets.append(saucer := InvadersSaucer())
+        fleets.append(keeper := InvaderScoreKeeper())
+        shot = PlayerShot()
+        shot.position = saucer.position
+        saucer.interact_with_playershot(shot, fleets)
+        score = fi.scores[0]
+        assert score.score == 100
+
 
 
 

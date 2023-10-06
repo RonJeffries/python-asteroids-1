@@ -4,6 +4,7 @@ from flyer import AsteroidFlyer
 from asteroids.fragment import Fragment
 from asteroids.game_over import GameOver
 from invaders.invader_player import InvaderPlayer
+from invaders.invader_score import InvaderScore
 from invaders.invader_shot import InvaderShot
 from asteroids.missile import Missile
 from invaders.invaders_saucer import InvadersSaucer
@@ -121,7 +122,7 @@ class FleetsInspector:
 
     @property
     def scores(self):
-        return self.select(lambda s: isinstance(s, Score))
+        return self.select(lambda s: isinstance(s, Score) or isinstance(s, InvaderScore))
 
     @property
     def ships(self):

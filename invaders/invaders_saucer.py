@@ -3,6 +3,7 @@ from pygame import Vector2
 import u
 from flyer import InvadersFlyer
 from invaders.bitmap_maker import BitmapMaker
+from invaders.invader_score import InvaderScore
 from invaders.timecapsule import TimeCapsule
 
 
@@ -44,6 +45,7 @@ class InvadersSaucer(InvadersFlyer):
             self.die(fleets)
 
     def interact_with_playershot(self, shot, fleets):
+        fleets.append(InvaderScore(100))
         self.die(fleets)
 
     def die(self, fleets):
