@@ -22,6 +22,7 @@ class InvaderPlayer(InvadersFlyer):
         self.rect.center = Vector2(self.left, u.INVADER_PLAYER_Y)
         self.free_to_fire = True
         self.fire_request_allowed = True
+        self.shot_count = 0
 
     @property
     def mask(self):
@@ -52,7 +53,10 @@ class InvaderPlayer(InvadersFlyer):
 
     def attempt_firing(self, fleets):
         if self.free_to_fire:
-            fleets.append(PlayerShot(self.rect.center))
+            self.fire(fleets)
+
+    def fire(self, fleets):
+        fleets.append(PlayerShot(self.rect.center))
 
     def update(self, _delta_time, fleets):
         if not pygame.get_init():

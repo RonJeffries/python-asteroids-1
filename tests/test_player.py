@@ -71,6 +71,10 @@ class TestPlayer:
         # added_tc = [tc for tc in fleets.appends if isinstance(tc, TimeCapsule)]
         # assert added_tc
 
+    def test_firing_counts_shots(self):
+        player = InvaderPlayer()
+        assert player.shot_count == 0
+
 
 class TestPlayerExplosion:
     def test_exists(self):
