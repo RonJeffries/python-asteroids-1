@@ -20,6 +20,8 @@ class InvadersSaucer(InvadersFlyer):
         self._right = u.BUMPER_RIGHT - half_width
         self.rect.center = Vector2(self._left, u.INVADER_SAUCER_Y)
         self._speed = 8
+        self._player = None
+        self._score_list = [100, 50, 50, 100, 150, 100, 100, 50, 300, 100, 100, 100, 50, 150, 100]
 
     @property
     def mask(self):
@@ -44,9 +46,18 @@ class InvadersSaucer(InvadersFlyer):
         if invader_fleet.invader_count() < 8:
             self.die(fleets)
 
+    def interact_with_invaderplayer(self, player, fleets):
+        self._player = player
+
     def interact_with_playershot(self, shot, fleets):
-        fleets.append(InvaderScore(100))
+        fleets.append(InvaderScore(self.mystery_score()))
         self.die(fleets)
+
+    def mystery_score(self):
+        if not self._player:
+            return 0
+        score_index = self._player.shot_count % len(self._score_list)
+        return self._score_list[score_index]
 
     def die(self, fleets):
         fleets.remove(self)
