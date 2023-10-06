@@ -74,6 +74,10 @@ class TestPlayer:
     def test_firing_counts_shots(self):
         player = InvaderPlayer()
         assert player.shot_count == 0
+        player.fire([])
+        assert player.shot_count == 1
+        player.fire([])
+        assert player.shot_count == 2
 
 
 class TestPlayerExplosion:

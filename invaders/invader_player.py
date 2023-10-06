@@ -56,6 +56,7 @@ class InvaderPlayer(InvadersFlyer):
             self.fire(fleets)
 
     def fire(self, fleets):
+        self.shot_count += 1
         fleets.append(PlayerShot(self.rect.center))
 
     def update(self, _delta_time, fleets):
