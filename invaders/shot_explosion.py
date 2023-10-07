@@ -7,6 +7,12 @@ from flyer import InvadersFlyer
 class InvadersExplosion(InvadersFlyer):
 
     @classmethod
+    def saucer_explosion(cls, position, time):
+        maker = BitmapMaker()
+        image = maker.saucers[1]
+        return cls(image, position, time)
+
+    @classmethod
     def shot_explosion(cls, position, time):
         maker = BitmapMaker()
         image = maker.player_shot_explosion

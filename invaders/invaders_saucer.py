@@ -5,6 +5,7 @@ from flyer import InvadersFlyer
 from invaders.Collider import Collider
 from invaders.bitmap_maker import BitmapMaker
 from invaders.invader_score import InvaderScore
+from invaders.shot_explosion import InvadersExplosion
 from invaders.timecapsule import TimeCapsule
 
 
@@ -52,6 +53,8 @@ class InvadersSaucer(InvadersFlyer):
 
     def interact_with_playershot(self, shot, fleets):
         if Collider(self, shot).colliding():
+            explosion = InvadersExplosion.saucer_explosion(self.position, 0.5)
+            fleets.append(explosion)
             fleets.append(InvaderScore(self.mystery_score()))
             self.die(fleets)
 
