@@ -64,6 +64,16 @@ class TestInvadersSaucer:
         assert not fi.invader_saucers
         assert fi.time_capsules
 
+    def test_missing_shot(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        fleets.append(saucer := InvadersSaucer())
+        shot = PlayerShot()
+        shot.position = Vector2(0, 0)
+        assert fi.invader_saucers
+        saucer.interact_with_playershot(shot, fleets)
+        assert fi.invader_saucers
+
     def test_dies_if_hit(self):
         fleets = Fleets()
         fi = FI(fleets)

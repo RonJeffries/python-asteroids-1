@@ -2,6 +2,7 @@ import pygame
 from pygame import Vector2
 import u
 from flyer import InvadersFlyer
+from invaders.Collider import Collider
 from invaders.bitmap_maker import BitmapMaker
 from invaders.invader_score import InvaderScore
 from invaders.timecapsule import TimeCapsule
@@ -50,8 +51,9 @@ class InvadersSaucer(InvadersFlyer):
         self._player = player
 
     def interact_with_playershot(self, shot, fleets):
-        fleets.append(InvaderScore(self.mystery_score()))
-        self.die(fleets)
+        if Collider(self, shot).colliding():
+            fleets.append(InvaderScore(self.mystery_score()))
+            self.die(fleets)
 
     def mystery_score(self):
         if not self._player:

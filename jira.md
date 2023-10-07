@@ -5,8 +5,9 @@
 * test missing the saucer
 * kill the shot if it hits saucer
 * make an explosion (just thought of this)
+* display mystery score
 * Flies at constant height and speed TBD
-* change to snatch shot_count, not player (see Added in Post below)
+* <s>change to snatch shot_count, not player (too hard to understand)</s>
 * Direction: Comes from right if player shot count is even
 * <s>Scores: 10 05 05 10 15 10 10 05 30 10 10 10 05 15 10 05 </s>
 * <s>Score loops at 15, not 16 (replicate this bug?)</s>
