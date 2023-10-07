@@ -4,14 +4,20 @@ from invaders.bitmap_maker import BitmapMaker
 from flyer import InvadersFlyer
 
 
-class ShotExplosion(InvadersFlyer):
-    def __init__(self, position):
-        self.position = position
+class InvadersExplosion(InvadersFlyer):
+
+    @classmethod
+    def shot_explosion(cls, position, time):
         maker = BitmapMaker()
-        self.image = maker.player_shot_explosion
-        self._mask = pygame.mask.from_surface(self.image)
-        self._rect = self.image.get_rect()
-        self.time = 0.125
+        image = maker.player_shot_explosion
+        return cls(image, position, time)
+
+    def __init__(self, image, position, time):
+        self.image = image
+        self.position = position
+        self._mask = pygame.mask.from_surface(image)
+        self._rect = image.get_rect()
+        self._time = time
 
     @property
     def mask(self):
@@ -22,8 +28,8 @@ class ShotExplosion(InvadersFlyer):
         return self._rect
 
     def tick(self, delta_time, fleets):
-        self.time -= delta_time
-        if self.time < 0:
+        self._time -= delta_time
+        if self._time < 0:
             fleets.remove(self)
 
     def draw(self, screen):
@@ -31,4 +37,4 @@ class ShotExplosion(InvadersFlyer):
         screen.blit(self.image, self.rect)
 
     def interact_with(self, other, fleets):
-        other.interact_with_shotexplosion(self, fleets)
+        other.interact_with_invadersexplosion(self, fleets)

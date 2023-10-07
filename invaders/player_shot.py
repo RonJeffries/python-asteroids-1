@@ -1,7 +1,7 @@
 from flyer import InvadersFlyer
 from invaders.Collider import Collider
 from invaders.bitmap_maker import BitmapMaker
-from invaders.shot_explosion import ShotExplosion
+from invaders.shot_explosion import InvadersExplosion
 from pygame import Vector2
 import pygame
 import u
@@ -50,8 +50,11 @@ class PlayerShot(InvadersFlyer):
 
     def interact_with_invadershot(self, shot, fleets):
         if self.colliding(shot):
-            fleets.append(ShotExplosion(self.position))
-            fleets.remove(self)
+            self.explode(fleets)
+
+    def explode(self, fleets):
+        fleets.append(InvadersExplosion.shot_explosion(self.position, 0.125))
+        fleets.remove(self)
 
     def interact_with_roadfurniture(self, shield, fleets):
         if self.colliding(shield):
@@ -59,8 +62,7 @@ class PlayerShot(InvadersFlyer):
 
     def interact_with_topbumper(self, top_bumper, fleets):
         if top_bumper.intersecting(self.position):
-            fleets.append(ShotExplosion(self.position))
-            fleets.remove(self)
+            self.explode(fleets)
 
     def colliding(self, invaders_flyer):
         collider = Collider(self, invaders_flyer)
