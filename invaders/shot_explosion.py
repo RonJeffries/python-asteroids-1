@@ -9,7 +9,7 @@ class InvadersExplosion(InvadersFlyer):
     @classmethod
     def saucer_explosion(cls, position, time):
         maker = BitmapMaker()
-        image = maker.saucers[1]
+        image = maker.saucer_explosion
         return cls(image, position, time)
 
     @classmethod

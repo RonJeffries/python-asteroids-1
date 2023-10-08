@@ -13,8 +13,7 @@ class InvadersSaucer(InvadersFlyer):
     def __init__(self, direction=1):
         self.direction = direction
         maker = BitmapMaker.instance()
-        self.saucers = maker.saucers  # one turret, two explosions
-        self._map = self.saucers[0]
+        self._map = maker.saucer
         self._mask = pygame.mask.from_surface(self._map)
         self._rect = self._map.get_rect()
         half_width = self._rect.width // 2
