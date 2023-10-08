@@ -20,8 +20,7 @@ class InvadersSaucer(InvadersFlyer):
         half_width = self._rect.width // 2
         self._left = u.BUMPER_LEFT + half_width
         self._right = u.BUMPER_RIGHT - half_width
-        self.rect.center = Vector2(self._left, u.INVADER_SAUCER_Y)
-        self._speed = 8
+        self._speed = 0
         self._player = None
         self._score_list = [100, 50, 50, 100, 150, 100, 100, 50, 300, 100, 100, 100, 50, 150, 100]
         self.initialized = False
@@ -62,6 +61,17 @@ class InvadersSaucer(InvadersFlyer):
     def end_interactions(self, fleets):
         if not self.initialized and self._player:
             self.initialized = True
+            shot_count = self._player.shot_count % 2
+            self.init_motion(shot_count)
+
+    def init_motion(self, shot_count):
+        speed = 8
+        if shot_count == 0:
+            self._speed = -speed
+            self.rect.center = Vector2(self._right, u.INVADER_SAUCER_Y)
+        else:
+            self._speed = speed
+            self.rect.center = Vector2(self._left, u.INVADER_SAUCER_Y)
 
     def mystery_score(self):
         if not self._player:
@@ -75,7 +85,7 @@ class InvadersSaucer(InvadersFlyer):
 
     def update(self, delta_time, fleets):
         x = self.position.x + self._speed
-        if x > self._right:
+        if x > self._right or x < self._left:
             self.die(fleets)
         else:
             self.position = (x, self.position.y)

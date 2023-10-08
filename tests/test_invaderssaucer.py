@@ -16,6 +16,7 @@ class TestInvadersSaucer:
 
     def test_saucer_moves(self):
         saucer = InvadersSaucer()
+        saucer.init_motion(0)
         start = saucer.position
         fleets = Fleets()
         fleets.append(InvaderFleet())
@@ -52,10 +53,24 @@ class TestInvadersSaucer:
         saucer.update(1.0/60.0, fleets)
         assert fi.invader_saucers
 
-    def test_returns_after_dying(self):
+    def test_returns_after_dying_on_right(self):
         fleets = Fleets()
         fi = FI(fleets)
         fleets.append(saucer := InvadersSaucer())
+        saucer.init_motion(1)  # odd left to right
+        stop_loop = 10000
+        while fi.invader_saucers and stop_loop > 0:
+            saucer.update(1/60, fleets)
+            stop_loop -= 1
+        assert stop_loop > 0
+        assert not fi.invader_saucers
+        assert fi.time_capsules
+
+    def test_returns_after_dying_on_left(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        fleets.append(saucer := InvadersSaucer())
+        saucer.init_motion(0)  # even right to left
         stop_loop = 10000
         while fi.invader_saucers and stop_loop > 0:
             saucer.update(1/60, fleets)
@@ -123,13 +138,22 @@ class TestInvadersSaucer:
         kill_saucer(100)
         kill_saucer(100)
 
-    def test_initialize(self):
+    def test_initialized(self):
         player = InvaderPlayer()
         saucer = InvadersSaucer()
         assert not saucer.initialized
         saucer.interact_with_invaderplayer(player, [])
         saucer.end_interactions([])
         assert saucer.initialized
+
+    def test_start_on_right(self):
+        player = InvaderPlayer()
+        player.shot_count = 0
+        saucer = InvadersSaucer()
+        saucer.interact_with_invaderplayer(player, [])
+        saucer.end_interactions([])
+        assert saucer.position.x > u.CENTER.x
+        assert saucer._speed < 0
 
 
 
