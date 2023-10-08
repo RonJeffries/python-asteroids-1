@@ -59,11 +59,11 @@ class InvadersSaucer(InvadersFlyer):
 
     def end_interactions(self, fleets):
         if not self.initialized and self._player:
-            self.initialized = True
             shot_count = self._player.shot_count % 2
             self.init_motion(shot_count)
 
     def init_motion(self, shot_count):
+        self.initialized = True
         speed = 8
         if shot_count == 0:
             self._speed = -speed
@@ -83,6 +83,8 @@ class InvadersSaucer(InvadersFlyer):
         fleets.append(TimeCapsule(10, InvadersSaucer()))
 
     def update(self, delta_time, fleets):
+        if not self.initialized:
+            return
         x = self.position.x + self._speed
         if x > self._right or x < self._left:
             self.die(fleets)

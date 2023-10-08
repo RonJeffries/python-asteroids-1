@@ -48,6 +48,7 @@ class TestInvadersSaucer:
             invader_group.kill(invader_group.invaders[0])
         assert invader_group.invader_count() == 8
         fleets.append(saucer := InvadersSaucer())
+        saucer.init_motion(0)
         assert fi.invader_saucers
         saucer.interact_with_invaderfleet(invader_fleet, fleets)
         saucer.update(1.0/60.0, fleets)
