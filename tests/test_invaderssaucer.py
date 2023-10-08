@@ -1,13 +1,12 @@
-from pygame import Vector2
-
-import u
 from core.fleets import Fleets
 from invaders.invader_player import InvaderPlayer
 from invaders.invader_score import InvaderScoreKeeper
 from invaders.invaderfleet import InvaderFleet
 from invaders.invaders_saucer import InvadersSaucer
 from invaders.player_shot import PlayerShot
+from pygame import Vector2
 from tests.tools import FI
+import u
 
 
 class TestInvadersSaucer:
