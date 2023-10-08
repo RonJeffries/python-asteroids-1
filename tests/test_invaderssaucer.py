@@ -79,10 +79,14 @@ class TestInvadersSaucer:
         fi = FI(fleets)
         fleets.append(saucer := InvadersSaucer())
         shot = PlayerShot()
+        fleets.append(shot)
         shot.position = saucer.position
         assert fi.invader_saucers
+        assert fi.player_shots
         saucer.interact_with_playershot(shot, fleets)
+        shot.interact_with_invaderssaucer(saucer, fleets)
         assert not fi.invader_saucers
+        assert not fi.player_shots
 
     def test_first_score(self):
         fleets = Fleets()
