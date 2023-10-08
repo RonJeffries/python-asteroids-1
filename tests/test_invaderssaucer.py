@@ -123,6 +123,14 @@ class TestInvadersSaucer:
         kill_saucer(100)
         kill_saucer(100)
 
+    def test_initialize(self):
+        player = InvaderPlayer()
+        saucer = InvadersSaucer()
+        assert not saucer.initialized
+        saucer.interact_with_invaderplayer(player, [])
+        saucer.end_interactions([])
+        assert saucer.initialized
+
 
 
 

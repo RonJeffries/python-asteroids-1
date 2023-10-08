@@ -24,6 +24,7 @@ class InvadersSaucer(InvadersFlyer):
         self._speed = 8
         self._player = None
         self._score_list = [100, 50, 50, 100, 150, 100, 100, 50, 300, 100, 100, 100, 50, 150, 100]
+        self.initialized = False
 
     @property
     def mask(self):
@@ -57,6 +58,10 @@ class InvadersSaucer(InvadersFlyer):
             fleets.append(explosion)
             fleets.append(InvaderScore(self.mystery_score()))
             self.die(fleets)
+
+    def end_interactions(self, fleets):
+        if not self.initialized and self._player:
+            self.initialized = True
 
     def mystery_score(self):
         if not self._player:
