@@ -44,7 +44,7 @@ class InvadersSaucer(InvadersFlyer):
         other.interact_with_invaderssaucer(self, fleets)
 
     def interact_with_invaderfleet(self, invader_fleet, fleets):
-        if invader_fleet.invader_count() < 8:
+        if not self.initialized and invader_fleet.invader_count() < 8:
             self.die(fleets)
 
     def interact_with_invaderplayer(self, player, fleets):
@@ -64,9 +64,9 @@ class InvadersSaucer(InvadersFlyer):
     def init_motion(self, shot_count):
         self.initialized = True
         speed = 8
-        zero_or_one = shot_count % 2
-        self._speed = (-speed, speed)[zero_or_one]
-        left_or_right = (self._right, self._left)[zero_or_one]
+        even_or_odd = shot_count % 2
+        self._speed = (-speed, speed)[even_or_odd]
+        left_or_right = (self._right, self._left)[even_or_odd]
         self.rect.center = Vector2(left_or_right, u.INVADER_SAUCER_Y)
 
     def mystery_score(self):
