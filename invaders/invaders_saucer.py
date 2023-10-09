@@ -89,5 +89,6 @@ class InvadersSaucer(InvadersFlyer):
             self.position = (x, self.position.y)
 
     def draw(self, screen):
-        screen.blit(self._map, self.rect)
+        if self.initialized:
+            screen.blit(self._map, self.rect)
 
