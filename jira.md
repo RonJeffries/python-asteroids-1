@@ -2,9 +2,10 @@
 
 ### Current
 
+* should not start if there is no player?
 * display mystery score
 * Flies at constant height and speed TBD
-* Direction: Comes from right if player shot count is even
+* <s>Direction: Comes from right if player shot count is even</s>
 * <s>kill the shot if it hits saucer</s>
 * <s>test missing the saucer</s>
 * <s>make an explosion</s>

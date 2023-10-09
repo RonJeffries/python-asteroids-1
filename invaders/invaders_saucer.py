@@ -59,13 +59,13 @@ class InvadersSaucer(InvadersFlyer):
 
     def end_interactions(self, fleets):
         if not self.initialized and self._player:
-            shot_count = self._player.shot_count % 2
-            self.init_motion(shot_count)
+            self.init_motion(self._player.shot_count)
 
     def init_motion(self, shot_count):
         self.initialized = True
         speed = 8
-        if shot_count == 0:
+        shot_count_is_even = shot_count % 2 == 0
+        if shot_count_is_even:
             self._speed = -speed
             self.rect.center = Vector2(self._right, u.INVADER_SAUCER_Y)
         else:
