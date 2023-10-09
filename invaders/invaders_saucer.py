@@ -64,12 +64,13 @@ class InvadersSaucer(InvadersFlyer):
     def init_motion(self, shot_count):
         self.initialized = True
         speed = 8
-        shot_count_is_even = shot_count % 2 == 0
+        zero_or_one = shot_count % 2
+        shot_count_is_even = zero_or_one == 0
         if shot_count_is_even:
-            self._speed = -speed
+            self._speed = (-speed, speed)[zero_or_one]
             self.rect.center = Vector2(self._right, u.INVADER_SAUCER_Y)
         else:
-            self._speed = speed
+            self._speed = (-speed, speed)[zero_or_one]
             self.rect.center = Vector2(self._left, u.INVADER_SAUCER_Y)
 
     def mystery_score(self):
