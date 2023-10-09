@@ -68,10 +68,12 @@ class InvadersSaucer(InvadersFlyer):
         shot_count_is_even = zero_or_one == 0
         if shot_count_is_even:
             self._speed = (-speed, speed)[zero_or_one]
-            self.rect.center = Vector2(self._right, u.INVADER_SAUCER_Y)
+            left_or_right = self._right
+            self.rect.center = Vector2(left_or_right, u.INVADER_SAUCER_Y)
         else:
             self._speed = (-speed, speed)[zero_or_one]
-            self.rect.center = Vector2(self._left, u.INVADER_SAUCER_Y)
+            left_or_right = self._left
+            self.rect.center = Vector2(left_or_right, u.INVADER_SAUCER_Y)
 
     def mystery_score(self):
         if not self._player:
