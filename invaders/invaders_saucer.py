@@ -81,11 +81,14 @@ class InvadersSaucer(InvadersFlyer):
 
     def update(self, delta_time, fleets):
         if self.initialized:
-            x = self.position.x + self._speed
-            if x > self._right or x < self._left:
-                self.die(fleets)
-            else:
-                self.position = (x, self.position.y)
+            self.move_or_die(fleets)
+
+    def move_or_die(self, fleets):
+        x = self.position.x + self._speed
+        if x > self._right or x < self._left:
+            self.die(fleets)
+        else:
+            self.position = (x, self.position.y)
 
     def draw(self, screen):
         if self.initialized:
