@@ -1,3 +1,4 @@
+from invaders.patcher import Patcher
 
 
 class _Pluggable:
@@ -8,14 +9,10 @@ class _Pluggable:
         self.count += 1
 
     def turn_off_increment(self):
-        self.increment = self.do_nothing
+        Patcher.turn_off(self, "increment")
 
     def turn_on_increment(self):
-        if self.__dict__.get("increment"):
-            self.__delattr__("increment")
-
-    def do_nothing(self, *args, **kwargs):
-        pass
+        Patcher.turn_on(self, "increment")
 
 
 class TestPluggable:
