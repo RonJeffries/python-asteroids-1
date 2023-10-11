@@ -43,8 +43,9 @@ class InvadersSaucer(InvadersFlyer):
         other.interact_with_invaderssaucer(self, fleets)
 
     def interact_with_invaderfleet(self, invader_fleet, fleets):
-        if not self.initialized and invader_fleet.invader_count() < 8:
-            self.die(fleets)
+        if not self.initialized:
+            if invader_fleet.invader_count() < 8:
+                self.die(fleets)
 
     def interact_with_invaderplayer(self, player, fleets):
         self._player = player
