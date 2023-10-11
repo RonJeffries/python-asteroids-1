@@ -16,6 +16,12 @@ class Unready:
     def die_if_lonely(self, invader_fleet, fleets):
         self._saucer.die_if_lonely(invader_fleet, fleets)
 
+    def finish_initializing(self, shot_count):
+        self._saucer.finish_initializing(shot_count)
+
+    def just_draw(self, screen):
+        pass
+
 
 class Ready:
     def __init__(self, saucer):
@@ -23,6 +29,12 @@ class Ready:
 
     def die_if_lonely(self, _invader_fleet, _fleets):
         pass
+
+    def finish_initializing(self, shot_count):
+        pass
+
+    def just_draw(self, screen):
+        self._saucer.just_draw(screen)
 
 
 class InvadersSaucer(InvadersFlyer):
@@ -69,9 +81,9 @@ class InvadersSaucer(InvadersFlyer):
     def interact_with_invaderplayer(self, player, fleets):
         self._player = player
         if not self.initialized:
-            self.init_motion(self._player.shot_count)
+            self.finish_initializing(self._player.shot_count)
 
-    def init_motion(self, shot_count):
+    def finish_initializing(self, shot_count):
         self._readiness = Ready(self)
         self.initialized = True
         speed = 8
@@ -109,8 +121,7 @@ class InvadersSaucer(InvadersFlyer):
             self.position = (x, self.position.y)
 
     def draw(self, screen):
-        if self.initialized:
-            self.just_draw(screen)
+        self._readiness.just_draw(screen)
 
     def just_draw(self, screen):
         screen.blit(self._map, self.rect)
