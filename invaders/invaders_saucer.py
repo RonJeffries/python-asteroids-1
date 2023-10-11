@@ -13,6 +13,17 @@ class Unready:
     def __init__(self, saucer):
         self._saucer = saucer
 
+    def die_if_lonely(self, invader_fleet, fleets):
+        self._saucer.die_if_lonely(invader_fleet, fleets)
+
+
+class Ready:
+    def __init__(self, saucer):
+        self._saucer = saucer
+
+    def die_if_lonely(self, _invader_fleet, _fleets):
+        pass
+
 
 class InvadersSaucer(InvadersFlyer):
     def __init__(self):
@@ -49,9 +60,11 @@ class InvadersSaucer(InvadersFlyer):
         other.interact_with_invaderssaucer(self, fleets)
 
     def interact_with_invaderfleet(self, invader_fleet, fleets):
-        if not self.initialized:
-            if invader_fleet.invader_count() < 8:
-                self.die(fleets)
+        self._readiness.die_if_lonely(invader_fleet, fleets)
+
+    def die_if_lonely(self, invader_fleet, fleets):
+        if invader_fleet.invader_count() < 8:
+            self.die(fleets)
 
     def interact_with_invaderplayer(self, player, fleets):
         self._player = player
@@ -59,6 +72,7 @@ class InvadersSaucer(InvadersFlyer):
             self.init_motion(self._player.shot_count)
 
     def init_motion(self, shot_count):
+        self._readiness = Ready(self)
         self.initialized = True
         speed = 8
         even_or_odd = shot_count % 2
