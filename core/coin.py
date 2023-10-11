@@ -58,7 +58,7 @@ def invaders(fleets):
     fleets.append(ShotController())
     fleets.append(InvaderScoreKeeper())
     fleets.append(RoadFurniture.bottom_line())
-    fleets.append(TimeCapsule(10, InvadersSaucer(1)))
+    fleets.append(TimeCapsule(10, InvadersSaucer()))
     for i in range(3):
         fleets.append(ReservePlayer(i))
     half_width = 88 / 2

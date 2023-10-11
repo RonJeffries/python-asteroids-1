@@ -10,8 +10,7 @@ from invaders.timecapsule import TimeCapsule
 
 
 class InvadersSaucer(InvadersFlyer):
-    def __init__(self, direction=1):
-        self.direction = direction
+    def __init__(self):
         maker = BitmapMaker.instance()
         self._map = maker.saucer
         self._mask = pygame.mask.from_surface(self._map)
@@ -49,6 +48,8 @@ class InvadersSaucer(InvadersFlyer):
 
     def interact_with_invaderplayer(self, player, fleets):
         self._player = player
+        if not self.initialized:
+            self.init_motion(self._player.shot_count)
 
     def interact_with_playershot(self, shot, fleets):
         if Collider(self, shot).colliding():
@@ -58,8 +59,7 @@ class InvadersSaucer(InvadersFlyer):
             self.die(fleets)
 
     def end_interactions(self, fleets):
-        if not self.initialized and self._player:
-            self.init_motion(self._player.shot_count)
+        pass
 
     def init_motion(self, shot_count):
         self.initialized = True
