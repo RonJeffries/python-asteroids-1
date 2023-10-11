@@ -9,6 +9,11 @@ from invaders.shot_explosion import InvadersExplosion
 from invaders.timecapsule import TimeCapsule
 
 
+class Unready:
+    def __init__(self, saucer):
+        self._saucer = saucer
+
+
 class InvadersSaucer(InvadersFlyer):
     def __init__(self):
         maker = BitmapMaker.instance()
@@ -21,6 +26,7 @@ class InvadersSaucer(InvadersFlyer):
         self._speed = 0
         self._player = None
         self._score_list = [100, 50, 50, 100, 150, 100, 100, 50, 300, 100, 100, 100, 50, 150, 100]
+        self._readiness = Unready(self)
         self.initialized = False
 
     @property
