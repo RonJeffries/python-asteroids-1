@@ -22,6 +22,9 @@ class Unready:
     def just_draw(self, screen):
         pass
 
+    def move_or_die(self, fleets):
+        pass
+
 
 class Ready:
     def __init__(self, saucer):
@@ -35,6 +38,9 @@ class Ready:
 
     def just_draw(self, screen):
         self._saucer.just_draw(screen)
+
+    def move_or_die(self, fleets):
+        self._saucer.move_or_die(fleets)
 
 
 class InvadersSaucer(InvadersFlyer):
@@ -50,7 +56,6 @@ class InvadersSaucer(InvadersFlyer):
         self._player = None
         self._score_list = [100, 50, 50, 100, 150, 100, 100, 50, 300, 100, 100, 100, 50, 150, 100]
         self._readiness = Unready(self)
-        self.initialized = False
 
     @property
     def mask(self):
@@ -80,12 +85,10 @@ class InvadersSaucer(InvadersFlyer):
 
     def interact_with_invaderplayer(self, player, fleets):
         self._player = player
-        if not self.initialized:
-            self.finish_initializing(self._player.shot_count)
+        self._readiness.finish_initializing(self._player.shot_count)
 
     def finish_initializing(self, shot_count):
         self._readiness = Ready(self)
-        self.initialized = True
         speed = 8
         even_or_odd = shot_count % 2
         self._speed = (-speed, speed)[even_or_odd]
@@ -110,8 +113,7 @@ class InvadersSaucer(InvadersFlyer):
         fleets.append(TimeCapsule(10, InvadersSaucer()))
 
     def update(self, delta_time, fleets):
-        if self.initialized:
-            self.move_or_die(fleets)
+        self._readiness.move_or_die(fleets)
 
     def move_or_die(self, fleets):
         x = self.position.x + self._speed

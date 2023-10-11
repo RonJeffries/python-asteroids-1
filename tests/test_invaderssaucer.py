@@ -141,10 +141,10 @@ class TestInvadersSaucer:
     def test_initialized(self):
         player = InvaderPlayer()
         saucer = InvadersSaucer()
-        assert not saucer.initialized
+        assert isinstance(saucer._readiness, Unready)
         saucer.interact_with_invaderplayer(player, [])
         saucer.end_interactions([])
-        assert saucer.initialized
+        assert isinstance(saucer._readiness, Ready)
 
     def test_start_on_right(self):
         player = InvaderPlayer()
