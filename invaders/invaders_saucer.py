@@ -52,16 +52,6 @@ class InvadersSaucer(InvadersFlyer):
         if not self.initialized:
             self.init_motion(self._player.shot_count)
 
-    def interact_with_playershot(self, shot, fleets):
-        if Collider(self, shot).colliding():
-            explosion = InvadersExplosion.saucer_explosion(self.position, 0.5)
-            fleets.append(explosion)
-            fleets.append(InvaderScore(self.mystery_score()))
-            self.die(fleets)
-
-    def end_interactions(self, fleets):
-        pass
-
     def init_motion(self, shot_count):
         self.initialized = True
         speed = 8
@@ -69,6 +59,13 @@ class InvadersSaucer(InvadersFlyer):
         self._speed = (-speed, speed)[even_or_odd]
         left_or_right = (self._right, self._left)[even_or_odd]
         self.rect.center = Vector2(left_or_right, u.INVADER_SAUCER_Y)
+
+    def interact_with_playershot(self, shot, fleets):
+        if Collider(self, shot).colliding():
+            explosion = InvadersExplosion.saucer_explosion(self.position, 0.5)
+            fleets.append(explosion)
+            fleets.append(InvaderScore(self.mystery_score()))
+            self.die(fleets)
 
     def mystery_score(self):
         if not self._player:
@@ -93,5 +90,8 @@ class InvadersSaucer(InvadersFlyer):
 
     def draw(self, screen):
         if self.initialized:
-            screen.blit(self._map, self.rect)
+            self.just_draw(screen)
+
+    def just_draw(self, screen):
+        screen.blit(self._map, self.rect)
 
