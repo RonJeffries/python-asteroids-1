@@ -40,7 +40,7 @@ class Ready:
         self._saucer.just_draw(screen)
 
     def move_or_die(self, fleets):
-        self._saucer.move_or_die(fleets)
+        self._saucer._move_or_die(fleets)
 
 
 class InvadersSaucer(InvadersFlyer):
@@ -113,7 +113,7 @@ class InvadersSaucer(InvadersFlyer):
     def update(self, delta_time, fleets):
         self._readiness.move_or_die(fleets)
 
-    def move_or_die(self, fleets):
+    def _move_or_die(self, fleets):
         x = self.position.x + self._speed
         if x > self._right or x < self._left:
             self._die(fleets)
