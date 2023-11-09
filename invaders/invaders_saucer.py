@@ -99,10 +99,10 @@ class InvadersSaucer(InvadersFlyer):
         if Collider(self, shot).colliding():
             explosion = InvadersExplosion.saucer_explosion(self.position, 0.5)
             fleets.append(explosion)
-            fleets.append(InvaderScore(self.mystery_score()))
+            fleets.append(InvaderScore(self._mystery_score()))
             self.die(fleets)
 
-    def mystery_score(self):
+    def _mystery_score(self):
         score_index = self._player_shot_count % len(self._score_list)
         return self._score_list[score_index]
 
