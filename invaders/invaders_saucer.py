@@ -17,7 +17,7 @@ class Unready:
         self._saucer._die_if_lonely(invader_fleet, fleets)
 
     def finish_initializing(self, shot_count):
-        self._saucer.finish_initializing(shot_count)
+        self._saucer._finish_initializing(shot_count)
 
     def just_draw(self, screen):
         pass
@@ -87,7 +87,7 @@ class InvadersSaucer(InvadersFlyer):
         self._player_shot_count = player.shot_count
         self._readiness.finish_initializing(self._player_shot_count)
 
-    def finish_initializing(self, shot_count):
+    def _finish_initializing(self, shot_count):
         self._readiness = Ready(self)
         speed = 8
         even_or_odd = shot_count % 2

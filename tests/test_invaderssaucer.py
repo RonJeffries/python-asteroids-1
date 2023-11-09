@@ -15,7 +15,7 @@ class TestInvadersSaucer:
 
     def test_saucer_moves(self):
         saucer = InvadersSaucer()
-        saucer.finish_initializing(0)
+        saucer._finish_initializing(0)
         start = saucer.position
         fleets = Fleets()
         fleets.append(InvaderFleet())
@@ -47,7 +47,7 @@ class TestInvadersSaucer:
             invader_group.kill(invader_group.invaders[0])
         assert invader_group.invader_count() == 8
         fleets.append(saucer := InvadersSaucer())
-        saucer.finish_initializing(0)
+        saucer._finish_initializing(0)
         assert fi.invader_saucers
         saucer.interact_with_invaderfleet(invader_fleet, fleets)
         saucer.update(1.0/60.0, fleets)
@@ -57,7 +57,7 @@ class TestInvadersSaucer:
         fleets = Fleets()
         fi = FI(fleets)
         fleets.append(saucer := InvadersSaucer())
-        saucer.finish_initializing(1)  # odd left to right
+        saucer._finish_initializing(1)  # odd left to right
         stop_loop = 10000
         while fi.invader_saucers and stop_loop > 0:
             saucer.update(1/60, fleets)
@@ -70,7 +70,7 @@ class TestInvadersSaucer:
         fleets = Fleets()
         fi = FI(fleets)
         fleets.append(saucer := InvadersSaucer())
-        saucer.finish_initializing(0)  # even right to left
+        saucer._finish_initializing(0)  # even right to left
         stop_loop = 10000
         while fi.invader_saucers and stop_loop > 0:
             saucer.update(1/60, fleets)
@@ -159,7 +159,7 @@ class TestInvadersSaucer:
     def test_sets_up_ready(self):
         saucer = InvadersSaucer()
         assert isinstance(saucer._readiness, Unready)
-        saucer.finish_initializing(0)
+        saucer._finish_initializing(0)
         assert isinstance(saucer._readiness, Ready)
 
 
