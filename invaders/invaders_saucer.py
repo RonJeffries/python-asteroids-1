@@ -14,7 +14,7 @@ class Unready:
         self._saucer = saucer
 
     def die_if_lonely(self, invader_fleet, fleets):
-        self._saucer.die_if_lonely(invader_fleet, fleets)
+        self._saucer._die_if_lonely(invader_fleet, fleets)
 
     def finish_initializing(self, shot_count):
         self._saucer.finish_initializing(shot_count)
@@ -79,7 +79,7 @@ class InvadersSaucer(InvadersFlyer):
     def interact_with_invaderfleet(self, invader_fleet, fleets):
         self._readiness.die_if_lonely(invader_fleet, fleets)
 
-    def die_if_lonely(self, invader_fleet, fleets):
+    def _die_if_lonely(self, invader_fleet, fleets):
         if invader_fleet.invader_count() < 8:
             self.die(fleets)
 
