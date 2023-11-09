@@ -118,6 +118,7 @@ class TestInvadersSaucer:
             score = fi.scores[-1]
             assert score.score == expecting
             player.fire(fleets)
+            saucer.interact_with_invaderplayer(player, fleets)
         kill_saucer(100)
         kill_saucer(50)
         kill_saucer(50)

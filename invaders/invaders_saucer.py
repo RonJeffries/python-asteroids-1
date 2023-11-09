@@ -105,9 +105,7 @@ class InvadersSaucer(InvadersFlyer):
             self.die(fleets)
 
     def mystery_score(self):
-        if not self._player:
-            return 0
-        score_index = self._player.shot_count % len(self._score_list)
+        score_index = self._player_shot_count % len(self._score_list)
         return self._score_list[score_index]
 
     def die(self, fleets):
