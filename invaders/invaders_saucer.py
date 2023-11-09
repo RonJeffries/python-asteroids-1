@@ -54,6 +54,7 @@ class InvadersSaucer(InvadersFlyer):
         self._right = u.BUMPER_RIGHT - half_width
         self._speed = 0
         self._player = None
+        self._player_shot_count = 0
         self._score_list = [100, 50, 50, 100, 150, 100, 100, 50, 300, 100, 100, 100, 50, 150, 100]
         self._readiness = Unready(self)
 
@@ -85,7 +86,8 @@ class InvadersSaucer(InvadersFlyer):
 
     def interact_with_invaderplayer(self, player, fleets):
         self._player = player
-        self._readiness.finish_initializing(self._player.shot_count)
+        self._player_shot_count = player.shot_count
+        self._readiness.finish_initializing(self._player_shot_count)
 
     def finish_initializing(self, shot_count):
         self._readiness = Ready(self)
