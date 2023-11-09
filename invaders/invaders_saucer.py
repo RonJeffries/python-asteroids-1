@@ -37,7 +37,7 @@ class Ready:
         pass
 
     def just_draw(self, screen):
-        self._saucer.just_draw(screen)
+        self._saucer._just_draw(screen)
 
     def move_or_die(self, fleets):
         self._saucer._move_or_die(fleets)
@@ -123,6 +123,6 @@ class InvadersSaucer(InvadersFlyer):
     def draw(self, screen):
         self._readiness.just_draw(screen)
 
-    def just_draw(self, screen):
+    def _just_draw(self, screen):
         screen.blit(self._map, self.rect)
 
