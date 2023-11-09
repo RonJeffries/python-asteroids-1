@@ -81,7 +81,7 @@ class InvadersSaucer(InvadersFlyer):
 
     def _die_if_lonely(self, invader_fleet, fleets):
         if invader_fleet.invader_count() < 8:
-            self.die(fleets)
+            self._die(fleets)
 
     def interact_with_invaderplayer(self, player, fleets):
         self._player_shot_count = player.shot_count
@@ -100,13 +100,13 @@ class InvadersSaucer(InvadersFlyer):
             explosion = InvadersExplosion.saucer_explosion(self.position, 0.5)
             fleets.append(explosion)
             fleets.append(InvaderScore(self._mystery_score()))
-            self.die(fleets)
+            self._die(fleets)
 
     def _mystery_score(self):
         score_index = self._player_shot_count % len(self._score_list)
         return self._score_list[score_index]
 
-    def die(self, fleets):
+    def _die(self, fleets):
         fleets.remove(self)
         fleets.append(TimeCapsule(10, InvadersSaucer()))
 
@@ -116,7 +116,7 @@ class InvadersSaucer(InvadersFlyer):
     def move_or_die(self, fleets):
         x = self.position.x + self._speed
         if x > self._right or x < self._left:
-            self.die(fleets)
+            self._die(fleets)
         else:
             self.position = (x, self.position.y)
 
