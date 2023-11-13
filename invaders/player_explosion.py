@@ -47,36 +47,3 @@ class PlayerExplosion(InvadersFlyer):
         self._explode_time -= delta_time
         if self._explode_time <= 0:
             fleets.remove(self)
-
-    def interact_with_bumper(self, bumper, fleets):
-        pass
-
-    def interact_with_invaderfleet(self, fleet, fleets):
-        pass
-
-    def interact_with_invaderplayer(self, player, fleets):
-        pass
-
-    def interact_with_invadershot(self, shot, fleets):
-        pass
-
-    def interact_with_playerexplosion(self, explosion, fleets):
-        pass
-
-    def interact_with_playershot(self, shot, fleets):
-        pass
-
-    def interact_with_invaderexplosion(self, explosion, fleets):
-        pass
-
-    def interact_with_roadfurniture(self, shield, fleets):
-        pass
-
-    def interact_with_shotcontroller(self, controller, fleets):
-        pass
-
-    def interact_with_invadersexplosion(self, bumper, fleets):
-        pass
-
-    def interact_with_topbumper(self, top_bumper, fleets):
-        pass
