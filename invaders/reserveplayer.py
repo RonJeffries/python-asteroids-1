@@ -5,12 +5,6 @@ import u
 
 
 class ReservePlayer(InvadersFlyer):
-    def interact_with_playermaker(self, maker, fleets):
-        pass
-
-    def interact_with_timecapsule(self, capsule, fleets):
-        pass
-
     def __init__(self, reserve_number):
         self.reserve_number = reserve_number
         maker = BitmapMaker.instance()
@@ -21,6 +15,9 @@ class ReservePlayer(InvadersFlyer):
         left = 64 + half_width
         x = left + reserve_number*(5*self._rect.width//4)
         self.rect.center = Vector2(x, u.RESERVE_PLAYER_Y)
+
+    def is_to_the_right_of(self, another_reserve_player):
+        return self.reserve_number > another_reserve_player.reserve_number
 
     @property
     def mask(self):
@@ -36,38 +33,6 @@ class ReservePlayer(InvadersFlyer):
     def interact_with(self, other, fleets):
         other.interact_with_reserveplayer(self, fleets)
 
-    def interact_with_bumper(self, bumper, fleets):
-        pass
-
-    def interact_with_invaderfleet(self, fleet, fleets):
-        pass
-
-    def interact_with_invaderplayer(self, player, fleets):
-        pass
-
-    def interact_with_invadershot(self, shot, fleets):
-        pass
-
-    def interact_with_playerexplosion(self, explosion, fleets):
-        pass
-
-    def interact_with_playershot(self, shot, fleets):
-        pass
-
-    def interact_with_invaderexplosion(self, explosion, fleets):
-        pass
-
-    def interact_with_roadfurniture(self, shield, fleets):
-        pass
-
-    def interact_with_shotcontroller(self, controller, fleets):
-        pass
-
-    def interact_with_invadersexplosion(self, bumper, fleets):
-        pass
-
-    def interact_with_topbumper(self, top_bumper, fleets):
-        pass
-
     def tick(self, delta_time, fleets):
         pass
+

@@ -1,6 +1,7 @@
 from core import coin
 from flyer import InvadersFlyer
 from invaders.invader_player import InvaderPlayer
+from invaders.reserveplayer import ReservePlayer
 from invaders.timecapsule import TimeCapsule
 
 
@@ -28,9 +29,12 @@ class PlayerMaker(InvadersFlyer):
         self.player_missing = False
 
     def interact_with_reserveplayer(self, reserve, _fleets):
+        self.remember_rightmost_reserve_player(reserve)
+
+    def remember_rightmost_reserve_player(self, reserve: ReservePlayer):
         if not self.reserve:
             self.reserve = reserve
-        elif reserve.reserve_number > self.reserve.reserve_number:
+        elif reserve.is_to_the_right_of(self.reserve):
             self.reserve = reserve
 
     def end_interactions(self, fleets):
@@ -41,4 +45,7 @@ class PlayerMaker(InvadersFlyer):
                 fleets.append(capsule)
                 fleets.append(TimeCapsule(2.1, PlayerMaker()))
             else:
-                coin.slug(fleets)
+                self.game_over(fleets)
+
+    def game_over(self, fleets):
+        coin.slug(fleets)
