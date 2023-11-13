@@ -40,12 +40,24 @@ class PlayerMaker(InvadersFlyer):
     def end_interactions(self, fleets):
         if self.player_missing:
             if self.reserve:
-                fleets.remove(self)
-                capsule = TimeCapsule(2, InvaderPlayer(), self.reserve)
-                fleets.append(capsule)
-                fleets.append(TimeCapsule(2.1, PlayerMaker()))
+                self.give_player_another_turn(fleets)
             else:
                 self.game_over(fleets)
+
+    def give_player_another_turn(self, fleets):
+        fleets.remove(self)
+        delay_until_new_player = 2.0
+        delay_a_bit_longer = 2.1
+        self.provide_new_player(delay_until_new_player, fleets)
+        self.provide_new_maker(delay_a_bit_longer, fleets)
+
+    def provide_new_player(self, delay_until_new_player, fleets):
+        player_capsule = TimeCapsule(delay_until_new_player, InvaderPlayer(), self.reserve)
+        fleets.append(player_capsule)
+
+    def provide_new_maker(self, delay_a_bit_longer, fleets):
+        maker_capsule = TimeCapsule(delay_a_bit_longer, PlayerMaker())
+        fleets.append(maker_capsule)
 
     def game_over(self, fleets):
         coin.slug(fleets)
