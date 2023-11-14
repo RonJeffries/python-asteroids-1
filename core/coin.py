@@ -1,22 +1,22 @@
 from pygame import Vector2
 
 import u
-from invaders.bumper import Bumper
 from asteroids.game_over import GameOver
+from asteroids.saucermaker import SaucerMaker
+from asteroids.scorekeeper import ScoreKeeper
+from asteroids.shipmaker import ShipMaker
+from asteroids.thumper import Thumper
+from asteroids.wavemaker import WaveMaker
+from invaders.bumper import Bumper
 from invaders.invader_score import InvaderScoreKeeper
 from invaders.invaderfleet import InvaderFleet
 from invaders.invaders_saucer import InvadersSaucer
 from invaders.playermaker import PlayerMaker
 from invaders.reserveplayer import ReservePlayer
-from asteroids.saucermaker import SaucerMaker
-from asteroids.scorekeeper import ScoreKeeper
 from invaders.roadfurniture import RoadFurniture
-from asteroids.shipmaker import ShipMaker
 from invaders.shotcontroller import ShotController
-from asteroids.thumper import Thumper
 from invaders.timecapsule import TimeCapsule
 from invaders.top_bumper import TopBumper
-from asteroids.wavemaker import WaveMaker
 
 
 def quarter(fleets):
