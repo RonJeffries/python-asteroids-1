@@ -7,12 +7,6 @@ from invaders.invader_shot import InvaderShot
 
 
 class ShotController(InvadersFlyer):
-    def interact_with_playermaker(self, maker, fleets):
-        pass
-
-    def interact_with_timecapsule(self, capsule, fleets):
-        pass
-
     max_firing_time = 0x30
     available = Vector2(-1, -1)
 
@@ -78,39 +72,6 @@ class ShotController(InvadersFlyer):
     def target_column(self, player_x, fleet_x):
         steps = round((player_x - fleet_x) / 64)
         return max(0, min(steps, 10))
-
-    def interact_with_bumper(self, bumper, fleets):
-        pass
-
-    def interact_with_invaderexplosion(self, explosion, fleets):
-        pass
-
-    def interact_with_invaderfleet(self, fleet, fleets):
-        self.invader_fleet = fleet
-
-    def interact_with_invaderplayer(self, player, fleets):
-        self.player_x = player.position.x
-
-    def interact_with_invadershot(self, shot, fleets):
-        pass
-
-    def interact_with_playerexplosion(self, explosion, fleets):
-        pass
-
-    def interact_with_playershot(self, shot, fleets):
-        pass
-
-    def interact_with_roadfurniture(self, shield, fleets):
-        pass
-
-    def interact_with_shotcontroller(self, controller, fleets):
-        pass
-
-    def interact_with_invadersexplosion(self, bumper, fleets):
-        pass
-
-    def interact_with_topbumper(self, top_bumper, fleets):
-        pass
 
     def interact_with(self, other, fleets):
         other.interact_with_shotcontroller(self, fleets)

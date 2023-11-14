@@ -5,12 +5,6 @@ from flyer import InvadersFlyer
 
 
 class InvaderExplosion(InvadersFlyer):
-    def interact_with_playermaker(self, maker, fleets):
-        pass
-
-    def interact_with_timecapsule(self, capsule, fleets):
-        pass
-
     def __init__(self, position):
         self.position = position
         maker = BitmapMaker()
@@ -36,39 +30,6 @@ class InvaderExplosion(InvadersFlyer):
     def draw(self, screen):
         self.rect.center = self.position
         screen.blit(self.image, self.rect)
-
-    def interact_with_bumper(self, bumper, fleets):
-        pass
-
-    def interact_with_invaderexplosion(self, explosion, fleets):
-        pass
-
-    def interact_with_invaderfleet(self, bumper, fleets):
-        pass
-
-    def interact_with_invaderplayer(self, bumper, fleets):
-        pass
-
-    def interact_with_invadershot(self, shot, fleets):
-        pass
-
-    def interact_with_playerexplosion(self, _explosion, _fleets):
-        pass
-
-    def interact_with_playershot(self, bumper, fleets):
-        pass
-
-    def interact_with_roadfurniture(self, shield, fleets):
-        pass
-
-    def interact_with_shotcontroller(self, controller, fleets):
-        pass
-
-    def interact_with_invadersexplosion(self, bumper, fleets):
-        pass
-
-    def interact_with_topbumper(self, top_bumper, fleets):
-        pass
 
     def interact_with(self, other, fleets):
         other.interact_with_invaderexplosion(self, fleets)
