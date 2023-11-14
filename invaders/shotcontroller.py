@@ -76,6 +76,12 @@ class ShotController(InvadersFlyer):
     def interact_with(self, other, fleets):
         other.interact_with_shotcontroller(self, fleets)
 
+    def interact_with_invaderfleet(self, fleet, fleets):
+        self.invader_fleet = fleet
+
+    def interact_with_invaderplayer(self, player, fleets):
+        self.player_x = player.position.x
+
     def draw(self, screen):
         pass
 
