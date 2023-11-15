@@ -28,7 +28,7 @@ class PlayerMaker(InvadersFlyer):
         self.final_action = self.deal_with_missing_player
 
     def interact_with_invaderplayer(self, _player, _fleets):
-        self.player_missing = False
+        self.final_action = self.do_nothing
 
     def interact_with_reserveplayer(self, reserve, _fleets):
         self.remember_rightmost_reserve_player(reserve)
@@ -66,3 +66,6 @@ class PlayerMaker(InvadersFlyer):
 
     def game_over(self, fleets):
         coin.slug(fleets)
+
+    def do_nothing(self, fleets):
+        pass
