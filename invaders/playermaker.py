@@ -9,6 +9,7 @@ class PlayerMaker(InvadersFlyer):
     def __init__(self):
         self.reserve = None
         self.player_missing = True
+        self.final_action = self.deal_with_missing_player
 
     @property
     def mask(self):
@@ -24,6 +25,7 @@ class PlayerMaker(InvadersFlyer):
     def begin_interactions(self, _fleets):
         self.reserve = None
         self.player_missing = True
+        self.final_action = self.deal_with_missing_player
 
     def interact_with_invaderplayer(self, _player, _fleets):
         self.player_missing = False
@@ -38,7 +40,7 @@ class PlayerMaker(InvadersFlyer):
             self.reserve = reserve
 
     def end_interactions(self, fleets):
-        self.deal_with_missing_player(fleets)
+        self.final_action(fleets)
 
     def deal_with_missing_player(self, fleets):
         if self.player_missing:
