@@ -38,6 +38,9 @@ class PlayerMaker(InvadersFlyer):
             self.reserve = reserve
 
     def end_interactions(self, fleets):
+        self.deal_with_missing_player(fleets)
+
+    def deal_with_missing_player(self, fleets):
         if self.player_missing:
             if self.reserve:
                 self.give_player_another_turn(fleets)
