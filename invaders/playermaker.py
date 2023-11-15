@@ -8,8 +8,8 @@ from invaders.timecapsule import TimeCapsule
 class PlayerMaker(InvadersFlyer):
     def __init__(self):
         self.reserve = ReservePlayer(-999)
-        self.final_action = self.deal_with_missing_player
-        self.reserve_action = self.game_over
+        self.final_action = self.final_deal_with_missing_player
+        self.reserve_action = self.reserve_absent_game_over
 
     @property
     def mask(self):
@@ -24,26 +24,29 @@ class PlayerMaker(InvadersFlyer):
 
     def begin_interactions(self, _fleets):
         self.reserve = ReservePlayer(-999)
-        self.final_action = self.deal_with_missing_player
-        self.reserve_action = self.game_over
+        self.final_action = self.final_deal_with_missing_player
+        self.reserve_action = self.reserve_absent_game_over
 
     def interact_with_invaderplayer(self, _player, _fleets):
-        self.final_action = self.do_nothing
+        self.final_action = self.final_do_nothing
 
     def interact_with_reserveplayer(self, reserve, _fleets):
-        self.remember_rightmost_reserve_player(reserve)
-        self.reserve_action = self.give_player_another_turn
-
-    def remember_rightmost_reserve_player(self, reserve: ReservePlayer):
         self.reserve = self.reserve.rightmost_of(reserve)
+        self.reserve_action = self.reserve_give_player_another_turn
 
     def end_interactions(self, fleets):
         self.final_action(fleets)
 
-    def deal_with_missing_player(self, fleets):
+    def final_deal_with_missing_player(self, fleets):
         self.reserve_action(fleets)
 
-    def give_player_another_turn(self, fleets):
+    def final_do_nothing(self, fleets):
+        pass
+
+    def reserve_absent_game_over(self, fleets):
+        coin.slug(fleets)
+
+    def reserve_give_player_another_turn(self, fleets):
         fleets.remove(self)
         delay_until_new_player = 2.0
         a_bit_longer = 0.1
@@ -58,8 +61,3 @@ class PlayerMaker(InvadersFlyer):
         maker_capsule = TimeCapsule(delay, PlayerMaker())
         fleets.append(maker_capsule)
 
-    def game_over(self, fleets):
-        coin.slug(fleets)
-
-    def do_nothing(self, fleets):
-        pass
