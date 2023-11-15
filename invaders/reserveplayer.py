@@ -16,14 +16,11 @@ class ReservePlayer(InvadersFlyer):
         x = left + reserve_number*(5*self._rect.width//4)
         self.rect.center = Vector2(x, u.RESERVE_PLAYER_Y)
 
-    def is_to_the_right_of(self, another_reserve_player):
-        return self.reserve_number > another_reserve_player.reserve_number
+    def __gt__(self, other):
+        return self.reserve_number > other.reserve_number
 
     def rightmost_of(self, another_reserve_player):
-        if self.is_to_the_right_of(another_reserve_player):
-            return self
-        else:
-            return another_reserve_player
+        return max(self, another_reserve_player)
 
     @property
     def mask(self):
