@@ -9,6 +9,7 @@ class PlayerMaker(InvadersFlyer):
     def __init__(self):
         self.reserve = None
         self.final_action = self.deal_with_missing_player
+        self.reserve_action = self.game_over
 
     @property
     def mask(self):
@@ -24,12 +25,14 @@ class PlayerMaker(InvadersFlyer):
     def begin_interactions(self, _fleets):
         self.reserve = None
         self.final_action = self.deal_with_missing_player
+        self.reserve_action = self.game_over
 
     def interact_with_invaderplayer(self, _player, _fleets):
         self.final_action = self.do_nothing
 
     def interact_with_reserveplayer(self, reserve, _fleets):
         self.remember_rightmost_reserve_player(reserve)
+        self.reserve_action = self.give_player_another_turn
 
     def remember_rightmost_reserve_player(self, reserve: ReservePlayer):
         if not self.reserve:
@@ -41,10 +44,7 @@ class PlayerMaker(InvadersFlyer):
         self.final_action(fleets)
 
     def deal_with_missing_player(self, fleets):
-        if self.reserve:
-            self.give_player_another_turn(fleets)
-        else:
-            self.game_over(fleets)
+        self.reserve_action(fleets)
 
     def give_player_another_turn(self, fleets):
         fleets.remove(self)
