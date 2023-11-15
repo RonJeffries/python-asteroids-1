@@ -19,6 +19,12 @@ class ReservePlayer(InvadersFlyer):
     def is_to_the_right_of(self, another_reserve_player):
         return self.reserve_number > another_reserve_player.reserve_number
 
+    def rightmost_of(self, another_reserve_player):
+        if self.is_to_the_right_of(another_reserve_player):
+            return self
+        else:
+            return another_reserve_player
+
     @property
     def mask(self):
         return None

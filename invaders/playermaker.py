@@ -7,7 +7,7 @@ from invaders.timecapsule import TimeCapsule
 
 class PlayerMaker(InvadersFlyer):
     def __init__(self):
-        self.reserve = None
+        self.reserve = ReservePlayer(-999)
         self.final_action = self.deal_with_missing_player
         self.reserve_action = self.game_over
 
@@ -23,7 +23,7 @@ class PlayerMaker(InvadersFlyer):
         other.interact_with_playermaker(self, fleets)
 
     def begin_interactions(self, _fleets):
-        self.reserve = None
+        self.reserve = ReservePlayer(-999)
         self.final_action = self.deal_with_missing_player
         self.reserve_action = self.game_over
 
@@ -35,10 +35,7 @@ class PlayerMaker(InvadersFlyer):
         self.reserve_action = self.give_player_another_turn
 
     def remember_rightmost_reserve_player(self, reserve: ReservePlayer):
-        if not self.reserve:
-            self.reserve = reserve
-        elif reserve.is_to_the_right_of(self.reserve):
-            self.reserve = reserve
+        self.reserve = self.reserve.rightmost_of(reserve)
 
     def end_interactions(self, fleets):
         self.final_action(fleets)

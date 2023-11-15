@@ -15,7 +15,7 @@ class TestPlayerMaker:
         maker.interact_with_reserveplayer(ReservePlayer(0), None)
         assert maker.reserve == correct
         maker.begin_interactions(None)
-        assert not maker.reserve
+        assert maker.reserve.reserve_number < 0
 
     def test_notices_player(self):
         maker = PlayerMaker()
