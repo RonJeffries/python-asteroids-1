@@ -8,8 +8,8 @@ from invaders.timecapsule import TimeCapsule
 class PlayerMaker(InvadersFlyer):
     def __init__(self):
         self.reserve = ReservePlayer(-999)
-        self.final_action = self.final_deal_with_missing_player
-        self.reserve_action = self.reserve_absent_game_over
+        self.pluggable_final_action = self.final_deal_with_missing_player
+        self.pluggable_reserve_action = self.reserve_absent_game_over
 
     @property
     def mask(self):
@@ -24,21 +24,21 @@ class PlayerMaker(InvadersFlyer):
 
     def begin_interactions(self, _fleets):
         self.reserve = ReservePlayer(-999)
-        self.final_action = self.final_deal_with_missing_player
-        self.reserve_action = self.reserve_absent_game_over
+        self.pluggable_final_action = self.final_deal_with_missing_player
+        self.pluggable_reserve_action = self.reserve_absent_game_over
 
     def interact_with_invaderplayer(self, _player, _fleets):
-        self.final_action = self.final_do_nothing
+        self.pluggable_final_action = self.final_do_nothing
 
     def interact_with_reserveplayer(self, reserve, _fleets):
         self.reserve = self.reserve.rightmost_of(reserve)
-        self.reserve_action = self.reserve_give_player_another_turn
+        self.pluggable_reserve_action = self.reserve_give_player_another_turn
 
     def end_interactions(self, fleets):
-        self.final_action(fleets)
+        self.pluggable_final_action(fleets)
 
     def final_deal_with_missing_player(self, fleets):
-        self.reserve_action(fleets)
+        self.pluggable_reserve_action(fleets)
 
     def final_do_nothing(self, fleets):
         pass

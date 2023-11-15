@@ -20,9 +20,9 @@ class TestPlayerMaker:
     def test_notices_player(self):
         maker = PlayerMaker()
         maker.begin_interactions(None)
-        final = maker.final_action
+        final = maker.pluggable_final_action
         maker.interact_with_invaderplayer(None, None)
-        assert maker.final_action is not final
+        assert maker.pluggable_final_action is not final
 
     def test_rezzes_time_capsule(self):
         maker = PlayerMaker()
