@@ -51,12 +51,12 @@ class PlayerMaker(InvadersFlyer):
         self.provide_new_player(delay_until_new_player, fleets)
         self.provide_new_maker(delay_until_new_player + a_bit_longer, fleets)
 
-    def provide_new_player(self, delay_until_new_player, fleets):
-        player_capsule = TimeCapsule(delay_until_new_player, InvaderPlayer(), self.reserve)
+    def provide_new_player(self, delay, fleets):
+        player_capsule = TimeCapsule(delay, InvaderPlayer(), self.reserve)
         fleets.append(player_capsule)
 
-    def provide_new_maker(self, delay_a_bit_longer, fleets):
-        maker_capsule = TimeCapsule(delay_a_bit_longer, PlayerMaker())
+    def provide_new_maker(self, delay, fleets):
+        maker_capsule = TimeCapsule(delay, PlayerMaker())
         fleets.append(maker_capsule)
 
     def game_over(self, fleets):
