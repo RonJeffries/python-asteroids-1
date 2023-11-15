@@ -47,9 +47,9 @@ class PlayerMaker(InvadersFlyer):
     def give_player_another_turn(self, fleets):
         fleets.remove(self)
         delay_until_new_player = 2.0
-        delay_a_bit_longer = 2.1
+        a_bit_longer = 0.1
         self.provide_new_player(delay_until_new_player, fleets)
-        self.provide_new_maker(delay_a_bit_longer, fleets)
+        self.provide_new_maker(delay_until_new_player + a_bit_longer, fleets)
 
     def provide_new_player(self, delay_until_new_player, fleets):
         player_capsule = TimeCapsule(delay_until_new_player, InvaderPlayer(), self.reserve)
