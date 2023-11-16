@@ -5,6 +5,7 @@ from invaders.player_shot import PlayerShot
 from flyer import InvadersFlyer
 from pygame import Vector2
 import pygame
+from sounds import player
 import u
 
 
@@ -56,6 +57,7 @@ class InvaderPlayer(InvadersFlyer):
             self.fire(fleets)
 
     def fire(self, fleets):
+        player.play("shoot")
         self.shot_count += 1
         fleets.append(PlayerShot(self.rect.center))
 
@@ -90,6 +92,7 @@ class InvaderPlayer(InvadersFlyer):
             self.hit_by_shot(fleets)
 
     def hit_by_shot(self, fleets):
+        player.play("explosion")
         fleets.append(PlayerExplosion(self.position))
         fleets.remove(self)
 

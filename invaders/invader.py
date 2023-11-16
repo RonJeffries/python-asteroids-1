@@ -4,6 +4,7 @@ from pygame import Vector2
 from invaders.Collider import Collider
 from invaders.invader_explosion import InvaderExplosion
 from invaders.invader_score import InvaderScore
+from sounds import player
 
 INVADER_SPACING = 64
 
@@ -24,6 +25,7 @@ class Invader:
 
     def interact_with_group_and_playershot(self, shot, group, fleets):
         if self.colliding(shot):
+            player.play("invaderkilled")
             shot.hit_invader(fleets)
             group.kill(self)
             fleets.append(InvaderScore(self._score))

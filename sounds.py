@@ -19,6 +19,16 @@ class Sounds:
         self.add_sound("saucer_big", "sounds/saucerBig.wav", 0.3)
         self.add_sound("saucer_small", "sounds/saucerSmall.wav", 0.3)
 
+        self.add_sound("explosion", "sounds/explosion.wav", 0.1)
+        self.add_sound("fastinvader1", "sounds/fastinvader1.wav", 0.1)
+        self.add_sound("fastinvader2", "sounds/fastinvader2.wav", 0.1)
+        self.add_sound("fastinvader3", "sounds/fastinvader3.wav", 0.1)
+        self.add_sound("fastinvader4", "sounds/fastinvader4.wav", 0.1)
+        self.add_sound("invaderkilled", "sounds/invaderkilled.wav", 0.1)
+        self.add_sound("ufo_highpitch", "sounds/ufo_highpitch.wav", 0.1)
+        self.add_sound("ufo_lowpitch", "sounds/ufo_lowpitch.wav", 0.1)
+        self.add_sound("shoot", "sounds/shoot.wav", 0.1)
+
     def add_sound(self, name, file, volume=1.0):
         if not pygame.mixer.get_init():
             return
