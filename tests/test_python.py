@@ -1,5 +1,6 @@
+import pytest
 from pygame import Vector2
-
+import time
 
 class MutatorTest:
     def __init__(self, vector):
@@ -253,6 +254,31 @@ class TestPython:
 ,<84.00,85.00,86.00>, <87.00,88.00,89.00>, <90.00,91.00,92.00>, <93.00,94.00,95.00>
 ,<96.00,97.00,98.00>"""
         assert all_lines_packed_by_4 == expected
+
+    @pytest.mark.skip("why waste time")
+    def test_lookup(self):
+        class Something:
+            def __init__(self):
+                self.value = 0
+
+        something = Something()
+        n = 1000000
+        t0 = time.time()
+        for i in range(n):
+            pass
+        t1 = time.time()
+        for i in range(n):
+            something.value
+        t2 = time.time()
+        for i in range(n):
+            x = something.value
+        t3 = time.time()
+        easy = t1 - t0
+        medium = t2 - t1
+        hard = t3 - t2
+        print(easy, medium, hard)
+        assert False
+
 
 
 
