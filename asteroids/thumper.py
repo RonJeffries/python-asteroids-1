@@ -3,34 +3,6 @@ from sounds import player
 
 
 class Thumper(AsteroidFlyer):
-
-    def interact_with_fragment(self, fragment, fleets):
-        pass
-
-    def interact_with_gameover(self, game_over, fleets):
-        pass
-
-    def interact_with_saucermaker(self, saucermaker, fleets):
-        pass
-
-    def interact_with_score(self, score, fleets):
-        pass
-
-    def interact_with_scorekeeper(self, scorekeeper, fleets):
-        pass
-
-    def interact_with_shipmaker(self, shipmaker, fleets):
-        pass
-
-    def interact_with_signal(self, signal, fleets):
-        pass
-
-    def interact_with_thumper(self, thumper, fleets):
-        pass
-
-    def interact_with_wavemaker(self, wavemaker, fleets):
-        pass
-
     def __init__(self, first_action=None, second_action=None):
         self._longest_time_between_beats = 30 / 60
         self._shortest_time_between_beats = 8 / 60
@@ -65,12 +37,6 @@ class Thumper(AsteroidFlyer):
 
     def interact_with_asteroid(self, asteroid, fleets):
         self._saw_asteroids = True
-
-    def interact_with_missile(self, missile, fleets):
-        pass
-
-    def interact_with_saucer(self, saucer, fleets):
-        pass
 
     def interact_with_ship(self, ship, fleets):
         self._saw_ship = True
