@@ -19,6 +19,9 @@ class PlayerMaker(InvadersFlyer):
     def rect(self):
         return None
 
+    def perform(self, callable_function, arg):
+        return callable_function(arg)
+
     def interact_with(self, other, fleets):
         other.interact_with_playermaker(self, fleets)
 
@@ -35,10 +38,10 @@ class PlayerMaker(InvadersFlyer):
         self.pluggable_reserve_action = self.reserve_give_player_another_turn
 
     def end_interactions(self, fleets):
-        self.pluggable_final_action(fleets)
+        self.perform(self.pluggable_final_action, fleets)
 
     def final_deal_with_missing_player(self, fleets):
-        self.pluggable_reserve_action(fleets)
+        self.perform(self.pluggable_reserve_action, fleets)
 
     def final_do_nothing(self, fleets):
         pass
