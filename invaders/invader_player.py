@@ -57,7 +57,8 @@ class InvaderPlayer(InvadersFlyer):
             self.fire(fleets)
 
     def fire(self, fleets):
-        player.play("shoot")
+        frac = self.x_fraction()
+        player.play_stereo("shoot", frac)
         self.shot_count += 1
         fleets.append(PlayerShot(self.rect.center))
 
@@ -92,9 +93,15 @@ class InvaderPlayer(InvadersFlyer):
             self.hit_by_shot(fleets)
 
     def hit_by_shot(self, fleets):
-        player.play("explosion")
+        frac = self.x_fraction()
+        player.play_stereo("explosion", frac)
         fleets.append(PlayerExplosion(self.position))
         fleets.remove(self)
+
+    def x_fraction(self):
+        x = self.rect.centerx - self.left
+        denom = self.right - self.left
+        return x / denom
 
     def interact_with_playershot(self, bumper, fleets):
         self.free_to_fire = False

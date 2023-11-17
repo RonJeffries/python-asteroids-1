@@ -1,6 +1,7 @@
 import pygame.draw
 from pygame import Vector2
 
+import u
 from invaders.Collider import Collider
 from invaders.invader_explosion import InvaderExplosion
 from invaders.invader_score import InvaderScore
@@ -25,7 +26,7 @@ class Invader:
 
     def interact_with_group_and_playershot(self, shot, group, fleets):
         if self.colliding(shot):
-            player.play("invaderkilled")
+            player.play_stereo("invaderkilled", self.x_fraction())
             shot.hit_invader(fleets)
             group.kill(self)
             fleets.append(InvaderScore(self._score))
@@ -54,3 +55,8 @@ class Invader:
     def interact_with_bumper(self, bumper, invader_fleet):
         if bumper.intersecting(self.rect):
             invader_fleet.at_edge(bumper.incoming_direction)
+
+    def x_fraction(self):
+        x = self.rect.centerx - u.BUMPER_LEFT
+        denom = u.BUMPER_RIGHT - u.BUMPER_LEFT
+        return x / denom

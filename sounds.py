@@ -51,6 +51,15 @@ class Sounds:
         else:
             print("missing sound", name)
 
+    def play_stereo(self, name, frac):
+        try:
+            sound = self.catalog[name]
+        except KeyError:
+            return
+        chan = sound.play()
+        if chan:
+            chan.set_volume(1-frac, frac)
+
     @staticmethod
     def get_volume(chan, location: MovableLocation):
         return location.stereo_right() if location else 0.5
