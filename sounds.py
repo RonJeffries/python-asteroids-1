@@ -38,30 +38,21 @@ class Sounds:
         self.catalog[name] = sound
 
     def play(self, name, location=None, multi_channel=True):
-        if name in self.catalog:
-            sound = self.catalog[name]
-            count = sound.get_num_channels()
-            if multi_channel or count == 0:
-                chan = self.catalog[name].play()
-                if chan:
-                    frac_right = self.get_volume(chan, location)
-                    chan.set_volume(1-frac_right, frac_right)
-                # else:
-                    # print("channel came back None")
-        else:
-            print("missing sound", name)
+        frac_right = self.get_stereo_fraction(location)
+        self.play_stereo(name, frac_right, multi_channel)
 
-    def play_stereo(self, name, frac):
+    def play_stereo(self, name, frac, multi_channel=True):
         try:
             sound = self.catalog[name]
         except KeyError:
             return
-        chan = sound.play()
-        if chan:
-            chan.set_volume(1-frac, frac)
+        if multi_channel or sound.get_num_channels() == 0:
+            chan = sound.play()
+            if chan:
+                chan.set_volume(1 - frac, frac)
 
     @staticmethod
-    def get_volume(chan, location: MovableLocation):
+    def get_stereo_fraction(location: MovableLocation):
         return location.stereo_right() if location else 0.5
 
 
