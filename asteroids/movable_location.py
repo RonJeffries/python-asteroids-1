@@ -31,15 +31,11 @@ class MovableLocation:
         vy = copysign(1, self.velocity.y)
         return sx == vx or sy == vy
 
-
-
-
     def wrap_around(self, raw_position):
         return Vector2(raw_position.x % self.screen_size, raw_position.y % self.screen_size)
 
     def move_to(self, vector):
         self.position = vector
-
 
     def stereo_right(self):
         return self.position.x/u.SCREEN_SIZE

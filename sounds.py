@@ -44,18 +44,16 @@ class Sounds:
             if multi_channel or count == 0:
                 chan = self.catalog[name].play()
                 if chan:
-                    self.set_volume(chan, location)
+                    frac_right = self.get_volume(chan, location)
+                    chan.set_volume(1-frac_right, frac_right)
                 # else:
                     # print("channel came back None")
         else:
             print("missing sound", name)
 
     @staticmethod
-    def set_volume(chan, location: MovableLocation):
-        if location is None:
-            return
-        frac_right = location.stereo_right() if location else 0.5
-        chan.set_volume(1-frac_right, frac_right)
+    def get_volume(chan, location: MovableLocation):
+        return location.stereo_right() if location else 0.5
 
 
 player = Sounds()
