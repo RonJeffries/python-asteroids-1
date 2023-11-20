@@ -35,7 +35,7 @@ class Sounds:
             return
         sound = pygame.mixer.Sound(file)
         sound.set_volume(volume)
-        print(name, sound.get_length())
+        # print(name, sound.get_length())
         self.catalog[name] = sound
 
     def play(self, name, location=None, multi_channel=True):
@@ -45,11 +45,8 @@ class Sounds:
     def play_stereo(self, name, stereo_fraction_right, multi_channel=True):
         try:
             sound = self.catalog[name]
-        except KeyError:
-            return
-        if multi_channel or sound.get_num_channels() == 0:
-            self.channels[name] = sound.play()
-        try:
+            if multi_channel or sound.get_num_channels() == 0:
+                self.channels[name] = sound.play()
             channel = self.channels[name]
             if channel:
                 channel.set_volume(1 - stereo_fraction_right, stereo_fraction_right)
