@@ -6,6 +6,7 @@ import pygame.mixer
 class Sounds:
     def __init__(self):
         self.catalog = {}
+        self.channels = {}
 
     def init_sounds(self):
         self.add_sound("accelerate", "sounds/thrust.wav", 0.5)
@@ -34,7 +35,7 @@ class Sounds:
             return
         sound = pygame.mixer.Sound(file)
         sound.set_volume(volume)
-        # print(name, sound.get_length())
+        print(name, sound.get_length())
         self.catalog[name] = sound
 
     def play(self, name, location=None, multi_channel=True):
@@ -47,9 +48,13 @@ class Sounds:
         except KeyError:
             return
         if multi_channel or sound.get_num_channels() == 0:
-            chan = sound.play()
-            if chan:
-                chan.set_volume(1 - stereo_fraction_right, stereo_fraction_right)
+            self.channels[name] = sound.play()
+        try:
+            channel = self.channels[name]
+            if channel:
+                channel.set_volume(1 - stereo_fraction_right, stereo_fraction_right)
+        except KeyError:
+            pass
 
     @staticmethod
     def get_stereo_fraction(location: MovableLocation):

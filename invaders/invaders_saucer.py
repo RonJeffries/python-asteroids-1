@@ -7,6 +7,7 @@ from invaders.bitmap_maker import BitmapMaker
 from invaders.invader_score import InvaderScore
 from invaders.shot_explosion import InvadersExplosion
 from invaders.timecapsule import TimeCapsule
+from sounds import player
 
 
 # noinspection PyProtectedMember
@@ -123,6 +124,8 @@ class InvadersSaucer(InvadersFlyer):
         if x > self._right or x < self._left:
             self._die(fleets)
         else:
+            frac = (x - self._left)/(self._right - self._left)
+            player.play_stereo("ufo_lowpitch", frac, False)
             self.position = (x, self.position.y)
 
     def _mystery_score(self):
