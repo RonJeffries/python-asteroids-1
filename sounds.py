@@ -43,15 +43,24 @@ class Sounds:
         self.play_stereo(name, frac_right, multi_channel)
 
     def play_stereo(self, name, stereo_fraction_right, multi_channel=True):
+        self.play_if_possible(name, multi_channel)
+        self.set_stereo(name, stereo_fraction_right)
+
+    def play_if_possible(self, name, multi_channel):
         try:
             sound = self.catalog[name]
-            if multi_channel or sound.get_num_channels() == 0:
+            sound_is_not_playing = sound.get_num_channels() == 0
+            a_channel_is_available = multi_channel or sound_is_not_playing
+            if a_channel_is_available:
                 self.channels[name] = sound.play()
-            channel = self.channels[name]
-            if channel:
-                channel.set_volume(1 - stereo_fraction_right, stereo_fraction_right)
         except KeyError:
-            pass
+            return
+
+    def set_stereo(self, name, stereo_fraction_right):
+        try:
+            self.channels[name].set_volume(1 - stereo_fraction_right, stereo_fraction_right)
+        except KeyError:
+            return
 
     @staticmethod
     def get_stereo_fraction(location: MovableLocation):
