@@ -47,14 +47,11 @@ class Sounds:
         self.set_stereo(name, stereo_fraction_right)
 
     def play_if_possible(self, name, multi_channel):
-        try:
-            sound = self.catalog[name]
+        if sound := self.catalog.get(name):
             sound_is_not_playing = sound.get_num_channels() == 0
             a_channel_is_available = multi_channel or sound_is_not_playing
             if a_channel_is_available:
                 self.channels[name] = sound.play()
-        except KeyError:
-            return
 
     def set_stereo(self, name, stereo_fraction_right):
         try:
