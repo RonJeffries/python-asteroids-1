@@ -279,6 +279,16 @@ class TestPython:
         print(easy, medium, hard)
         assert False
 
+    def test_not_conditional(self):
+        low = 1
+        high = 10
+        too_low = 0
+        too_high = 11
+        just_right = 5
+        assert low < just_right < high
+        assert not low < too_low < high
+        assert not low < too_high < high
+
 
 
 

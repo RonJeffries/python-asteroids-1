@@ -120,13 +120,23 @@ class InvadersSaucer(InvadersFlyer):
         screen.blit(self._map, self.rect)
 
     def _move_or_die(self, fleets):
-        x = self.position.x + self._speed
-        if x > self._right or x < self._left:
+        self._move_along_x()
+        self._adjust_stereo_position()
+        self._die_if_done(fleets)
+
+    def _move_along_x(self):
+        self.position = (self.position.x + self._speed, self.position.y)
+
+    def _adjust_stereo_position(self):
+        frac = (self.position.x - self._left) / (self._right - self._left)
+        player.play_stereo("ufo_lowpitch", frac, False)
+
+    def _die_if_done(self, fleets):
+        if self._going_off_screen():
             self._die(fleets)
-        else:
-            frac = (x - self._left)/(self._right - self._left)
-            player.play_stereo("ufo_lowpitch", frac, False)
-            self.position = (x, self.position.y)
+
+    def _going_off_screen(self):
+        return not self._left <= self.position.x <= self._right
 
     def _mystery_score(self):
         score_index = self._player_shot_count % len(self._score_list)
