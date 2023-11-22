@@ -46,11 +46,11 @@ class InvaderGroup():
     def update_next(self, origin):
         if self._next_invader >= len(self.invaders):
             self._next_invader = 0
-            return "end"
+            return "new cycle"
         invader = self.next_invader()
         invader.position = origin
         self._next_invader += 1
-        return "ok"
+        return "continue"
 
     def next_invader(self):
         return self.invaders[self._next_invader]

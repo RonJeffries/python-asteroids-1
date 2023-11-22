@@ -36,15 +36,13 @@ class InvaderFleet(InvadersFlyer):
         self.process_result(result)
 
     def process_result(self, result):
-        if result == "ok":
+        if result == "continue":
             pass
-        elif result == "end":
+        elif result == "new cycle":
             if self.reverse:
                 self.reverse_travel()
             else:
                 self.step_origin()
-        else:
-            assert False
 
     def step_origin(self):
         self.origin = self.origin + self.direction * self.step
@@ -55,6 +53,7 @@ class InvaderFleet(InvadersFlyer):
         self.origin = self.origin + self.direction * self.step + self.down_step
 
     def at_edge(self, bumper_incoming_direction):
+        print("at edge")
         self.reverse = bumper_incoming_direction == self.direction
 
     def draw(self, screen):
