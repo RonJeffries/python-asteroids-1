@@ -1,6 +1,12 @@
+from enum import Enum
+
 from invaders.bitmap_maker import BitmapMaker
 from invaders.invader import Invader
 
+
+class CycleStatus(Enum):
+    CONTINUE = "continue"
+    NEW_CYCLE = "new cycle"
 
 class InvaderGroup():
     def __init__(self):

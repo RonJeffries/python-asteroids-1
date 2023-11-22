@@ -30,9 +30,9 @@ class TestInvaderGroup:
         origin = Vector2(100, 100)
         for i in range(55):
             result = group.update_next(origin)
-            assert result == "ok"
+            assert result == "continue"
         result = group.update_next(origin)
-        assert result == "end"
+        assert result == "new cycle"
 
     def test_bottom_of_column(self):
         group = InvaderGroup()
@@ -74,6 +74,6 @@ class TestInvaderGroup:
         for count in range(55):
             group.kill(group.invaders[0])
         result = group.update_next(Vector2(0, 0))
-        assert result == "end"
+        assert result == "new cycle"
 
 
