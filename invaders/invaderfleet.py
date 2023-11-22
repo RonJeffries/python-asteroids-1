@@ -31,9 +31,6 @@ class InvaderFleet(InvadersFlyer):
     def invader_count(self):
         return self.invader_group.invader_count()
 
-    def end_interactions(self, fleets):
-        pass
-
     def update(self, delta_time, _fleets):
         result = self.invader_group.update_next(self.origin)
         self.process_result(result)
