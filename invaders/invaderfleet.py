@@ -9,7 +9,6 @@ class InvaderFleet(InvadersFlyer):
     def __init__(self):
         self.step = Vector2(8, 0)
         self.down_step = Vector2(0, 32)
-
         self.invader_group = InvaderGroup()
         self.origin = Vector2(u.SCREEN_SIZE / 2 - 5*64, 512)
         self.invader_group.position_all_invaders(self.origin)
@@ -67,35 +66,9 @@ class InvaderFleet(InvadersFlyer):
     def interact_with_bumper(self, bumper, _fleets):
         self.invader_group.interact_with_bumper(bumper, self)
 
-    def interact_with_invaderexplosion(self, explosion, fleets):
-        pass
-
-    def interact_with_invaderfleet(self, bumper, fleets):
-        pass
-
-    def interact_with_invaderplayer(self, player, fleet):
-        pass
-
-    def interact_with_invadershot(self, bumper, fleets):
-        pass
-
-    def interact_with_playerexplosion(self, _explosion, _fleets):
-        pass
-
     def interact_with_playershot(self, shot, fleets):
         self.invader_group.interact_with_playershot(shot, fleets)
 
-    def interact_with_shotcontroller(self, controller, fleets):
-        pass
-
-    def interact_with_invadersexplosion(self, bumper, fleets):
-        pass
-
-    def interact_with_topbumper(self, top_bumper, fleets):
-        pass
 
     def interact_with(self, other, fleets):
         other.interact_with_invaderfleet(self, fleets)
-
-    def tick(self, delta_time, fleets):
-        pass
