@@ -2,7 +2,7 @@ from pygame import Vector2
 
 from invaders.bitmap_maker import BitmapMaker
 from invaders.invader import Invader
-from invaders.invader_group import InvaderGroup
+from invaders.invader_group import InvaderGroup, CycleStatus
 
 
 class TestInvaderGroup:
@@ -30,9 +30,9 @@ class TestInvaderGroup:
         origin = Vector2(100, 100)
         for i in range(55):
             result = group.update_next(origin)
-            assert result == "continue"
+            assert result == CycleStatus.CONTINUE
         result = group.update_next(origin)
-        assert result == "new cycle"
+        assert result == CycleStatus.NEW_CYCLE
 
     def test_bottom_of_column(self):
         group = InvaderGroup()
@@ -74,6 +74,6 @@ class TestInvaderGroup:
         for count in range(55):
             group.kill(group.invaders[0])
         result = group.update_next(Vector2(0, 0))
-        assert result == "new cycle"
+        assert result == CycleStatus.NEW_CYCLE
 
 

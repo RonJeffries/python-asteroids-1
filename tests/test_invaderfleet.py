@@ -6,7 +6,7 @@ from invaders.bumper import Bumper
 from core.fleets import Fleets
 from invaders.invader import INVADER_SPACING, Invader
 from invaders.invaderfleet import InvaderFleet
-from invaders.invader_group import InvaderGroup
+from invaders.invader_group import InvaderGroup, CycleStatus
 from invaders.player_shot import PlayerShot
 from tests.tools import FI
 from invaders.top_bumper import TopBumper
@@ -57,7 +57,7 @@ class TestInvaderFleet:
     def test_end_increments_step(self):
         fleet = InvaderFleet()
         origin = fleet.origin
-        fleet.process_result("new cycle")
+        fleet.process_result(CycleStatus.NEW_CYCLE)
         assert fleet.origin == origin + fleet.step
 
     def test_end_at_edge_steps_down_and_left(self):
@@ -65,7 +65,7 @@ class TestInvaderFleet:
         origin = fleet.origin
         direction = fleet.direction
         fleet.at_edge(+1)
-        fleet.process_result("new cycle")
+        fleet.process_result(CycleStatus.NEW_CYCLE)
         assert fleet.direction == -direction
         assert fleet.origin == origin - fleet.step + fleet.down_step
 

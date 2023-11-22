@@ -2,7 +2,7 @@ from pygame import Vector2
 
 import u
 from flyer import InvadersFlyer
-from invaders.invader_group import InvaderGroup
+from invaders.invader_group import InvaderGroup, CycleStatus
 
 
 class InvaderFleet(InvadersFlyer):
@@ -36,9 +36,9 @@ class InvaderFleet(InvadersFlyer):
         self.process_result(result)
 
     def process_result(self, result):
-        if result == "continue":
+        if result == CycleStatus.CONTINUE:
             pass
-        elif result == "new cycle":
+        elif result == CycleStatus.NEW_CYCLE:
             if self.reverse:
                 self.reverse_travel()
             else:
