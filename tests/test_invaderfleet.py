@@ -51,7 +51,7 @@ class TestInvaderFleet:
     def test_ok_leaves_step_alone(self):
         fleet = InvaderFleet()
         origin = fleet.origin
-        fleet.process_result("ok")
+        fleet.process_result(CycleStatus.CONTINUE)
         assert fleet.origin == origin
 
     def test_end_increments_step(self):
@@ -64,8 +64,7 @@ class TestInvaderFleet:
         fleet = InvaderFleet()
         origin = fleet.origin
         direction = fleet.direction
-        fleet.at_edge(+1)
-        fleet.process_result(CycleStatus.NEW_CYCLE)
+        fleet.process_result(CycleStatus.REVERSE)
         assert fleet.direction == -direction
         assert fleet.origin == origin - fleet.step + fleet.down_step
 

@@ -1,6 +1,8 @@
 from pygame import Vector2
 
+import u
 from invaders.bitmap_maker import BitmapMaker
+from invaders.bumper import Bumper
 from invaders.invader import Invader
 from invaders.invader_group import InvaderGroup, CycleStatus
 
@@ -29,9 +31,37 @@ class TestInvaderGroup:
         group = InvaderGroup()
         origin = Vector2(100, 100)
         for i in range(55):
-            result = group.update_next(origin)
+            result = group.update_next(origin, 1)
             assert result == CycleStatus.CONTINUE
-        result = group.update_next(origin)
+        result = group.update_next(origin, 1)
+        assert result == CycleStatus.NEW_CYCLE
+
+    def test_no_reversal(self):
+        group = InvaderGroup()
+        bumper = Bumper(u.BUMPER_RIGHT, +1)
+        group.interact_with_bumper(bumper, None)
+        result = group.end_cycle()
+        assert result == CycleStatus.NEW_CYCLE
+
+    def test_reversal_on_entry(self):
+        group = InvaderGroup()
+        bumper = Bumper(u.BUMPER_RIGHT, +1)
+        invader = group.invaders[0]
+        _pos_x, pos_y = invader.position
+        invader.position = (u.BUMPER_RIGHT, pos_y)
+        group.interact_with_bumper(bumper, None)
+        result = group.end_cycle()
+        assert result == CycleStatus.REVERSE
+
+    def test_no_reversal_on_exit(self):
+        group = InvaderGroup()
+        group.current_direction = -1
+        bumper = Bumper(u.BUMPER_RIGHT, +1)
+        invader = group.invaders[0]
+        _pos_x, pos_y = invader.position
+        invader.position = (u.BUMPER_RIGHT, pos_y)
+        group.interact_with_bumper(bumper, None)
+        result = group.end_cycle()
         assert result == CycleStatus.NEW_CYCLE
 
     def test_bottom_of_column(self):
@@ -73,7 +103,7 @@ class TestInvaderGroup:
         group = InvaderGroup()
         for count in range(55):
             group.kill(group.invaders[0])
-        result = group.update_next(Vector2(0, 0))
+        result = group.update_next(Vector2(0, 0), 1)
         assert result == CycleStatus.NEW_CYCLE
 
 
