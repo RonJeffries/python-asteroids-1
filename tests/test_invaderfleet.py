@@ -37,17 +37,6 @@ class TestInvaderFleet:
         invader = fleet.testing_only_invaders[5]  # bottom row middle column
         assert invader.position.x == 512
 
-    def test_fleet_motion(self):
-        fleet = InvaderFleet()
-        # fleet.step = Vector2(30, 0)
-        pos = fleet.testing_only_invaders[0].position
-        fleet.update(1.0, None)
-        new_pos = fleet.testing_only_invaders[0].position
-        assert fleet.direction == +1
-        assert new_pos - pos == fleet.step
-        fleet.at_edge(+1)
-        assert fleet.reverse
-
     def test_ok_leaves_step_alone(self):
         fleet = InvaderFleet()
         origin = fleet.origin

@@ -7,6 +7,7 @@ from invaders.invader import Invader
 class CycleStatus(Enum):
     CONTINUE = "continue"
     NEW_CYCLE = "new cycle"
+    REVERSE = "reverse"
 
 class InvaderGroup():
     def __init__(self):
@@ -14,6 +15,8 @@ class InvaderGroup():
         invader_table = self.create_invader_bitmaps()
         self.create_invaders(invader_table)
         self._next_invader = 0
+        self.current_direction = 1
+        self.should_reverse = False
 
     def create_invader_bitmaps(self):
         maker = BitmapMaker.instance()
@@ -49,14 +52,21 @@ class InvaderGroup():
         for invader in self.invaders:
             invader.position = origin
 
-    def update_next(self, origin):
+    def update_next(self, origin, current_direction):
+        self.current_direction = current_direction
         if self._next_invader >= len(self.invaders):
-            self._next_invader = 0
-            return CycleStatus.NEW_CYCLE
+            return self.end_cycle()
         invader = self.next_invader()
         invader.position = origin
         self._next_invader += 1
         return CycleStatus.CONTINUE
+
+    def end_cycle(self):
+        self._next_invader = 0
+        return CycleStatus.REVERSE if self.should_reverse else CycleStatus.NEW_CYCLE
+
+    def at_edge(self, bumper_direction):
+        self.should_reverse = self.current_direction == bumper_direction
 
     def next_invader(self):
         return self.invaders[self._next_invader]
@@ -72,9 +82,9 @@ class InvaderGroup():
         # pygame.draw.line(screen, "red", (100, 850), (100, 950))
         # pygame.draw.line(screen, "red", (50, 900), (150, 900))
 
-    def interact_with_bumper(self, bumper, fleet):
+    def interact_with_bumper(self, bumper, _fleet):
         for invader in self.invaders:
-            invader.interact_with_bumper(bumper, fleet)
+            invader.interact_with_bumper(bumper, self)
 
     def interact_with_playershot(self, shot, fleets):
         for invader in self.invaders.copy():

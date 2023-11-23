@@ -12,7 +12,6 @@ class InvaderFleet(InvadersFlyer):
         self.invader_group = InvaderGroup()
         self.origin = Vector2(u.SCREEN_SIZE / 2 - 5*64, 512)
         self.invader_group.position_all_invaders(self.origin)
-        self.reverse = False
         self.direction = 1
         self.step_origin()
 
@@ -32,29 +31,23 @@ class InvaderFleet(InvadersFlyer):
         return self.invader_group.invader_count()
 
     def update(self, delta_time, _fleets):
-        result = self.invader_group.update_next(self.origin)
+        result = self.invader_group.update_next(self.origin, self.direction)
         self.process_result(result)
 
     def process_result(self, result):
         if result == CycleStatus.CONTINUE:
             pass
         elif result == CycleStatus.NEW_CYCLE:
-            if self.reverse:
-                self.reverse_travel()
-            else:
-                self.step_origin()
+            self.step_origin()
+        elif result == CycleStatus.REVERSE:
+            self.reverse_travel()
 
     def step_origin(self):
         self.origin = self.origin + self.direction * self.step
 
     def reverse_travel(self):
-        self.reverse = False
         self.direction = -self.direction
         self.origin = self.origin + self.direction * self.step + self.down_step
-
-    def at_edge(self, bumper_incoming_direction):
-        print("at edge")
-        self.reverse = bumper_incoming_direction == self.direction
 
     def draw(self, screen):
         self.invader_group.draw(screen)
