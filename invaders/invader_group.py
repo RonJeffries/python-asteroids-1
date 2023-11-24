@@ -54,6 +54,9 @@ class InvaderGroup():
 
     def update_next(self, origin, current_direction):
         self.handle_direction_change(current_direction)
+        return self.perform_update_step(origin)
+
+    def perform_update_step(self, origin):
         if self._next_invader >= len(self.invaders):
             return self.end_cycle()
         else:
