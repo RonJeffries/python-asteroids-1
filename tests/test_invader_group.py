@@ -53,6 +53,13 @@ class TestInvaderGroup:
         result = group.end_cycle()
         assert result == CycleStatus.REVERSE
 
+        origin = (0, 0)
+        result = CycleStatus.CONTINUE
+        while result == CycleStatus.CONTINUE:
+            invader.position = (u.BUMPER_RIGHT, pos_y)
+            result = group.update_next(origin, -1)
+        assert result == CycleStatus.NEW_CYCLE
+
     def test_no_reversal_on_exit(self):
         group = InvaderGroup()
         group.current_direction = -1
