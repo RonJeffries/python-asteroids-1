@@ -57,13 +57,16 @@ class InvaderGroup():
         return self.perform_update_step(origin)
 
     def perform_update_step(self, origin):
-        if self._next_invader >= len(self.invaders):
-            return self.end_cycle()
-        else:
-            invader = self.next_invader()
-            invader.position = origin
-            self._next_invader += 1
+        if self._next_invader < len(self.invaders):
+            self.move_one_invader(origin)
             return CycleStatus.CONTINUE
+        else:
+            return self.end_cycle()
+
+    def move_one_invader(self, origin):
+        invader = self.next_invader()
+        invader.position = origin
+        self._next_invader += 1
 
     def handle_direction_change(self, current_direction):
         if self.current_direction != current_direction:
