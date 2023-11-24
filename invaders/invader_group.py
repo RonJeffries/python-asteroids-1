@@ -55,7 +55,7 @@ class InvaderGroup():
     def update_next(self, origin, current_direction):
         if self.current_direction != current_direction:
             self.should_reverse = False
-        self.current_direction = current_direction
+            self.current_direction = current_direction
         if self._next_invader >= len(self.invaders):
             return self.end_cycle()
         invader = self.next_invader()
@@ -68,7 +68,8 @@ class InvaderGroup():
         return CycleStatus.REVERSE if self.should_reverse else CycleStatus.NEW_CYCLE
 
     def at_edge(self, bumper_direction):
-        self.should_reverse = self.current_direction == bumper_direction
+        if self.current_direction == bumper_direction:
+            self.should_reverse = True
 
     def next_invader(self):
         return self.invaders[self._next_invader]
@@ -95,6 +96,3 @@ class InvaderGroup():
     def interact_with_playershot(self, shot, fleets):
         for invader in self.invaders.copy():
             invader.interact_with_group_and_playershot(shot, self, fleets)
-
-    def set_invader_position(self, index, origin):
-        self.invaders[index].set_position(origin)
