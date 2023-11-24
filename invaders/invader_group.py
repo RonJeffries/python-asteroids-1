@@ -53,15 +53,19 @@ class InvaderGroup():
             invader.position = origin
 
     def update_next(self, origin, current_direction):
+        self.handle_direction_change(current_direction)
+        if self._next_invader >= len(self.invaders):
+            return self.end_cycle()
+        else:
+            invader = self.next_invader()
+            invader.position = origin
+            self._next_invader += 1
+            return CycleStatus.CONTINUE
+
+    def handle_direction_change(self, current_direction):
         if self.current_direction != current_direction:
             self.should_reverse = False
             self.current_direction = current_direction
-        if self._next_invader >= len(self.invaders):
-            return self.end_cycle()
-        invader = self.next_invader()
-        invader.position = origin
-        self._next_invader += 1
-        return CycleStatus.CONTINUE
 
     def end_cycle(self):
         self._next_invader = 0
