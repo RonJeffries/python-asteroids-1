@@ -53,7 +53,7 @@ class Invader:
             # pygame.draw.circle(screen, circle_color, self.rect.center, 16)
 
     def is_entering(self, bumper, current_direction):
-        return bumper.intersecting(self.rect) and bumper.incoming_direction == current_direction
+        return bumper.am_i_entering(self.rect, current_direction)
 
     def x_fraction(self):
         x = self.rect.centerx - u.BUMPER_LEFT
