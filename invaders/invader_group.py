@@ -18,6 +18,9 @@ class InvaderGroup():
         self.current_direction = 1
         self.should_reverse = False
 
+    def testing_set_to_end(self):
+        self._next_invader = len(self.invaders)
+
     def create_invader_bitmaps(self):
         maker = BitmapMaker.instance()
         aliens = maker.invaders
@@ -99,6 +102,8 @@ class InvaderGroup():
         pass
 
     def interact_with_bumper(self, bumper, _fleet):
+        if self._next_invader < len(self.invaders):
+            return
         if self.should_reverse:
             return
         for invader in self.invaders:

@@ -49,6 +49,7 @@ class TestInvaderGroup:
         invader = group.invaders[0]
         _pos_x, pos_y = invader.position
         invader.position = (u.BUMPER_RIGHT, pos_y)
+        group.testing_set_to_end()
         group.interact_with_bumper(bumper, None)
         result = group.end_cycle()
         assert result == CycleStatus.REVERSE
