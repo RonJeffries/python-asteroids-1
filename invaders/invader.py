@@ -52,10 +52,6 @@ class Invader:
             # pygame.draw.rect(screen, "yellow", self.rect)
             # pygame.draw.circle(screen, circle_color, self.rect.center, 16)
 
-    def interact_with_bumper(self, bumper, invader_group, current_direction):
-        if self.is_entering(bumper, current_direction):
-            invader_group.at_edge(bumper.incoming_direction)
-
     def is_entering(self, bumper, current_direction):
         return bumper.intersecting(self.rect) and bumper.incoming_direction == current_direction
 

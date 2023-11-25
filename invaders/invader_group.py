@@ -79,10 +79,6 @@ class InvaderGroup():
         self._next_invader = 0
         return CycleStatus.REVERSE if self.should_reverse else CycleStatus.NEW_CYCLE
 
-    def at_edge(self, bumper_direction):
-        if self.current_direction == bumper_direction:
-            self.should_reverse = True
-
     def next_invader(self):
         return self.invaders[self._next_invader]
 
