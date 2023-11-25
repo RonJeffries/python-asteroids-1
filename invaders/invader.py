@@ -52,9 +52,9 @@ class Invader:
             # pygame.draw.rect(screen, "yellow", self.rect)
             # pygame.draw.circle(screen, circle_color, self.rect.center, 16)
 
-    def interact_with_bumper(self, bumper, invader_fleet):
+    def interact_with_bumper(self, bumper, invader_group):
         if bumper.intersecting(self.rect):
-            invader_fleet.at_edge(bumper.incoming_direction)
+            invader_group.at_edge(bumper.incoming_direction)
 
     def x_fraction(self):
         x = self.rect.centerx - u.BUMPER_LEFT
