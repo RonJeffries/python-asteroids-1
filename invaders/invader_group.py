@@ -95,6 +95,9 @@ class InvaderGroup():
         # pygame.draw.line(screen, "red", (100, 850), (100, 950))
         # pygame.draw.line(screen, "red", (50, 900), (150, 900))
 
+    def begin_interactions(self, fleets):
+        pass
+
     def interact_with_bumper(self, bumper, _fleet):
         if self.should_reverse:
             return

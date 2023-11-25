@@ -52,6 +52,9 @@ class InvaderFleet(InvadersFlyer):
     def draw(self, screen):
         self.invader_group.draw(screen)
 
+    def begin_interactions(self, fleets):
+        self.invader_group.begin_interactions(fleets)
+
     def interact_with_bumper(self, bumper, _fleets):
         self.invader_group.interact_with_bumper(bumper, self)
 
