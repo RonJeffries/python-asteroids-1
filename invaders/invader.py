@@ -53,7 +53,7 @@ class Invader:
             # pygame.draw.circle(screen, circle_color, self.rect.center, 16)
 
     def interact_with_bumper(self, bumper, invader_group, current_direction):
-        if bumper.intersecting(self.rect):
+        if bumper.intersecting(self.rect) and bumper.incoming_direction == current_direction:
             invader_group.at_edge(bumper.incoming_direction)
 
     def x_fraction(self):
