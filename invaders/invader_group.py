@@ -99,9 +99,8 @@ class InvaderGroup():
     def interact_with_bumper(self, bumper, _fleet):
         if self._next_invader < len(self.invaders):
             return
-        for invader in self.invaders:
-            if invader.is_entering(bumper, self.current_direction):
-                self.should_reverse = True
+        colliding = [invader.is_entering(bumper, self.current_direction) for invader in self.invaders]
+        self.should_reverse |= any(colliding)
 
     def interact_with_playershot(self, shot, fleets):
         for invader in self.invaders.copy():
