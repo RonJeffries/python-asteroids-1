@@ -50,12 +50,15 @@ class TestInvaderGroup:
         _pos_x, pos_y = invader.position
         invader.position = (u.BUMPER_RIGHT, pos_y)
         group.testing_set_to_end()
+        group.begin_interactions(None)
         group.interact_with_bumper(bumper, None)
+        assert group.should_reverse
         result = group.end_cycle()
         assert result == CycleStatus.REVERSE
-
+        # continuing the story ...
         origin = (0, 0)
         result = CycleStatus.CONTINUE
+        group.begin_interactions(None)
         while result == CycleStatus.CONTINUE:
             invader.position = (u.BUMPER_RIGHT, pos_y)
             result = group.update_next(origin, -1)

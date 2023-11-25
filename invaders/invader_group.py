@@ -61,7 +61,6 @@ class InvaderGroup():
 
     def handle_direction_change(self, current_direction):
         if self.current_direction != current_direction:
-            self.should_reverse = False
             self.current_direction = current_direction
 
     def perform_update_step(self, origin):
@@ -99,7 +98,7 @@ class InvaderGroup():
         # pygame.draw.line(screen, "red", (50, 900), (150, 900))
 
     def begin_interactions(self, fleets):
-        pass
+        self.should_reverse = False
 
     def interact_with_bumper(self, bumper, _fleet):
         if self._next_invader < len(self.invaders):
