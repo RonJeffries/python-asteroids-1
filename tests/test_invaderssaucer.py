@@ -2,7 +2,7 @@ from core.fleets import Fleets
 from invaders.invader_player import InvaderPlayer
 from invaders.invader_score import InvaderScoreKeeper
 from invaders.invaderfleet import InvaderFleet
-from invaders.invaders_saucer import InvadersSaucer, Unready, Ready
+from invaders.invaders_saucer import InvadersSaucer, PreInitStrategy, PostInitStrategy
 from invaders.player_shot import PlayerShot
 from pygame import Vector2
 from tests.tools import FI
@@ -142,10 +142,10 @@ class TestInvadersSaucer:
     def test_initialized(self):
         player = InvaderPlayer()
         saucer = InvadersSaucer()
-        assert isinstance(saucer._readiness, Unready)
+        assert isinstance(saucer._strategy, PreInitStrategy)
         saucer.interact_with_invaderplayer(player, [])
         saucer.end_interactions([])
-        assert isinstance(saucer._readiness, Ready)
+        assert isinstance(saucer._strategy, PostInitStrategy)
 
     def test_start_on_right(self):
         player = InvaderPlayer()
@@ -158,9 +158,9 @@ class TestInvadersSaucer:
 
     def test_sets_up_ready(self):
         saucer = InvadersSaucer()
-        assert isinstance(saucer._readiness, Unready)
+        assert isinstance(saucer._strategy, PreInitStrategy)
         saucer._finish_initializing(0)
-        assert isinstance(saucer._readiness, Ready)
+        assert isinstance(saucer._strategy, PostInitStrategy)
 
 
 

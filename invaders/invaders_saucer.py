@@ -11,7 +11,7 @@ from sounds import player
 
 
 # noinspection PyProtectedMember
-class Unready:
+class PreInitStrategy:
     def __init__(self, saucer):
         self._saucer = saucer
 
@@ -28,7 +28,7 @@ class Unready:
         pass
 
 
-class Ready:
+class PostInitStrategy:
     def __init__(self, saucer):
         self._saucer = saucer
 
@@ -49,6 +49,10 @@ class Ready:
 
 class InvadersSaucer(InvadersFlyer):
     def __init__(self):
+        self._initialize_what_we_can()
+        self._strategy = PreInitStrategy(self)
+
+    def _initialize_what_we_can(self):
         maker = BitmapMaker.instance()
         self._map = maker.saucer
         self._mask = pygame.mask.from_surface(self._map)
@@ -59,7 +63,6 @@ class InvadersSaucer(InvadersFlyer):
         self._speed = 0
         self._player_shot_count = 0
         self._score_list = [100, 50, 50, 100, 150, 100, 100, 50, 300, 100, 100, 100, 50, 150, 100]
-        self._readiness = Unready(self)
 
     @property
     def mask(self):
@@ -81,11 +84,11 @@ class InvadersSaucer(InvadersFlyer):
         other.interact_with_invaderssaucer(self, fleets)
 
     def interact_with_invaderfleet(self, invader_fleet, fleets):
-        self._readiness.die_if_lonely(invader_fleet, fleets)
+        self._strategy.die_if_lonely(invader_fleet, fleets)
 
     def interact_with_invaderplayer(self, player, fleets):
         self._player_shot_count = player.shot_count
-        self._readiness.finish_initializing(self._player_shot_count)
+        self._strategy.finish_initializing(self._player_shot_count)
 
     def interact_with_playershot(self, shot, fleets):
         if Collider(self, shot).colliding():
@@ -95,10 +98,10 @@ class InvadersSaucer(InvadersFlyer):
             self._die(fleets)
 
     def update(self, delta_time, fleets):
-        self._readiness.move_or_die(fleets)
+        self._strategy.move_or_die(fleets)
 
     def draw(self, screen):
-        self._readiness.just_draw(screen)
+        self._strategy.just_draw(screen)
 
     def _die(self, fleets):
         fleets.remove(self)
@@ -109,7 +112,10 @@ class InvadersSaucer(InvadersFlyer):
             self._die(fleets)
 
     def _finish_initializing(self, shot_count):
-        self._readiness = Ready(self)
+        self._set_start_and_speed(shot_count)
+        self._strategy = PostInitStrategy(self)
+
+    def _set_start_and_speed(self, shot_count):
         speed = 8
         even_or_odd = shot_count % 2
         self._speed = (-speed, speed)[even_or_odd]
