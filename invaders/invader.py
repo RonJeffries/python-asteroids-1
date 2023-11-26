@@ -56,6 +56,6 @@ class Invader:
         return bumper.am_i_entering(self.rect, current_direction)
 
     def x_fraction(self):
-        x = self.rect.centerx - u.BUMPER_LEFT
-        denom = u.BUMPER_RIGHT - u.BUMPER_LEFT
-        return x / denom
+        x_distance = self.rect.centerx - u.BUMPER_LEFT
+        total_distance = u.BUMPER_RIGHT - u.BUMPER_LEFT
+        return x_distance / total_distance
