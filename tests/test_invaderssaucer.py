@@ -2,7 +2,7 @@ from core.fleets import Fleets
 from invaders.invader_player import InvaderPlayer
 from invaders.invader_score import InvaderScoreKeeper
 from invaders.invaderfleet import InvaderFleet
-from invaders.invaders_saucer import InvadersSaucer, PreInitStrategy, PostInitStrategy
+from invaders.invaders_saucer import InvadersSaucer
 from invaders.player_shot import PlayerShot
 from pygame import Vector2
 from tests.tools import FI
@@ -55,8 +55,12 @@ class TestInvadersSaucer:
         saucer.interact_with_invaderplayer(player, fleets)
         shot = PlayerShot()
         shot.position = saucer.position
+        shot_count = 0
 
         def kill_saucer(expecting):
+            nonlocal shot_count
+            saucer._player_shot_count = shot_count
+            shot_count += 1
             saucer.interact_with_playershot(shot, fleets)
             score = fi.scores[-1]
             assert score.score == expecting

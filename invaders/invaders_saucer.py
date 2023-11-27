@@ -6,52 +6,13 @@ from invaders.Collider import Collider
 from invaders.bitmap_maker import BitmapMaker
 from invaders.invader_score import InvaderScore
 from invaders.shot_explosion import InvadersExplosion
-from invaders.timecapsule import TimeCapsule
 from sounds import player
-
-
-# noinspection PyProtectedMember
-class PreInitStrategy:
-    def __init__(self, saucer):
-        self._saucer = saucer
-
-    def die_if_lonely(self, invader_fleet, fleets):
-        self._saucer._die_if_lonely(invader_fleet, fleets)
-
-    def finish_initializing(self, shot_count):
-        self._saucer._finish_initializing(shot_count)
-
-    def just_draw(self, screen):
-        pass
-
-    def move_or_die(self, fleets):
-        pass
-
-
-class PostInitStrategy:
-    def __init__(self, saucer):
-        self._saucer = saucer
-
-    def die_if_lonely(self, _invader_fleet, _fleets):
-        pass
-
-    def finish_initializing(self, shot_count):
-        pass
-
-    # noinspection PyProtectedMember
-    def just_draw(self, screen):
-        self._saucer._just_draw(screen)
-
-    # noinspection PyProtectedMember
-    def move_or_die(self, fleets):
-        self._saucer._move_or_die(fleets)
 
 
 class InvadersSaucer(InvadersFlyer):
     def __init__(self, shot_count=0):
         self._initialize_what_we_can()
         self._finish_initializing(shot_count)
-        self._strategy = PostInitStrategy(self)
 
     def _initialize_what_we_can(self):
         maker = BitmapMaker.instance()
@@ -84,13 +45,6 @@ class InvadersSaucer(InvadersFlyer):
     def interact_with(self, other, fleets):
         other.interact_with_invaderssaucer(self, fleets)
 
-    def interact_with_invaderfleet(self, invader_fleet, fleets):
-        self._strategy.die_if_lonely(invader_fleet, fleets)
-
-    def interact_with_invaderplayer(self, player, fleets):
-        self._player_shot_count = player.shot_count
-        self._strategy.finish_initializing(self._player_shot_count)
-
     def interact_with_playershot(self, shot, fleets):
         if Collider(self, shot).colliding():
             explosion = InvadersExplosion.saucer_explosion(self.position, 0.5)
@@ -99,21 +53,18 @@ class InvadersSaucer(InvadersFlyer):
             self._die(fleets)
 
     def update(self, delta_time, fleets):
-        self._strategy.move_or_die(fleets)
+        self._move_along_x()
+        self._adjust_stereo_position()
+        self._die_if_done(fleets)
 
     def draw(self, screen):
-        self._strategy.just_draw(screen)
+        screen.blit(self._map, self.rect)
 
     def _die(self, fleets):
         fleets.remove(self)
 
-    def _die_if_lonely(self, invader_fleet, fleets):
-        if invader_fleet.invader_count() < 8:
-            self._die(fleets)
-
     def _finish_initializing(self, shot_count):
         self._set_start_and_speed(shot_count)
-        self._strategy = PostInitStrategy(self)
 
     def _set_start_and_speed(self, shot_count):
         speed = 8
@@ -121,14 +72,6 @@ class InvadersSaucer(InvadersFlyer):
         self._speed = (-speed, speed)[even_or_odd]
         left_or_right = (self._right, self._left)[even_or_odd]
         self.rect.center = Vector2(left_or_right, u.INVADER_SAUCER_Y)
-
-    def _just_draw(self, screen):
-        screen.blit(self._map, self.rect)
-
-    def _move_or_die(self, fleets):
-        self._move_along_x()
-        self._adjust_stereo_position()
-        self._die_if_done(fleets)
 
     def _move_along_x(self):
         self.position = (self.position.x + self._speed, self.position.y)
