@@ -15,7 +15,6 @@ class TestInvadersSaucer:
 
     def test_saucer_moves(self):
         saucer = InvadersSaucer()
-        saucer._finish_initializing(0)
         start = saucer.position
         fleets = Fleets()
         fleets.append(InvaderFleet())

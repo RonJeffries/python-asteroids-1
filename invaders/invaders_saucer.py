@@ -11,20 +11,34 @@ from sounds import player
 
 class InvadersSaucer(InvadersFlyer):
     def __init__(self, shot_count=0):
-        self._initialize_what_we_can()
-        self._finish_initializing(shot_count)
+        self.init_map_mask_rect()
+        self.init_for_scoring(shot_count)
+        self.init_motion_limits()
+        self.init_start_and_direction(shot_count)
 
-    def _initialize_what_we_can(self):
+    def init_for_scoring(self, shot_count):
+        self._player_shot_count = shot_count
+        self._score_list = [100, 50, 50, 100, 150, 100, 100, 50, 300, 100, 100, 100, 50, 150, 100]
+
+    # noinspection PyAttributeOutsideInit
+    def init_motion_limits(self):
+        half_width = self._rect.width // 2
+        self._x_minimum = u.BUMPER_LEFT + half_width
+        self._x_maximum = u.BUMPER_RIGHT - half_width
+
+    # noinspection PyAttributeOutsideInit
+    def init_start_and_direction(self, shot_count):
+        even_or_odd = shot_count % 2
+        starting_x_coordinate = (self._x_maximum, self._x_minimum)[even_or_odd]
+        self.rect.center = Vector2(starting_x_coordinate, u.INVADER_SAUCER_Y)
+        self._speed = (-u.INVADER_SPEED, u.INVADER_SPEED)[even_or_odd]
+
+    # noinspection PyAttributeOutsideInit
+    def init_map_mask_rect(self):
         maker = BitmapMaker.instance()
         self._map = maker.saucer
         self._mask = pygame.mask.from_surface(self._map)
         self._rect = self._map.get_rect()
-        half_width = self._rect.width // 2
-        self._left = u.BUMPER_LEFT + half_width
-        self._right = u.BUMPER_RIGHT - half_width
-        self._speed = 0
-        self._player_shot_count = 0
-        self._score_list = [100, 50, 50, 100, 150, 100, 100, 50, 300, 100, 100, 100, 50, 150, 100]
 
     @property
     def mask(self):
@@ -63,21 +77,11 @@ class InvadersSaucer(InvadersFlyer):
     def _die(self, fleets):
         fleets.remove(self)
 
-    def _finish_initializing(self, shot_count):
-        self._set_start_and_speed(shot_count)
-
-    def _set_start_and_speed(self, shot_count):
-        speed = 8
-        even_or_odd = shot_count % 2
-        self._speed = (-speed, speed)[even_or_odd]
-        left_or_right = (self._right, self._left)[even_or_odd]
-        self.rect.center = Vector2(left_or_right, u.INVADER_SAUCER_Y)
-
     def _move_along_x(self):
         self.position = (self.position.x + self._speed, self.position.y)
 
     def _adjust_stereo_position(self):
-        frac = (self.position.x - self._left) / (self._right - self._left)
+        frac = (self.position.x - self._x_minimum) / (self._x_maximum - self._x_minimum)
         player.play_stereo("ufo_lowpitch", frac, False)
 
     def _die_if_done(self, fleets):
@@ -85,9 +89,8 @@ class InvadersSaucer(InvadersFlyer):
             self._die(fleets)
 
     def _going_off_screen(self):
-        return not self._left <= self.position.x <= self._right
+        return not self._x_minimum <= self.position.x <= self._x_maximum
 
     def _mystery_score(self):
         score_index = self._player_shot_count % len(self._score_list)
         return self._score_list[score_index]
-
