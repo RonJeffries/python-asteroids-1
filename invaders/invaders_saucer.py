@@ -48,9 +48,13 @@ class PostInitStrategy:
 
 
 class InvadersSaucer(InvadersFlyer):
-    def __init__(self):
+    def __init__(self, shot_count=None):
         self._initialize_what_we_can()
-        self._strategy = PreInitStrategy(self)
+        if shot_count is not None:
+            self._finish_initializing(shot_count)
+            self._strategy = PostInitStrategy(self)
+        else:
+            self._strategy = PreInitStrategy(self)
 
     def _initialize_what_we_can(self):
         maker = BitmapMaker.instance()
