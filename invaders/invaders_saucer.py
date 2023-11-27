@@ -48,13 +48,10 @@ class PostInitStrategy:
 
 
 class InvadersSaucer(InvadersFlyer):
-    def __init__(self, shot_count=None):
+    def __init__(self, shot_count=0):
         self._initialize_what_we_can()
-        if shot_count is not None:
-            self._finish_initializing(shot_count)
-            self._strategy = PostInitStrategy(self)
-        else:
-            self._strategy = PreInitStrategy(self)
+        self._finish_initializing(shot_count)
+        self._strategy = PostInitStrategy(self)
 
     def _initialize_what_we_can(self):
         maker = BitmapMaker.instance()
@@ -109,7 +106,6 @@ class InvadersSaucer(InvadersFlyer):
 
     def _die(self, fleets):
         fleets.remove(self)
-        fleets.append(TimeCapsule(10, InvadersSaucer()))
 
     def _die_if_lonely(self, invader_fleet, fleets):
         if invader_fleet.invader_count() < 8:

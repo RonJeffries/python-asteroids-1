@@ -28,7 +28,7 @@ class TestInvadersSaucerMaker:
         invader_player = FakeInvaderPlayer(0)
         maker = InvadersSaucerMaker()
         maker.begin_interactions(fleets)
-        maker.interact_withinvaderfleet(invader_fleet, fleets)
+        maker.interact_with_invaderfleet(invader_fleet, fleets)
         maker.interact_with_invaderplayer(invader_player, fleets)
         maker.end_interactions(fleets)
         assert len(fi.time_capsules) == 1
@@ -40,7 +40,7 @@ class TestInvadersSaucerMaker:
         invader_fleet = FakeInvaderFleet(8)
         maker = InvadersSaucerMaker()
         maker.begin_interactions(fleets)
-        maker.interact_withinvaderfleet(invader_fleet, fleets)
+        maker.interact_with_invaderfleet(invader_fleet, fleets)
         maker.end_interactions(fleets)
         assert len(fi.time_capsules) == 1
         assert len(fi.invader_saucers) == 0
@@ -52,7 +52,7 @@ class TestInvadersSaucerMaker:
         invader_player = FakeInvaderPlayer(0)
         maker = InvadersSaucerMaker()
         maker.begin_interactions(fleets)
-        maker.interact_withinvaderfleet(invader_fleet, fleets)
+        maker.interact_with_invaderfleet(invader_fleet, fleets)
         maker.interact_with_invaderplayer(invader_player, fleets)
         maker.end_interactions(fleets)
         assert len(fi.time_capsules) == 1

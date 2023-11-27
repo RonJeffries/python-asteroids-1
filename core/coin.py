@@ -11,6 +11,7 @@ from invaders.bumper import Bumper
 from invaders.invader_score import InvaderScoreKeeper
 from invaders.invaderfleet import InvaderFleet
 from invaders.invaders_saucer import InvadersSaucer
+from invaders.invaders_saucer_maker import InvadersSaucerMaker
 from invaders.playermaker import PlayerMaker
 from invaders.reserveplayer import ReservePlayer
 from invaders.roadfurniture import RoadFurniture
@@ -58,7 +59,7 @@ def invaders(fleets):
     fleets.append(ShotController())
     fleets.append(InvaderScoreKeeper())
     fleets.append(RoadFurniture.bottom_line())
-    fleets.append(TimeCapsule(10, InvadersSaucer()))
+    fleets.append(TimeCapsule(10, InvadersSaucerMaker()))
     for i in range(3):
         fleets.append(ReservePlayer(i))
     half_width = 88 / 2

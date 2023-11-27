@@ -22,63 +22,6 @@ class TestInvadersSaucer:
         saucer.update(1.0/60.0, fleets)
         assert saucer.position.x != start.x
 
-    def test_does_not_run_with_7_invaders(self):
-        fleets = Fleets()
-        fi = FI(fleets)
-        fleets.append(invader_fleet := InvaderFleet())
-        invader_group = invader_fleet.invader_group
-        assert invader_group.invader_count() == 55
-        while invader_group.invader_count() > 7:
-            invader_group.kill(invader_group.invaders[0])
-        assert invader_group.invader_count() == 7
-        fleets.append(saucer := InvadersSaucer())
-        assert fi.invader_saucers
-        saucer.interact_with_invaderfleet(invader_fleet, fleets)
-        saucer.update(1.0/60.0, fleets)
-        assert not fi.invader_saucers
-
-    def test_does_run_with_8_invaders(self):
-        fleets = Fleets()
-        fi = FI(fleets)
-        fleets.append(invader_fleet := InvaderFleet())
-        invader_group = invader_fleet.invader_group
-        assert invader_group.invader_count() == 55
-        while invader_group.invader_count() > 8:
-            invader_group.kill(invader_group.invaders[0])
-        assert invader_group.invader_count() == 8
-        fleets.append(saucer := InvadersSaucer())
-        saucer._finish_initializing(0)
-        assert fi.invader_saucers
-        saucer.interact_with_invaderfleet(invader_fleet, fleets)
-        saucer.update(1.0/60.0, fleets)
-        assert fi.invader_saucers
-
-    def test_returns_after_dying_on_right(self):
-        fleets = Fleets()
-        fi = FI(fleets)
-        fleets.append(saucer := InvadersSaucer())
-        saucer._finish_initializing(1)  # odd left to right
-        stop_loop = 10000
-        while fi.invader_saucers and stop_loop > 0:
-            saucer.update(1/60, fleets)
-            stop_loop -= 1
-        assert stop_loop > 0
-        assert not fi.invader_saucers
-        assert fi.time_capsules
-
-    def test_returns_after_dying_on_left(self):
-        fleets = Fleets()
-        fi = FI(fleets)
-        fleets.append(saucer := InvadersSaucer())
-        saucer._finish_initializing(0)  # even right to left
-        stop_loop = 10000
-        while fi.invader_saucers and stop_loop > 0:
-            saucer.update(1/60, fleets)
-            stop_loop -= 1
-        assert stop_loop > 0
-        assert not fi.invader_saucers
-        assert fi.time_capsules
-
     def test_missing_shot(self):
         fleets = Fleets()
         fi = FI(fleets)
@@ -139,14 +82,6 @@ class TestInvadersSaucer:
         kill_saucer(100)
         kill_saucer(100)
 
-    def test_initialized(self):
-        player = InvaderPlayer()
-        saucer = InvadersSaucer()
-        assert isinstance(saucer._strategy, PreInitStrategy)
-        saucer.interact_with_invaderplayer(player, [])
-        saucer.end_interactions([])
-        assert isinstance(saucer._strategy, PostInitStrategy)
-
     def test_start_on_right(self):
         player = InvaderPlayer()
         player.shot_count = 0
@@ -156,11 +91,6 @@ class TestInvadersSaucer:
         assert saucer.position.x > u.CENTER.x
         assert saucer._speed < 0
 
-    def test_sets_up_ready(self):
-        saucer = InvadersSaucer()
-        assert isinstance(saucer._strategy, PreInitStrategy)
-        saucer._finish_initializing(0)
-        assert isinstance(saucer._strategy, PostInitStrategy)
 
 
 

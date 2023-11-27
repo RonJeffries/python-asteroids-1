@@ -77,6 +77,10 @@ class InvadersFlyer(Flyer):
 
     def interact_with_invaderssaucer(self, explosion, fleets):
         pass
+        pass
+
+    def interact_with_invaderssaucermaker(self, explosion, fleets):
+        pass
 
     def interact_with_reserveplayer(self, rp, fleets):
         pass
