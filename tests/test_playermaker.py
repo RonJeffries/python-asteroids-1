@@ -11,7 +11,7 @@ class TestPlayerMaker:
     def test_captures_reserve(self):
         maker = PlayerMaker()
         maker.interact_with_reserveplayer(ReservePlayer(1), None)
-        maker.interact_with_reserveplayer(correct :=ReservePlayer(2), None)
+        maker.interact_with_reserveplayer(correct := ReservePlayer(2), None)
         maker.interact_with_reserveplayer(ReservePlayer(0), None)
         assert maker.reserve == correct
         maker.begin_interactions(None)
