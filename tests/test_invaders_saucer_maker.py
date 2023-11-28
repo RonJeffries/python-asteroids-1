@@ -43,7 +43,7 @@ class TestInvadersSaucerMaker:
         maker.interact_with_invaderfleet(invader_fleet, fleets)
         maker.end_interactions(fleets)
         assert len(fi.time_capsules) == 1
-        assert len(fi.invader_saucers) == 0
+        assert len(fi.invader_saucers) == 3
 
     def test_too_few_invaders(self):
         fleets = Fleets()
