@@ -36,14 +36,8 @@ class PlayerShot(InvadersFlyer):
     def position(self, vector):
         self._rect.center = vector
 
-    def begin_interactions(self, fleets):
-        pass
-
     def hit_invader(self, fleets):
         fleets.remove(self)
-
-    def end_interactions(self, fleets):
-        pass
 
     def interact_with(self, other, fleets):
         other.interact_with_playershot(self, fleets)
@@ -73,7 +67,6 @@ class PlayerShot(InvadersFlyer):
         return collider.colliding()
 
     def draw(self, screen):
-        self.rect.center = self.position
         screen.blit(self.bits, self.rect)
 
     def update(self, delta_time, fleets):
