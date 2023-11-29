@@ -30,11 +30,11 @@ class PlayerShot(InvadersFlyer):
 
     @property
     def position(self):
-        return Vector2(self._rect.center)
+        return Vector2(self.rect.center)
 
     @position.setter
     def position(self, vector):
-        self._rect.center = vector
+        self.rect.center = vector
 
     def hit_invader(self, fleets):
         fleets.remove(self)
