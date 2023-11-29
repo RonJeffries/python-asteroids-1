@@ -26,7 +26,7 @@ class Masker:
     def offset(self, masker):
         return masker.topleft - self.topleft
 
-    def get_mask(self):
+    def get_mask_testing_only(self):
         return self.mask
 
 

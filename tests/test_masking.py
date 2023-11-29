@@ -386,7 +386,7 @@ class TestMasking:
         target = Masker(five_mask, (100, 200))
         bullet = Masker(three_mask, (100, 200))
         target.erase(bullet)
-        erased = target.get_mask()
+        erased = target.get_mask_testing_only()
         hits = [(1, 1), (2, 1), (3, 1), (1, 2), (2, 2), (3, 2), (1, 3), (2, 3), (3, 3)]
         self.check_bits(erased, hits)
 
@@ -394,7 +394,7 @@ class TestMasking:
         target = Masker(five_mask, (100, 200))
         bullet = Masker(three_mask, (101, 201))
         target.erase(bullet)
-        erased = target.get_mask()
+        erased = target.get_mask_testing_only()
         hits = [(2, 2), (3, 2), (4, 2), (2, 3), (3, 3), (4, 3), (2, 4), (3, 4), (4, 4)]
         self.check_bits(erased, hits)
 
