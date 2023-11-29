@@ -8,14 +8,14 @@ from invaders.invader_shot import InvaderShot
 
 class ShotController(InvadersFlyer):
     max_firing_time = 0x30
-    available = Vector2(-1, -1)
+    off_screen = Vector2(-1, -1)
 
     def __init__(self):
         self.time_since_firing = 0
         self.shots = [
-            InvaderShot(self.available, BitmapMaker.instance().squiggles),
-            InvaderShot(self.available, BitmapMaker.instance().rollers),
-            InvaderShot(self.available, BitmapMaker.instance().plungers)]
+            InvaderShot(self.off_screen, BitmapMaker.instance().squiggles),
+            InvaderShot(self.off_screen, BitmapMaker.instance().rollers),
+            InvaderShot(self.off_screen, BitmapMaker.instance().plungers)]
         self.columns = [
             Cycler([0x00, 0x06, 0x00, 0x00, 0x00, 0x03, 0x0A, 0x00, 0x05, 0x02, 0x00, 0x00, 0x0A, 0x08, 0x01, 0x07]),
             Cycler([0x0A, 0x00, 0x05, 0x02, 0x00, 0x00, 0x0A, 0x08, 0x01, 0x07, 0x01, 0x0A, 0x03, 0x06, 0x09])]

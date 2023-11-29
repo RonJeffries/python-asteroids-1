@@ -49,9 +49,9 @@ class TestShotController:
         assert len(shots) == 3
         s1, s2, s3 = shots
         assert s1._map != s2._map and s2._map != s3._map and s3._map != s1._map
-        assert s1.position != ShotController.available
-        assert s2.position != ShotController.available
-        assert s2.position != ShotController.available
+        assert s1.position != ShotController.off_screen
+        assert s2.position != ShotController.off_screen
+        assert s2.position != ShotController.off_screen
         controller.fire_next_shot(fleets)
         assert len(fi.invader_shots) == 3
         s1.die(fleets)
