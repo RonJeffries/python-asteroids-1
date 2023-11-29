@@ -26,12 +26,12 @@ class InvaderShot(InvadersFlyer):
         return self._available
 
     @property
-    def rect(self):
-        return self._rect
-
-    @property
     def mask(self):
         return self.masks[self.map_index]
+
+    @property
+    def rect(self):
+        return self._rect
 
     @property
     def position(self):

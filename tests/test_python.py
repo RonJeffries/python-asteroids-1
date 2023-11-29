@@ -289,6 +289,11 @@ class TestPython:
         assert not low < too_low < high
         assert not low < too_high < high
 
+    def test_mod_one(self):
+        assert 0 % 1 == 0
+        assert 1 % 1 == 0
+        assert 2 % 1 == 0
+
 
 
 
