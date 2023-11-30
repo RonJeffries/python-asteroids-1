@@ -61,6 +61,7 @@ class InvadersSaucer(InvadersFlyer):
             explosion = InvadersExplosion.saucer_explosion(self.position, 0.5)
             fleets.append(explosion)
             fleets.append(InvaderScore(self._mystery_score()))
+            self.play_death_sound()
             self._die(fleets)
 
     def update(self, delta_time, fleets):
@@ -73,6 +74,11 @@ class InvadersSaucer(InvadersFlyer):
 
     def _die(self, fleets):
         fleets.remove(self)
+
+    def play_death_sound(self):
+        frac = (self.position.x - u.INVADER_SAUCER_X_MIN) / (u.INVADER_SAUCER_X_MAX - u.INVADER_SAUCER_X_MIN)
+        player.play_stereo("ufo_highpitch", frac, True)
+
 
     def _move_along_x(self):
         self.position = (self.position.x + self._speed, self.position.y)
