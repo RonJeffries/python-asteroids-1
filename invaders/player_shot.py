@@ -5,6 +5,7 @@ from invaders.shot_explosion import InvadersExplosion
 from pygame import Vector2
 import pygame
 import u
+from invaders.sprite import Sprite
 
 
 class PlayerShot(InvadersFlyer):
@@ -12,9 +13,8 @@ class PlayerShot(InvadersFlyer):
         offset = Vector2(2, -8*4)
         self.velocity = Vector2(0, -4*4)
         maker = BitmapMaker.instance()
-        self.bits = maker.player_shot
-        self._mask = pygame.mask.from_surface(self.bits)
-        self._rect = self.bits.get_rect()
+        bits = maker.player_shot
+        self._sprite = Sprite([bits])
         self.position = position + offset
         self.should_die = False
         explosion = BitmapMaker.instance().player_shot_explosion
@@ -22,19 +22,19 @@ class PlayerShot(InvadersFlyer):
 
     @property
     def mask(self):
-        return self._mask
+        return self._sprite.mask
 
     @property
     def rect(self):
-        return self._rect
+        return self._sprite.rectangle
 
     @property
     def position(self):
-        return Vector2(self.rect.center)
+        return self._sprite.position
 
     @position.setter
     def position(self, vector):
-        self.rect.center = vector
+        self._sprite.position = vector
 
     def hit_invader(self, fleets):
         fleets.remove(self)
@@ -67,7 +67,7 @@ class PlayerShot(InvadersFlyer):
         return collider.colliding()
 
     def draw(self, screen):
-        screen.blit(self.bits, self.rect)
+        self._sprite.draw(screen)
 
     def update(self, delta_time, fleets):
         self.position = self.position + self.velocity

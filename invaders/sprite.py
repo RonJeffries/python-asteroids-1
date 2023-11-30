@@ -9,6 +9,10 @@ class Sprite:
         self._rectangle = self._surfaces[0].get_rect()
 
     @property
+    def mask(self):
+        return self._masks[0]
+
+    @property
     def rectangle(self):
         return self._rectangle
 
@@ -19,3 +23,6 @@ class Sprite:
     @position.setter
     def position(self, value):
         self.rectangle.center = value
+
+    def draw(self, screen):
+        screen.blit(self._surfaces[0], self.rectangle)
