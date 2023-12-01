@@ -50,9 +50,6 @@ class Invader:
 
     def draw(self, screen):
         self._sprite.draw(screen)
-            # circle_color = "green" if self.relative_position == Vector2(0, 0) else "red"
-            # pygame.draw.rect(screen, "yellow", self.rect)
-            # pygame.draw.circle(screen, circle_color, self.rect.center, 16)
 
     def is_entering(self, bumper, current_direction):
         return bumper.am_i_entering(self.rect, current_direction)
