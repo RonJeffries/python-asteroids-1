@@ -9,7 +9,8 @@ class CycleStatus(Enum):
     NEW_CYCLE = "new cycle"
     REVERSE = "reverse"
 
-class InvaderGroup():
+
+class InvaderGroup:
     def __init__(self):
         self.invaders = []
         invader_table = self.create_invader_bitmaps()
