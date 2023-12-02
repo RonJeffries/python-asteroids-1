@@ -12,9 +12,7 @@ class PlayerShot(InvadersFlyer):
     def __init__(self, position=u.CENTER):
         offset = Vector2(2, -8*4)
         self.velocity = Vector2(0, -4*4)
-        maker = BitmapMaker.instance()
-        bits = maker.player_shot
-        self._sprite = Sprite([bits])
+        self._sprite = Sprite.player_shot()
         self.position = position + offset
         self.should_die = False
         explosion = BitmapMaker.instance().player_shot_explosion

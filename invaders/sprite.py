@@ -1,6 +1,8 @@
 import pygame
 from pygame import Vector2
 
+from invaders.bitmap_maker import BitmapMaker
+
 
 class Sprite:
     def __init__(self, surfaces):
@@ -8,6 +10,10 @@ class Sprite:
         self._masks = [pygame.mask.from_surface(surface) for surface in self._surfaces]
         self._rectangle = self._surfaces[0].get_rect()
         self._frame_number = 0
+
+    @classmethod
+    def player_shot(cls):
+        return cls((BitmapMaker.instance().player_shot, ))
 
     @property
     def mask(self):
