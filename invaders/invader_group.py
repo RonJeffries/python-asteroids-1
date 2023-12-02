@@ -14,20 +14,13 @@ class CycleStatus(Enum):
 class InvaderGroup:
     def __init__(self):
         self.invaders = []
-        invader_table = self.create_invader_bitmaps()
-        self.create_invaders(invader_table)
+        self.create_invaders()
         self._next_invader = 0
         self.current_direction = 1
         self.should_reverse = False
 
     def testing_set_to_end(self):
         self._next_invader = len(self.invaders)
-
-    def create_invader_bitmaps(self):
-        maker = BitmapMaker.instance()
-        aliens = maker.invaders
-        alien_table = (aliens[0:2], aliens[0:2], aliens[2:4], aliens[2:4], aliens[4:])
-        return alien_table
 
     def bottom_of_column(self, column):
         matching = [invader for invader in self.invaders if invader.column == column]
@@ -45,12 +38,12 @@ class InvaderGroup:
         if self._next_invader > index:
             self._next_invader -= 1
 
-    def create_invaders(self, invader_table):
+    def create_invaders(self):
         self.invaders = []
         for x in range(55):
             col = x % 11
             row = x // 11
-            sprite = Sprite(invader_table[row])
+            sprite = Sprite.invader(row)
             self.invaders.append(Invader(col, row, sprite))
 
     def position_all_invaders(self, origin):

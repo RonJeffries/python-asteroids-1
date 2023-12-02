@@ -15,6 +15,12 @@ class Sprite:
     def player_shot(cls):
         return cls((BitmapMaker.instance().player_shot, ))
 
+    @classmethod
+    def invader(cls, row):
+        start, end = ((0, 2), (0, 2), (2, 4), (2, 4), (4, 6))[row]
+        maps = BitmapMaker.instance().invaders
+        return Sprite(maps[start:end])
+
     @property
     def mask(self):
         return self._masks[self._frame_number]

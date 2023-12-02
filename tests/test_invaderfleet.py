@@ -80,14 +80,6 @@ class TestInvaderFleet:
         rect = Rect(left, top, width, height)
         assert rect.bottomright == (left + width, top + height)
 
-    def test_invader_bitmaps(self):
-        maps = InvaderGroup.create_invader_bitmaps(None)
-        assert len(maps) == 5
-        first = maps[0]
-        assert len(first) == 2
-        assert first[0] != first[1]
-        # assert False
-
     def test_top_bumper(self):
         fleets = Fleets()
         fi = FI(fleets)
