@@ -24,10 +24,7 @@ class InvaderGroup:
 
     def bottom_of_column(self, column):
         matching = [invader for invader in self.invaders if invader.column == column]
-        if matching:
-            return matching[0]
-        else:
-            return None
+        return matching[0] if matching else None
 
     def invader_count(self):
         return len(self.invaders)
