@@ -12,9 +12,9 @@ INVADER_SPACING = 64
 
 
 class Invader:
-    def __init__(self, column, row, bitmaps):
+    def __init__(self, column, row, sprite):
         self._score = [10, 10, 20, 20, 30][row]
-        self._sprite = Sprite(bitmaps)
+        self._sprite = sprite
         self.column = column
         self.relative_position = Vector2(INVADER_SPACING * column, -INVADER_SPACING * row)
         self.image = 0

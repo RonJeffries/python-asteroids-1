@@ -2,6 +2,7 @@ from enum import Enum
 
 from invaders.bitmap_maker import BitmapMaker
 from invaders.invader import Invader
+from invaders.sprite import Sprite
 
 
 class CycleStatus(Enum):
@@ -49,8 +50,8 @@ class InvaderGroup:
         for x in range(55):
             col = x % 11
             row = x // 11
-            maps = invader_table[row]
-            self.invaders.append(Invader(col, row, maps))
+            sprite = Sprite(invader_table[row])
+            self.invaders.append(Invader(col, row, sprite))
 
     def position_all_invaders(self, origin):
         for invader in self.invaders:

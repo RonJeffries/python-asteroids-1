@@ -8,6 +8,7 @@ from invaders.invader import INVADER_SPACING, Invader
 from invaders.invaderfleet import InvaderFleet
 from invaders.invader_group import InvaderGroup, CycleStatus
 from invaders.player_shot import PlayerShot
+from invaders.sprite import Sprite
 from tests.tools import FI
 from invaders.top_bumper import TopBumper
 
@@ -106,7 +107,7 @@ class TestInvaderFleet:
 
     def test_shot_invader_mask_collision(self):
         maker = BitmapMaker.instance()
-        maps = maker.invaders
+        maps = Sprite(maker.invaders)
         invader = Invader(0, 0, maps)
         invader.position = u.CENTER
         shot = PlayerShot(Vector2(0, 0))
@@ -118,7 +119,7 @@ class TestInvaderFleet:
 
     def test_shot_invader_collision(self):
         maker = BitmapMaker.instance()
-        maps = maker.invaders
+        maps = Sprite(maker.invaders)
         invader = Invader(0, 0, maps)
         invader_width = invader.rect.width
         invader.position = u.CENTER

@@ -5,6 +5,7 @@ from invaders.bitmap_maker import BitmapMaker
 from invaders.bumper import Bumper
 from invaders.invader import Invader
 from invaders.invader_group import InvaderGroup, CycleStatus
+from invaders.sprite import Sprite
 
 
 class TestInvaderGroup:
@@ -13,7 +14,7 @@ class TestInvaderGroup:
 
     def test_invader_position(self):
         maker = BitmapMaker.instance()
-        maps = maker.invaders
+        maps = Sprite(maker.invaders)
         invader = Invader(1, 1, maps)
         assert invader.position == Vector2(32, 16)
         invader.position = Vector2(111, 222)
