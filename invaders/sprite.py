@@ -1,5 +1,5 @@
 import pygame
-from pygame import Vector2
+from pygame import Vector2, Rect
 
 from invaders.bitmap_maker import BitmapMaker
 
@@ -40,6 +40,18 @@ class Sprite:
     @property
     def surface(self):
         return self._surfaces[self._frame_number]
+
+    def colliding(self, other):
+        return self.rectangles_collide(other) and self.masks_collide(other)
+
+    def rectangles_collide(self, other):
+        return self.rectangle.colliderect(other.rectangle)
+
+    def masks_collide(self, other):
+        return self.mask.overlap(other.mask, self.offset(other))
+
+    def offset(self, other):
+        return Vector2(other.rectangle.topleft) - Vector2(self.rectangle.topleft)
 
     def next_frame(self):
         self._frame_number = (self._frame_number + 1) % len(self._surfaces)
