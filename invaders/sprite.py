@@ -12,6 +12,12 @@ class Sprite:
         self._frame_number = 0
 
     @classmethod
+    def shield(cls):
+        surface = BitmapMaker.instance().shield.copy()
+        surface.set_colorkey("black")
+        return cls((surface,))
+
+    @classmethod
     def player(cls):
         return cls((BitmapMaker.instance().players[0], ))
 
