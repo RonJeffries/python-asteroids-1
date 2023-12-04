@@ -12,6 +12,18 @@ class Sprite:
         self._frame_number = 0
 
     @classmethod
+    def squiggles(cls):
+        return cls(BitmapMaker.instance().squiggles)
+
+    @classmethod
+    def rollers(cls):
+        return cls(BitmapMaker.instance().rollers)
+
+    @classmethod
+    def plungers(cls):
+        return cls(BitmapMaker.instance().plungers)
+
+    @classmethod
     def shield(cls):
         surface = BitmapMaker.instance().shield.copy()
         surface.set_colorkey("black")

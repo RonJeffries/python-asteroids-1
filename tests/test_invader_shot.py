@@ -8,14 +8,14 @@ from invaders.invader_player import InvaderPlayer
 from invaders.invader_shot import InvaderShot
 from invaders.player_shot import PlayerShot
 from invaders.roadfurniture import RoadFurniture
+from invaders.sprite import Sprite
 from tests.tools import FI
 
 
 class TestInvaderShot:
     @pytest.fixture
     def shot(self):
-        maker = BitmapMaker.instance()
-        return InvaderShot(u.CENTER, maker.squiggles)
+        return InvaderShot(u.CENTER, Sprite.squiggles())
 
     def test_exists(self, shot):
         pass
@@ -55,25 +55,11 @@ class TestInvaderShot:
         assert shot.available
         assert not fi.invader_shots
 
-    def test_map_changes_on_movement(self, shot):
-        fleets = Fleets()
-        maps = shot.maps
-        assert shot._map == maps[0]
-        shot.move(fleets)
-        assert shot._map == maps[1]
-        shot.move(fleets)
-        assert shot._map == maps[2]
-        shot.move(fleets)
-        assert shot._map == maps[3]
-        shot.move(fleets)
-        assert shot._map == maps[0]
-
     def test_dies_on_shield(self):
         fleets = Fleets()
         fi = FI(fleets)
         shield = RoadFurniture.shield(Vector2(100, 100))
-        maker = BitmapMaker.instance()
-        shot = InvaderShot(Vector2(100, 100), maker.rollers)
+        shot = InvaderShot(Vector2(100, 100), Sprite.rollers())
         assert shot.colliding(shield)
         fleets.append(shot)
         assert fi.invader_shots
@@ -86,8 +72,7 @@ class TestInvaderShot:
         fi = FI(fleets)
         player = InvaderPlayer()
         player.position = Vector2(100, 100)
-        maker = BitmapMaker.instance()
-        shot = InvaderShot(Vector2(100, 100), maker.rollers)
+        shot = InvaderShot(Vector2(100, 100), Sprite.rollers())
         assert shot.colliding(player)
         fleets.append(shot)
         assert fi.invader_shots
@@ -100,7 +85,6 @@ class TestInvaderShot:
         fi = FI(fleets)
         pos = Vector2(100, 100)
         shield = RoadFurniture.shield(pos)
-        maker = BitmapMaker.instance()
         shot = PlayerShot(pos)
         assert shot.colliding(shield)
         fleets.append(shot)

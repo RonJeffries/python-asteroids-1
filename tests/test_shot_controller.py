@@ -17,8 +17,6 @@ class TestShotController:
 
     def test_tracks_cycles(self):
         fleets = Fleets()
-        maker = BitmapMaker.instance()
-        shot = InvaderShot(u.CENTER, maker.squiggles)
         controller = ShotController()
         assert controller.time_since_firing == 0
         controller.begin_interactions(fleets)
@@ -48,7 +46,7 @@ class TestShotController:
         shots = fi.invader_shots
         assert len(shots) == 3
         s1, s2, s3 = shots
-        assert s1._map != s2._map and s2._map != s3._map and s3._map != s1._map
+        assert s1._sprite != s2._sprite and s2._sprite != s3._sprite and s3._sprite != s1._sprite
         assert s1.position != ShotController.off_screen
         assert s2.position != ShotController.off_screen
         assert s2.position != ShotController.off_screen

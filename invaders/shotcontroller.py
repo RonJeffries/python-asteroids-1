@@ -4,6 +4,7 @@ from invaders.bitmap_maker import BitmapMaker
 from invaders.cycler import Cycler
 from flyer import InvadersFlyer
 from invaders.invader_shot import InvaderShot
+from invaders.sprite import Sprite
 
 
 class ShotController(InvadersFlyer):
@@ -13,9 +14,9 @@ class ShotController(InvadersFlyer):
     def __init__(self):
         self.time_since_firing = 0
         self.shots = [
-            InvaderShot(self.off_screen, BitmapMaker.instance().squiggles),
-            InvaderShot(self.off_screen, BitmapMaker.instance().rollers),
-            InvaderShot(self.off_screen, BitmapMaker.instance().plungers)]
+            InvaderShot(self.off_screen, Sprite.squiggles()),
+            InvaderShot(self.off_screen, Sprite.rollers()),
+            InvaderShot(self.off_screen, Sprite.plungers())]
         self.columns = [
             Cycler([0x00, 0x06, 0x00, 0x00, 0x00, 0x03, 0x0A, 0x00, 0x05, 0x02, 0x00, 0x00, 0x0A, 0x08, 0x01, 0x07]),
             Cycler([0x0A, 0x00, 0x05, 0x02, 0x00, 0x00, 0x0A, 0x08, 0x01, 0x07, 0x01, 0x0A, 0x03, 0x06, 0x09])]

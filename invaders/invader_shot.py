@@ -8,13 +8,9 @@ from flyer import InvadersFlyer
 
 
 class InvaderShot(InvadersFlyer):
-    def __init__(self, position, maps):
-        self.maps = maps
-        self.masks = [pygame.mask.from_surface(bitmap) for bitmap in self.maps]
-        self._map = maps[0]
-        self.map_index = 0
-        self._rect = self._map.get_rect()
-        self.rect.center = position
+    def __init__(self, position, sprite):
+        self._sprite = sprite
+        self.position = position
         self.count = 0
         self.moves = 0
         self._available = True
@@ -27,19 +23,19 @@ class InvaderShot(InvadersFlyer):
 
     @property
     def mask(self):
-        return self.masks[self.map_index]
+        return self._sprite.mask
 
     @property
     def rect(self):
-        return self._rect
+        return self._sprite.rectangle
 
     @property
     def position(self):
-        return Vector2(self.rect.center)
+        return self._sprite.position
 
     @position.setter
     def position(self, vector):
-        self.rect.center = vector
+        self._sprite.position = vector
 
     def fire_from(self, position, fleets):
         self._available = False
@@ -59,8 +55,7 @@ class InvaderShot(InvadersFlyer):
             self.die(fleets)
 
     def update_map(self):
-        self.map_index = (self.map_index + 1) % 4
-        self._map = self.maps[self.map_index]
+        self._sprite.next_frame()
 
     def interact_with_bottomline(self, line, fleets):
         self.die_on_collision(line, fleets)
@@ -90,4 +85,4 @@ class InvaderShot(InvadersFlyer):
         other.interact_with_invadershot(self, fleets)
 
     def draw(self, screen):
-        screen.blit(self._map, self.rect)
+        self._sprite.draw(screen)

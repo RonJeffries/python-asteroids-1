@@ -6,6 +6,7 @@ from invaders.ImageMasher import ImageMasher, Masker
 from invaders.bitmap_maker import BitmapMaker
 from invaders.invader_shot import InvaderShot
 from invaders.player_shot import PlayerShot
+from invaders.sprite import Sprite
 from tests.test_collider import Thing
 
 
@@ -327,7 +328,7 @@ class TestMasking:
     def test_shots_explosion_masks(self):
         player_shot = PlayerShot()
         assert isinstance(player_shot.explosion_mask, pygame.Mask)
-        invader_shot = InvaderShot((0, 0), BitmapMaker.instance().squiggles)
+        invader_shot = InvaderShot((0, 0), Sprite.squiggles())
         assert isinstance(invader_shot.explosion_mask, pygame.Mask)
 
     def test_plus_square(self, make_target, make_square, make_plus):
