@@ -12,6 +12,10 @@ class Sprite:
         self._frame_number = 0
 
     @classmethod
+    def player(cls):
+        return cls((BitmapMaker.instance().players[0], ))
+
+    @classmethod
     def saucer(cls):
         return cls((BitmapMaker.instance().saucer, ))
 

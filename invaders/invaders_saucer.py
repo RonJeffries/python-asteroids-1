@@ -12,16 +12,12 @@ from sounds import player
 
 class InvadersSaucer(InvadersFlyer):
     def __init__(self, shot_count=0):
-        self.init_map_mask_rect()
+        self.init_sprite()
         self.init_position_and_speed(shot_count)
 
     # noinspection PyAttributeOutsideInit
-    def init_map_mask_rect(self):
+    def init_sprite(self):
         self._sprite = Sprite.saucer()
-        # maker = BitmapMaker.instance()
-        # self._map = maker.saucer
-        # self.mask = pygame.mask.from_surface(self._map)
-        # self.rect = self._map.get_rect()
 
     # noinspection PyAttributeOutsideInit
     def init_position_and_speed(self, shot_count):

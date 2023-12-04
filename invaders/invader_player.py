@@ -5,17 +5,15 @@ from invaders.player_shot import PlayerShot
 from flyer import InvadersFlyer
 from pygame import Vector2
 import pygame
+
+from invaders.sprite import Sprite
 from sounds import player
 import u
 
 
 class InvaderPlayer(InvadersFlyer):
     def __init__(self):
-        maker = BitmapMaker.instance()
-        self.players = maker.players  # one turret, two explosions
-        self.player = self.players[0]
-        self._mask = pygame.mask.from_surface(self.player)
-        self._rect = self.player.get_rect()
+        self._sprite = Sprite.player()
         self.step = 4
         half_width = self.rect.width / 2
         self.left = 64 + half_width
@@ -27,19 +25,19 @@ class InvaderPlayer(InvadersFlyer):
 
     @property
     def mask(self):
-        return self._mask
+        return self._sprite.mask
 
     @property
     def rect(self):
-        return self._rect
+        return self._sprite.rectangle
 
     @property
     def position(self):
-        return Vector2(self.rect.center)
+        return self._sprite.position
 
     @position.setter
-    def position(self, value):
-        self.rect.center = value
+    def position(self, vector):
+        self._sprite.position = vector
 
     def begin_interactions(self, fleets):
         self.free_to_fire = True
@@ -107,4 +105,4 @@ class InvaderPlayer(InvadersFlyer):
         self.free_to_fire = False
 
     def draw(self, screen):
-        screen.blit(self.player, self.rect)
+        self._sprite.draw(screen)
