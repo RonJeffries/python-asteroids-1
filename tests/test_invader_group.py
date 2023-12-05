@@ -17,7 +17,7 @@ class TestInvaderGroup:
         maps = Sprite(maker.invaders)
         invader = Invader(1, 1, maps)
         assert invader.position == Vector2(32, 16)
-        invader.position = Vector2(111, 222)
+        invader.move_relative_to(Vector2(111, 222))
         assert invader.position == Vector2(111, 222) + Vector2(64, -64)
 
     def test_fleet_y_decreases_with_n(self):

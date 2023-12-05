@@ -45,7 +45,7 @@ class InvaderGroup:
 
     def position_all_invaders(self, origin):
         for invader in self.invaders:
-            invader.position = origin
+            invader.move_relative_to(origin)
 
     def update_next(self, origin, current_direction):
         self.handle_direction_change(current_direction)
@@ -64,7 +64,7 @@ class InvaderGroup:
 
     def move_one_invader(self, origin):
         invader = self.next_invader()
-        invader.position = origin
+        invader.move_relative_to(origin)
         self._next_invader += 1
 
     def end_cycle(self):

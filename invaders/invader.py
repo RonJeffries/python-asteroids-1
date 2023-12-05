@@ -5,13 +5,13 @@ import u
 from invaders.Collider import Collider
 from invaders.invader_explosion import InvaderExplosion
 from invaders.invader_score import InvaderScore
-from invaders.sprite import Sprite
+from invaders.sprite import Sprite, Spritely
 from sounds import player
 
 INVADER_SPACING = 64
 
 
-class Invader:
+class Invader(Spritely):
     def __init__(self, column, row, sprite):
         self._score = [10, 10, 20, 20, 30][row]
         self._sprite = sprite
@@ -19,22 +19,9 @@ class Invader:
         self.relative_position = Vector2(INVADER_SPACING * column, -INVADER_SPACING * row)
         self.image = 0
 
-    @property
-    def mask(self):
-        return self._sprite.mask
-
-    @property
-    def rect(self):
-        return self._sprite.rectangle
-
-    @property
-    def position(self):
-        return self._sprite.position
-
-    @position.setter
-    def position(self, vector):
+    def move_relative_to(self, vector):
         self._sprite.next_frame()
-        self.rect.center = vector + self.relative_position
+        self.position = vector + self.relative_position
 
     def interact_with_group_and_playershot(self, shot, group, fleets):
         if self.colliding(shot):
