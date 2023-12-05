@@ -6,12 +6,12 @@ from flyer import InvadersFlyer
 from pygame import Vector2
 import pygame
 
-from invaders.sprite import Sprite
+from invaders.sprite import Sprite, Spritely
 from sounds import player
 import u
 
 
-class InvaderPlayer(InvadersFlyer):
+class InvaderPlayer(Spritely, InvadersFlyer):
     def __init__(self):
         self._sprite = Sprite.player()
         self.step = 4
@@ -22,22 +22,6 @@ class InvaderPlayer(InvadersFlyer):
         self.free_to_fire = True
         self.fire_request_allowed = True
         self.shot_count = 0
-
-    @property
-    def mask(self):
-        return self._sprite.mask
-
-    @property
-    def rect(self):
-        return self._sprite.rectangle
-
-    @property
-    def position(self):
-        return self._sprite.position
-
-    @position.setter
-    def position(self, vector):
-        self._sprite.position = vector
 
     def begin_interactions(self, fleets):
         self.free_to_fire = True
@@ -103,6 +87,3 @@ class InvaderPlayer(InvadersFlyer):
 
     def interact_with_playershot(self, bumper, fleets):
         self.free_to_fire = False
-
-    def draw(self, screen):
-        self._sprite.draw(screen)

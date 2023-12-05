@@ -6,11 +6,11 @@ from invaders.Collider import Collider
 from invaders.bitmap_maker import BitmapMaker
 from invaders.invader_score import InvaderScore
 from invaders.shot_explosion import InvadersExplosion
-from invaders.sprite import Sprite
+from invaders.sprite import Sprite, Spritely
 from sounds import player
 
 
-class InvadersSaucer(InvadersFlyer):
+class InvadersSaucer(Spritely, InvadersFlyer):
     def __init__(self, shot_count=0):
         self.init_sprite()
         self.init_position_and_speed(shot_count)
@@ -26,22 +26,6 @@ class InvadersSaucer(InvadersFlyer):
         starting_x_coordinate = (u.INVADER_SAUCER_X_MAX, u.INVADER_SAUCER_X_MIN)[even_or_odd]
         self.position = Vector2(starting_x_coordinate, u.INVADER_SAUCER_Y)
         self._speed = (-u.INVADER_SPEED, u.INVADER_SPEED)[even_or_odd]
-
-    @property
-    def mask(self):
-        return self._sprite.mask
-
-    @property
-    def rect(self):
-        return self._sprite.rectangle
-
-    @property
-    def position(self):
-        return self._sprite.position
-
-    @position.setter
-    def position(self, vector):
-        self._sprite.position = vector
 
     def interact_with(self, other, fleets):
         other.interact_with_invaderssaucer(self, fleets)
@@ -61,9 +45,6 @@ class InvadersSaucer(InvadersFlyer):
         self._move_along_x()
         self._adjust_stereo_position()
         self._die_if_done(fleets)
-
-    def draw(self, screen):
-        self._sprite.draw(screen)
 
     def _die(self, fleets):
         fleets.remove(self)

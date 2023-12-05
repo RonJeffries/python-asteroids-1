@@ -5,9 +5,10 @@ import u
 from invaders.Collider import Collider
 from invaders.bitmap_maker import BitmapMaker
 from flyer import InvadersFlyer
+from invaders.sprite import Spritely
 
 
-class InvaderShot(InvadersFlyer):
+class InvaderShot(Spritely, InvadersFlyer):
     def __init__(self, position, sprite):
         self._sprite = sprite
         self.position = position
@@ -20,22 +21,6 @@ class InvaderShot(InvadersFlyer):
     @property
     def available(self):
         return self._available
-
-    @property
-    def mask(self):
-        return self._sprite.mask
-
-    @property
-    def rect(self):
-        return self._sprite.rectangle
-
-    @property
-    def position(self):
-        return self._sprite.position
-
-    @position.setter
-    def position(self, vector):
-        self._sprite.position = vector
 
     def fire_from(self, position, fleets):
         self._available = False
@@ -84,5 +69,3 @@ class InvaderShot(InvadersFlyer):
     def interact_with(self, other, fleets):
         other.interact_with_invadershot(self, fleets)
 
-    def draw(self, screen):
-        self._sprite.draw(screen)

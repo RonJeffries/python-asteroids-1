@@ -5,10 +5,10 @@ from invaders.shot_explosion import InvadersExplosion
 from pygame import Vector2
 import pygame
 import u
-from invaders.sprite import Sprite
+from invaders.sprite import Sprite, Spritely
 
 
-class PlayerShot(InvadersFlyer):
+class PlayerShot(Spritely, InvadersFlyer):
     def __init__(self, position=u.CENTER):
         offset = Vector2(2, -8*4)
         self.velocity = Vector2(0, -4*4)
@@ -17,22 +17,6 @@ class PlayerShot(InvadersFlyer):
         self.should_die = False
         explosion = BitmapMaker.instance().player_shot_explosion
         self.explosion_mask = pygame.mask.from_surface(explosion)
-
-    @property
-    def mask(self):
-        return self._sprite.mask
-
-    @property
-    def rect(self):
-        return self._sprite.rectangle
-
-    @property
-    def position(self):
-        return self._sprite.position
-
-    @position.setter
-    def position(self, vector):
-        self._sprite.position = vector
 
     def hit_invader(self, fleets):
         fleets.remove(self)

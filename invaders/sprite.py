@@ -84,3 +84,24 @@ class Sprite:
 
     def draw(self, screen):
         screen.blit(self.surface, self.rectangle)
+
+
+class Spritely:
+    @property
+    def mask(self):
+        return self._sprite.mask
+
+    @property
+    def rect(self):
+        return self._sprite.rectangle
+
+    @property
+    def position(self):
+        return self._sprite.position
+
+    @position.setter
+    def position(self, vector):
+        self._sprite.position = vector
+
+    def draw(self, screen):
+        self._sprite.draw(screen)

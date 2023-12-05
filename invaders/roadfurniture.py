@@ -7,11 +7,11 @@ from invaders.ImageMasher import ImageMasher
 from invaders.bitmap_maker import BitmapMaker
 from flyer import InvadersFlyer
 from core.tasks import Tasks
-from invaders.sprite import Sprite
+from invaders.sprite import Sprite, Spritely
 from u import BOTTOM_LINE_OFFSET
 
 
-class RoadFurniture(InvadersFlyer):
+class RoadFurniture(Spritely, InvadersFlyer):
     @classmethod
     def shield(cls, position):
         sprite = Sprite.shield()
@@ -34,25 +34,6 @@ class RoadFurniture(InvadersFlyer):
         self._sprite = sprite
         self.position = position
         self._tasks = Tasks()
-
-    @property
-    def mask(self):
-        return self._sprite.mask
-
-    @property
-    def rect(self):
-        return self._sprite.rectangle
-
-    @property
-    def position(self):
-        return self._sprite.position
-
-    @position.setter
-    def position(self, vector):
-        self._sprite.position = vector
-
-    def draw(self, screen):
-        self._sprite.draw(screen)
 
     def begin_interactions(self, fleets):
         self._tasks.clear()
