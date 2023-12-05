@@ -35,9 +35,6 @@ class Invader(Spritely):
         collider = Collider(self, invaders_flyer)
         return collider.colliding()
 
-    def draw(self, screen):
-        self._sprite.draw(screen)
-
     def is_entering(self, bumper, current_direction):
         return bumper.am_i_entering(self.rect, current_direction)
 

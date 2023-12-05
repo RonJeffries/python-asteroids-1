@@ -48,8 +48,5 @@ class PlayerShot(Spritely, InvadersFlyer):
         collider = Collider(self, invaders_flyer)
         return collider.colliding()
 
-    def draw(self, screen):
-        self._sprite.draw(screen)
-
     def update(self, delta_time, fleets):
         self.position = self.position + self.velocity
