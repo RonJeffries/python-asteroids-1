@@ -32,8 +32,7 @@ class Invader(Spritely):
             fleets.append(InvaderExplosion(self.position))
 
     def colliding(self, invaders_flyer):
-        collider = Collider(self, invaders_flyer)
-        return collider.colliding()
+        return self._sprite.colliding_with_flyer(invaders_flyer)
 
     def is_entering(self, bumper, current_direction):
         return bumper.am_i_entering(self.rect, current_direction)

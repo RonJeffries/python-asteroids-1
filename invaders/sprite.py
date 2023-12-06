@@ -92,6 +92,9 @@ class Sprite:
         self._masks = (new_mask,)
         self._surfaces = (new_surface,)
 
+    def colliding_with_flyer(self, flyer):
+        return self.colliding(flyer._sprite)
+
 
 class Spritely:
     @property

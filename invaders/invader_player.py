@@ -70,9 +70,11 @@ class InvaderPlayer(Spritely, InvadersFlyer):
         other.interact_with_invaderplayer(self, fleets)
 
     def interact_with_invadershot(self, shot, fleets):
-        collider = Collider(self, shot)
-        if collider.colliding():
+        if self.colliding(shot):
             self.hit_by_shot(fleets)
+
+    def colliding(self, flyer):
+        return self._sprite.colliding_with_flyer(flyer)
 
     def hit_by_shot(self, fleets):
         frac = self.x_fraction()
