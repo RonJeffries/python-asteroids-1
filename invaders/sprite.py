@@ -98,23 +98,27 @@ class Sprite:
 
 class Spritely:
     @property
+    def sprite(self):
+        return self._sprite
+
+    @property
     def mask(self):
-        return self._sprite.mask
+        return self.sprite.mask
 
     @property
     def rect(self):
-        return self._sprite.rectangle
+        return self.sprite.rectangle
 
     @property
     def position(self):
-        return self._sprite.position
+        return self.sprite.position
 
     @position.setter
     def position(self, vector):
-        self._sprite.position = vector
+        self.sprite.position = vector
 
     def colliding(self, flyer):
-        return self._sprite.colliding_with_flyer(flyer)
+        return self.sprite.colliding_with_flyer(flyer)
 
     def draw(self, screen):
-        self._sprite.draw(screen)
+        self.sprite.draw(screen)
