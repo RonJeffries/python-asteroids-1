@@ -1,5 +1,3 @@
-from invaders.Collider import Collider
-from invaders.bitmap_maker import BitmapMaker
 from invaders.player_explosion import PlayerExplosion
 from invaders.player_shot import PlayerShot
 from flyer import InvadersFlyer

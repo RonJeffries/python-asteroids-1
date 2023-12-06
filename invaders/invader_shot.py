@@ -2,7 +2,6 @@ import pygame
 from pygame import Vector2
 
 import u
-from invaders.Collider import Collider
 from invaders.bitmap_maker import BitmapMaker
 from flyer import InvadersFlyer
 from invaders.sprite import Spritely

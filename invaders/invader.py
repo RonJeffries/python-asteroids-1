@@ -2,7 +2,6 @@ import pygame.draw
 from pygame import Vector2
 
 import u
-from invaders.Collider import Collider
 from invaders.invader_explosion import InvaderExplosion
 from invaders.invader_score import InvaderScore
 from invaders.sprite import Sprite, Spritely

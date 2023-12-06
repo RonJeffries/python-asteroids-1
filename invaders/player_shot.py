@@ -1,5 +1,4 @@
 from flyer import InvadersFlyer
-from invaders.Collider import Collider
 from invaders.bitmap_maker import BitmapMaker
 from invaders.shot_explosion import InvadersExplosion
 from pygame import Vector2

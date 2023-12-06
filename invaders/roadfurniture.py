@@ -2,9 +2,6 @@ import pygame
 from pygame import Surface
 
 import u
-from invaders.Collider import Collider
-from invaders.ImageMasher import ImageMasher
-from invaders.bitmap_maker import BitmapMaker
 from flyer import InvadersFlyer
 from core.tasks import Tasks
 from invaders.sprite import Sprite, Spritely
