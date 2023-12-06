@@ -56,7 +56,7 @@ class RoadFurniture(Spritely, InvadersFlyer):
 
     def mash_image(self, shot):
         masher = ImageMasher.from_flyers(self, shot)
-        new_mask, new_surface = masher.update(self.mask, self.surface)
+        new_mask, new_surface = masher.update(self.surface)
         self._sprite._masks = (new_mask,)
         self._sprite._surfaces = (new_surface,)
 
