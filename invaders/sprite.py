@@ -1,6 +1,7 @@
 import pygame
 from pygame import Vector2, Rect
 
+from invaders.ImageMasher import ImageMasher
 from invaders.bitmap_maker import BitmapMaker
 
 
@@ -84,6 +85,12 @@ class Sprite:
 
     def draw(self, screen):
         screen.blit(self.surface, self.rectangle)
+
+    def mash_from(self, shot):
+        masher = ImageMasher.from_flyers(self, shot)
+        new_mask, new_surface = masher.update(self.surface)
+        self._masks = (new_mask,)
+        self._surfaces = (new_surface,)
 
 
 class Spritely:

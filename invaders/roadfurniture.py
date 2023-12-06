@@ -55,10 +55,11 @@ class RoadFurniture(Spritely, InvadersFlyer):
             self._tasks.remind_me(lambda: self.mash_image(shot))
 
     def mash_image(self, shot):
-        masher = ImageMasher.from_flyers(self, shot)
-        new_mask, new_surface = masher.update(self.surface)
-        self._sprite._masks = (new_mask,)
-        self._sprite._surfaces = (new_surface,)
+        self._sprite.mash_from(shot)
+        # masher = ImageMasher.from_flyers(self, shot)
+        # new_mask, new_surface = masher.update(self.surface)
+        # self._sprite._masks = (new_mask,)
+        # self._sprite._surfaces = (new_surface,)
 
     # noinspection PyProtectedMember
     @property
