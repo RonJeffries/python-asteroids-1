@@ -44,9 +44,5 @@ class PlayerShot(Spritely, InvadersFlyer):
         if top_bumper.intersecting(self.position):
             self.explode(fleets)
 
-    def colliding(self, invaders_flyer):
-        collider = Collider(self, invaders_flyer)
-        return collider.colliding()
-
     def update(self, delta_time, fleets):
         self.position = self.position + self.velocity

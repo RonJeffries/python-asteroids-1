@@ -113,5 +113,8 @@ class Spritely:
     def position(self, vector):
         self._sprite.position = vector
 
+    def colliding(self, flyer):
+        return self._sprite.colliding_with_flyer(flyer)
+
     def draw(self, screen):
         self._sprite.draw(screen)

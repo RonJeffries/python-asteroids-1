@@ -73,9 +73,6 @@ class InvaderPlayer(Spritely, InvadersFlyer):
         if self.colliding(shot):
             self.hit_by_shot(fleets)
 
-    def colliding(self, flyer):
-        return self._sprite.colliding_with_flyer(flyer)
-
     def hit_by_shot(self, fleets):
         frac = self.x_fraction()
         player.play_stereo("explosion", frac)

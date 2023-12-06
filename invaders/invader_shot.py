@@ -62,10 +62,6 @@ class InvaderShot(Spritely, InvadersFlyer):
         self._available = True
         fleets.remove(self)
 
-    def colliding(self, invaders_flyer):
-        collider = Collider(self, invaders_flyer)
-        return collider.colliding()
-
     def interact_with(self, other, fleets):
         other.interact_with_invadershot(self, fleets)
 

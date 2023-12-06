@@ -51,7 +51,7 @@ class RoadFurniture(Spritely, InvadersFlyer):
         self.process_shot_collision(shot)
 
     def process_shot_collision(self, shot):
-        if Collider(self, shot).colliding():
+        if self.colliding(shot):
             self._tasks.remind_me(lambda: self.mash_image(shot))
 
     def mash_image(self, shot):
