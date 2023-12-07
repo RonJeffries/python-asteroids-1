@@ -1,5 +1,5 @@
 # test_saucer
-
+import pytest
 from pygame import Vector2
 
 import u
@@ -103,6 +103,7 @@ class TestSaucer:
         saucer.interact_with_missile(ship_missile, fleets)
         assert saucer.missile_tally == 1
 
+    @pytest.mark.skip("noisy")
     def test_methods(self):
         methods = dir(Saucer)
         methods = [x for x in methods if callable(getattr(Saucer, x))]

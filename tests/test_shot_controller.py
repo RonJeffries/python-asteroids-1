@@ -1,3 +1,4 @@
+import pytest
 from pygame import Vector2
 
 import u
@@ -98,6 +99,7 @@ class TestShotController:
         controller.interact_with_invaderplayer(player, fleets)
         assert controller.player_x == position.x
 
+    @pytest.mark.skip("noisy")
     def test_print_subclasses(self):
         subs = InvadersFlyer.__subclasses__()
         names = [sub.__name__ for sub in subs]
@@ -107,6 +109,7 @@ class TestShotController:
         print(" |",)
         # assert False
 
+    @pytest.mark.skip("noisy")
     def test_print_dictionaries(self):
         subs = InvadersFlyer.__subclasses__()
         names = [sub.__name__ for sub in subs]

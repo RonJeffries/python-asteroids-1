@@ -31,8 +31,8 @@ class TestPlayerMaker:
         maker.end_interactions(fleets := FakeFleets())
         assert fleets.appends
         capsule = fleets.appends[0]
-        print(capsule.to_add)
-        print(capsule.to_remove)
+        # print(capsule.to_add)
+        # print(capsule.to_remove)
         assert isinstance(capsule.to_add, InvaderPlayer)
         assert isinstance(capsule.to_remove, ReservePlayer)
 

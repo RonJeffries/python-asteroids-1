@@ -243,7 +243,7 @@ class TestPython:
         one_line_each = [", ".join(vec) for vec in grouped]
         assert one_line_each[0] == "<0.00,1.00,2.00>, <3.00,4.00,5.00>, <6.00,7.00,8.00>, <9.00,10.00,11.00>"
         all_lines_packed_by_4 = "\n,".join(line for line in one_line_each)
-        print(all_lines_packed_by_4)
+        # print(all_lines_packed_by_4)
         expected = """<0.00,1.00,2.00>, <3.00,4.00,5.00>, <6.00,7.00,8.00>, <9.00,10.00,11.00>
 ,<12.00,13.00,14.00>, <15.00,16.00,17.00>, <18.00,19.00,20.00>, <21.00,22.00,23.00>
 ,<24.00,25.00,26.00>, <27.00,28.00,29.00>, <30.00,31.00,32.00>, <33.00,34.00,35.00>
