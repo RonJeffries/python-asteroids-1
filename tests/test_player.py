@@ -7,17 +7,17 @@ from tests.tools import FI, FakeFleets
 class TestPlayer:
     def test_start_left(self):
         player = InvaderPlayer()
-        assert player.rect.centerx == player.left
+        assert player._sprite.centerx == player.left
 
     def test_left_edge(self):
         player = InvaderPlayer()
         player.move(-10000)
-        assert player.rect.centerx == player.left
+        assert player._sprite.centerx == player.left
 
     def test_right_edge(self):
         player = InvaderPlayer()
         player.move(10000)
-        assert player.rect.centerx == player.right
+        assert player._sprite.centerx == player.right
 
     def test_can_fire_initially(self):
         fleets = Fleets()

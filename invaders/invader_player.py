@@ -62,7 +62,7 @@ class InvaderPlayer(Spritely, InvadersFlyer):
             self.move(-self.step)
 
     def move(self, amount):
-        centerx = max(self.left, min(self.rect.centerx + amount, self.right))
+        centerx = max(self.left, min(self._sprite.centerx + amount, self.right))
         self.position = Vector2(centerx, self.position.y)
 
     def interact_with(self, other, fleets):
