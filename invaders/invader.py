@@ -31,7 +31,7 @@ class Invader(Spritely):
             fleets.append(InvaderExplosion(self.position))
 
     def is_entering(self, bumper, current_direction):
-        return bumper.am_i_entering(self.rect, current_direction)
+        return bumper.am_i_entering(self._sprite, current_direction)
 
     def x_fraction(self):
         x_distance = self.rect.centerx - u.BUMPER_LEFT

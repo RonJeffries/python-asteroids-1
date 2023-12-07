@@ -77,6 +77,10 @@ class Sprite:
         return self.rectangle.topleft
 
     @property
+    def topright(self):
+        return self.rectangle.topright
+
+    @property
     def centerx(self):
         return self.rectangle.centerx
 
@@ -123,8 +127,7 @@ class Spritely:
 
     @property
     def rect(self):
-        # assert False
-        return self.sprite.rectangle
+        return None
 
     @property
     def position(self):

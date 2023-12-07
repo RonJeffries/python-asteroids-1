@@ -3,6 +3,7 @@ from pygame import Rect
 
 import u
 from flyer import InvadersFlyer
+from invaders.sprite import Sprite
 
 
 class Bumper(InvadersFlyer):
@@ -21,14 +22,14 @@ class Bumper(InvadersFlyer):
     def am_i_entering(self, rect, direction):
         return self.intersecting(rect) and direction == self.incoming_direction
 
-    def intersecting(self, rect: Rect):
-        return self.beyond_on_right(rect) if self.incoming_direction > 0 else self.beyond_on_left(rect)
+    def intersecting(self, sprite: Sprite):
+        return self.beyond_on_right(sprite) if self.incoming_direction > 0 else self.beyond_on_left(sprite)
 
-    def beyond_on_left(self, rect):
-        return rect.bottomleft[0] <= self.x
+    def beyond_on_left(self, sprite):
+        return sprite.topleft[0] <= self.x
 
-    def beyond_on_right(self, rect):
-        return rect.bottomright[0] >= self.x
+    def beyond_on_right(self, sprite):
+        return sprite.topright[0] >= self.x
 
     def interact_with(self, other, fleets):
         other.interact_with_bumper(self, fleets)
