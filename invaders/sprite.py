@@ -72,6 +72,18 @@ class Sprite:
     def width(self):
         return self.rectangle.width
 
+    @property
+    def topleft(self):
+        return self.rectangle.topleft
+
+    @property
+    def centerx(self):
+        return self.rectangle.centerx
+
+    @property
+    def center(self):
+        return self.rectangle.center
+
     def colliding(self, other):
         return self.rectangles_collide(other) and self.masks_collide(other)
 

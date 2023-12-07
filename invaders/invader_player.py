@@ -40,7 +40,7 @@ class InvaderPlayer(Spritely, InvadersFlyer):
         frac = self.x_fraction()
         player.play_stereo("shoot", frac)
         self.shot_count += 1
-        fleets.append(PlayerShot(self.rect.center))
+        fleets.append(PlayerShot(self._sprite.center))
 
     def update(self, _delta_time, fleets):
         if not pygame.get_init():
@@ -79,7 +79,7 @@ class InvaderPlayer(Spritely, InvadersFlyer):
         fleets.remove(self)
 
     def x_fraction(self):
-        x = self.rect.centerx - self.left
+        x = self._sprite.centerx - self.left
         denom = self.right - self.left
         return x / denom
 

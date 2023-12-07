@@ -103,17 +103,17 @@ class TestInvaderFleet:
         invader = Invader(0, 0, maps)
         invader.position = u.CENTER
         shot = PlayerShot(Vector2(0, 0))
-        offset = Vector2(shot.rect.topleft) - Vector2(invader.rect.topleft)
+        offset = Vector2(shot._sprite.topleft) - Vector2(invader._sprite.topleft)
         assert not invader.mask.overlap(shot.mask, offset)
         shot.position = u.CENTER
-        offset = Vector2(shot.rect.topleft) - Vector2(invader.rect.topleft)
+        offset = Vector2(shot._sprite.topleft) - Vector2(invader._sprite.topleft)
         assert invader.mask.overlap(shot.mask, offset)
 
     def test_shot_invader_collision(self):
         maker = BitmapMaker.instance()
         maps = Sprite(maker.invaders)
         invader = Invader(0, 0, maps)
-        invader_width = invader.rect.width
+        invader_width = invader._sprite.width
         invader.position = u.CENTER
         shot = PlayerShot(Vector2(0, 0))
         shot.position = u.CENTER - Vector2(invader_width/2, 0)
