@@ -68,6 +68,10 @@ class Sprite:
     def surface(self):
         return self._surfaces[self._frame_number]
 
+    @property
+    def width(self):
+        return self.rectangle.width
+
     def colliding(self, other):
         return self.rectangles_collide(other) and self.masks_collide(other)
 
@@ -107,6 +111,7 @@ class Spritely:
 
     @property
     def rect(self):
+        # assert False
         return self.sprite.rectangle
 
     @property

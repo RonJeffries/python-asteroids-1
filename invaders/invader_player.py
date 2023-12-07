@@ -13,10 +13,10 @@ class InvaderPlayer(Spritely, InvadersFlyer):
     def __init__(self):
         self._sprite = Sprite.player()
         self.step = 4
-        half_width = self.rect.width / 2
+        half_width = self._sprite.width / 2
         self.left = 64 + half_width
         self.right = 960 - half_width
-        self.rect.center = Vector2(self.left, u.INVADER_PLAYER_Y)
+        self.position = Vector2(self.left, u.INVADER_PLAYER_Y)
         self.free_to_fire = True
         self.fire_request_allowed = True
         self.shot_count = 0
@@ -62,7 +62,8 @@ class InvaderPlayer(Spritely, InvadersFlyer):
             self.move(-self.step)
 
     def move(self, amount):
-        self.rect.centerx = max(self.left, min(self.rect.centerx + amount, self.right))
+        centerx = max(self.left, min(self.rect.centerx + amount, self.right))
+        self.position = Vector2(centerx, self.position.y)
 
     def interact_with(self, other, fleets):
         other.interact_with_invaderplayer(self, fleets)
