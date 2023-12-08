@@ -36,4 +36,4 @@ class Invader(Spritely):
         return x_distance / total_distance
 
     def is_out_of_bounds(self, low, high):
-        return self.sprite.centerx < low or self.sprite.centerx > high
+        return self.position.x < low or self.position.x > high
