@@ -118,4 +118,13 @@ class TestInvaderGroup:
         result = group.update_next(Vector2(0, 0), 1)
         assert result == CycleStatus.NEW_CYCLE
 
+    def test_invader_bounds(self):
+        maker = BitmapMaker.instance()
+        sprite = Sprite(maker.invaders)
+        invader = Invader(1, 1, sprite)
+        invader.position = Vector2(100, 500)
+        assert not invader.is_out_of_bounds(90, 1000)
+        assert invader.is_out_of_bounds(110, 1000)
+        assert invader.is_out_of_bounds(80, 90)
+
 
