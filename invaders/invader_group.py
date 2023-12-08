@@ -17,8 +17,6 @@ class InvaderGroup:
         self.invaders = []
         self.create_invaders()
         self._next_invader = 0
-        self.current_direction = 1
-        self.should_reverse = False
 
     def testing_set_to_end(self):
         self._next_invader = len(self.invaders)
@@ -48,13 +46,8 @@ class InvaderGroup:
         for invader in self.invaders:
             invader.move_relative_to(origin)
 
-    def update_next(self, origin, current_direction):
-        self.handle_direction_change(current_direction)
+    def update_next(self, origin):
         return self.perform_update_step(origin)
-
-    def handle_direction_change(self, current_direction):
-        if self.current_direction != current_direction:
-            self.current_direction = current_direction
 
     def perform_update_step(self, origin):
         if self._next_invader < len(self.invaders):
@@ -70,7 +63,7 @@ class InvaderGroup:
 
     def end_cycle(self):
         self._next_invader = 0
-        return CycleStatus.REVERSE if self.should_reverse else CycleStatus.NEW_CYCLE
+        return CycleStatus.REVERSE if self.any_out_of_bounds() else CycleStatus.NEW_CYCLE
 
     def next_invader(self):
         return self.invaders[self._next_invader]
@@ -79,23 +72,12 @@ class InvaderGroup:
         # image.fill("red", rect, special_flags=pygame.BLEND_MULT)
         for invader in self.invaders:
             invader.draw(screen)
-        # surf = BitmapMaker.instance().player_shot_explosion
-        # rect = surf.get_rect()
-        # rect.center = (100, 900)
-        # screen.blit(surf, rect)
-        # pygame.draw.line(screen, "red", (100, 850), (100, 950))
-        # pygame.draw.line(screen, "red", (50, 900), (150, 900))
 
-    def begin_interactions(self, fleets):
-        self.should_reverse = False
-
-    def interact_with_bumper(self, bumper, _fleet):
-        if self._next_invader < len(self.invaders):
-            return
+    def any_out_of_bounds(self):
         left = u.BUMPER_LEFT + u.INVADER_HALF_WIDTH
         right = u.BUMPER_RIGHT - u.INVADER_HALF_WIDTH
         colliding = [invader.is_out_of_bounds(left, right) for invader in self.invaders]
-        self.should_reverse |= any(colliding)
+        return any(colliding)
 
     def interact_with_playershot(self, shot, fleets):
         for invader in self.invaders.copy():

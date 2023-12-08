@@ -31,7 +31,7 @@ class InvaderFleet(InvadersFlyer):
         return self.invader_group.invader_count()
 
     def update(self, delta_time, _fleets):
-        result = self.invader_group.update_next(self.origin, self.direction)
+        result = self.invader_group.update_next(self.origin)
         self.process_result(result)
 
     def process_result(self, result):
@@ -51,12 +51,6 @@ class InvaderFleet(InvadersFlyer):
 
     def draw(self, screen):
         self.invader_group.draw(screen)
-
-    def begin_interactions(self, fleets):
-        self.invader_group.begin_interactions(fleets)
-
-    def interact_with_bumper(self, bumper, _fleets):
-        self.invader_group.interact_with_bumper(bumper, self)
 
     def interact_with_playershot(self, shot, fleets):
         self.invader_group.interact_with_playershot(shot, fleets)

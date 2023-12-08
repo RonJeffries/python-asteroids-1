@@ -32,49 +32,27 @@ class TestInvaderGroup:
         group = InvaderGroup()
         origin = Vector2(100, 100)
         for i in range(55):
-            result = group.update_next(origin, 1)
+            result = group.update_next(origin)
             assert result == CycleStatus.CONTINUE
-        result = group.update_next(origin, 1)
+        result = group.update_next(origin)
         assert result == CycleStatus.NEW_CYCLE
 
     def test_no_reversal(self):
         group = InvaderGroup()
-        bumper = Bumper(u.BUMPER_RIGHT, +1)
-        group.interact_with_bumper(bumper, None)
+        group.position_all_invaders(Vector2(u.BUMPER_LEFT + 100, 512))
         result = group.end_cycle()
         assert result == CycleStatus.NEW_CYCLE
 
-    def test_reversal_on_entry(self):
+    def test_reversal(self):
         group = InvaderGroup()
         bumper = Bumper(u.BUMPER_RIGHT, +1)
         invader = group.invaders[0]
         _pos_x, pos_y = invader.position
         invader.position = (u.BUMPER_RIGHT, pos_y)
-        group.testing_set_to_end()
-        group.begin_interactions(None)
-        group.interact_with_bumper(bumper, None)
-        assert group.should_reverse
         result = group.end_cycle()
         assert result == CycleStatus.REVERSE
-        # continuing the story ...
-        origin = (0, 0)
-        result = CycleStatus.CONTINUE
-        group.begin_interactions(None)
-        while result == CycleStatus.CONTINUE:
-            invader.position = (u.BUMPER_RIGHT, pos_y)
-            result = group.update_next(origin, -1)
-        assert result == CycleStatus.NEW_CYCLE
-
-    def test_no_reversal_on_exit(self):
-        group = InvaderGroup()
-        group.current_direction = -1
-        bumper = Bumper(u.BUMPER_RIGHT, +1)
-        invader = group.invaders[0]
-        _pos_x, pos_y = invader.position
-        invader.position = (u.BUMPER_RIGHT, pos_y)
-        group.interact_with_bumper(bumper, None)
-        result = group.end_cycle()
-        assert result == CycleStatus.NEW_CYCLE
+        invader.position = (u.BUMPER_LEFT, pos_y)
+        assert result == CycleStatus.REVERSE
 
     def test_bottom_of_column(self):
         group = InvaderGroup()
@@ -115,7 +93,7 @@ class TestInvaderGroup:
         group = InvaderGroup()
         for count in range(55):
             group.kill(group.invaders[0])
-        result = group.update_next(Vector2(0, 0), 1)
+        result = group.update_next(Vector2(0, 0))
         assert result == CycleStatus.NEW_CYCLE
 
     def test_invader_bounds(self):
