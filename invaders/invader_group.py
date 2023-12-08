@@ -92,9 +92,9 @@ class InvaderGroup:
     def interact_with_bumper(self, bumper, _fleet):
         if self._next_invader < len(self.invaders):
             return
-        if self.current_direction != bumper.incoming_direction:
-            return
-        colliding = [invader.is_out_of_bounds(u.BUMPER_LEFT + 32, u.BUMPER_RIGHT - 32) for invader in self.invaders]
+        left = u.BUMPER_LEFT + u.INVADER_HALF_WIDTH
+        right = u.BUMPER_RIGHT - u.INVADER_HALF_WIDTH
+        colliding = [invader.is_out_of_bounds(left, right) for invader in self.invaders]
         self.should_reverse |= any(colliding)
 
     def interact_with_playershot(self, shot, fleets):
