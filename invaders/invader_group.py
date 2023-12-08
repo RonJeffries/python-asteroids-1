@@ -91,6 +91,8 @@ class InvaderGroup:
     def interact_with_bumper(self, bumper, _fleet):
         if self._next_invader < len(self.invaders):
             return
+        if self.current_direction != bumper.incoming_direction:
+            return
         colliding = [invader.is_entering(bumper, self.current_direction) for invader in self.invaders]
         self.should_reverse |= any(colliding)
 
