@@ -1,5 +1,6 @@
 from enum import Enum
 
+import u
 from invaders.bitmap_maker import BitmapMaker
 from invaders.invader import Invader
 from invaders.sprite import Sprite
@@ -93,7 +94,7 @@ class InvaderGroup:
             return
         if self.current_direction != bumper.incoming_direction:
             return
-        colliding = [invader.is_entering(bumper) for invader in self.invaders]
+        colliding = [invader.is_out_of_bounds(u.BUMPER_LEFT + 32, u.BUMPER_RIGHT - 32) for invader in self.invaders]
         self.should_reverse |= any(colliding)
 
     def interact_with_playershot(self, shot, fleets):
