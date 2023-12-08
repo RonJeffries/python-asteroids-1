@@ -127,7 +127,7 @@ class Spritely:
 
     @property
     def rect(self):
-        return None
+        return self.sprite.rectangle
 
     @property
     def position(self):
