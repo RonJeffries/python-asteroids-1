@@ -26,10 +26,10 @@ class Bumper(InvadersFlyer):
         return self.beyond_on_right(sprite) if self.incoming_direction > 0 else self.beyond_on_left(sprite)
 
     def beyond_on_left(self, sprite):
-        return sprite.topleft[0] <= self.x
+        return sprite.centerx <= self.x
 
     def beyond_on_right(self, sprite):
-        return sprite.topright[0] >= self.x
+        return sprite.centerx >= self.x
 
     def interact_with(self, other, fleets):
         other.interact_with_bumper(self, fleets)
