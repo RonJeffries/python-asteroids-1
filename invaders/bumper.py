@@ -19,8 +19,8 @@ class Bumper(InvadersFlyer):
     def rect(self):
         return None
 
-    def am_i_entering(self, rect, direction):
-        return self.intersecting(rect) and direction == self.incoming_direction
+    def am_i_entering(self, rect):
+        return self.intersecting(rect)
 
     def intersecting(self, sprite: Sprite):
         return self.beyond_on_right(sprite) if self.incoming_direction > 0 else self.beyond_on_left(sprite)
