@@ -1,3 +1,4 @@
+import pytest
 from pygame import Vector2, Rect
 
 import u
@@ -57,20 +58,6 @@ class TestInvaderFleet:
         fleet.process_result(CycleStatus.REVERSE)
         assert fleet.direction == -direction
         assert fleet.origin == origin - fleet.step + fleet.down_step
-
-    def test_bumper_intersecting_left(self):
-        bumper = Bumper(64, -1)
-        rect = Rect(64, 512, 64, 32)
-        assert bumper.intersecting(rect)
-        rect = Rect(65, 512, 64, 32)
-        assert not bumper.intersecting(rect)
-
-    def test_bumper_intersecting_right(self):
-        bumper = Bumper(960, +1)
-        rect = Rect(960-64, 512, 64, 32)
-        assert bumper.intersecting(rect)
-        rect = Rect(959-64, 512, 64, 32)
-        assert not bumper.intersecting(rect)
 
     def test_rectangle_bottom_right_is_inclusive(self):
         left = 100
