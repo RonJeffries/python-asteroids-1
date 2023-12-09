@@ -1,5 +1,5 @@
 import pygame.draw
-from pygame import Vector2
+from pygame import Vector2, Mask
 
 import u
 from invaders.invader_explosion import InvaderExplosion
@@ -16,6 +16,10 @@ class Invader(Spritely):
         self.relative_position = Vector2(u.INVADER_SPACING * column, -u.INVADER_SPACING * row)
         self.image = 0
 
+    @property
+    def explosion_mask(self):
+        return self.sprite.mask
+
     def move_relative_to(self, vector):
         self._sprite.next_frame()
         self.position = vector + self.relative_position
@@ -27,6 +31,10 @@ class Invader(Spritely):
             group.kill(self)
             fleets.append(InvaderScore(self._score))
             fleets.append(InvaderExplosion(self.position))
+
+    def interact_with_roadfurniture(self, shield):
+        if self.colliding(shield):
+            shield.sprite.mash_from(self)
 
     def x_fraction(self):
         x_distance = self.position.x - u.BUMPER_LEFT

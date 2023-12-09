@@ -52,6 +52,9 @@ class InvaderFleet(InvadersFlyer):
     def draw(self, screen):
         self.invader_group.draw(screen)
 
+    def interact_with_roadfurniture(self, shield, fleets):
+        self.invader_group.interact_with_roadfurniture(shield)
+
     def interact_with_playershot(self, shot, fleets):
         self.invader_group.interact_with_playershot(shot, fleets)
 

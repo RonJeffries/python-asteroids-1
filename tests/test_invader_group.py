@@ -114,6 +114,9 @@ class TestInvaderGroup:
         assert not invader.colliding(shield)
         invader.position = shield.position
         assert invader.colliding(shield)
+        old_mask = shield.sprite.mask
+        invader.interact_with_roadfurniture(shield)
+        assert shield.sprite.mask is not old_mask
 
 
 
