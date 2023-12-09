@@ -49,9 +49,9 @@ class RoadFurniture(Spritely, InvadersFlyer):
 
     def process_shot_collision(self, shot):
         if self.colliding(shot):
-            self._tasks.remind_me(lambda: self.mash_image(shot))
+            self._tasks.remind_me(lambda: self.show_damage_only_after_all_collision_checking(shot))
 
-    def mash_image(self, shot):
+    def show_damage_only_after_all_collision_checking(self, shot):
         self._sprite.mash_from(shot)
         # masher = ImageMasher.from_flyers(self, shot)
         # new_mask, new_surface = masher.update(self.surface)

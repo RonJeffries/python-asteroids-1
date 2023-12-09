@@ -7,15 +7,13 @@ from invaders.invader_score import InvaderScore
 from invaders.sprite import Sprite, Spritely
 from sounds import player
 
-INVADER_SPACING = 64
-
 
 class Invader(Spritely):
     def __init__(self, column, row, sprite):
         self._score = [10, 10, 20, 20, 30][row]
         self._sprite = sprite
         self.column = column
-        self.relative_position = Vector2(INVADER_SPACING * column, -INVADER_SPACING * row)
+        self.relative_position = Vector2(u.INVADER_SPACING * column, -u.INVADER_SPACING * row)
         self.image = 0
 
     def move_relative_to(self, vector):

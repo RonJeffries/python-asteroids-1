@@ -5,7 +5,7 @@ import u
 from invaders.bitmap_maker import BitmapMaker
 from invaders.bumper import Bumper
 from core.fleets import Fleets
-from invaders.invader import INVADER_SPACING, Invader
+from invaders.invader import Invader
 from invaders.invaderfleet import InvaderFleet
 from invaders.invader_group import InvaderGroup, CycleStatus
 from invaders.player_shot import PlayerShot
@@ -29,8 +29,8 @@ class TestInvaderFleet:
         for y in range(5):
             for x in range(11):
                 invader = fleet.testing_only_invaders[count]
-                assert invader.relative_position.x == x * INVADER_SPACING
-                assert invader.relative_position.y == -y * INVADER_SPACING
+                assert invader.relative_position.x == x * u.INVADER_SPACING
+                assert invader.relative_position.y == -y * u.INVADER_SPACING
                 count += 1
 
     def test_fleet_origin_is_centered(self):

@@ -5,6 +5,7 @@ from invaders.bitmap_maker import BitmapMaker
 from invaders.bumper import Bumper
 from invaders.invader import Invader
 from invaders.invader_group import InvaderGroup, CycleStatus
+from invaders.roadfurniture import RoadFurniture
 from invaders.sprite import Sprite
 
 
@@ -104,5 +105,16 @@ class TestInvaderGroup:
         assert not invader.is_out_of_bounds(90, 1000)
         assert invader.is_out_of_bounds(110, 1000)
         assert invader.is_out_of_bounds(80, 90)
+
+    def test_invader_damages_shield(self):
+        maker = BitmapMaker.instance()
+        sprite = Sprite(maker.invaders)
+        invader = Invader(1, 1, sprite)
+        shield = RoadFurniture.shield(Vector2(242, 816))
+        assert not invader.colliding(shield)
+        invader.position = shield.position
+        assert invader.colliding(shield)
+
+
 
 
