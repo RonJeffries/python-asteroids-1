@@ -34,7 +34,7 @@ class Invader(Spritely):
 
     def interact_with_roadfurniture(self, shield, fleets):
         if self.colliding(shield):
-            shield.sprite.mash_from(self)
+            shield.hit_invader(self, fleets)
 
     def x_fraction(self):
         x_distance = self.position.x - u.BUMPER_LEFT
