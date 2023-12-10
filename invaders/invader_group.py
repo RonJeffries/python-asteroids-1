@@ -83,6 +83,6 @@ class InvaderGroup:
         for invader in self.invaders.copy():
             invader.interact_with_group_and_playershot(shot, self, fleets)
 
-    def interact_with_roadfurniture(self, shield):
+    def interact_with_roadfurniture(self, shield, fleets):
         for invader in self.invaders.copy():
-            invader.interact_with_roadfurniture(shield)
+            invader.interact_with_roadfurniture(shield, fleets)
