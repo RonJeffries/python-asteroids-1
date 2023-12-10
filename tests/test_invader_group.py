@@ -5,8 +5,10 @@ from invaders.bitmap_maker import BitmapMaker
 from invaders.bumper import Bumper
 from invaders.invader import Invader
 from invaders.invader_group import InvaderGroup, CycleStatus
+from invaders.invader_player import InvaderPlayer
 from invaders.roadfurniture import RoadFurniture
 from invaders.sprite import Sprite
+from tests.tools import FakeFleets
 
 
 class TestInvaderGroup:
@@ -117,6 +119,19 @@ class TestInvaderGroup:
         old_mask = shield.sprite.mask
         invader.interact_with_roadfurniture(shield, None)
         assert shield.sprite.mask is not old_mask
+
+    def test_invader_kills_player(self):
+        maker = BitmapMaker.instance()
+        sprite = Sprite(maker.invaders)
+        invader = Invader(1, 1, sprite)
+        player = InvaderPlayer()
+        fleets = FakeFleets()
+        invader.interact_with_invaderplayer(player, fleets)
+        assert not fleets.removes
+        invader.position = player.position
+        invader.interact_with_invaderplayer(player, fleets)
+        assert fleets.removes
+        assert player in fleets.removes
 
 
 

@@ -32,6 +32,10 @@ class Invader(Spritely):
             fleets.append(InvaderScore(self._score))
             fleets.append(InvaderExplosion(self.position))
 
+    def interact_with_invaderplayer(self, player, fleets):
+        if self.colliding(player):
+            player.hit_invader(self, fleets)
+
     def interact_with_roadfurniture(self, shield, fleets):
         if self.colliding(shield):
             shield.hit_invader(self, fleets)
