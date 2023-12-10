@@ -117,7 +117,7 @@ class TestInvaderFleet:
         fleets.append(shot)
         assert fi.player_shots
         fleets.begin_interactions()
-        shot.hit_invader(fleets)
+        shot.hit_invader(self, fleets)
         fleets.end_interactions()
         assert not fi.player_shots
 

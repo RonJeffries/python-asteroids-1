@@ -17,7 +17,7 @@ class PlayerShot(Spritely, InvadersFlyer):
         explosion = BitmapMaker.instance().player_shot_explosion
         self.explosion_mask = pygame.mask.from_surface(explosion)
 
-    def hit_invader(self, fleets):
+    def hit_invader(self, _invader, fleets):
         fleets.remove(self)
 
     def interact_with(self, other, fleets):

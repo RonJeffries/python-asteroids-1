@@ -27,7 +27,7 @@ class Invader(Spritely):
     def interact_with_group_and_playershot(self, shot, group, fleets):
         if self.colliding(shot):
             player.play_stereo("invaderkilled", self.x_fraction())
-            shot.hit_invader(fleets)
+            shot.hit_invader(self, fleets)
             group.kill(self)
             fleets.append(InvaderScore(self._score))
             fleets.append(InvaderExplosion(self.position))
