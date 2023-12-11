@@ -57,6 +57,21 @@ class TestInvaderGroup:
         invader.position = (u.BUMPER_LEFT, pos_y)
         assert result == CycleStatus.REVERSE
 
+    def test_remove_penultimate_invader(self):
+        group = InvaderGroup()
+        for count in range(54):
+            group.kill(group.invaders[0])
+        result = group.update_next(Vector2(0, 0))
+        result = group.update_next(Vector2(0, 0))
+        assert result == CycleStatus.NEW_CYCLE
+
+    def test_remove_last_invader(self):
+        group = InvaderGroup()
+        for count in range(55):
+            group.kill(group.invaders[0])
+        result = group.update_next(Vector2(0, 0))
+        assert result == CycleStatus.EMPTY
+
     def test_bottom_of_column(self):
         group = InvaderGroup()
         invader = group.bottom_of_column(5)
@@ -91,13 +106,6 @@ class TestInvaderGroup:
         should_update = group.invaders[30]
         group.kill(to_remove)
         assert group.next_invader() == should_update
-
-    def test_remove_last_invader(self):
-        group = InvaderGroup()
-        for count in range(55):
-            group.kill(group.invaders[0])
-        result = group.update_next(Vector2(0, 0))
-        assert result == CycleStatus.NEW_CYCLE
 
     def test_invader_bounds(self):
         maker = BitmapMaker.instance()

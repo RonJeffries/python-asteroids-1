@@ -3,6 +3,7 @@ from pygame import Vector2
 import u
 from flyer import InvadersFlyer
 from invaders.invader_group import InvaderGroup, CycleStatus
+from invaders.timecapsule import TimeCapsule
 
 
 class InvaderFleet(InvadersFlyer):
@@ -32,15 +33,20 @@ class InvaderFleet(InvadersFlyer):
 
     def update(self, delta_time, _fleets):
         result = self.invader_group.update_next(self.origin)
-        self.process_result(result)
+        self.process_result(result, _fleets)
 
-    def process_result(self, result):
+    def process_result(self, result, fleets):
         if result == CycleStatus.CONTINUE:
             pass
         elif result == CycleStatus.NEW_CYCLE:
             self.step_origin()
         elif result == CycleStatus.REVERSE:
             self.reverse_travel()
+        elif result == CycleStatus.EMPTY:
+            fleets.remove(self)
+            new_fleet = InvaderFleet()
+            capsule = TimeCapsule(2, new_fleet)
+            fleets.append(capsule)
 
     def step_origin(self):
         self.origin = self.origin + self.direction * self.step

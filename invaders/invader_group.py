@@ -10,6 +10,7 @@ class CycleStatus(Enum):
     CONTINUE = "continue"
     NEW_CYCLE = "new cycle"
     REVERSE = "reverse"
+    EMPTY = "empty"
 
 
 class InvaderGroup:
@@ -63,7 +64,12 @@ class InvaderGroup:
 
     def end_cycle(self):
         self._next_invader = 0
-        return CycleStatus.REVERSE if self.any_out_of_bounds() else CycleStatus.NEW_CYCLE
+        if self.any_out_of_bounds():
+            return CycleStatus.REVERSE
+        elif len(self.invaders) > 0:
+            return CycleStatus.NEW_CYCLE
+        else:
+            return CycleStatus.EMPTY
 
     def next_invader(self):
         return self.invaders[self._next_invader]

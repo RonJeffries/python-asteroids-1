@@ -10,7 +10,8 @@ from invaders.invaderfleet import InvaderFleet
 from invaders.invader_group import InvaderGroup, CycleStatus
 from invaders.player_shot import PlayerShot
 from invaders.sprite import Sprite
-from tests.tools import FI
+from invaders.timecapsule import TimeCapsule
+from tests.tools import FI, FakeFleets
 from invaders.top_bumper import TopBumper
 
 
@@ -42,20 +43,28 @@ class TestInvaderFleet:
     def test_ok_leaves_step_alone(self):
         fleet = InvaderFleet()
         origin = fleet.origin
-        fleet.process_result(CycleStatus.CONTINUE)
+        fleet.process_result(CycleStatus.CONTINUE, None)
         assert fleet.origin == origin
 
     def test_end_increments_step(self):
         fleet = InvaderFleet()
         origin = fleet.origin
-        fleet.process_result(CycleStatus.NEW_CYCLE)
+        fleet.process_result(CycleStatus.NEW_CYCLE, None)
         assert fleet.origin == origin + fleet.step
+
+    def test_end_empty(self):
+        fleets = FakeFleets()
+        invader_fleet = InvaderFleet()
+        invader_fleet.process_result(CycleStatus.EMPTY, fleets)
+        assert invader_fleet in fleets.removes
+        added = fleets.appends[0]
+        assert isinstance(added, TimeCapsule)
 
     def test_end_at_edge_steps_down_and_left(self):
         fleet = InvaderFleet()
         origin = fleet.origin
         direction = fleet.direction
-        fleet.process_result(CycleStatus.REVERSE)
+        fleet.process_result(CycleStatus.REVERSE, None)
         assert fleet.direction == -direction
         assert fleet.origin == origin - fleet.step + fleet.down_step
 
