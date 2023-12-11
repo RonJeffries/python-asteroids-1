@@ -59,6 +59,8 @@ class TestInvaderFleet:
         assert invader_fleet in fleets.removes
         added = fleets.appends[0]
         assert isinstance(added, TimeCapsule)
+        assert isinstance(added.to_add, InvaderFleet)
+        assert added.time == 2
 
     def test_end_at_edge_steps_down_and_left(self):
         fleet = InvaderFleet()
