@@ -132,7 +132,3 @@ class TestInvaderGroup:
         invader.interact_with_invaderplayer(player, fleets)
         assert fleets.removes
         assert player in fleets.removes
-
-
-
-
