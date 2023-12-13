@@ -181,11 +181,3 @@ class TestInvaderFleet:
         for i in range(9):
             init = (init + 1) % 8
         assert init == 0
-
-
-
-
-
-
-
-
