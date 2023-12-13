@@ -11,7 +11,12 @@ class InvaderFleet(InvadersFlyer):
         self.step = Vector2(8, 0)
         self.down_step = Vector2(0, 32)
         self.invader_group = InvaderGroup()
-        self.origin = Vector2(u.SCREEN_SIZE / 2 - 5*64, self.convert_y_coordinate(u.INVADER_FIRST_START))
+        if start_index == -1:
+            self.start_index = -1
+            self.origin = Vector2(u.SCREEN_SIZE / 2 - 5*64, self.convert_y_coordinate(u.INVADER_FIRST_START))
+        else:
+            self.start_index = start_index % len(u.INVADER_STARTS)
+            self.origin = Vector2(u.SCREEN_SIZE / 2 - 5*64, self.convert_y_coordinate(u.INVADER_STARTS[self.start_index]))
         self.invader_group.position_all_invaders(self.origin)
         self.direction = 1
         self.step_origin()
@@ -31,6 +36,10 @@ class InvaderFleet(InvadersFlyer):
     def invader_count(self):
         return self.invader_group.invader_count()
 
+    def next_fleet(self):
+        new_index = (self.start_index + 1) % len(u.INVADER_STARTS)
+        return InvaderFleet(new_index)
+
     @staticmethod
     def convert_y_coordinate(y_on_8080):
         return 0x400 - 4*y_on_8080
@@ -48,8 +57,7 @@ class InvaderFleet(InvadersFlyer):
             self.reverse_travel()
         elif result == CycleStatus.EMPTY:
             fleets.remove(self)
-            new_fleet = InvaderFleet()
-            capsule = TimeCapsule(2, new_fleet)
+            capsule = TimeCapsule(2, self.next_fleet())
             fleets.append(capsule)
 
     def step_origin(self):

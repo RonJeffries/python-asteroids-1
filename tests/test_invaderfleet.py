@@ -51,15 +51,14 @@ class TestInvaderFleet:
         fleet.process_result(CycleStatus.NEW_CYCLE, None)
         assert fleet.origin == origin + fleet.step
 
-    def test_end_empty(self):
-        fleets = FakeFleets()
-        invader_fleet = InvaderFleet()
-        invader_fleet.process_result(CycleStatus.EMPTY, fleets)
-        assert invader_fleet in fleets.removes
-        added = fleets.appends[0]
-        assert isinstance(added, TimeCapsule)
-        assert isinstance(added.to_add, InvaderFleet)
-        assert added.time == 2
+    Game
+    now
+    starts
+    invader
+    racks
+    according
+    to
+    canon.
 
     def test_end_at_edge_steps_down_and_left(self):
         fleet = InvaderFleet()
@@ -147,19 +146,32 @@ class TestInvaderFleet:
         starting_y = fleet.origin.y
         assert starting_y == 1024 - 4*u.INVADER_FIRST_START
 
+    def test_initial_fleet_y_given_0_parameter(self):
+        fleet = InvaderFleet(0)
+        starting_y = fleet.origin.y
+        assert starting_y == 1024 - 4*u.INVADER_STARTS[0]
 
-    # def test_invader_start_values(self):
-    #     initial = u.INVADER_FIRST_START
-    #     initial4 = initial*4
-    #     start = 1024 - initial4
-    #     assert start == 544
-    #     print()
-    #     print(u.INVADER_FIRST_START, 544)
-    #     for i in range(len(u.INVADER_STARTS)):
-    #         source = u.INVADER_STARTS[i]
-    #         val = u.INVADER_START(source)
-    #         print(source, val, 1024 - 4 * source)
-        # assert False
+    def test_initial_fleet_y_given_8_parameter(self):
+        fleet = InvaderFleet(8)
+        starting_y = fleet.origin.y
+        assert starting_y == 1024 - 4*u.INVADER_STARTS[0]
+
+    def test_fleet_after_initial_is_0_fleet(self):
+        fleet = InvaderFleet(-1)
+        assert fleet.origin.y == 1024 - 4*u.INVADER_FIRST_START
+        fleet = fleet.next_fleet()
+        assert fleet.origin.y == 1024 - 4*u.INVADER_STARTS[0]
+        fleet = fleet.next_fleet()
+        assert fleet.origin.y == 1024 - 4*u.INVADER_STARTS[1]
+
+    def test_fleet_starting_values_including_wrap(self):
+        fleet = InvaderFleet(-1)
+        assert fleet.origin.y == 1024 - 4*u.INVADER_FIRST_START
+        for i in range(len(u.INVADER_STARTS)):
+            fleet = fleet.next_fleet()
+            assert fleet.origin.y == 1024 - 4*u.INVADER_STARTS[i]
+        fleet = fleet.next_fleet()
+        assert fleet.origin.y == 1024 - 4*u.INVADER_STARTS[0]
 
     def test_loop_indexing(self):
         init = -1
