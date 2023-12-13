@@ -34,6 +34,21 @@ SHIP_ROTATION_STEP = 120
 
 # Invaders
 
+"""
+;##-AlienStartTable
+; Starting Y coordinates for aliens at beginning of rounds. The first round is initialized to $78 at 07EA.
+; After that this table is used for 2nd, 3rd, 4th, 5th, 6th, 7th, 8th, and 9th. The 10th starts over at
+; 1DA3 (60).
+1DA3: 60                                    
+1DA4: 50                                    
+1DA5: 48                                    
+1DA6: 48                                    
+1DA7: 48                                    
+1DA8: 40                                    
+1DA9: 40                                    
+1DAA: 40   
+"""
+
 BOTTOM_LINE_OFFSET = 50
 BUMPER_LEFT = 64
 BUMPER_RIGHT = 960
@@ -46,6 +61,9 @@ INVADER_SAUCER_X_MIN = BUMPER_LEFT + INVADER_SAUCER_HALF_WIDTH
 INVADER_SAUCER_X_MAX = BUMPER_RIGHT - INVADER_SAUCER_HALF_WIDTH
 INVADER_SPACING = 64
 INVADER_SPEED = 8
+INVADER_FIRST_START = 0x78
+INVADER_STARTS = 0x60, 0x50, 0x48, 0x48, 0x48, 0x40, 0x40, 0x40
+# 8080 values height = 256 = 0x100. Our screen is 4x that size and upside down.
 RESERVE_PLAYER_Y = SCREEN_SIZE - 32
 SHIELD_OFFSET = 208
 SHIELD_Y = SCREEN_SIZE - 208

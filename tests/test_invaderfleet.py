@@ -132,6 +132,18 @@ class TestInvaderFleet:
         fleets.end_interactions()
         assert not fi.player_shots
 
+    def test_invader_start_values(self):
+        initial = u.INVADER_FIRST_START
+        initial4 = initial*4
+        start = 1024 - initial4
+        assert start == 544
+
+    def test_loop_indexing(self):
+        init = -1
+        for i in range(9):
+            init = (init + 1) % 8
+        assert init == 0
+
 
 
 
