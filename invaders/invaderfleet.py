@@ -7,16 +7,16 @@ from invaders.timecapsule import TimeCapsule
 
 
 class InvaderFleet(InvadersFlyer):
-    def __init__(self, start_index=-1):
-        self.step = Vector2(8, 0)
-        self.down_step = Vector2(0, 32)
+
+    step = Vector2(8, 0)
+    down_step = Vector2(0, 32)
+
+    def __init__(self, start_index=None):
+        helper = OriginHelper.make_helper(start_index)
+        y = self.convert_y_coordinate(helper.starting_8080_y)
+        self.origin = Vector2(u.SCREEN_SIZE / 2 - 5 * 64, y)
+        self.next_index = helper.next_index
         self.invader_group = InvaderGroup()
-        if start_index == -1:
-            self.start_index = -1
-            self.origin = Vector2(u.SCREEN_SIZE / 2 - 5*64, self.convert_y_coordinate(u.INVADER_FIRST_START))
-        else:
-            self.start_index = start_index % len(u.INVADER_STARTS)
-            self.origin = Vector2(u.SCREEN_SIZE / 2 - 5*64, self.convert_y_coordinate(u.INVADER_STARTS[self.start_index]))
         self.invader_group.position_all_invaders(self.origin)
         self.direction = 1
         self.step_origin()
@@ -37,8 +37,7 @@ class InvaderFleet(InvadersFlyer):
         return self.invader_group.invader_count()
 
     def next_fleet(self):
-        new_index = (self.start_index + 1) % len(u.INVADER_STARTS)
-        return InvaderFleet(new_index)
+        return InvaderFleet(self.next_index)
 
     @staticmethod
     def convert_y_coordinate(y_on_8080):
@@ -81,3 +80,36 @@ class InvaderFleet(InvadersFlyer):
 
     def interact_with(self, other, fleets):
         other.interact_with_invaderfleet(self, fleets)
+
+
+class StartingHelper:
+    @property
+    def starting_8080_y(self):
+        return u.INVADER_FIRST_START
+
+    @property
+    def next_index(self):
+        return 0
+
+
+class RunningHelper:
+    def __init__(self, index):
+        self.index = index % len(u.INVADER_STARTS)
+
+    @property
+    def starting_8080_y(self):
+        return u.INVADER_STARTS[self.index]
+
+    @property
+    def next_index(self):
+        return (self.index + 1) % len(u.INVADER_STARTS)
+
+
+class OriginHelper:
+    @classmethod
+    def make_helper(cls, start):
+        if start is None:
+            return StartingHelper()
+        else:
+            return RunningHelper(start)
+

@@ -2,7 +2,7 @@ from core.fleets import Fleets
 from invaders.bitmap_maker import BitmapMaker
 from invaders.invader import Invader
 from invaders.invader_group import CycleStatus
-from invaders.invaderfleet import InvaderFleet
+from invaders.invaderfleet import InvaderFleet, OriginHelper
 from invaders.player_shot import PlayerShot
 from invaders.sprite import Sprite
 from invaders.timecapsule import TimeCapsule
@@ -142,7 +142,7 @@ class TestInvaderFleet:
         assert starting_y == 1024 - 4*u.INVADER_FIRST_START
 
     def test_initial_fleet_y_with_parameter(self):
-        fleet = InvaderFleet(-1)
+        fleet = InvaderFleet()
         starting_y = fleet.origin.y
         assert starting_y == 1024 - 4*u.INVADER_FIRST_START
 
@@ -157,7 +157,7 @@ class TestInvaderFleet:
         assert starting_y == 1024 - 4*u.INVADER_STARTS[0]
 
     def test_fleet_after_initial_is_0_fleet(self):
-        fleet = InvaderFleet(-1)
+        fleet = InvaderFleet()
         assert fleet.origin.y == 1024 - 4*u.INVADER_FIRST_START
         fleet = fleet.next_fleet()
         assert fleet.origin.y == 1024 - 4*u.INVADER_STARTS[0]
@@ -165,7 +165,7 @@ class TestInvaderFleet:
         assert fleet.origin.y == 1024 - 4*u.INVADER_STARTS[1]
 
     def test_fleet_starting_values_including_wrap(self):
-        fleet = InvaderFleet(-1)
+        fleet = InvaderFleet()
         assert fleet.origin.y == 1024 - 4*u.INVADER_FIRST_START
         for i in range(len(u.INVADER_STARTS)):
             fleet = fleet.next_fleet()
@@ -178,3 +178,13 @@ class TestInvaderFleet:
         for i in range(9):
             init = (init + 1) % 8
         assert init == 0
+
+    def test_invader_origin_helper(self):
+        helper = OriginHelper.make_helper(None)
+        assert helper.starting_8080_y == u.INVADER_FIRST_START
+        assert helper.next_index == 0
+
+    def test_invader_origin_helper_integer(self):
+        helper = OriginHelper.make_helper(0)
+        assert helper.starting_8080_y == u.INVADER_STARTS[0]
+        assert helper.next_index == 1
