@@ -132,6 +132,12 @@ class TestInvaderFleet:
         fleets.end_interactions()
         assert not fi.player_shots
 
+    def test_start_conversion(self):
+        fleet = InvaderFleet()
+        start = fleet.convert_y_coordinate(u.INVADER_FIRST_START)
+        should = 1024 - 4*u.INVADER_FIRST_START
+        assert start == should
+
     # def test_invader_start_values(self):
     #     initial = u.INVADER_FIRST_START
     #     initial4 = initial*4

@@ -31,6 +31,10 @@ class InvaderFleet(InvadersFlyer):
     def invader_count(self):
         return self.invader_group.invader_count()
 
+    @staticmethod
+    def convert_y_coordinate(y_on_8080):
+        return 0x400 - 4*y_on_8080
+
     def update(self, delta_time, _fleets):
         result = self.invader_group.update_next(self.origin)
         self.process_result(result, _fleets)
