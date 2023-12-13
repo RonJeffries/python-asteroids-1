@@ -51,14 +51,17 @@ class TestInvaderFleet:
         fleet.process_result(CycleStatus.NEW_CYCLE, None)
         assert fleet.origin == origin + fleet.step
 
-    Game
-    now
-    starts
-    invader
-    racks
-    according
-    to
-    canon.
+    def test_end_empty(self):
+        fleets = FakeFleets()
+        invader_fleet = InvaderFleet()
+        invader_fleet.process_result(CycleStatus.EMPTY, fleets)
+        assert invader_fleet in fleets.removes
+        added = fleets.appends[0]
+        assert added.time == 2
+        assert isinstance(added, TimeCapsule)
+        fleet = added.to_add
+        assert isinstance(fleet, InvaderFleet)
+        assert fleet.origin.y == 1024 - 4*u.INVADER_STARTS[0]
 
     def test_end_at_edge_steps_down_and_left(self):
         fleet = InvaderFleet()
