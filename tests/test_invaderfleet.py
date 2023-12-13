@@ -137,6 +137,13 @@ class TestInvaderFleet:
         initial4 = initial*4
         start = 1024 - initial4
         assert start == 544
+        print()
+        print(u.INVADER_FIRST_START, 544)
+        for i in range(len(u.INVADER_STARTS)):
+            source = u.INVADER_STARTS[i]
+            val = u.INVADER_START(source)
+            print(source, val, 1024 - 4 * source)
+        # assert False
 
     def test_loop_indexing(self):
         init = -1
