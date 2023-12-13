@@ -1,23 +1,20 @@
-import pytest
-from pygame import Vector2, Rect
-
-import u
-from invaders.bitmap_maker import BitmapMaker
-from invaders.bumper import Bumper
 from core.fleets import Fleets
+from invaders.bitmap_maker import BitmapMaker
 from invaders.invader import Invader
+from invaders.invader_group import CycleStatus
 from invaders.invaderfleet import InvaderFleet
-from invaders.invader_group import InvaderGroup, CycleStatus
 from invaders.player_shot import PlayerShot
 from invaders.sprite import Sprite
 from invaders.timecapsule import TimeCapsule
-from tests.tools import FI, FakeFleets
 from invaders.top_bumper import TopBumper
+from pygame import Vector2, Rect
+from tests.tools import FI, FakeFleets
+import u
 
 
 class TestInvaderFleet:
     def test_exists(self):
-        fleet = InvaderFleet()
+        InvaderFleet()
 
     def test_makes_invaders(self):
         fleet = InvaderFleet()
