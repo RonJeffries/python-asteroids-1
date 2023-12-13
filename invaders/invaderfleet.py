@@ -7,11 +7,11 @@ from invaders.timecapsule import TimeCapsule
 
 
 class InvaderFleet(InvadersFlyer):
-    def __init__(self):
+    def __init__(self, start_index=-1):
         self.step = Vector2(8, 0)
         self.down_step = Vector2(0, 32)
         self.invader_group = InvaderGroup()
-        self.origin = Vector2(u.SCREEN_SIZE / 2 - 5*64, 512)
+        self.origin = Vector2(u.SCREEN_SIZE / 2 - 5*64, self.convert_y_coordinate(u.INVADER_FIRST_START))
         self.invader_group.position_all_invaders(self.origin)
         self.direction = 1
         self.step_origin()

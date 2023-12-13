@@ -36,7 +36,6 @@ class TestInvaderFleet:
 
     def test_fleet_origin_is_centered(self):
         fleet = InvaderFleet()
-        assert fleet.origin == Vector2(u.SCREEN_SIZE / 2 - 5*64, 512) + Vector2(8, 0)
         invader = fleet.testing_only_invaders[5]  # bottom row middle column
         assert invader.position.x == 512
 
@@ -137,6 +136,17 @@ class TestInvaderFleet:
         start = fleet.convert_y_coordinate(u.INVADER_FIRST_START)
         should = 1024 - 4*u.INVADER_FIRST_START
         assert start == should
+
+    def test_initial_fleet_y(self):
+        fleet = InvaderFleet()
+        starting_y = fleet.origin.y
+        assert starting_y == 1024 - 4*u.INVADER_FIRST_START
+
+    def test_initial_fleet_y_with_parameter(self):
+        fleet = InvaderFleet(-1)
+        starting_y = fleet.origin.y
+        assert starting_y == 1024 - 4*u.INVADER_FIRST_START
+
 
     # def test_invader_start_values(self):
     #     initial = u.INVADER_FIRST_START
