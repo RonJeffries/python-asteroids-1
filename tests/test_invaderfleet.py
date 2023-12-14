@@ -141,13 +141,17 @@ class TestInvaderFleet:
         starting_y = fleet.origin.y
         assert starting_y == 1024 - 4*u.INVADER_FIRST_START
 
-    def test_initial_fleet_y_given_0_parameter(self):
-        fleet = InvaderFleet(0)
+    def test_second_fleet(self):
+        fleet = InvaderFleet()
+        fleet = fleet.next_fleet()
         starting_y = fleet.origin.y
         assert starting_y == 1024 - 4*u.INVADER_STARTS[0]
 
-    def test_initial_fleet_y_given_8_parameter(self):
-        fleet = InvaderFleet(8)
+    def test_fleet_wrap(self):
+        fleet = InvaderFleet()
+        fleet = fleet.next_fleet()
+        for i in range(len(u.INVADER_STARTS)):
+            fleet = fleet.next_fleet()
         starting_y = fleet.origin.y
         assert starting_y == 1024 - 4*u.INVADER_STARTS[0]
 
