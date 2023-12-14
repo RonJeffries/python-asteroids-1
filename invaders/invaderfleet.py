@@ -6,6 +6,17 @@ from invaders.invader_group import InvaderGroup, CycleStatus
 from invaders.timecapsule import TimeCapsule
 
 
+def generate_y():
+    def convert(y_8080):
+        return 0x400 - 4 * y_8080
+
+    yield convert(u.INVADER_FIRST_START)
+    index = 0
+    while True:
+        yield convert(u.INVADER_STARTS[index])
+        index = (index + 1) % len(u.INVADER_STARTS)
+
+
 class InvaderFleet(InvadersFlyer):
 
     step = Vector2(8, 0)
@@ -22,18 +33,7 @@ class InvaderFleet(InvadersFlyer):
 
     @staticmethod
     def use_or_create(generator):
-        if generator:
-            return generator
-        else:
-            def generate_y():
-                def convert(y_8080):
-                    return 0x400 - 4*y_8080
-                yield convert(u.INVADER_FIRST_START)
-                index = 0
-                while True:
-                    yield convert(u.INVADER_STARTS[index])
-                    index = (index + 1) % len(u.INVADER_STARTS)
-            return generate_y()
+        return generator if generator else generate_y()
 
     def next_fleet(self):
         return InvaderFleet(self.y_generator)
