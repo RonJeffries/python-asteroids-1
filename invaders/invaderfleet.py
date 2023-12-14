@@ -94,36 +94,3 @@ class InvaderFleet(InvadersFlyer):
 
     def interact_with(self, other, fleets):
         other.interact_with_invaderfleet(self, fleets)
-
-
-class StartingHelper:
-    @property
-    def starting_8080_y(self):
-        return u.INVADER_FIRST_START
-
-    @property
-    def next_index(self):
-        return 0
-
-
-class RunningHelper:
-    def __init__(self, index):
-        self.index = index % len(u.INVADER_STARTS)
-
-    @property
-    def starting_8080_y(self):
-        return u.INVADER_STARTS[self.index]
-
-    @property
-    def next_index(self):
-        return (self.index + 1) % len(u.INVADER_STARTS)
-
-
-class OriginHelper:
-    @classmethod
-    def make_helper(cls, start):
-        if start is None:
-            return StartingHelper()
-        else:
-            return RunningHelper(start)
-

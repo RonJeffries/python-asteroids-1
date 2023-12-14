@@ -2,7 +2,7 @@ from core.fleets import Fleets
 from invaders.bitmap_maker import BitmapMaker
 from invaders.invader import Invader
 from invaders.invader_group import CycleStatus
-from invaders.invaderfleet import InvaderFleet, OriginHelper
+from invaders.invaderfleet import InvaderFleet
 from invaders.player_shot import PlayerShot
 from invaders.sprite import Sprite
 from invaders.timecapsule import TimeCapsule
@@ -177,16 +177,6 @@ class TestInvaderFleet:
         for i in range(9):
             init = (init + 1) % 8
         assert init == 0
-
-    def test_invader_origin_helper(self):
-        helper = OriginHelper.make_helper(None)
-        assert helper.starting_8080_y == u.INVADER_FIRST_START
-        assert helper.next_index == 0
-
-    def test_invader_origin_helper_integer(self):
-        helper = OriginHelper.make_helper(0)
-        assert helper.starting_8080_y == u.INVADER_STARTS[0]
-        assert helper.next_index == 1
 
     def test_simple_generator(self):
         def g():
