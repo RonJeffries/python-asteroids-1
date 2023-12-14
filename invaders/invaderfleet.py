@@ -12,7 +12,19 @@ class InvaderFleet(InvadersFlyer):
     down_step = Vector2(0, 32)
 
     def __init__(self, generator=None):
-        if generator is None:
+        self.y_generator = self.use_or_create(generator)
+        y = next(self.y_generator)
+        self.origin = Vector2(u.SCREEN_SIZE / 2 - 5 * 64, y)
+        self.invader_group = InvaderGroup()
+        self.invader_group.position_all_invaders(self.origin)
+        self.direction = 1
+        self.step_origin()
+
+    @staticmethod
+    def use_or_create(generator):
+        if generator:
+            return generator
+        else:
             def generate_y():
                 def convert(y_8080):
                     return 0x400 - 4*y_8080
@@ -21,15 +33,7 @@ class InvaderFleet(InvadersFlyer):
                 while True:
                     yield convert(u.INVADER_STARTS[index])
                     index = (index + 1) % len(u.INVADER_STARTS)
-
-            generator = generate_y()
-        self.y_generator = generator
-        y = next(self.y_generator)
-        self.origin = Vector2(u.SCREEN_SIZE / 2 - 5 * 64, y)
-        self.invader_group = InvaderGroup()
-        self.invader_group.position_all_invaders(self.origin)
-        self.direction = 1
-        self.step_origin()
+            return generate_y()
 
     def next_fleet(self):
         return InvaderFleet(self.y_generator)
