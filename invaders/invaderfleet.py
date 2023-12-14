@@ -11,15 +11,28 @@ class InvaderFleet(InvadersFlyer):
     step = Vector2(8, 0)
     down_step = Vector2(0, 32)
 
-    def __init__(self, start_index=None):
-        helper = OriginHelper.make_helper(start_index)
-        y = self.convert_y_coordinate(helper.starting_8080_y)
+    def __init__(self, generator=None):
+        if generator is None:
+            def generate_y():
+                def convert(y_8080):
+                    return 0x400 - 4*y_8080
+                yield convert(u.INVADER_FIRST_START)
+                index = 0
+                while True:
+                    yield convert(u.INVADER_STARTS[index])
+                    index = (index + 1) % len(u.INVADER_STARTS)
+
+            generator = generate_y()
+        self.y_generator = generator
+        y = next(self.y_generator)
         self.origin = Vector2(u.SCREEN_SIZE / 2 - 5 * 64, y)
-        self.next_index = helper.next_index
         self.invader_group = InvaderGroup()
         self.invader_group.position_all_invaders(self.origin)
         self.direction = 1
         self.step_origin()
+
+    def next_fleet(self):
+        return InvaderFleet(self.y_generator)
 
     @property
     def mask(self):
@@ -35,9 +48,6 @@ class InvaderFleet(InvadersFlyer):
 
     def invader_count(self):
         return self.invader_group.invader_count()
-
-    def next_fleet(self):
-        return InvaderFleet(self.next_index)
 
     @staticmethod
     def convert_y_coordinate(y_on_8080):
