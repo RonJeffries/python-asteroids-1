@@ -141,11 +141,6 @@ class TestInvaderFleet:
         starting_y = fleet.origin.y
         assert starting_y == 1024 - 4*u.INVADER_FIRST_START
 
-    def test_initial_fleet_y_with_parameter(self):
-        fleet = InvaderFleet()
-        starting_y = fleet.origin.y
-        assert starting_y == 1024 - 4*u.INVADER_FIRST_START
-
     def test_initial_fleet_y_given_0_parameter(self):
         fleet = InvaderFleet(0)
         starting_y = fleet.origin.y
@@ -188,3 +183,35 @@ class TestInvaderFleet:
         helper = OriginHelper.make_helper(0)
         assert helper.starting_8080_y == u.INVADER_STARTS[0]
         assert helper.next_index == 1
+
+    def test_simple_generator(self):
+        def g():
+            yield 0
+            y = 0
+            while True:
+                yield y + 1
+                y = (y + 1) % 4
+
+        gen = g()
+        assert next(gen) == 0
+        assert next(gen) == 1
+        assert next(gen) == 2
+        assert next(gen) == 3
+        assert next(gen) == 4
+        assert next(gen) == 1
+
+    def test_y_generator(self):
+        def gen_y():
+            def convert(y_8080):
+                return 0x400 - 4*y_8080
+            yield convert(u.INVADER_FIRST_START)
+            index = 0
+            while True:
+                yield convert(u.INVADER_STARTS[index])
+                index = (index + 1) % len(u.INVADER_STARTS)
+
+        y_generator = gen_y()
+        assert next(y_generator) == 1024 - 4*u.INVADER_FIRST_START
+        for i in range(8):
+            assert next(y_generator) == 1024 - 4*u.INVADER_STARTS[i]
+        assert next(y_generator) == 1024 - 4*u.INVADER_STARTS[0]
