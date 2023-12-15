@@ -209,3 +209,11 @@ class TestInvaderFleet:
         for i in range(8):
             assert next(y_generator) == 1024 - 4*u.INVADER_STARTS[i]
         assert next(y_generator) == 1024 - 4*u.INVADER_STARTS[0]
+
+    def test_prod_y_generator(self):
+        from invaders.invaderfleet import generate_y
+        y_generator = generate_y()
+        assert next(y_generator) == 1024 - 4*u.INVADER_FIRST_START
+        for i in range(8):
+            assert next(y_generator) == 1024 - 4*u.INVADER_STARTS[i]
+        assert next(y_generator) == 1024 - 4*u.INVADER_STARTS[0]
