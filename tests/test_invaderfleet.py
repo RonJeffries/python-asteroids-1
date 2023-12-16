@@ -217,3 +217,22 @@ class TestInvaderFleet:
         for i in range(8):
             assert next(y_generator) == 1024 - 4*u.INVADER_STARTS[i]
         assert next(y_generator) == 1024 - 4*u.INVADER_STARTS[0]
+
+    def test_looper(self):
+        class Looper:
+            def __init__(self):
+                self.index = 0
+                self.items = [u.INVADER_FIRST_START, ] + list(u.INVADER_STARTS)
+
+            def next(self):
+                result = 1024 - 4*self.items[self.index]
+                self.index += 1
+                if self.index >= len(self.items):
+                    self.index = 1
+                return result
+
+        looper = Looper()
+        assert looper.next() == 1024 - 4*u.INVADER_FIRST_START
+        for i in range(8):
+            assert looper.next() == 1024 - 4*u.INVADER_STARTS[i]
+        assert looper.next() == 1024 - 4*u.INVADER_STARTS[0]
