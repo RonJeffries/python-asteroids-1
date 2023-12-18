@@ -1,4 +1,5 @@
 from invaders.invader_player import InvaderPlayer
+from invaders.invaders_game_over import InvadersGameOver
 from invaders.playermaker import PlayerMaker
 from invaders.reserveplayer import ReservePlayer
 from tests.tools import FakeFleets
@@ -31,9 +32,13 @@ class TestPlayerMaker:
         maker.end_interactions(fleets := FakeFleets())
         assert fleets.appends
         capsule = fleets.appends[0]
-        # print(capsule.to_add)
-        # print(capsule.to_remove)
         assert isinstance(capsule.to_add, InvaderPlayer)
         assert isinstance(capsule.to_remove, ReservePlayer)
 
-
+    def test_game_over(self):
+        maker = PlayerMaker()
+        maker.begin_interactions(None)
+        maker.end_interactions(fleets := FakeFleets())
+        assert fleets.appends
+        game_over = fleets.appends[0]
+        assert isinstance(game_over, InvadersGameOver)
