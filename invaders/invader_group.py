@@ -11,6 +11,7 @@ class CycleStatus(Enum):
     NEW_CYCLE = "new cycle"
     REVERSE = "reverse"
     EMPTY = "empty"
+    TOO_LOW = "too low"
 
 
 class InvaderGroup:
@@ -66,6 +67,8 @@ class InvaderGroup:
         self._next_invader = 0
         if self.any_out_of_bounds():
             return CycleStatus.REVERSE
+        elif self.any_below_limit():
+            return CycleStatus.TOO_LOW
         elif len(self.invaders) > 0:
             return CycleStatus.NEW_CYCLE
         else:
@@ -84,6 +87,10 @@ class InvaderGroup:
         right = u.BUMPER_RIGHT - u.INVADER_HALF_WIDTH
         colliding = [invader.is_out_of_bounds(left, right) for invader in self.invaders]
         return any(colliding)
+
+    def any_below_limit(self):
+        too_low = [invader.position.y > u.INVADER_TOO_FAR_DOWN_Y for invader in self.invaders]
+        return any(too_low)
 
     def interact_with_playershot(self, shot, fleets):
         for invader in self.invaders.copy():

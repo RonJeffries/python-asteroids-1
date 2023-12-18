@@ -24,7 +24,7 @@ class InvadersGameOver(InvadersFlyer):
         return None
 
     def interact_with(self, other, fleets):
-        other.interact_withinvadersgameover(self, fleets)
+        other.interact_with_invadersgameover(self, fleets)
 
     def draw(self, screen):
         screen.blit(self.game_over_surface, self.game_over_pos)

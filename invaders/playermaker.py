@@ -49,7 +49,7 @@ class PlayerMaker(InvadersFlyer):
 
     def reserve_absent_game_over(self, fleets):
         fleets.remove(self)
-        fleets.append(InvadersGameOver())
+        coin.invaders_game_over(fleets)
 
     def reserve_give_player_another_turn(self, fleets):
         fleets.remove(self)

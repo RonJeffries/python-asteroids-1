@@ -20,7 +20,7 @@ def generate_y():
 class InvaderFleet(InvadersFlyer):
 
     step = Vector2(8, 0)
-    down_step = Vector2(0, 32)
+    down_step = Vector2(0, u.INVADER_DOWN_STEP_Y)
 
     def __init__(self, generator=None):
         self.y_generator = self.use_or_create(generator)
@@ -72,6 +72,9 @@ class InvaderFleet(InvadersFlyer):
             fleets.remove(self)
             capsule = TimeCapsule(2, self.next_fleet())
             fleets.append(capsule)
+        elif result == CycleStatus.TOO_LOW:
+            from core import coin
+            coin.invaders_game_over(fleets)
 
     def step_origin(self):
         self.origin = self.origin + self.direction * self.step
