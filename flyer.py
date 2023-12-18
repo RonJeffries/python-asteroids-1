@@ -60,6 +60,9 @@ class InvadersFlyer(Flyer):
     def interact_with_invaderscorekeeper(self, keeper, fleets):
         pass
 
+    def interact_with_invadersgameover(self, gameover, fleets):
+        pass
+
     def interact_with_invadershot(self, shot, fleets):
         pass
 

@@ -1,6 +1,7 @@
 from core import coin
 from flyer import InvadersFlyer
 from invaders.invader_player import InvaderPlayer
+from invaders.invaders_game_over import InvadersGameOver
 from invaders.reserveplayer import ReservePlayer
 from invaders.timecapsule import TimeCapsule
 
@@ -47,7 +48,8 @@ class PlayerMaker(InvadersFlyer):
         pass
 
     def reserve_absent_game_over(self, fleets):
-        coin.slug(fleets)
+        fleets.remove(self)
+        fleets.append(InvadersGameOver())
 
     def reserve_give_player_another_turn(self, fleets):
         fleets.remove(self)
