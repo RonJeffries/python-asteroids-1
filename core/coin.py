@@ -17,6 +17,7 @@ from invaders.timecapsule import TimeCapsule
 from invaders.top_bumper import TopBumper
 from pygame import Vector2
 import u
+from tests.test_attract_mode import Driver
 
 
 def quarter(fleets):
@@ -75,6 +76,7 @@ def invaders_game_over(fleets):
             keeper = flyer
     fleets.clear()
     fleets.append(keeper)
+    fleets.append(Driver())
     fleets.append(InvadersGameOver())
     left_bumper = u.BUMPER_LEFT
     fleets.append(Bumper(left_bumper, -1))
