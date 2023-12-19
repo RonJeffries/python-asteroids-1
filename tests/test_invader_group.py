@@ -62,7 +62,7 @@ class TestInvaderGroup:
         group.position_all_invaders(Vector2(u.SCREEN_SIZE / 2 - 5 * 64, 0x78))
         invader = group.invaders[0]
         _pos_x, pos_y = invader.position
-        invader.position = (_pos_x, u.INVADER_TOO_FAR_DOWN_Y)
+        invader.position = (_pos_x, u.INVADER_TOO_FAR_DOWN_Y + 1)
         result = group.end_cycle()
         assert result == CycleStatus.TOO_LOW
 

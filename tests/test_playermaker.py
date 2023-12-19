@@ -1,3 +1,4 @@
+from core.fleets import Fleets
 from invaders.invader_player import InvaderPlayer
 from invaders.invaders_game_over import InvadersGameOver
 from invaders.playermaker import PlayerMaker
@@ -38,7 +39,6 @@ class TestPlayerMaker:
     def test_game_over(self):
         maker = PlayerMaker()
         maker.begin_interactions(None)
-        maker.end_interactions(fleets := FakeFleets())
-        assert fleets.appends
-        game_over = fleets.appends[0]
-        assert isinstance(game_over, InvadersGameOver)
+        maker.end_interactions(fleets := Fleets())
+        assert fleets.flyers
+        assert any(isinstance(flyer, InvadersGameOver) for flyer in fleets.flyers)
