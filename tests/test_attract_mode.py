@@ -1,5 +1,4 @@
 from pygame import Vector2
-import pytest
 import u
 from flyer import InvadersFlyer
 from invaders.invader_player import InvaderPlayer
