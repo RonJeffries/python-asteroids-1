@@ -1,9 +1,8 @@
-from pygame import Vector2
-import u
 from flyer import InvadersFlyer
-from invaders.invader_player import InvaderPlayer
 from invaders.raycaster import Raycaster, EmptyCastResult
 from invaders.sprite import Spritely, Sprite
+from pygame import Vector2
+import u
 
 
 class Driver(Spritely, InvadersFlyer):
