@@ -24,7 +24,7 @@ def quarter(fleets):
     fleets.clear()
     fleets.append(WaveMaker())
     fleets.append(ShipMaker(1))
-    _append_common_elements(fleets)
+    _append_common_asteroids_elements(fleets)
 
 
 def two_player(fleets):
@@ -32,20 +32,20 @@ def two_player(fleets):
     fleets.append(WaveMaker())
     fleets.append(ShipMaker(2))
     fleets.append(ScoreKeeper(1))
-    _append_common_elements(fleets)
+    _append_common_asteroids_elements(fleets)
 
 
 def slug(fleets):
     fleets.clear()
     fleets.append(WaveMaker())
     fleets.append(GameOver())
-    _append_common_elements(fleets)
+    _append_common_asteroids_elements(fleets)
 
 
 def no_asteroids(fleets):
     fleets.clear()
     fleets.append(ShipMaker(1))
-    _append_common_elements(fleets)
+    _append_common_asteroids_elements(fleets)
 
 
 def invaders(fleets):
@@ -96,7 +96,7 @@ def invaders_game_over(fleets):
         fleets.append(RoadFurniture.shield(place))
 
 
-def _append_common_elements(fleets):
+def _append_common_asteroids_elements(fleets):
     fleets.append(SaucerMaker())
     fleets.append(ScoreKeeper(0))
     fleets.append(Thumper())
