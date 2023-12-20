@@ -105,6 +105,7 @@ class Sprite:
 
     def draw(self, screen):
         screen.blit(self.surface, self.rectangle)
+        # pygame.draw.rect(screen, "red", self.rectangle, 2)
 
     def mash_from(self, shot):
         masher = ImageMasher.from_flyers(self, shot)

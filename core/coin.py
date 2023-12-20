@@ -67,7 +67,7 @@ def invaders(fleets):
     step = 180
     for i in range(4):
         place = Vector2(half_width + spacing + i * step, u.SHIELD_Y)
-        fleets.append(RoadFurniture.shield(place))
+        fleets.append(shield := RoadFurniture.shield(place))
 
 def invaders_game_over(fleets):
     keeper = InvaderScoreKeeper()
