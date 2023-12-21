@@ -29,6 +29,8 @@ class Driver(Spritely, InvadersFlyer):
 
     def nearest(self, x_values):
         possibles = self.select_values_in_open(x_values)
+        if not possibles:
+            return self.position.x
         best = possibles[0]
         for x in possibles:
             if abs(self.position.x - x) < abs(self.position.x - best):
@@ -82,4 +84,12 @@ class TestAttractMode:
         x_values = x_in + x_out
         nearest_invader_x = driver.nearest(x_values)
         assert nearest_invader_x == 490
+
+    def test_no_open(self):
+        driver = Driver()
+        driver.position = (500, u.INVADER_PLAYER_Y)
+        x_out = (250, 390, 590, 790)
+        nearest_invader_x = driver.nearest(x_out)
+        assert nearest_invader_x == driver.position.x
+
 
