@@ -17,7 +17,7 @@ from invaders.timecapsule import TimeCapsule
 from invaders.top_bumper import TopBumper
 from pygame import Vector2
 import u
-from tests.test_attract_mode import Driver
+from invaders.driver import Driver
 
 
 def quarter(fleets):
