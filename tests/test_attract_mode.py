@@ -92,4 +92,11 @@ class TestAttractMode:
         nearest_invader_x = driver.nearest(x_out)
         assert nearest_invader_x == driver.position.x
 
+    def test_no_invaders(self):
+        driver = Driver()
+        driver.position = (500, u.INVADER_PLAYER_Y)
+        no_invaders = []
+        nearest_invader_x = driver.nearest(no_invaders)
+        assert nearest_invader_x == driver.position.x
+
 
