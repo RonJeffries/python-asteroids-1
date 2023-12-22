@@ -28,16 +28,6 @@ class Driver(Spritely, InvadersFlyer):
         in_any_open = [x for x in x_values if self.is_in_open(x)]
         return in_any_open
 
-    def nearest_invader_x(self, x_values):
-        possibles = self.select_values_in_open(x_values)
-        if not possibles:
-            return self.position.x
-        best_x = possibles[0]
-        for x in possibles:
-            if abs(self.position.x - x) < abs(self.position.x - best_x):
-                best_x = x
-        return best_x
-
     def x_distance(self, position_vector):
         return abs(self.position.x - position_vector.x)
 
@@ -50,28 +40,39 @@ class Driver(Spritely, InvadersFlyer):
     def interact_with(self, other, fleets):
         other.interact_with_driver(self, fleets)
 
+    def nearest_invader_x(self, starting_x, x_values):
+        possibles = self.select_values_in_open(x_values)
+        if not possibles:
+            return starting_x
+        best_x = possibles[0]
+        for x in possibles:
+            if abs(starting_x - x) < abs(starting_x - best_x):
+                best_x = x
+        return best_x
+
     def update(self, delta_time, fleets):
-        target_x = self.nearest_invader_x(self.invader_x_values)
-        self.take_one_step_toward_target(target_x)
+        self.move_toward_target()
         self.fire_when_ready(fleets)
+
+    def move_toward_target(self):
+        starting_x = self.position.x
+        target_x = self.nearest_invader_x(starting_x, self.invader_x_values)
+        step_x = self.one_step_toward_target(starting_x, target_x)
+        self.move_along_x(starting_x, step_x)
+
+    def move_along_x(self, starting_x, step_x):
+        centerx = starting_x + step_x
+        self.position = Vector2(centerx, self.position.y)
+
+    def one_step_toward_target(self, starting_x, target_x):
+        if starting_x < target_x:
+            return self.step
+        elif starting_x > target_x:
+            return -self.step
+        else:
+            return 0
 
     def fire_when_ready(self, fleets):
         self.count = (self.count + 1) % 60
         if not self.count:
             fleets.append(PlayerShot(self._sprite.center))
-
-    def take_one_step_toward_target(self, target_x):
-        step_x = self.one_step_toward_target(target_x)
-        self.take_one_step(step_x)
-
-    def take_one_step(self, step_x):
-        centerx = self._sprite.centerx + step_x
-        self.position = Vector2(centerx, self.position.y)
-
-    def one_step_toward_target(self, target_x):
-        step_x = 0
-        if self._sprite.centerx < target_x:
-            step_x = self.step
-        elif self._sprite.centerx > target_x:
-            step_x = -self.step
-        return step_x

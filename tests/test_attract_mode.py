@@ -33,21 +33,21 @@ class TestAttractMode:
         x_in = (190, 290, 490, 690, 890)
         x_out = (250, 390, 590, 790)
         x_values = x_in + x_out
-        nearest_invader_x = driver.nearest_invader_x(x_values)
+        nearest_invader_x = driver.nearest_invader_x(driver.position.x, x_values)
         assert nearest_invader_x == 490
 
     def test_no_open(self):
         driver = Driver()
         driver.position = (500, u.INVADER_PLAYER_Y)
         x_out = (250, 390, 590, 790)
-        nearest_invader_x = driver.nearest_invader_x(x_out)
+        nearest_invader_x = driver.nearest_invader_x(driver.position.x, x_out)
         assert nearest_invader_x == driver.position.x
 
     def test_no_invaders(self):
         driver = Driver()
         driver.position = (500, u.INVADER_PLAYER_Y)
         no_invaders = []
-        nearest_invader_x = driver.nearest_invader_x(no_invaders)
+        nearest_invader_x = driver.nearest_invader_x(driver.position.x, no_invaders)
         assert nearest_invader_x == driver.position.x
 
 
