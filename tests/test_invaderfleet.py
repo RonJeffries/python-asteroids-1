@@ -236,3 +236,10 @@ class TestInvaderFleet:
         for i in range(8):
             assert looper.next() == 1024 - 4*u.INVADER_STARTS[i]
         assert looper.next() == 1024 - 4*u.INVADER_STARTS[0]
+
+    def test_get_invader_xs(self):
+        fleet = InvaderFleet()
+        values = fleet.invader_x_values()
+        assert len(values) == 11
+
+

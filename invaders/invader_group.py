@@ -103,3 +103,6 @@ class InvaderGroup:
     def interact_with_invaderplayer(self, player, fleets):
         for invader in self.invaders.copy():
             invader.interact_with_invaderplayer(player, fleets)
+
+    def invader_x_values(self):
+        return {invader.position.x for invader in self.invaders}

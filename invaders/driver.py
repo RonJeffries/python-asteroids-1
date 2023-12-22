@@ -16,6 +16,7 @@ class Driver(Spritely, InvadersFlyer):
         self.right = 960 - half_width
         self.position = Vector2(self.left, u.INVADER_PLAYER_Y)
         self.count = 0
+        self.invader_x_values = []
 
     shield_locations = ((198, 286), (378, 466), (558, 646), (738, 826))
     open_locations = (range(0, 198), range(287, 378), range(467, 558), range(647, 738), range(827, 1024))
@@ -27,34 +28,50 @@ class Driver(Spritely, InvadersFlyer):
         in_any_open = [x for x in x_values if self.is_in_open(x)]
         return in_any_open
 
-    def nearest(self, x_values):
+    def nearest_invader_x(self, x_values):
         possibles = self.select_values_in_open(x_values)
         if not possibles:
             return self.position.x
-        best = possibles[0]
+        best_x = possibles[0]
         for x in possibles:
-            if abs(self.position.x - x) < abs(self.position.x - best):
-                best = x
-        return best
+            if abs(self.position.x - x) < abs(self.position.x - best_x):
+                best_x = x
+        return best_x
 
     def x_distance(self, position_vector):
         return abs(self.position.x - position_vector.x)
+
+    def begin_interactions(self, fleets):
+        self.invader_x_values = []
+
+    def interact_with_invaderfleet(self, fleet, fleets):
+        self.invader_x_values = fleet.invader_x_values()
 
     def interact_with(self, other, fleets):
         other.interact_with_driver(self, fleets)
 
     def update(self, delta_time, fleets):
-        target = (378 + 286) / 2
-        self.step_toward(target)
+        target_x = self.nearest_invader_x(self.invader_x_values)
+        self.take_one_step_toward_target(target_x)
+        self.fire_when_ready(fleets)
+
+    def fire_when_ready(self, fleets):
         self.count = (self.count + 1) % 60
         if not self.count:
             fleets.append(PlayerShot(self._sprite.center))
 
-    def step_toward(self, target):
-        step = 0
-        if self._sprite.centerx < target:
-            step = self.step
-        elif self._sprite.centerx > target:
-            step = -self.step
-        centerx = self._sprite.centerx + step
+    def take_one_step_toward_target(self, target_x):
+        step_x = self.one_step_toward_target(target_x)
+        self.take_one_step(step_x)
+
+    def take_one_step(self, step_x):
+        centerx = self._sprite.centerx + step_x
         self.position = Vector2(centerx, self.position.y)
+
+    def one_step_toward_target(self, target_x):
+        step_x = 0
+        if self._sprite.centerx < target_x:
+            step_x = self.step
+        elif self._sprite.centerx > target_x:
+            step_x = -self.step
+        return step_x

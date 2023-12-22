@@ -97,3 +97,6 @@ class InvaderFleet(InvadersFlyer):
 
     def interact_with(self, other, fleets):
         other.interact_with_invaderfleet(self, fleets)
+
+    def invader_x_values(self):
+        return self.invader_group.invader_x_values()
