@@ -3,6 +3,7 @@ from flyer import InvadersFlyer
 from invaders.invader_player import InvaderPlayer
 from invaders.invaders_game_over import InvadersGameOver
 from invaders.reserveplayer import ReservePlayer
+from invaders.robotplayer import RobotPlayer
 from invaders.timecapsule import TimeCapsule
 
 
@@ -49,7 +50,11 @@ class PlayerMaker(InvadersFlyer):
 
     def reserve_absent_game_over(self, fleets):
         fleets.remove(self)
-        coin.invaders_game_over(fleets)
+        fleets.append(InvadersGameOver())
+        robot = RobotPlayer()
+        capsule = TimeCapsule(2.0, robot)
+        fleets.append(capsule)
+        # coin.invaders_game_over(fleets)
 
     def reserve_give_player_another_turn(self, fleets):
         fleets.remove(self)
