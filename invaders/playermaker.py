@@ -54,7 +54,6 @@ class PlayerMaker(InvadersFlyer):
         robot = RobotPlayer()
         capsule = TimeCapsule(2.0, robot)
         fleets.append(capsule)
-        # coin.invaders_game_over(fleets)
 
     def reserve_give_player_another_turn(self, fleets):
         fleets.remove(self)
