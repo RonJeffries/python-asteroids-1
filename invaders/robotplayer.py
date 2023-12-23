@@ -6,7 +6,7 @@ from invaders.player_shot import PlayerShot
 from invaders.sprite import Spritely, Sprite
 
 
-class Driver(Spritely, InvadersFlyer):
+class RobotPlayer(Spritely, InvadersFlyer):
 
     def __init__(self):
         self._sprite = Sprite.player()
@@ -17,6 +17,7 @@ class Driver(Spritely, InvadersFlyer):
         self.position = Vector2(self.left, u.INVADER_PLAYER_Y)
         self.count = 0
         self.invader_x_values = []
+        self._can_shoot = True
 
     shield_locations = ((198, 286), (378, 466), (558, 646), (738, 826))
     open_locations = (range(0, 198), range(287, 378), range(467, 558), range(647, 738), range(827, 1024))
@@ -33,12 +34,16 @@ class Driver(Spritely, InvadersFlyer):
 
     def begin_interactions(self, fleets):
         self.invader_x_values = []
+        self._can_shoot = True
 
     def interact_with_invaderfleet(self, fleet, fleets):
         self.invader_x_values = fleet.invader_x_values()
 
+    def interact_with_playershot(self, shot, fleets):
+        self._can_shoot = False
+
     def interact_with(self, other, fleets):
-        other.interact_with_driver(self, fleets)
+        other.interact_with_robotplayer(self, fleets)
 
     def nearest_invader_x(self, starting_x, x_values):
         possibles = self.select_values_in_open(x_values)
@@ -56,9 +61,13 @@ class Driver(Spritely, InvadersFlyer):
 
     def move_toward_target(self):
         starting_x = self.position.x
+        step_x = self.get_step_toward_target(starting_x)
+        self.move_along_x(starting_x, step_x)
+
+    def get_step_toward_target(self, starting_x):
         target_x = self.nearest_invader_x(starting_x, self.invader_x_values)
         step_x = self.one_step_toward_target(starting_x, target_x)
-        self.move_along_x(starting_x, step_x)
+        return step_x
 
     def move_along_x(self, starting_x, step_x):
         centerx = starting_x + step_x
@@ -73,6 +82,5 @@ class Driver(Spritely, InvadersFlyer):
             return 0
 
     def fire_when_ready(self, fleets):
-        self.count = (self.count + 1) % 60
-        if not self.count:
+        if self._can_shoot:
             fleets.append(PlayerShot(self._sprite.center))
