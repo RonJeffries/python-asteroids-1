@@ -19,6 +19,7 @@ from asteroids.shipmaker import ShipMaker
 from asteroids.signal import Signal
 from asteroids.thumper import Thumper
 from asteroids.wavemaker import WaveMaker
+from invaders.robotplayer import RobotPlayer
 from invaders.timecapsule import TimeCapsule
 
 
@@ -42,7 +43,6 @@ class FleetsInspector:
     @property
     def explosions(self):
         return self.select_class(Explosion)
-
 
     @property
     def fragments(self):
@@ -75,6 +75,10 @@ class FleetsInspector:
     @property
     def reserve_players(self):
         return self.select_class(ReservePlayer)
+
+    @property
+    def robots(self):
+        return self.select_class(RobotPlayer)
 
     @property
     def saucers(self):

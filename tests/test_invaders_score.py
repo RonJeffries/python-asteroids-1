@@ -8,14 +8,46 @@ class TestInvaderScore:
         InvaderScore(100)
         InvaderScoreKeeper()
 
-    def test_accumulates(self):
+    def test_accumulates_only_at_end(self):
         score = InvaderScore(100)
         keeper = InvaderScoreKeeper()
         assert keeper.total_score == 0
+
+        keeper.begin_interactions([])
+        score.interact_with(keeper, [])
+        assert keeper.total_score == 0
+        keeper.end_interactions([])
+        assert keeper.total_score == 100
+
+        keeper.begin_interactions([])
         score.interact_with(keeper, [])
         assert keeper.total_score == 100
-        score.interact_with(keeper, [])
+        keeper.end_interactions([])
         assert keeper.total_score == 200
+
+    def test_can_accumulate_more_than_one(self):
+        score = InvaderScore(100)
+        keeper = InvaderScoreKeeper()
+        assert keeper.total_score == 0
+        keeper.begin_interactions([])
+        score.interact_with(keeper, [])  # one score
+        score.interact_with(keeper, [])  # another score
+        assert keeper.total_score == 0
+        keeper.end_interactions([])
+        assert keeper.total_score == 200
+
+    def test_robot_cannot_score(self):
+        score = InvaderScore(100)
+        keeper = InvaderScoreKeeper()
+        assert keeper.total_score == 0
+
+        keeper.begin_interactions([])
+        score.interact_with(keeper, [])
+        assert keeper.total_score == 0
+        keeper.interact_with_robotplayer(None, [])
+        keeper.end_interactions([])
+        assert keeper.total_score == 0
+
 
     def test_score_removes_self(self):
         fleets = []

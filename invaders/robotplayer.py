@@ -2,6 +2,7 @@ from pygame import Vector2
 
 import u
 from flyer import InvadersFlyer
+from invaders.player_explosion import PlayerExplosion
 from invaders.player_shot import PlayerShot
 from invaders.sprite import Spritely, Sprite
 
@@ -38,6 +39,11 @@ class RobotPlayer(Spritely, InvadersFlyer):
 
     def interact_with_invaderfleet(self, fleet, fleets):
         self.invader_x_values = fleet.invader_x_values()
+
+    def interact_with_invadershot(self, shot, fleets):
+        if self.colliding(shot):
+            fleets.remove(self)
+            fleets.append(PlayerExplosion(self.position))
 
     def interact_with_playershot(self, shot, fleets):
         self._can_shoot = False

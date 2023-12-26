@@ -1,7 +1,9 @@
 from core.fleets import Fleets
+from invaders.invader_shot import InvaderShot
 from invaders.robotplayer import RobotPlayer
 from invaders.raycaster import Raycaster, EmptyCastResult
 import u
+from invaders.sprite import Sprite
 from tests.tools import FI
 
 
@@ -76,6 +78,16 @@ class TestAttractMode:
         driver.begin_interactions(fleets)
         driver.fire_when_ready(fleets)
         assert fi.player_shots
+
+    def test_hit_by_shot(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        pos = (500, u.INVADER_PLAYER_Y)
+        robot = RobotPlayer()
+        robot.position = pos
+        shot = InvaderShot(pos, Sprite.squiggles())
+        robot.interact_with_invadershot(shot, fleets)
+        assert not fi.robots
 
 
 

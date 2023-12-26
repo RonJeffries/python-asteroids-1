@@ -39,6 +39,10 @@ class PlayerMaker(InvadersFlyer):
         self.reserve = self.reserve.rightmost_of(reserve)
         self.pluggable_reserve_action = self.reserve_give_player_another_turn
 
+    def interact_with_robotplayer(self, bumper, fleets):
+        self.pluggable_reserve_action = self.final_do_nothing
+        self.pluggable_final_action = self.final_do_nothing
+
     def end_interactions(self, fleets):
         self.perform(self.pluggable_final_action, fleets)
 
@@ -54,6 +58,9 @@ class PlayerMaker(InvadersFlyer):
         robot = RobotPlayer()
         capsule = TimeCapsule(2.0, robot)
         fleets.append(capsule)
+        maker = PlayerMaker()
+        maker_capsule = TimeCapsule(2.1, maker)
+        fleets.append(maker_capsule)
 
     def reserve_give_player_another_turn(self, fleets):
         fleets.remove(self)
