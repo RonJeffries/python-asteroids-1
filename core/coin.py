@@ -84,6 +84,7 @@ def invaders_game_over(fleets):
     fleets.append(Bumper(u.BUMPER_RIGHT, +1))
     fleets.append(TopBumper())
     fleets.append(InvaderFleet())
+    fleets.append(ShotController())
     fleets.append(RoadFurniture.bottom_line())
     fleets.append(TimeCapsule(10, InvadersSaucerMaker()))
     for i in range(3):
