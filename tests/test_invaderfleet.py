@@ -1,7 +1,10 @@
+import pytest
+
 from core.fleets import Fleets
 from invaders.bitmap_maker import BitmapMaker
 from invaders.invader import Invader
 from invaders.invader_group import CycleStatus
+from invaders.invader_player import InvaderPlayer
 from invaders.invaderfleet import InvaderFleet
 from invaders.player_shot import PlayerShot
 from invaders.sprite import Sprite
@@ -241,5 +244,29 @@ class TestInvaderFleet:
         fleet = InvaderFleet()
         values = fleet.invader_x_values()
         assert len(values) == 11
+
+    @pytest.mark.skip("not ready yet")
+    def test_fleet_removes_self_on_TOO_LOW(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        invaders = InvaderFleet()
+        fleets.append(invaders)
+        assert fi.invader_fleets
+        invaders.process_result(CycleStatus.TOO_LOW, fleets)
+        assert not fi.invader_fleets
+
+    @pytest.mark.skip("not ready yet")
+    def test_fleet_removes_player_on_TOO_LOW(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        invaders = InvaderFleet()
+        fleets.append(invaders)
+        fleets.append(player := InvaderPlayer())
+        assert fi.invader_players
+        invaders.begin_interactions(fleets)
+        invaders.interact_with_invaderplayer(fleets)
+        invaders.end_interactions(fleets)
+
+
 
 
