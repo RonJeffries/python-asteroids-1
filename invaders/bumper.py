@@ -24,6 +24,3 @@ class Bumper(InvadersFlyer):
 
     def draw(self, screen):
         pygame.draw.line(screen, "green", (self.x, 0), (self.x, u.SCREEN_SIZE))
-
-    def tick(self, delta_time, fleets):
-        pass

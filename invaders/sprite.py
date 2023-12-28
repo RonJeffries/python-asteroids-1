@@ -88,6 +88,9 @@ class Sprite:
     def center(self):
         return self.rectangle.center
 
+    def colliding_with_flyer(self, flyer):
+        return self.colliding(flyer._sprite)
+
     def colliding(self, other):
         return self.rectangles_collide(other) and self.masks_collide(other)
 
@@ -112,9 +115,6 @@ class Sprite:
         new_mask, new_surface = masher.update(self.surface)
         self._masks = (new_mask,)
         self._surfaces = (new_surface,)
-
-    def colliding_with_flyer(self, flyer):
-        return self.colliding(flyer._sprite)
 
 
 class Spritely:
