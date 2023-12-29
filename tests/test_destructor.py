@@ -47,3 +47,12 @@ class TestDestructor:
         fleets.perform_interactions()
         assert not fi.robots
         assert fi.invader_explosions
+
+    def test_reserve_explodes(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        fleets.append(ReservePlayer(1))
+        fleets.append(destructor := Destructor())
+        fleets.perform_interactions()
+        assert not fi.robots
+        assert fi.invader_explosions

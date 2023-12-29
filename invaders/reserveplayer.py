@@ -2,6 +2,7 @@ from flyer import InvadersFlyer
 from invaders.bitmap_maker import BitmapMaker
 from pygame import Vector2
 import u
+from invaders.player_explosion import PlayerExplosion
 
 
 class ReservePlayer(InvadersFlyer):
@@ -38,6 +39,7 @@ class ReservePlayer(InvadersFlyer):
 
     def interact_with_destructor(self, destructor, fleets):
         fleets.remove(self)
+        fleets.append(PlayerExplosion(self.rect.center))
 
     def tick(self, delta_time, fleets):
         pass
