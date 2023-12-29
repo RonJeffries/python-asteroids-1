@@ -3,6 +3,7 @@ from asteroids.explosion import Explosion
 from flyer import AsteroidFlyer
 from asteroids.fragment import Fragment
 from asteroids.game_over import GameOver
+from invaders.destructor import Destructor
 from invaders.invader_player import InvaderPlayer
 from invaders.invader_score import InvaderScore
 from invaders.invader_shot import InvaderShot
@@ -40,6 +41,10 @@ class FleetsInspector:
     @property
     def asteroids(self):
         return self.select_class(Asteroid)
+
+    @property
+    def destructors(self):
+        return self.select_class(Destructor)
 
     @property
     def explosions(self):

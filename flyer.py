@@ -48,6 +48,9 @@ class InvadersFlyer(Flyer):
     def interact_with_bumper(self, bumper, fleets):
         pass
 
+    def interact_with_destructor(self, destructor, fleets):
+        pass
+
     def interact_with_robotplayer(self, bumper, fleets):
         pass
 
