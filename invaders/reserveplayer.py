@@ -36,6 +36,9 @@ class ReservePlayer(InvadersFlyer):
     def interact_with(self, other, fleets):
         other.interact_with_reserveplayer(self, fleets)
 
+    def interact_with_destructor(self, destructor, fleets):
+        fleets.remove(self)
+
     def tick(self, delta_time, fleets):
         pass
 

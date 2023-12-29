@@ -68,6 +68,9 @@ class InvaderPlayer(Spritely, InvadersFlyer):
     def interact_with(self, other, fleets):
         other.interact_with_invaderplayer(self, fleets)
 
+    def interact_with_destructor(self, destructor, fleets):
+        fleets.remove(self)
+
     def interact_with_invadershot(self, shot, fleets):
         if self.colliding(shot):
             self.hit_by_something(fleets)

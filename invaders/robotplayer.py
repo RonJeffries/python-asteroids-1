@@ -37,6 +37,9 @@ class RobotPlayer(Spritely, InvadersFlyer):
         self.invader_x_values = []
         self._can_shoot = True
 
+    def interact_with_destructor(self, destructor, fleets):
+        fleets.remove(self)
+
     def interact_with_invaderfleet(self, fleet, fleets):
         self.invader_x_values = fleet.invader_x_values()
 
