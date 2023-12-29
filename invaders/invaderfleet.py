@@ -2,6 +2,7 @@ from pygame import Vector2
 
 import u
 from flyer import InvadersFlyer
+from invaders.destructor import Destructor
 from invaders.invader_group import InvaderGroup, CycleStatus
 from invaders.timecapsule import TimeCapsule
 
@@ -73,8 +74,10 @@ class InvaderFleet(InvadersFlyer):
             capsule = TimeCapsule(2, self.next_fleet())
             fleets.append(capsule)
         elif result == CycleStatus.TOO_LOW:
-            from core import coin
-            coin.invaders_game_over(fleets)
+            fleets.remove(self)
+            fleets.append(Destructor())
+            capsule = TimeCapsule(2, InvaderFleet())
+            fleets.append(capsule)
 
     def step_origin(self):
         self.origin = self.origin + self.direction * self.step

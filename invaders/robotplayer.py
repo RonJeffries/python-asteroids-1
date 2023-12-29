@@ -38,15 +38,18 @@ class RobotPlayer(Spritely, InvadersFlyer):
         self._can_shoot = True
 
     def interact_with_destructor(self, destructor, fleets):
+        self.explode(fleets)
+
+    def explode(self, fleets):
         fleets.remove(self)
+        fleets.append(PlayerExplosion(self.position))
 
     def interact_with_invaderfleet(self, fleet, fleets):
         self.invader_x_values = fleet.invader_x_values()
 
     def interact_with_invadershot(self, shot, fleets):
         if self.colliding(shot):
-            fleets.remove(self)
-            fleets.append(PlayerExplosion(self.position))
+            self.explode(fleets)
 
     def interact_with_playershot(self, shot, fleets):
         self._can_shoot = False

@@ -245,7 +245,6 @@ class TestInvaderFleet:
         values = fleet.invader_x_values()
         assert len(values) == 11
 
-    @pytest.mark.skip("not ready yet")
     def test_fleet_removes_self_on_TOO_LOW(self):
         fleets = Fleets()
         fi = FI(fleets)
@@ -254,6 +253,16 @@ class TestInvaderFleet:
         assert fi.invader_fleets
         invaders.process_result(CycleStatus.TOO_LOW, fleets)
         assert not fi.invader_fleets
+
+    def test_fleet_adds_destructor_and_tc_on_TOO_LOW(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        invaders = InvaderFleet()
+        fleets.append(invaders)
+        assert not fi.destructors
+        invaders.process_result(CycleStatus.TOO_LOW, fleets)
+        assert fi.destructors
+        assert fi.time_capsules
 
     @pytest.mark.skip("not ready yet")
     def test_fleet_removes_player_on_TOO_LOW(self):

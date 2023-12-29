@@ -10,6 +10,7 @@ from invaders.invader_shot import InvaderShot
 from asteroids.missile import Missile
 from invaders.invaderfleet import InvaderFleet
 from invaders.invaders_saucer import InvadersSaucer
+from invaders.player_explosion import PlayerExplosion
 from invaders.player_shot import PlayerShot
 from invaders.reserveplayer import ReservePlayer
 from asteroids.saucer import Saucer
@@ -57,6 +58,10 @@ class FleetsInspector:
     @property
     def game_over(self):
         return self.select_class(GameOver)
+
+    @property
+    def invader_explosions(self):
+        return self.select_class(PlayerExplosion)
 
     @property
     def invader_fleets(self):
