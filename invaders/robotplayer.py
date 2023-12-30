@@ -8,7 +8,6 @@ from invaders.sprite import Spritely, Sprite
 
 
 class RobotPlayer(Spritely, InvadersFlyer):
-
     def __init__(self):
         self._sprite = Sprite.player()
         self.step = 4
