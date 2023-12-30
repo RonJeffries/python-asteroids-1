@@ -13,7 +13,7 @@ class ReservePlayer(Spritely, InvadersFlyer):
         half_width = self.rect.width / 2
         left = 64 + half_width
         x = left + reserve_number*(5*self.rect.width//4)
-        self.rect.center = Vector2(x, u.RESERVE_PLAYER_Y)
+        self.position = Vector2(x, u.RESERVE_PLAYER_Y)
 
     def __gt__(self, other):
         return self.reserve_number > other.reserve_number
@@ -26,7 +26,7 @@ class ReservePlayer(Spritely, InvadersFlyer):
 
     def interact_with_destructor(self, destructor, fleets):
         fleets.remove(self)
-        fleets.append(PlayerExplosion(self.rect.center))
+        fleets.append(PlayerExplosion(self.position))
 
     def tick(self, delta_time, fleets):
         pass
