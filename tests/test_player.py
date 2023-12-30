@@ -1,3 +1,4 @@
+import u
 from core.fleets import Fleets
 from invaders.invader_player import InvaderPlayer
 from invaders.player_explosion import PlayerExplosion
@@ -7,17 +8,17 @@ from tests.tools import FI, FakeFleets
 class TestPlayer:
     def test_start_left(self):
         player = InvaderPlayer()
-        assert player._sprite.centerx == player.left
+        assert player._sprite.centerx == u.INVADER_PLAYER_LEFT
 
     def test_left_edge(self):
         player = InvaderPlayer()
         player.move(-10000)
-        assert player._sprite.centerx == player.left
+        assert player._sprite.centerx == u.INVADER_PLAYER_LEFT
 
     def test_right_edge(self):
         player = InvaderPlayer()
         player.move(10000)
-        assert player._sprite.centerx == player.right
+        assert player._sprite.centerx == u.INVADER_PLAYER_RIGHT
 
     def test_can_fire_initially(self):
         fleets = Fleets()

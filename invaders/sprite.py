@@ -73,6 +73,10 @@ class Sprite:
         return self.rectangle.width
 
     @property
+    def half_width(self):
+        return self.rectangle.width // 2
+
+    @property
     def topleft(self):
         return self.rectangle.topleft
 
