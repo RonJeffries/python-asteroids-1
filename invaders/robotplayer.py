@@ -15,6 +15,7 @@ class RobotPlayer(Spritely, InvadersFlyer):
         self.left = 64 + half_width
         self.right = 960 - half_width
         self.position = Vector2(self.left, u.INVADER_PLAYER_Y)
+
         self.count = 0
         self.invader_x_values = []
         self._can_shoot = True

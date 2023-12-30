@@ -9,11 +9,12 @@ from invaders.sprite import Spritely, Sprite
 class ReservePlayer(Spritely, InvadersFlyer):
     def __init__(self, reserve_number):
         self._sprite = Sprite.player()
-        self.reserve_number = reserve_number
         half_width = self.rect.width / 2
         left = 64 + half_width
         x = left + reserve_number*(5*self.rect.width//4)
         self.position = Vector2(x, u.RESERVE_PLAYER_Y)
+
+        self.reserve_number = reserve_number
 
     def __gt__(self, other):
         return self.reserve_number > other.reserve_number
