@@ -26,9 +26,6 @@ class RobotPlayer(Spritely, InvadersFlyer):
         in_any_open = [x for x in x_values if self.is_in_open(x)]
         return in_any_open
 
-    def x_distance(self, position_vector):
-        return abs(self.position.x - position_vector.x)
-
     def begin_interactions(self, fleets):
         self.invader_x_values = []
         self._can_shoot = True
