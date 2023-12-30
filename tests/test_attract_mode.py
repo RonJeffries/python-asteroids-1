@@ -56,7 +56,7 @@ class TestAttractMode:
 
     def test_one_step_calculation(self):
         driver = RobotPlayer()
-        step = driver.step
+        step = u.INVADER_STEP
         assert driver.one_step_toward_target(500, 400) == -step
         assert driver.one_step_toward_target(500, 600) == step
         assert driver.one_step_toward_target(500, 500) == 0

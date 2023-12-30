@@ -10,11 +10,7 @@ from invaders.sprite import Spritely, Sprite
 class RobotPlayer(Spritely, InvadersFlyer):
     def __init__(self):
         self._sprite = Sprite.player()
-        self.step = 4
-        half_width = self._sprite.width / 2
-        self.left = 64 + half_width
-        self.right = 960 - half_width
-        self.position = Vector2(self.left, u.INVADER_PLAYER_Y)
+        self.position = Vector2(u.INVADER_PLAYER_LEFT, u.INVADER_PLAYER_Y)
 
         self.count = 0
         self.invader_x_values = []
@@ -87,9 +83,9 @@ class RobotPlayer(Spritely, InvadersFlyer):
 
     def one_step_toward_target(self, starting_x, target_x):
         if starting_x < target_x:
-            return self.step
+            return u.INVADER_STEP
         elif starting_x > target_x:
-            return -self.step
+            return -u.INVADER_STEP
         else:
             return 0
 

@@ -12,7 +12,6 @@ import u
 class InvaderPlayer(Spritely, InvadersFlyer):
     def __init__(self):
         self._sprite = Sprite.player()
-        self.step = 4
         self.position = Vector2(u.INVADER_PLAYER_LEFT, u.INVADER_PLAYER_Y)
 
         self.free_to_fire = True
@@ -55,9 +54,9 @@ class InvaderPlayer(Spritely, InvadersFlyer):
 
     def check_motion(self, keys):
         if keys[pygame.K_f]:
-            self.move(self.step)
+            self.move(u.INVADER_STEP)
         elif keys[pygame.K_d]:
-            self.move(-self.step)
+            self.move(-u.INVADER_STEP)
 
     def move(self, amount):
         centerx = max(u.INVADER_PLAYER_LEFT, min(self.position.x + amount, u.INVADER_PLAYER_RIGHT))
