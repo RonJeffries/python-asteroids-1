@@ -7,11 +7,10 @@ from invaders.sprite import Spritely, Sprite
 
 
 class ReservePlayer(Spritely, InvadersFlyer):
-    def __init__(self, reserve_number):
+    def __init__(self, reserve_number=0):
         self._sprite = Sprite.player()
         x = u.INVADER_PLAYER_LEFT + reserve_number*(5*self.rect.width//4)
         self.position = Vector2(x, u.RESERVE_PLAYER_Y)
-
         self.reserve_number = reserve_number
 
     def __gt__(self, other):

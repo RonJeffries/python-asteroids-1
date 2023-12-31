@@ -8,12 +8,13 @@ from invaders.sprite import Spritely, Sprite
 
 
 class RobotPlayer(Spritely, InvadersFlyer):
-    def __init__(self):
+    def __init__(self, reserve_number=0):
         self._sprite = Sprite.player()
-        x = u.INVADER_PLAYER_LEFT
+        x = u.INVADER_PLAYER_LEFT + reserve_number*(5*self.rect.width//4)
         self.position = Vector2(x, u.INVADER_PLAYER_Y)
-        self._free_to_fire = True
+        self.reserve_number = reserve_number
 
+        self._free_to_fire = True
         self.invader_x_values = []
 
     shield_locations = ((198, 286), (378, 466), (558, 646), (738, 826))
