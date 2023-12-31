@@ -70,12 +70,17 @@ class InvaderPlayer(Spritely, InvadersFlyer):
     def interact_with(self, other, fleets):
         other.interact_with_invaderplayer(self, fleets)
 
-    def interact_with_destructor(self, destructor, fleets):
-        self.hit_by_something(fleets)
-
     def interact_with_invadershot(self, shot, fleets):
         if self.colliding(shot):
             self.hit_by_something(fleets)
+
+    def hit_invader(self, invader, fleets):
+        self.hit_by_something(fleets)
+
+# COMMON ELEMENTS
+
+    def interact_with_destructor(self, destructor, fleets):
+        self.hit_by_something(fleets)
 
     def hit_by_something(self, fleets):
         frac = self.x_fraction()
@@ -83,10 +88,7 @@ class InvaderPlayer(Spritely, InvadersFlyer):
         fleets.append(PlayerExplosion(self.position))
         fleets.remove(self)
 
-    def hit_invader(self, invader, fleets):
-        self.hit_by_something(fleets)
-
     def x_fraction(self):
         x = self.position.x - u.INVADER_PLAYER_LEFT
-        denom = u.INVADER_PLAYER_RIGHT - u.INVADER_PLAYER_LEFT
-        return x / denom
+        total_width = u.INVADER_PLAYER_RIGHT - u.INVADER_PLAYER_LEFT
+        return x / total_width

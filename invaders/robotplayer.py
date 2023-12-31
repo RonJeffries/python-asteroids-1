@@ -5,6 +5,7 @@ from flyer import InvadersFlyer
 from invaders.player_explosion import PlayerExplosion
 from invaders.player_shot import PlayerShot
 from invaders.sprite import Spritely, Sprite
+from sounds import player
 
 
 class RobotPlayer(Spritely, InvadersFlyer):
@@ -34,19 +35,12 @@ class RobotPlayer(Spritely, InvadersFlyer):
     def interact_with_playershot(self, shot, fleets):
         self._free_to_fire = False
 
-    def interact_with_destructor(self, destructor, fleets):
-        self.explode(fleets)
-
-    def explode(self, fleets):
-        fleets.remove(self)
-        fleets.append(PlayerExplosion(self.position))
-
     def interact_with_invaderfleet(self, fleet, fleets):
         self.invader_x_values = fleet.invader_x_values()
 
     def interact_with_invadershot(self, shot, fleets):
         if self.colliding(shot):
-            self.explode(fleets)
+            self.hit_by_something(fleets)
 
     def interact_with(self, other, fleets):
         other.interact_with_robotplayer(self, fleets)
@@ -90,3 +84,19 @@ class RobotPlayer(Spritely, InvadersFlyer):
     def fire_when_ready(self, fleets):
         if self._free_to_fire:
             fleets.append(PlayerShot(self._sprite.center))
+
+# COMMON ELEMENTS
+
+    def interact_with_destructor(self, destructor, fleets):
+        self.hit_by_something(fleets)
+
+    def hit_by_something(self, fleets):
+        frac = self.x_fraction()
+        player.play_stereo("explosion", frac)
+        fleets.append(PlayerExplosion(self.position))
+        fleets.remove(self)
+
+    def x_fraction(self):
+        x = self.position.x - u.INVADER_PLAYER_LEFT
+        total_width = u.INVADER_PLAYER_RIGHT - u.INVADER_PLAYER_LEFT
+        return x / total_width
