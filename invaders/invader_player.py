@@ -12,14 +12,18 @@ import u
 class InvaderPlayer(Spritely, InvadersFlyer):
     def __init__(self):
         self._sprite = Sprite.player()
-        self.position = Vector2(u.INVADER_PLAYER_LEFT, u.INVADER_PLAYER_Y)
+        x = u.INVADER_PLAYER_LEFT
+        self.position = Vector2(x, u.INVADER_PLAYER_Y)
+        self._free_to_fire = True
 
-        self.free_to_fire = True
         self.fire_request_allowed = True
         self.shot_count = 0
 
     def begin_interactions(self, fleets):
-        self.free_to_fire = True
+        self._free_to_fire = True
+
+    def interact_with_playershot(self, bumper, fleets):
+        self._free_to_fire = False
 
     def trigger_pulled(self, fleets):
         if self.fire_request_allowed:
@@ -30,7 +34,7 @@ class InvaderPlayer(Spritely, InvadersFlyer):
         self.fire_request_allowed = True
 
     def attempt_firing(self, fleets):
-        if self.free_to_fire:
+        if self._free_to_fire:
             self.fire(fleets)
 
     def fire(self, fleets):
@@ -85,6 +89,3 @@ class InvaderPlayer(Spritely, InvadersFlyer):
         x = self.position.x - u.INVADER_PLAYER_LEFT
         denom = u.INVADER_PLAYER_RIGHT - u.INVADER_PLAYER_LEFT
         return x / denom
-
-    def interact_with_playershot(self, bumper, fleets):
-        self.free_to_fire = False

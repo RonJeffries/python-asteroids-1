@@ -10,10 +10,11 @@ from invaders.sprite import Spritely, Sprite
 class RobotPlayer(Spritely, InvadersFlyer):
     def __init__(self):
         self._sprite = Sprite.player()
-        self.position = Vector2(u.INVADER_PLAYER_LEFT, u.INVADER_PLAYER_Y)
+        x = u.INVADER_PLAYER_LEFT
+        self.position = Vector2(x, u.INVADER_PLAYER_Y)
+        self._free_to_fire = True
 
         self.invader_x_values = []
-        self._can_shoot = True
 
     shield_locations = ((198, 286), (378, 466), (558, 646), (738, 826))
     open_locations = (range(0, 198), range(287, 378), range(467, 558), range(647, 738), range(827, 1024))
@@ -27,7 +28,10 @@ class RobotPlayer(Spritely, InvadersFlyer):
 
     def begin_interactions(self, fleets):
         self.invader_x_values = []
-        self._can_shoot = True
+        self._free_to_fire = True
+
+    def interact_with_playershot(self, shot, fleets):
+        self._free_to_fire = False
 
     def interact_with_destructor(self, destructor, fleets):
         self.explode(fleets)
@@ -42,9 +46,6 @@ class RobotPlayer(Spritely, InvadersFlyer):
     def interact_with_invadershot(self, shot, fleets):
         if self.colliding(shot):
             self.explode(fleets)
-
-    def interact_with_playershot(self, shot, fleets):
-        self._can_shoot = False
 
     def interact_with(self, other, fleets):
         other.interact_with_robotplayer(self, fleets)
@@ -86,5 +87,5 @@ class RobotPlayer(Spritely, InvadersFlyer):
             return 0
 
     def fire_when_ready(self, fleets):
-        if self._can_shoot:
+        if self._free_to_fire:
             fleets.append(PlayerShot(self._sprite.center))
