@@ -79,6 +79,12 @@ class InvaderPlayer(Spritely, InvadersFlyer):
 
 # COMMON ELEMENTS
 
+    def __gt__(self, other):
+        return self.reserve_number > other.reserve_number
+
+    def rightmost_of(self, another_reserve_player):
+        return max(self, another_reserve_player)
+
     def interact_with_destructor(self, destructor, fleets):
         self.hit_by_something(fleets)
 
