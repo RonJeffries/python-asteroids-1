@@ -12,7 +12,6 @@ class RobotPlayer(Spritely, InvadersFlyer):
         self._sprite = Sprite.player()
         self.position = Vector2(u.INVADER_PLAYER_LEFT, u.INVADER_PLAYER_Y)
 
-        self.count = 0
         self.invader_x_values = []
         self._can_shoot = True
 
