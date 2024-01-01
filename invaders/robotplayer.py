@@ -9,11 +9,9 @@ from sounds import player
 
 
 class RobotPlayer(Spritely, InvadersFlyer):
-    def __init__(self, reserve_number=0):
+    def __init__(self):
         self._sprite = Sprite.player()
-        x = u.INVADER_PLAYER_LEFT + reserve_number*(5*self.rect.width//4)
-        self.position = Vector2(x, u.INVADER_PLAYER_Y)
-        self.reserve_number = reserve_number
+        self.position = Vector2(u.INVADER_PLAYER_LEFT, u.INVADER_PLAYER_Y)
 
         self._free_to_fire = True
         self.invader_x_values = []
@@ -86,12 +84,6 @@ class RobotPlayer(Spritely, InvadersFlyer):
             fleets.append(PlayerShot(self._sprite.center))
 
 # COMMON ELEMENTS
-
-    def __gt__(self, other):
-        return self.reserve_number > other.reserve_number
-
-    def rightmost_of(self, another_reserve_player):
-        return max(self, another_reserve_player)
 
     def interact_with_destructor(self, destructor, fleets):
         self.hit_by_something(fleets)
