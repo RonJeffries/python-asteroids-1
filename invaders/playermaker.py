@@ -10,8 +10,8 @@ from invaders.timecapsule import TimeCapsule
 class PlayerMaker(InvadersFlyer):
     def __init__(self):
         self.reserve = ReservePlayer(-999)
-        self.pluggable_final_action = self.final_deal_with_missing_player
-        self.pluggable_reserve_action = self.reserve_absent_game_over
+        self.pluggable_final_action = self.final_deal_with_missing_player  # or final_do_noting
+        self.pluggable_reserve_action = self.reserve_absent_game_over  # or reserve_give_player_another_turn
 
     @property
     def mask(self):
