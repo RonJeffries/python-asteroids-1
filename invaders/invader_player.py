@@ -19,6 +19,7 @@ class InvaderPlayer(Spritely, InvadersFlyer):
         self.shot_count = 0
 
     def begin_interactions(self, fleets):
+        self._free_to_fire = True
 
     def interact_with(self, other, fleets):
         other.interact_with_invaderplayer(self, fleets)
@@ -29,7 +30,6 @@ class InvaderPlayer(Spritely, InvadersFlyer):
     def interact_with_invadershot(self, shot, fleets):
         if self.colliding(shot):
             self.explode(fleets)
-        self._free_to_fire = True
 
     def interact_with_playershot(self, bumper, fleets):
         self._free_to_fire = False
