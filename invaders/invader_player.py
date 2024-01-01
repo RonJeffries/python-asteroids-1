@@ -70,17 +70,17 @@ class InvaderPlayer(Spritely, InvadersFlyer):
 
     def interact_with_invadershot(self, shot, fleets):
         if self.colliding(shot):
-            self.hit_by_something(fleets)
+            self.explode(fleets)
 
     def hit_invader(self, invader, fleets):
-        self.hit_by_something(fleets)
+        self.explode(fleets)
 
 # COMMON ELEMENTS
 
     def interact_with_destructor(self, destructor, fleets):
-        self.hit_by_something(fleets)
+        self.explode(fleets)
 
-    def hit_by_something(self, fleets):
+    def explode(self, fleets):
         frac = u.screen_fraction(self.position.x)
         player.play_stereo("explosion", frac)
         fleets.append(PlayerExplosion(self.position))
