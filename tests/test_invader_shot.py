@@ -8,6 +8,7 @@ from invaders.invader_player import InvaderPlayer
 from invaders.invader_shot import InvaderShot
 from invaders.player_shot import PlayerShot
 from invaders.roadfurniture import RoadFurniture
+from invaders.robotplayer import RobotPlayer
 from invaders.sprite import Sprite
 from tests.tools import FI
 
@@ -71,6 +72,19 @@ class TestInvaderShot:
         fleets = Fleets()
         fi = FI(fleets)
         player = InvaderPlayer()
+        player.position = Vector2(100, 100)
+        shot = InvaderShot(Vector2(100, 100), Sprite.rollers())
+        assert shot.colliding(player)
+        fleets.append(shot)
+        assert fi.invader_shots
+        shot.interact_with_invaderplayer(player, fleets)
+        fleets.end_interactions()
+        assert not fi.invader_shots
+
+    def test_dies_on_robot(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        player = RobotPlayer()
         player.position = Vector2(100, 100)
         shot = InvaderShot(Vector2(100, 100), Sprite.rollers())
         assert shot.colliding(player)
