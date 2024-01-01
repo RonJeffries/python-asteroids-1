@@ -26,7 +26,7 @@ class Invader(Spritely):
 
     def interact_with_group_and_playershot(self, shot, group, fleets):
         if self.colliding(shot):
-            player.play_stereo("invaderkilled", self.x_fraction())
+            player.play_stereo("invaderkilled", u.screen_fraction(self.position.x))
             shot.hit_invader(self, fleets)
             group.kill(self)
             fleets.append(InvaderScore(self._score))
@@ -39,11 +39,6 @@ class Invader(Spritely):
     def interact_with_roadfurniture(self, shield, fleets):
         if self.colliding(shield):
             shield.hit_invader(self, fleets)
-
-    def x_fraction(self):
-        x_distance = self.position.x - u.BUMPER_LEFT
-        total_distance = u.BUMPER_RIGHT - u.BUMPER_LEFT
-        return x_distance / total_distance
 
     def is_out_of_bounds(self, low, high):
         return self.position.x < low or self.position.x > high
