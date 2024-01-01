@@ -14,8 +14,8 @@ class ReservePlayer(Spritely, InvadersFlyer):
         self.position = Vector2(x, u.RESERVE_PLAYER_Y)
         self.reserve_number = reserve_number
 
-    def __gt__(self, other):
-        return self.reserve_number > other.reserve_number
+    # def __gt__(self, other):
+    #     return self.reserve_number > other.reserve_number
 
     def interact_with(self, other, fleets):
         other.interact_with_reserveplayer(self, fleets)
