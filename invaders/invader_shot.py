@@ -50,6 +50,9 @@ class InvaderShot(Spritely, InvadersFlyer):
     def interact_with_playershot(self, shot, fleets):
         self.die_on_collision(shot, fleets)
 
+    def interact_with_robotplayer(self, player, fleets):
+        self.die_on_collision(player, fleets)
+
     def interact_with_roadfurniture(self, shield, fleets):
         self.die_on_collision(shield, fleets)
 
