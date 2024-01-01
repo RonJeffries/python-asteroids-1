@@ -47,7 +47,7 @@ class InvaderPlayer(Spritely, InvadersFlyer):
             self.fire(fleets)
 
     def fire(self, fleets):
-        frac = u.screen_fraction(self.position.x)
+        frac = u.screen_fraction(self.position)
         player.play_stereo("shoot", frac)
         self.shot_count += 1
         fleets.append(PlayerShot(self._sprite.center))
@@ -79,7 +79,7 @@ class InvaderPlayer(Spritely, InvadersFlyer):
         self.explode(fleets)
 
     def explode(self, fleets):
-        frac = u.screen_fraction(self.position.x)
+        frac = u.screen_fraction(self.position)
         player.play_stereo("explosion", frac)
         fleets.append(PlayerExplosion(self.position))
         fleets.remove(self)

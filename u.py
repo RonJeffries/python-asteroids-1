@@ -78,8 +78,8 @@ INVADER_DOWN_STEP_Y = 32
 INVADER_TOO_FAR_DOWN_Y = SHIELD_Y
 
 
-def screen_fraction(position_x):
-    x = position_x - INVADER_PLAYER_LEFT
+def screen_fraction(position):
+    x = position.x - INVADER_PLAYER_LEFT
     total_width = INVADER_PLAYER_RIGHT - INVADER_PLAYER_LEFT
     return x / total_width
 
