@@ -29,12 +29,7 @@ class ReservePlayer(Spritely, InvadersFlyer):
         self.hit_by_something(fleets)
 
     def hit_by_something(self, fleets):
-        frac = self.x_fraction()
+        frac = u.screen_fraction(self.position.x)
         player.play_stereo("explosion", frac)
         fleets.append(PlayerExplosion(self.position))
         fleets.remove(self)
-
-    def x_fraction(self):
-        x = self.position.x - u.INVADER_PLAYER_LEFT
-        total_width = u.INVADER_PLAYER_RIGHT - u.INVADER_PLAYER_LEFT
-        return x / total_width
