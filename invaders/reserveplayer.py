@@ -14,19 +14,17 @@ class ReservePlayer(Spritely, InvadersFlyer):
         self.position = Vector2(x, u.RESERVE_PLAYER_Y)
         self.reserve_number = reserve_number
 
-    def interact_with(self, other, fleets):
-        other.interact_with_reserveplayer(self, fleets)
-
-# COMMON ELEMENTS
-
     def __gt__(self, other):
         return self.reserve_number > other.reserve_number
 
-    def rightmost_of(self, another_reserve_player):
-        return max(self, another_reserve_player)
+    def interact_with(self, other, fleets):
+        other.interact_with_reserveplayer(self, fleets)
 
     def interact_with_destructor(self, destructor, fleets):
         self.explode(fleets)
+
+    def rightmost_of(self, another_reserve_player):
+        return max(self, another_reserve_player)
 
     def explode(self, fleets):
         frac = u.screen_fraction(self.position.x)

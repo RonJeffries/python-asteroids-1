@@ -19,6 +19,16 @@ class InvaderPlayer(Spritely, InvadersFlyer):
         self.shot_count = 0
 
     def begin_interactions(self, fleets):
+
+    def interact_with(self, other, fleets):
+        other.interact_with_invaderplayer(self, fleets)
+
+    def interact_with_destructor(self, destructor, fleets):
+        self.explode(fleets)
+
+    def interact_with_invadershot(self, shot, fleets):
+        if self.colliding(shot):
+            self.explode(fleets)
         self._free_to_fire = True
 
     def interact_with_playershot(self, bumper, fleets):
@@ -65,19 +75,7 @@ class InvaderPlayer(Spritely, InvadersFlyer):
         centerx = max(u.INVADER_PLAYER_LEFT, min(self.position.x + amount, u.INVADER_PLAYER_RIGHT))
         self.position = Vector2(centerx, self.position.y)
 
-    def interact_with(self, other, fleets):
-        other.interact_with_invaderplayer(self, fleets)
-
-    def interact_with_invadershot(self, shot, fleets):
-        if self.colliding(shot):
-            self.explode(fleets)
-
     def hit_invader(self, invader, fleets):
-        self.explode(fleets)
-
-# COMMON ELEMENTS
-
-    def interact_with_destructor(self, destructor, fleets):
         self.explode(fleets)
 
     def explode(self, fleets):
