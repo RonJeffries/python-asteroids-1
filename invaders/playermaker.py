@@ -1,4 +1,3 @@
-from core import coin
 from flyer import InvadersFlyer
 from invaders.invader_player import InvaderPlayer
 from invaders.invaders_game_over import InvadersGameOver
@@ -53,27 +52,24 @@ class PlayerMaker(InvadersFlyer):
         pass
 
     def reserve_absent_game_over(self, fleets):
-        fleets.remove(self)
         fleets.append(InvadersGameOver())
-        robot = RobotPlayer()
-        capsule = TimeCapsule(2.0, robot)
-        fleets.append(capsule)
-        maker = PlayerMaker()
-        maker_capsule = TimeCapsule(2.1, maker)
-        fleets.append(maker_capsule)
+        new_player = RobotPlayer()
+        reserve_to_remove = None
+        self.set_up_next_player(new_player, reserve_to_remove, fleets)
 
     def reserve_give_player_another_turn(self, fleets):
-        fleets.remove(self)
+        new_player = InvaderPlayer()
+        reserve_to_remove = self.reserve
+        self.set_up_next_player(new_player, reserve_to_remove, fleets)
+
+    def set_up_next_player(self, new_player, reserve_to_remove, fleets):
         delay_until_new_player = 2.0
         a_bit_longer = 0.1
-        self.provide_new_player(delay_until_new_player, fleets)
-        self.provide_new_maker(delay_until_new_player + a_bit_longer, fleets)
-
-    def provide_new_player(self, delay, fleets):
-        player_capsule = TimeCapsule(delay, InvaderPlayer(), self.reserve)
+        delay_until_new_maker = delay_until_new_player + a_bit_longer
+        fleets.remove(self)
+        player_capsule = TimeCapsule(delay_until_new_player, new_player, reserve_to_remove)
         fleets.append(player_capsule)
-
-    def provide_new_maker(self, delay, fleets):
-        maker_capsule = TimeCapsule(delay, PlayerMaker())
+        maker = PlayerMaker()
+        maker_capsule = TimeCapsule(delay_until_new_maker, maker)
         fleets.append(maker_capsule)
 
