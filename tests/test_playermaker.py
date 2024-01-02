@@ -24,11 +24,9 @@ class TestPlayerMaker:
         maker = PlayerMaker()
         maker.begin_interactions(None)
         assert maker.player_found is None
-        final = maker.pluggable_final_action
         invader_player = InvaderPlayer()
         maker.interact_with_invaderplayer(invader_player, None)
         assert maker.player_found == invader_player
-        assert maker.pluggable_final_action is not final
 
     def test_notices_robot_player(self):
         maker = PlayerMaker()
