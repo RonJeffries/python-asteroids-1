@@ -45,6 +45,16 @@ class TestFleets:
         assert "x" in a
         assert "x" not in b
 
+    def test_append_none(self):
+        fleets = Fleets()
+        fleets.append(None)
+        assert not fleets.all_objects
+
+    def test_remove_none(self):
+        fleets = Fleets()
+        fleets.remove(None)
+        assert not fleets.all_objects
+
 
 
 
