@@ -8,9 +8,8 @@ from invaders.timecapsule import TimeCapsule
 
 class PlayerMaker(InvadersFlyer):
     def __init__(self):
-        self.reserve = ReservePlayer(-999)
+        self.reserve = ReservePlayer.invalid()
         self.player_found = None
-        self.pluggable_reserve_action = self.reserve_absent_game_over  # or reserve_give_player_another_turn
 
     @property
     def mask(self):
@@ -20,16 +19,12 @@ class PlayerMaker(InvadersFlyer):
     def rect(self):
         return None
 
-    def perform(self, callable_function, arg):
-        return callable_function(arg)
-
     def interact_with(self, other, fleets):
         other.interact_with_playermaker(self, fleets)
 
     def begin_interactions(self, _fleets):
-        self.reserve = ReservePlayer(-999)
+        self.reserve = ReservePlayer.invalid()
         self.player_found = None
-        self.pluggable_reserve_action = self.reserve_absent_game_over
 
     def interact_with_invaderplayer(self, player, _fleets):
         self.player_found = player
@@ -39,22 +34,18 @@ class PlayerMaker(InvadersFlyer):
 
     def interact_with_robotplayer(self, robot, fleets):
         self.player_found = robot
-        self.pluggable_reserve_action = self.final_do_nothing
 
     def end_interactions(self, fleets):
         if not self.player_found:
-            self.final_deal_with_missing_player(fleets)
+            self.deal_with_missing_player(fleets)
 
-    def final_deal_with_missing_player(self, fleets):
-        if self.reserve.reserve_number < 0:
-            self.reserve_absent_game_over(fleets)
-        else:
+    def deal_with_missing_player(self, fleets):
+        if self.reserve.is_valid:
             self.reserve_give_player_another_turn(fleets)
+        else:
+            self.no_reserve_game_over(fleets)
 
-    def final_do_nothing(self, fleets):
-        pass
-
-    def reserve_absent_game_over(self, fleets):
+    def no_reserve_game_over(self, fleets):
         fleets.append(InvadersGameOver())
         new_player = RobotPlayer()
         reserve_to_remove = None
