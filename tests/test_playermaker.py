@@ -3,6 +3,7 @@ from invaders.invader_player import InvaderPlayer
 from invaders.invaders_game_over import InvadersGameOver
 from invaders.playermaker import PlayerMaker
 from invaders.reserveplayer import ReservePlayer
+from invaders.robotplayer import RobotPlayer
 from tests.tools import FakeFleets
 
 
@@ -22,9 +23,20 @@ class TestPlayerMaker:
     def test_notices_player(self):
         maker = PlayerMaker()
         maker.begin_interactions(None)
+        assert maker.player_found is None
         final = maker.pluggable_final_action
-        maker.interact_with_invaderplayer(None, None)
+        invader_player = InvaderPlayer()
+        maker.interact_with_invaderplayer(invader_player, None)
+        assert maker.player_found == invader_player
         assert maker.pluggable_final_action is not final
+
+    def test_notices_robot_player(self):
+        maker = PlayerMaker()
+        maker.begin_interactions(None)
+        assert maker.player_found is None
+        robot_player = RobotPlayer()
+        maker.interact_with_robotplayer(robot_player, None)
+        assert maker.player_found == robot_player
 
     def test_rezzes_time_capsule(self):
         maker = PlayerMaker()
