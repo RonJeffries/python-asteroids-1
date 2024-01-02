@@ -36,7 +36,6 @@ class PlayerMaker(InvadersFlyer):
 
     def interact_with_reserveplayer(self, reserve, _fleets):
         self.reserve = self.reserve.rightmost_of(reserve)
-        self.pluggable_reserve_action = self.reserve_give_player_another_turn
 
     def interact_with_robotplayer(self, robot, fleets):
         self.player_found = robot
@@ -47,7 +46,10 @@ class PlayerMaker(InvadersFlyer):
             self.final_deal_with_missing_player(fleets)
 
     def final_deal_with_missing_player(self, fleets):
-        self.perform(self.pluggable_reserve_action, fleets)
+        if self.reserve.reserve_number < 0:
+            self.reserve_absent_game_over(fleets)
+        else:
+            self.reserve_give_player_another_turn(fleets)
 
     def final_do_nothing(self, fleets):
         pass
