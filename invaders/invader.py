@@ -2,7 +2,7 @@ import pygame.draw
 from pygame import Vector2, Mask
 
 import u
-from invaders.invader_explosion import InvaderExplosion
+from invaders.generic_explosion import GenericExplosion
 from invaders.invader_score import InvaderScore
 from invaders.sprite import Sprite, Spritely
 from sounds import player
@@ -30,7 +30,8 @@ class Invader(Spritely):
             shot.hit_invader(self, fleets)
             group.kill(self)
             fleets.append(InvaderScore(self._score))
-            fleets.append(InvaderExplosion(self.position))
+            explosion = GenericExplosion.invader_explosion(self.position, 0.125)
+            fleets.append(explosion)
 
     def interact_with_invaderplayer(self, player, fleets):
         if self.colliding(player):
