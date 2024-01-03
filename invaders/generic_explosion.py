@@ -15,6 +15,12 @@ class GenericExplosion(InvadersFlyer):
         return cls((image,), position, time)
 
     @classmethod
+    def player_explosion(cls, position, time):
+        maker = BitmapMaker()
+        images = maker.players[1:]
+        return cls(images, position, time)
+
+    @classmethod
     def saucer_explosion(cls, position, time):
         maker = BitmapMaker()
         image = maker.saucer_explosion

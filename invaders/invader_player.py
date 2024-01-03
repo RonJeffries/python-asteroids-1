@@ -1,3 +1,4 @@
+from invaders.generic_explosion import GenericExplosion
 from invaders.player_explosion import PlayerExplosion
 from invaders.player_shot import PlayerShot
 from flyer import InvadersFlyer
@@ -81,5 +82,6 @@ class InvaderPlayer(Spritely, InvadersFlyer):
     def explode(self, fleets):
         frac = u.screen_fraction(self.position)
         player.play_stereo("explosion", frac)
-        fleets.append(PlayerExplosion(self.position))
+        explosion = GenericExplosion.player_explosion(self.position, 1.0)
+        fleets.append(explosion)
         fleets.remove(self)

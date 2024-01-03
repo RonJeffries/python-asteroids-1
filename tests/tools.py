@@ -1,18 +1,8 @@
 from asteroids.asteroid import Asteroid
 from asteroids.explosion import Explosion
-from flyer import AsteroidFlyer
 from asteroids.fragment import Fragment
 from asteroids.game_over import GameOver
-from invaders.destructor import Destructor
-from invaders.invader_player import InvaderPlayer
-from invaders.invader_score import InvaderScore
-from invaders.invader_shot import InvaderShot
 from asteroids.missile import Missile
-from invaders.invaderfleet import InvaderFleet
-from invaders.invaders_saucer import InvadersSaucer
-from invaders.player_explosion import PlayerExplosion
-from invaders.player_shot import PlayerShot
-from invaders.reserveplayer import ReservePlayer
 from asteroids.saucer import Saucer
 from asteroids.saucermaker import SaucerMaker
 from asteroids.score import Score
@@ -22,6 +12,16 @@ from asteroids.shipmaker import ShipMaker
 from asteroids.signal import Signal
 from asteroids.thumper import Thumper
 from asteroids.wavemaker import WaveMaker
+from flyer import AsteroidFlyer
+from invaders.destructor import Destructor
+from invaders.generic_explosion import GenericExplosion
+from invaders.invader_player import InvaderPlayer
+from invaders.invader_score import InvaderScore
+from invaders.invader_shot import InvaderShot
+from invaders.invaderfleet import InvaderFleet
+from invaders.invaders_saucer import InvadersSaucer
+from invaders.player_shot import PlayerShot
+from invaders.reserveplayer import ReservePlayer
 from invaders.robotplayer import RobotPlayer
 from invaders.timecapsule import TimeCapsule
 
@@ -61,7 +61,7 @@ class FleetsInspector:
 
     @property
     def invader_explosions(self):
-        return self.select_class(PlayerExplosion)
+        return self.select_class(GenericExplosion)
 
     @property
     def invader_fleets(self):
