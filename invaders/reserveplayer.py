@@ -1,5 +1,5 @@
 from flyer import InvadersFlyer
-from invaders.player_explosion import PlayerExplosion
+from invaders.generic_explosion import GenericExplosion
 from invaders.sprite import Spritely, Sprite
 from pygame import Vector2
 from sounds import player
@@ -37,5 +37,6 @@ class ReservePlayer(Spritely, InvadersFlyer):
     def explode(self, fleets):
         frac = u.screen_fraction(self.position)
         player.play_stereo("explosion", frac)
-        fleets.append(PlayerExplosion(self.position))
+        explosion = GenericExplosion.player_explosion(self.position, 1.0)
+        fleets.append(explosion)
         fleets.remove(self)

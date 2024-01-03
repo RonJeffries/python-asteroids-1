@@ -1,7 +1,6 @@
 import u
 from core.fleets import Fleets
 from invaders.invader_player import InvaderPlayer
-from invaders.player_explosion import PlayerExplosion
 from tests.tools import FI, FakeFleets
 
 
@@ -79,21 +78,5 @@ class TestPlayer:
         assert player.shot_count == 1
         player.fire([])
         assert player.shot_count == 2
-
-
-class TestPlayerExplosion:
-    def test_exists(self):
-        PlayerExplosion((100, 200))
-
-    def test_position(self):
-        player_position = (100, 200)
-        explosion = PlayerExplosion(player_position)
-        assert explosion.position == player_position
-
-
-
-
-
-
 
 

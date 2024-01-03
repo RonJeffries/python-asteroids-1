@@ -1,5 +1,4 @@
 from invaders.generic_explosion import GenericExplosion
-from invaders.player_explosion import PlayerExplosion
 from invaders.player_shot import PlayerShot
 from flyer import InvadersFlyer
 from pygame import Vector2
