@@ -1,9 +1,10 @@
+from pygame import Vector2
+
+import u
 from flyer import InvadersFlyer
 from invaders.generic_explosion import GenericExplosion
 from invaders.sprite import Spritely, Sprite
-from pygame import Vector2
 from sounds import player
-import u
 
 
 class ReservePlayer(Spritely, InvadersFlyer):
