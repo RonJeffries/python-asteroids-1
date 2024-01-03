@@ -14,7 +14,8 @@ class ReservePlayer(Spritely, InvadersFlyer):
 
     def __init__(self, reserve_number=0):
         self._sprite = Sprite.player()
-        x = u.INVADER_PLAYER_LEFT + reserve_number*(5*self.rect.width//4)
+        position_in_row = reserve_number * (5 * self.rect.width // 4)
+        x = u.INVADER_PLAYER_LEFT + position_in_row
         self.position = Vector2(x, u.RESERVE_PLAYER_Y)
         self.reserve_number = reserve_number
 
