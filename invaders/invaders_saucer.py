@@ -3,7 +3,7 @@ from pygame import Vector2
 import u
 from flyer import InvadersFlyer
 from invaders.invader_score import InvaderScore
-from invaders.shot_explosion import InvadersExplosion
+from invaders.generic_explosion import GenericExplosion
 from invaders.sprite import Sprite, Spritely
 from sounds import player
 
@@ -33,7 +33,7 @@ class InvadersSaucer(Spritely, InvadersFlyer):
             self.explode_scream_and_die(fleets)
 
     def explode_scream_and_die(self, fleets):
-        explosion = InvadersExplosion.saucer_explosion(self.position, 0.5)
+        explosion = GenericExplosion.saucer_explosion(self.position, 0.5)
         fleets.append(explosion)
         fleets.append(InvaderScore(self._mystery_score()))
         self.play_death_sound()

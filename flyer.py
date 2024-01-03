@@ -99,7 +99,7 @@ class InvadersFlyer(Flyer):
     def interact_with_shotcontroller(self, controller, fleets):
         pass
 
-    def interact_with_invadersexplosion(self, explosion, fleets):
+    def interact_with_genericexplosion(self, explosion, fleets):
         pass
 
     def interact_with_timecapsule(self, capsule, fleets):

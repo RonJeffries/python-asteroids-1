@@ -1,6 +1,6 @@
 from flyer import InvadersFlyer
 from invaders.bitmap_maker import BitmapMaker
-from invaders.shot_explosion import InvadersExplosion
+from invaders.generic_explosion import GenericExplosion
 from pygame import Vector2
 import pygame
 import u
@@ -28,7 +28,7 @@ class PlayerShot(Spritely, InvadersFlyer):
             self.explode(fleets)
 
     def explode(self, fleets):
-        fleets.append(InvadersExplosion.shot_explosion(self.position, 0.125))
+        fleets.append(GenericExplosion.shot_explosion(self.position, 0.125))
         fleets.remove(self)
 
     def interact_with_invaderssaucer(self, saucer, fleets):

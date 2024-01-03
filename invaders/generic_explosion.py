@@ -4,7 +4,7 @@ from invaders.bitmap_maker import BitmapMaker
 from flyer import InvadersFlyer
 
 
-class InvadersExplosion(InvadersFlyer):
+class GenericExplosion(InvadersFlyer):
 
     @classmethod
     def saucer_explosion(cls, position, time):
@@ -43,4 +43,4 @@ class InvadersExplosion(InvadersFlyer):
         screen.blit(self.image, self.rect)
 
     def interact_with(self, other, fleets):
-        other.interact_with_invadersexplosion(self, fleets)
+        other.interact_with_genericexplosion(self, fleets)
