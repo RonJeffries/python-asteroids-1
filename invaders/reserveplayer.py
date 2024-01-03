@@ -32,9 +32,8 @@ class ReservePlayer(Spritely, InvadersFlyer):
     def interact_with_destructor(self, destructor, fleets):
         self.explode(fleets)
 
-    def rightmost_of(self, another_reserve_player):
-        return self if self.reserve_number > another_reserve_player.reserve_number else another_reserve_player
-        # return max(self, another_reserve_player)
+    def rightmost_of(self, other_player):
+        return other_player if self.reserve_number < other_player.reserve_number else self
 
     def explode(self, fleets):
         frac = u.screen_fraction(self.position)
