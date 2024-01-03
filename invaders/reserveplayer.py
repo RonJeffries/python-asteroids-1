@@ -1,10 +1,9 @@
 from flyer import InvadersFlyer
-from invaders.bitmap_maker import BitmapMaker
-from pygame import Vector2
-import u
 from invaders.player_explosion import PlayerExplosion
 from invaders.sprite import Spritely, Sprite
+from pygame import Vector2
 from sounds import player
+import u
 
 
 class ReservePlayer(Spritely, InvadersFlyer):
