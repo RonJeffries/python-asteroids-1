@@ -1,8 +1,7 @@
-import pygame
-from pygame import Vector2, Rect
-
 from invaders.ImageMasher import ImageMasher
 from invaders.bitmap_maker import BitmapMaker
+from pygame import Vector2, Rect
+import pygame
 
 
 class Sprite:
