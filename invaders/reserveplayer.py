@@ -2,12 +2,13 @@ from pygame import Vector2
 
 import u
 from flyer import InvadersFlyer
+from invaders.explosion_mixin import ExplosionMixin
 from invaders.generic_explosion import GenericExplosion
 from invaders.sprite import Spritely, Sprite
 from sounds import player
 
 
-class ReservePlayer(Spritely, InvadersFlyer):
+class ReservePlayer(ExplosionMixin, Spritely, InvadersFlyer):
     @classmethod
     def invalid(cls):
         return cls(-666)
@@ -34,10 +35,3 @@ class ReservePlayer(Spritely, InvadersFlyer):
 
     def rightmost_of(self, other_player):
         return other_player if other_player.reserve_number > self.reserve_number else self
-
-    def explode(self, fleets):
-        frac = u.screen_fraction(self.position)
-        player.play_stereo("explosion", frac)
-        explosion = GenericExplosion.player_explosion(self.position, 1.0)
-        fleets.append(explosion)
-        fleets.remove(self)
