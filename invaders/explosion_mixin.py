@@ -1,6 +1,6 @@
-import u
 from invaders.generic_explosion import GenericExplosion
 from sounds import player
+import u
 
 
 class ExplosionMixin:
