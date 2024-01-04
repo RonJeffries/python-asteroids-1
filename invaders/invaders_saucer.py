@@ -51,7 +51,6 @@ class InvadersSaucer(SpritelyMixin, InvadersFlyer):
         frac = (self.position.x - u.INVADER_SAUCER_X_MIN) / (u.INVADER_SAUCER_X_MAX - u.INVADER_SAUCER_X_MIN)
         player.play_stereo("ufo_highpitch", frac, True)
 
-
     def _move_along_x(self):
         self.position = (self.position.x + self._speed, self.position.y)
 
