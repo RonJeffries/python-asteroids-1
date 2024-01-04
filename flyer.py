@@ -109,7 +109,7 @@ class InvadersFlyer(Flyer):
         pass
 
 
-class   AsteroidFlyer(Flyer):
+class AsteroidFlyer(Flyer):
 
     def interact_with_asteroid(self, asteroid, fleets):
         pass

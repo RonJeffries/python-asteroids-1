@@ -1,3 +1,4 @@
+from invaders.explosion_mixin import ExplosionMixin
 from invaders.generic_explosion import GenericExplosion
 from invaders.player_shot import PlayerShot
 from flyer import InvadersFlyer
@@ -9,7 +10,7 @@ from sounds import player
 import u
 
 
-class InvaderPlayer(Spritely, InvadersFlyer):
+class InvaderPlayer(ExplosionMixin, Spritely, InvadersFlyer):
     def __init__(self):
         self._sprite = Sprite.player()
         self.position = Vector2(u.INVADER_PLAYER_LEFT, u.INVADER_PLAYER_Y)
@@ -78,9 +79,3 @@ class InvaderPlayer(Spritely, InvadersFlyer):
     def hit_invader(self, invader, fleets):
         self.explode(fleets)
 
-    def explode(self, fleets):
-        frac = u.screen_fraction(self.position)
-        player.play_stereo("explosion", frac)
-        explosion = GenericExplosion.player_explosion(self.position, 1.0)
-        fleets.append(explosion)
-        fleets.remove(self)
