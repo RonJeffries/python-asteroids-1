@@ -4,11 +4,11 @@ from pygame import Surface
 import u
 from flyer import InvadersFlyer
 from core.tasks import Tasks
-from invaders.sprite import Sprite, Spritely
+from invaders.sprite import Sprite, SpritelyMixin
 from u import BOTTOM_LINE_OFFSET
 
 
-class RoadFurniture(Spritely, InvadersFlyer):
+class RoadFurniture(SpritelyMixin, InvadersFlyer):
     @classmethod
     def shield(cls, position):
         sprite = Sprite.shield()

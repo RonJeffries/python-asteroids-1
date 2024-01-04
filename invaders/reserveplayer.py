@@ -4,11 +4,11 @@ import u
 from flyer import InvadersFlyer
 from invaders.explosion_mixin import ExplosionMixin
 from invaders.generic_explosion import GenericExplosion
-from invaders.sprite import Spritely, Sprite
+from invaders.sprite import SpritelyMixin, Sprite
 from sounds import player
 
 
-class ReservePlayer(ExplosionMixin, Spritely, InvadersFlyer):
+class ReservePlayer(ExplosionMixin, SpritelyMixin, InvadersFlyer):
     @classmethod
     def invalid(cls):
         return cls(-666)

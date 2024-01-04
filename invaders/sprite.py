@@ -121,7 +121,7 @@ class Sprite:
         self._surfaces = (new_surface,)
 
 
-class Spritely:
+class SpritelyMixin:
     @property
     def sprite(self):
         return self._sprite

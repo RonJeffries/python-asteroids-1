@@ -4,10 +4,10 @@ from invaders.generic_explosion import GenericExplosion
 from pygame import Vector2
 import pygame
 import u
-from invaders.sprite import Sprite, Spritely
+from invaders.sprite import Sprite, SpritelyMixin
 
 
-class PlayerShot(Spritely, InvadersFlyer):
+class PlayerShot(SpritelyMixin, InvadersFlyer):
     def __init__(self, position=u.CENTER):
         offset = Vector2(2, -8*4)
         self.velocity = Vector2(0, -4*4)

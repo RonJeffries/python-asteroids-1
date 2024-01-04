@@ -4,11 +4,11 @@ import u
 from flyer import InvadersFlyer
 from invaders.invader_score import InvaderScore
 from invaders.generic_explosion import GenericExplosion
-from invaders.sprite import Sprite, Spritely
+from invaders.sprite import Sprite, SpritelyMixin
 from sounds import player
 
 
-class InvadersSaucer(Spritely, InvadersFlyer):
+class InvadersSaucer(SpritelyMixin, InvadersFlyer):
     def __init__(self, shot_count=0):
         self.init_sprite()
         self.init_position_and_speed(shot_count)

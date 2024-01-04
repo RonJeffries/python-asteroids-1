@@ -4,11 +4,11 @@ from pygame import Vector2, Mask
 import u
 from invaders.generic_explosion import GenericExplosion
 from invaders.invader_score import InvaderScore
-from invaders.sprite import Sprite, Spritely
+from invaders.sprite import Sprite, SpritelyMixin
 from sounds import player
 
 
-class Invader(Spritely):
+class Invader(SpritelyMixin):
     def __init__(self, column, row, sprite):
         self._score = [10, 10, 20, 20, 30][row]
         self._sprite = sprite

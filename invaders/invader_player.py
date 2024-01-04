@@ -5,12 +5,12 @@ from flyer import InvadersFlyer
 from pygame import Vector2
 import pygame
 
-from invaders.sprite import Sprite, Spritely
+from invaders.sprite import Sprite, SpritelyMixin
 from sounds import player
 import u
 
 
-class InvaderPlayer(ExplosionMixin, Spritely, InvadersFlyer):
+class InvaderPlayer(ExplosionMixin, SpritelyMixin, InvadersFlyer):
     def __init__(self):
         self._sprite = Sprite.player()
         self.position = Vector2(u.INVADER_PLAYER_LEFT, u.INVADER_PLAYER_Y)

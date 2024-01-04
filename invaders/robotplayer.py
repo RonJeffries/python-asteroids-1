@@ -5,11 +5,11 @@ from flyer import InvadersFlyer
 from invaders.explosion_mixin import ExplosionMixin
 from invaders.generic_explosion import GenericExplosion
 from invaders.player_shot import PlayerShot
-from invaders.sprite import Spritely, Sprite
+from invaders.sprite import SpritelyMixin, Sprite
 from sounds import player
 
 
-class RobotPlayer(ExplosionMixin, Spritely, InvadersFlyer):
+class RobotPlayer(ExplosionMixin, SpritelyMixin, InvadersFlyer):
     shield_locations = ((198, 286), (378, 466), (558, 646), (738, 826))
     open_locations = (range(0, 198), range(287, 378), range(467, 558), range(647, 738), range(827, 1024))
 

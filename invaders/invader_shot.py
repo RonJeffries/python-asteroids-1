@@ -4,10 +4,10 @@ from pygame import Vector2
 import u
 from invaders.bitmap_maker import BitmapMaker
 from flyer import InvadersFlyer
-from invaders.sprite import Spritely
+from invaders.sprite import SpritelyMixin
 
 
-class InvaderShot(Spritely, InvadersFlyer):
+class InvaderShot(SpritelyMixin, InvadersFlyer):
     def __init__(self, position, sprite):
         self._sprite = sprite
         self.position = position
