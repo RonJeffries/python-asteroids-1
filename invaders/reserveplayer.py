@@ -1,11 +1,8 @@
-from pygame import Vector2
-
-import u
 from flyer import InvadersFlyer
 from invaders.explosion_mixin import ExplosionMixin
-from invaders.generic_explosion import GenericExplosion
 from invaders.sprite import SpritelyMixin, Sprite
-from sounds import player
+from pygame import Vector2
+import u
 
 
 class ReservePlayer(ExplosionMixin, SpritelyMixin, InvadersFlyer):
