@@ -1,12 +1,10 @@
-from invaders.explosion_mixin import ExplosionMixin
-from invaders.generic_explosion import GenericExplosion
-from invaders.player_shot import PlayerShot
 from flyer import InvadersFlyer
-from pygame import Vector2
-import pygame
-
+from invaders.explosion_mixin import ExplosionMixin
+from invaders.player_shot import PlayerShot
 from invaders.sprite import Sprite, SpritelyMixin
+from pygame import Vector2
 from sounds import player
+import pygame
 import u
 
 
