@@ -33,7 +33,7 @@ class InvadersSaucer(SpritelyMixin, InvadersFlyer):
 
     def explode_scream_and_die(self, fleets):
         fleets.append(InvaderScore(self._mystery_score()))
-        frac = (self.position.x - u.INVADER_SAUCER_X_MIN) / (u.INVADER_SAUCER_X_MAX - u.INVADER_SAUCER_X_MIN)
+        frac = u.screen_fraction(self.position)
         player.play_stereo("ufo_highpitch", frac, True)
         explosion = GenericExplosion.saucer_explosion(self.position, 0.5)
         fleets.append(explosion)
