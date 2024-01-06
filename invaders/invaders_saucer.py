@@ -1,13 +1,13 @@
 from pygame import Vector2
 import u
 from flyer import InvadersFlyer
+from invaders.explosion_mixin import ExplosionMixin
 from invaders.invader_score import InvaderScore
-from invaders.generic_explosion import GenericExplosion
 from invaders.sprite import Sprite, SpritelyMixin
 from sounds import player
 
 
-class InvadersSaucer(SpritelyMixin, InvadersFlyer):
+class InvadersSaucer(ExplosionMixin, SpritelyMixin, InvadersFlyer):
     def __init__(self, shot_count=0):
         self.init_sprite()
         self.init_position_and_speed(shot_count)
@@ -33,11 +33,8 @@ class InvadersSaucer(SpritelyMixin, InvadersFlyer):
 
     def explode_scream_and_die(self, fleets):
         fleets.append(InvaderScore(self._mystery_score()))
-        frac = u.screen_fraction(self.position)
-        player.play_stereo("ufo_highpitch", frac, True)
-        explosion = GenericExplosion.saucer_explosion(self.position, 0.5)
-        fleets.append(explosion)
-        fleets.remove(self)
+        self.explode_saucer(fleets)
+
 
     def update(self, delta_time, fleets):
         self._move_along_x()
