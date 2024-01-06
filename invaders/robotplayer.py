@@ -22,7 +22,7 @@ class RobotPlayer(ExplosionMixin, SpritelyMixin, InvadersFlyer):
         self._free_to_fire = True
 
     def interact_with_destructor(self, destructor, fleets):
-        self.explode(fleets)
+        self.explode_player(fleets)
 
     def interact_with_playershot(self, shot, fleets):
         self._free_to_fire = False
@@ -32,7 +32,7 @@ class RobotPlayer(ExplosionMixin, SpritelyMixin, InvadersFlyer):
 
     def interact_with_invadershot(self, shot, fleets):
         if self.colliding(shot):
-            self.explode(fleets)
+            self.explode_player(fleets)
 
     def interact_with(self, other, fleets):
         other.interact_with_robotplayer(self, fleets)

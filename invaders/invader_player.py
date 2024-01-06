@@ -24,11 +24,11 @@ class InvaderPlayer(ExplosionMixin, SpritelyMixin, InvadersFlyer):
         other.interact_with_invaderplayer(self, fleets)
 
     def interact_with_destructor(self, destructor, fleets):
-        self.explode(fleets)
+        self.explode_player(fleets)
 
     def interact_with_invadershot(self, shot, fleets):
         if self.colliding(shot):
-            self.explode(fleets)
+            self.explode_player(fleets)
 
     def interact_with_playershot(self, bumper, fleets):
         self._free_to_fire = False
@@ -75,5 +75,5 @@ class InvaderPlayer(ExplosionMixin, SpritelyMixin, InvadersFlyer):
         self.position = Vector2(centerx, self.position.y)
 
     def hit_invader(self, invader, fleets):
-        self.explode(fleets)
+        self.explode_player(fleets)
 

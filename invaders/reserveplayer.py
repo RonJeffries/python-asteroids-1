@@ -28,7 +28,7 @@ class ReservePlayer(ExplosionMixin, SpritelyMixin, InvadersFlyer):
         other.interact_with_reserveplayer(self, fleets)
 
     def interact_with_destructor(self, destructor, fleets):
-        self.explode(fleets)
+        self.explode_player(fleets)
 
     def rightmost_of(self, other_player):
         return other_player if other_player.reserve_number > self.reserve_number else self
