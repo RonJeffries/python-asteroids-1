@@ -3,10 +3,8 @@ from pygame import Vector2, Mask
 
 import u
 from invaders.explosion_mixin import ExplosionMixin
-from invaders.generic_explosion import GenericExplosion
 from invaders.invader_score import InvaderScore
 from invaders.sprite import Sprite, SpritelyMixin
-from sounds import player
 
 
 class Invader(ExplosionMixin, SpritelyMixin):
