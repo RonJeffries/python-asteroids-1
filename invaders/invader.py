@@ -2,13 +2,14 @@ import pygame.draw
 from pygame import Vector2, Mask
 
 import u
+from invaders.explosion_mixin import ExplosionMixin
 from invaders.generic_explosion import GenericExplosion
 from invaders.invader_score import InvaderScore
 from invaders.sprite import Sprite, SpritelyMixin
 from sounds import player
 
 
-class Invader(SpritelyMixin):
+class Invader(ExplosionMixin, SpritelyMixin):
     def __init__(self, column, row, sprite):
         self._score = [10, 10, 20, 20, 30][row]
         self._sprite = sprite
@@ -26,12 +27,10 @@ class Invader(SpritelyMixin):
 
     def interact_with_group_and_playershot(self, shot, group, fleets):
         if self.colliding(shot):
-            player.play_stereo("invaderkilled", u.screen_fraction(self.position))
+            self.explode_invader(fleets)
             shot.hit_invader(self, fleets)
             group.kill(self)
             fleets.append(InvaderScore(self._score))
-            explosion = GenericExplosion.invader_explosion(self.position, 0.125)
-            fleets.append(explosion)
 
     def interact_with_invaderplayer(self, player, fleets):
         if self.colliding(player):

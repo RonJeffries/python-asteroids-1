@@ -4,6 +4,11 @@ import u
 
 
 class ExplosionMixin:
+    def explode_invader(self, fleets):
+        invader_explosion_sound = "invaderkilled"
+        explosion = GenericExplosion.invader_explosion(self.position, 0.125)
+        self.make_the_explosion(invader_explosion_sound, explosion, fleets)
+
     def explode_player(self, fleets):
         player_explosion_sound = "explosion"
         explosion = GenericExplosion.player_explosion(self.position, 1.0)
