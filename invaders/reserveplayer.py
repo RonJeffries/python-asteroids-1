@@ -1,11 +1,11 @@
 from flyer import InvadersFlyer
-from invaders.explosion_mixin import ExplosionMixin
+from invaders.exploder import Exploder
 from invaders.sprite import SpritelyMixin, Sprite
 from pygame import Vector2
 import u
 
 
-class ReservePlayer(ExplosionMixin, SpritelyMixin, InvadersFlyer):
+class ReservePlayer(SpritelyMixin, InvadersFlyer):
     @classmethod
     def invalid(cls):
         return cls(-666)
@@ -28,7 +28,8 @@ class ReservePlayer(ExplosionMixin, SpritelyMixin, InvadersFlyer):
         other.interact_with_reserveplayer(self, fleets)
 
     def interact_with_destructor(self, destructor, fleets):
-        self.explode_player(fleets)
+        Exploder.explode_player(self.position, fleets)
+        fleets.remove(self)
 
     def rightmost_of(self, other_player):
         return other_player if other_player.reserve_number > self.reserve_number else self

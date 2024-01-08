@@ -1,12 +1,12 @@
 from flyer import InvadersFlyer
-from invaders.explosion_mixin import ExplosionMixin
+from invaders.exploder import Exploder
 from invaders.player_shot import PlayerShot
 from invaders.sprite import SpritelyMixin, Sprite
 from pygame import Vector2
 import u
 
 
-class RobotPlayer(ExplosionMixin, SpritelyMixin, InvadersFlyer):
+class RobotPlayer(SpritelyMixin, InvadersFlyer):
     shield_locations = ((198, 286), (378, 466), (558, 646), (738, 826))
     open_locations = (range(0, 198), range(287, 378), range(467, 558), range(647, 738), range(827, 1024))
 
@@ -22,7 +22,8 @@ class RobotPlayer(ExplosionMixin, SpritelyMixin, InvadersFlyer):
         self._free_to_fire = True
 
     def interact_with_destructor(self, destructor, fleets):
-        self.explode_player(fleets)
+        Exploder.explode_player(self.position, fleets)
+        fleets.remove(self)
 
     def interact_with_playershot(self, shot, fleets):
         self._free_to_fire = False
@@ -32,7 +33,8 @@ class RobotPlayer(ExplosionMixin, SpritelyMixin, InvadersFlyer):
 
     def interact_with_invadershot(self, shot, fleets):
         if self.colliding(shot):
-            self.explode_player(fleets)
+            Exploder.explode_player(self.position, fleets)
+            fleets.remove(self)
 
     def interact_with(self, other, fleets):
         other.interact_with_robotplayer(self, fleets)

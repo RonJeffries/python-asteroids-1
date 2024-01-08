@@ -1,5 +1,6 @@
 import u
 from core.fleets import Fleets
+from invaders.exploder import Exploder
 from invaders.invader_player import InvaderPlayer
 from tests.tools import FI, FakeFleets
 
@@ -66,7 +67,8 @@ class TestPlayer:
     def test_collision_removes_self(self):
         fleets = FakeFleets()
         player = InvaderPlayer()
-        player.explode_player(fleets)
+        Exploder.explode_player(player.position, fleets)
+        fleets.remove(player)
         assert player in fleets.removes
         # added_tc = [tc for tc in fleets.appends if isinstance(tc, TimeCapsule)]
         # assert added_tc

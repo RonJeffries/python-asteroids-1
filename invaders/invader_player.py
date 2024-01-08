@@ -1,5 +1,5 @@
 from flyer import InvadersFlyer
-from invaders.explosion_mixin import ExplosionMixin
+from invaders.exploder import Exploder
 from invaders.player_shot import PlayerShot
 from invaders.sprite import Sprite, SpritelyMixin
 from pygame import Vector2
@@ -8,7 +8,7 @@ import pygame
 import u
 
 
-class InvaderPlayer(ExplosionMixin, SpritelyMixin, InvadersFlyer):
+class InvaderPlayer(SpritelyMixin, InvadersFlyer):
     def __init__(self):
         self._sprite = Sprite.player()
         self.position = Vector2(u.INVADER_PLAYER_LEFT, u.INVADER_PLAYER_Y)
@@ -24,11 +24,13 @@ class InvaderPlayer(ExplosionMixin, SpritelyMixin, InvadersFlyer):
         other.interact_with_invaderplayer(self, fleets)
 
     def interact_with_destructor(self, destructor, fleets):
-        self.explode_player(fleets)
+        Exploder.explode_player(self.position, fleets)
+        fleets.remove(self)
 
     def interact_with_invadershot(self, shot, fleets):
         if self.colliding(shot):
-            self.explode_player(fleets)
+            Exploder.explode_player(self.position, fleets)
+            fleets.remove(self)
 
     def interact_with_playershot(self, bumper, fleets):
         self._free_to_fire = False
@@ -75,5 +77,6 @@ class InvaderPlayer(ExplosionMixin, SpritelyMixin, InvadersFlyer):
         self.position = Vector2(centerx, self.position.y)
 
     def hit_invader(self, invader, fleets):
-        self.explode_player(fleets)
+        Exploder.explode_player(self.position, fleets)
+        fleets.remove(self)
 
