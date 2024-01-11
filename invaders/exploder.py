@@ -17,6 +17,12 @@ class Exploder():
         cls.explode(position, player_explosion_sound, explosion, fleets)
 
     @classmethod
+    def explode_player_shot(cls, position, fleets):
+        shot_sound = ""
+        shot_explosion = GenericExplosion.shot_explosion(position, 0.125)
+        cls.explode(position, shot_sound, shot_explosion, fleets)
+
+    @classmethod
     def explode_saucer(cls, position, fleets):
         saucer_explosion_sound = "ufo_highpitch"
         explosion = GenericExplosion.saucer_explosion(position, 0.5)
