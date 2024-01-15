@@ -1,4 +1,5 @@
 
 
 class TonePlayer:
-    pass
+    def next_tone(self):
+        return "fastinvader4"
