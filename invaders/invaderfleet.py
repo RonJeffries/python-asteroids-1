@@ -5,6 +5,7 @@ from flyer import InvadersFlyer
 from invaders.destructor import Destructor
 from invaders.invader_group import InvaderGroup, CycleStatus
 from invaders.timecapsule import TimeCapsule
+from invaders.tone_player import TonePlayer
 
 
 def generate_y():
@@ -31,6 +32,7 @@ class InvaderFleet(InvadersFlyer):
         self.invader_group.position_all_invaders(self.origin)
         self.direction = 1
         self.step_origin()
+        self.tone_player = TonePlayer()
 
     @staticmethod
     def use_or_create(generator):
@@ -59,6 +61,7 @@ class InvaderFleet(InvadersFlyer):
         return 0x400 - 4*y_on_8080
 
     def update(self, delta_time, _fleets):
+        self.tone_player.play_tone(self.invader_group.invader_count())
         result = self.invader_group.update_next(self.origin)
         self.process_result(result, _fleets)
 
