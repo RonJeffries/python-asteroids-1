@@ -34,6 +34,7 @@ class InvadersSaucer(SpritelyMixin, InvadersFlyer):
     def explode_scream_and_die(self, fleets):
         fleets.append(InvaderScore(self._mystery_score()))
         Exploder.explode_saucer(self.position, fleets)
+        Exploder.explode_saucer(self.position, fleets)
         fleets.remove(self)
 
     def update(self, delta_time, fleets):

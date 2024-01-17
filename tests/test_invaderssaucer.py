@@ -94,6 +94,20 @@ class TestInvadersSaucer:
         assert saucer.position.x > u.CENTER.x
         assert saucer._speed < 0
 
+    def test_mystery_score(self):
+        fleets = Fleets()
+        fi = FI(fleets)
+        fleets.append(saucer := InvadersSaucer())
+        shot = PlayerShot()
+        fleets.append(shot)
+        shot.position = saucer.position
+        saucer.interact_with_playershot(shot, fleets)
+        shot.interact_with_invaderssaucer(saucer, fleets)
+        score = fi.scores[0]
+        assert score.score == 100
+        explosions = fi.invader_explosions
+        assert len(explosions) == 2
+
 
 
 
