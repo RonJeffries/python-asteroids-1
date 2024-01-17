@@ -29,9 +29,9 @@ class InvadersSaucer(SpritelyMixin, InvadersFlyer):
 
     def interact_with_playershot(self, shot, fleets):
         if self.colliding(shot):
-            self.explode_scream_and_die(fleets)
+            self.explode_score_and_die(fleets)
 
-    def explode_scream_and_die(self, fleets):
+    def explode_score_and_die(self, fleets):
         fleets.remove(self)
         Exploder.explode_saucer(self.position, fleets)
         self.accrue_and_display_score(fleets)
