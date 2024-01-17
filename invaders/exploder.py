@@ -3,7 +3,7 @@ from sounds import player
 import u
 
 
-class Exploder():
+class Exploder:
     @classmethod
     def explode_invader(cls, position, fleets):
         invader_explosion_sound = "invaderkilled"
