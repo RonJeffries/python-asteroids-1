@@ -32,12 +32,19 @@ class InvadersSaucer(SpritelyMixin, InvadersFlyer):
             self.explode_scream_and_die(fleets)
 
     def explode_scream_and_die(self, fleets):
+        fleets.remove(self)
+        Exploder.explode_saucer(self.position, fleets)
+        self.accrue_and_display_score(fleets)
+
+    def accrue_and_display_score(self, fleets):
         score = self._mystery_score()
         fleets.append(InvaderScore(score))
-        Exploder.explode_saucer(self.position, fleets)
-        adjusted_position = self.position + Vector2(64, 0)
+        self.display_score(score, fleets)
+
+    def display_score(self, score, fleets):
+        mult = 1 if self.position.x < u.CENTER.x else -1
+        adjusted_position = self.position + mult * Vector2(64, 0)
         Exploder.score_saucer(score, adjusted_position, fleets)
-        fleets.remove(self)
 
     def update(self, delta_time, fleets):
         self._move_along_x()

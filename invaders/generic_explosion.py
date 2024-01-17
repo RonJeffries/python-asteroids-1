@@ -27,6 +27,14 @@ class GenericExplosion(InvadersFlyer):
         return cls((image,), position, time)
 
     @classmethod
+    def saucer_score(cls, score, position, time):
+        image = BitmapMaker().saucer_explosion
+        if pygame.get_init():
+            score_font = pygame.font.SysFont("andale mono", 24)
+            image = score_font.render(str(score), True, "white")
+        return cls((image,), position, time)
+
+    @classmethod
     def shot_explosion(cls, position, time):
         maker = BitmapMaker()
         image = maker.player_shot_explosion

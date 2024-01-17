@@ -31,7 +31,7 @@ class Exploder:
     @classmethod
     def score_saucer(cls, score, position, fleets):
         saucer_explosion_sound = ""
-        explosion = GenericExplosion.saucer_explosion(position, 0.5)
+        explosion = GenericExplosion.saucer_score(score, position, 1.0)
         cls.explode(position, saucer_explosion_sound, explosion, fleets)
 
 
