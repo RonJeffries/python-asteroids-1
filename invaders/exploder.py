@@ -29,6 +29,13 @@ class Exploder:
         cls.explode(position, saucer_explosion_sound, explosion, fleets)
 
     @classmethod
+    def score_saucer(cls, score, position, fleets):
+        saucer_explosion_sound = ""
+        explosion = GenericExplosion.saucer_explosion(position, 0.5)
+        cls.explode(position, saucer_explosion_sound, explosion, fleets)
+
+
+    @classmethod
     def explode(cls, position, sound, explosion, fleets):
         frac = u.screen_fraction(position)
         player.play_stereo(sound, frac)
